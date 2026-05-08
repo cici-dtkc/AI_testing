@@ -24,7 +24,7 @@ public class deleteVoucher extends HttpServlet {
 
         request.setAttribute("message", "Đã xóa thành công!");
         request.setAttribute("allVouchers", voucherDao.getAllVouchers());
-        request.getRequestDispatcher("/fontend/admin/promotion.jsp").forward(request, response);
+        request.getRequestDispatcher("/frontend/admin/promotion.jsp").forward(request, response);
 
     }
 }

@@ -105,9 +105,7 @@
                 <tr class="pagination-row">
                     <td colspan="10">
                         <div class="pagination" id="tablePagination">
-                            <button class="page-btn pro-page" data-page="1">1</button>
-                            <button class="page-btn pro-page" data-page="2">2</button>
-                            <button class="page-btn pro-page" data-page="3">3</button>
+                            <div class="pagination" id="tablePagination"></div>
                         </div>
                     </td>
                 </tr>
@@ -324,31 +322,55 @@
 
     });
 </script>
+
 <script>
     (function(){
         let currentPage = 1;
-        const ROWS_PER_PAGE = 5;
+        const ROWS_PER_PAGE = 6;
+
         const tbody = document.getElementById('promoTableBody');
-        const rows = Array.from(tbody.querySelectorAll('tr')).filter(r => !r.classList.contains('pagination-row'));
-        const pageButtons = document.querySelectorAll('.pro-page');
+        const rows = Array.from(tbody.querySelectorAll('tr'))
+            .filter(r => !r.classList.contains('pagination-row'));
+
+        const paginationContainer = document.getElementById('tablePagination');
+
+        const totalPages = Math.ceil(rows.length / ROWS_PER_PAGE);
+
+        function renderPagination() {
+            paginationContainer.innerHTML = "";
+
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.className = "page-btn";
+                btn.textContent = i;
+
+                btn.addEventListener("click", () => {
+                    showPage(i);
+                });
+
+                paginationContainer.appendChild(btn);
+            }
+        }
+
         function showPage(page){
             const start = (page - 1) * ROWS_PER_PAGE;
             const end = start + ROWS_PER_PAGE;
             rows.forEach((r, idx) => {
                 r.style.display = (idx >= start && idx < end) ? "" : "none";
             });
-            pageButtons.forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`.pro-page[data-page="${page}"]`)?.classList.add('active');
+
+            const buttons = paginationContainer.querySelectorAll("button");
+            buttons.forEach(btn => btn.classList.remove("active"));
+            buttons[page - 1]?.classList.add("active");
+
             currentPage = page;
         }
-        pageButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                showPage(Number(btn.dataset.page));
-            });
-        });
+
+        renderPagination();
         showPage(1);
     })();
 </script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const current = window.location.pathname.split("/").pop();

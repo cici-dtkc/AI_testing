@@ -254,6 +254,43 @@
 
     });
 </script>
+<script>
 
+    const phoneInput = document.getElementById("phone");
+    phoneInput.addEventListener("input", function () {
+        const val = this.value.replace(/\D/g, "");
+        this.value = val;
+
+        if (val.length === 10 && val.startsWith("0")) {
+            this.style.borderColor = "#22c55e";
+        } else if (val.length > 0) {
+            this.style.borderColor = "#ef4444";
+        } else {
+            this.style.borderColor = "";
+        }
+    });
+
+    phoneInput.dispatchEvent(new Event("input"));
+
+    const emailInput = document.getElementById("email");
+
+    function validateEmail(val) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val);
+    }
+
+    emailInput.addEventListener("input", function () {
+        const val = this.value.trim();
+
+        if (val === "") {
+            this.style.borderColor = "";
+        } else if (validateEmail(val)) {
+            this.style.borderColor = "#22c55e";
+        } else {
+            this.style.borderColor = "#ef4444";
+        }
+    });
+
+    emailInput.dispatchEvent(new Event("input"));
+</script>
 </body>
 </html>
