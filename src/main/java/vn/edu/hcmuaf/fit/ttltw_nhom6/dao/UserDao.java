@@ -465,6 +465,7 @@ public class UserDao {
         // 2. Kiểm tra đăng nhập thất bại
         User userOpt = getUserById(userId);
         if (userOpt != null) {
+            System.out.println("Failed attempts: " + userOpt.getFailedLoginAttempts());
             int failCount = userOpt.getFailedLoginAttempts();
             if (failCount >= 5) {
                 violations.add(String.format("Đăng nhập thất bại %d lần liên tiếp", failCount));
@@ -498,6 +499,15 @@ public class UserDao {
         return jdbi.withHandle(handle ->
                 handle.createUpdate("UPDATE users SET avatar_url = :avatar, updated_at = NOW() WHERE id = :id")
                         .bind("avatar", avatarUrl)
+                        .bind("id", userId)
+                        .execute() > 0
+        );
+    }
+
+    public boolean unlockUserAccount(int userId) {
+        return jdbi.withHandle(handle ->
+                handle.createUpdate("UPDATE users SET is_active = 1, " +
+                                "deleted_at = NULL, failed_login_attempts = 0, updated_at = NOW() WHERE id = :id")
                         .bind("id", userId)
                         .execute() > 0
         );

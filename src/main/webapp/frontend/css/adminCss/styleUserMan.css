@@ -435,18 +435,6 @@ body:has(.popup-overlay[style*="display: flex"]) .menu-dropdown {
 }
 
 
-
-/* Làm mờ dòng user bị khóa */
-.locked-row {
-    background-color: #f8f9fa !important;
-    opacity: 0.65;
-}
-
-.locked-row:hover {
-    background-color: #e9ecef !important;
-}
-
-
 .locked-badge {
     display: inline-block;
     font-size: 11px;
@@ -519,4 +507,116 @@ body:has(.popup-overlay[style*="display: flex"]) .menu-dropdown {
     background-color: #fff;
     padding-right: 20px;
     border-bottom: none !important;
+}
+
+#errorPopup .popup-box {
+    max-width: 420px;
+    text-align: center;
+}
+
+#errorPopup .error-icon{
+    font-size: 50px;
+    margin-bottom: 12px;
+}
+
+#errorPopup .error-icon i {
+    color: #ffc107;
+}
+
+#errorPopup h3 {
+    color: #dc3545;
+    margin-bottom: 12px;
+}
+
+#errorPopupMessage {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+#successPopup .popup-box {
+    max-width: 420px;
+    text-align: center;
+}
+
+#successPopup .success-icon {
+    font-size: 50px;
+    margin-bottom: 12px;
+}
+
+#successPopup .success-icon i {
+    color: #28a745;
+}
+
+#successPopupMessage {
+    color: #28a745;
+}
+
+th {
+    position: relative;
+}
+
+#spentSortBtn {
+    font-size: 12px;
+    color: #888;
+    margin-left: 4px;
+    user-select: none;
+}
+
+#spentSortBtn:hover {
+    color: #333;
+}
+
+.sort-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    min-width: 160px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    overflow: hidden;
+}
+
+.sort-dropdown.show {
+    display: block;
+}
+
+.sort-item {
+    display: block;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: normal;
+    transition: 0.2s;
+}
+
+.sort-item:hover {
+    background: #f8f9fa;
+}
+
+.sort-item.active {
+    background: #e9ecef;
+    font-weight: 600;
+}
+
+#cannotLockPopup .error-icon{
+    font-size: 45px;
+    margin-bottom: 12px;
+}
+
+#cannotLockPopup .error-icon i {
+    color: #dc3545;
+}
+#unlockPopup .success-icon{
+    font-size: 45px;
+    margin-bottom: 12px;
+}
+#unlockPopup .success-icon i {
+    color: #28a745;
 }

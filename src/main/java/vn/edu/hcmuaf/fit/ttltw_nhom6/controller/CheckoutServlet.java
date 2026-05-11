@@ -206,6 +206,12 @@ public class CheckoutServlet extends HttpServlet {
             List<CartItem> selectedItems = (List<CartItem>) session.getAttribute("selectedItems");
 
             if (selectedItems == null || selectedItems.isEmpty()) {
+                int cartIdTemp = cartDAO.getOrCreateCartByUserId(user.getId());
+                selectedItems = cartDAO.getCartItems(cartIdTemp);
+                session.setAttribute("selectedItems", selectedItems);
+            }
+
+            if (selectedItems == null || selectedItems.isEmpty()) {
                 session.setAttribute("orderError", "Không có sản phẩm nào để đặt hàng");
                 response.sendRedirect(request.getContextPath() + "/checkout");
                 return;
@@ -237,6 +243,8 @@ public class CheckoutServlet extends HttpServlet {
             int cartId = cartDAO.getOrCreateCartByUserId(user.getId());
             try {
                 CacheService.cartCache.remove(cartId);
+
+                System.out.println("[DEBUG] Bắt đầu checkout cartId=" + cartId + " userId=" + user.getId());
 
                 int orderId = cartDAO.checkout(
                         cartId,

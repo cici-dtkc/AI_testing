@@ -149,9 +149,12 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             e.stopPropagation();
 
-            document.getElementById('upgradeUserId').value        = this.dataset.id;
-            document.getElementById('popupUserName').innerText    = 'Tên: ' + this.dataset.name;
-            document.getElementById('upgradeSelect').value        = this.dataset.currentLevel;
+            document.getElementById('upgradeUserId').value = this.dataset.id;
+            document.getElementById('popupUserName').innerText = 'Tên: ' + this.dataset.name;
+
+            const level = this.dataset.currentLevel;
+            const normalizedLevel = level.charAt(0).toUpperCase() + level.slice(1).toLowerCase();
+            document.getElementById('upgradeSelect').value = normalizedLevel;
 
             document.querySelectorAll('.menu-dropdown').forEach(m => m.classList.remove('show'));
             document.getElementById('upgradePopup').style.display = 'flex';
@@ -176,10 +179,26 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(r => r.json())
             .then(data => {
-                if (data.status === 'success') { alert(data.message); location.reload(); }
-                else { alert('Lỗi: ' + data.message); this.disabled = false; this.textContent = 'Xác nhận'; }
+                if (data.status === 'success') {
+                    document.getElementById('successPopupMessage').textContent = data.message;
+                    document.getElementById('successPopup').style.display = 'flex';
+                    setTimeout(() => {
+                        document.getElementById('successPopup').style.display = 'none';
+                        location.reload();
+                    }, 2000);
+                } else {
+                    this.disabled = false;
+                    this.textContent = 'Xác nhận';
+                    document.getElementById('errorPopupMessage').innerHTML = data.message.replace(/\n/g, '<br>');
+                    document.getElementById('errorPopup').style.display = 'flex';
+                }
             })
-            .catch(() => { alert('Có lỗi xảy ra khi nâng cấp'); this.disabled = false; this.textContent = 'Xác nhận'; });
+            .catch(() => {
+                this.disabled = false;
+                this.textContent = 'Xác nhận';
+                document.getElementById('errorPopupMessage').textContent = 'Có lỗi xảy ra khi nâng cấp';
+                document.getElementById('errorPopup').style.display = 'flex';
+            });
 
         document.getElementById('upgradePopup').style.display = 'none';
     });
@@ -223,7 +242,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.querySelectorAll('.menu-dropdown').forEach(m => m.classList.remove('show'));
                         document.getElementById('lockPopup').style.display = 'flex';
                     } else {
-                        alert(' KHÔNG THỂ KHÓA TÀI KHOẢN\n\n👤 Người dùng: ' + userName + '\n\n Lý do: Chưa có vi phạm nào được ghi nhận');
+                        document.getElementById('cannotLockMessage').innerHTML =
+                            '<strong>Người dùng:</strong> ' + userName + '<br><br>' +
+                            '<strong>Lý do:</strong> Chưa có vi phạm nào được ghi nhận';
+                        document.getElementById('cannotLockPopup').style.display = 'flex';
                         document.querySelectorAll('.menu-dropdown').forEach(m => m.classList.remove('show'));
                     }
                 })
@@ -260,6 +282,111 @@ document.addEventListener('DOMContentLoaded', function () {
     const current = window.location.pathname.split('/').pop();
     document.querySelectorAll('.sidebar li a').forEach(link => {
         if (link.getAttribute('href') === current) link.classList.add('active');
+    });
+
+    // Sắp xếp theo tổng chi tiêu(thấp -> cao, cao -> thấp)
+    const spentSortBtn = document.getElementById('spentSortBtn');
+    const spentSortDropdown = document.getElementById('spentSortDropdown');
+
+    spentSortBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        spentSortDropdown.classList.toggle('show');
+    });
+
+    document.querySelectorAll('.sort-item').forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const sortOrder = this.dataset.sort;
+
+            document.querySelectorAll('.sort-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+
+            spentSortBtn.className = sortOrder === 'asc'
+                ? 'fas fa-sort-up'
+                : 'fas fa-sort-down';
+
+            const tbody = document.getElementById('userTableBody');
+            const rows = Array.from(tbody.querySelectorAll('tr')).filter(r =>
+                !r.classList.contains('pagination-row') && r.cells.length > 1
+            );
+
+            rows.sort((a, b) => {
+                const getSpent = row => {
+                    const link = row.querySelector('.view-detail');
+                    return link ? parseFloat(link.dataset.spent) || 0 : 0;
+                };
+                return sortOrder === 'asc'
+                    ? getSpent(a) - getSpent(b)
+                    : getSpent(b) - getSpent(a);
+            });
+
+            const paginationRow = tbody.querySelector('.pagination-row');
+            rows.forEach(r => tbody.insertBefore(r, paginationRow));
+
+            initUserPagination();
+        });
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('#spentSortBtn') && !e.target.closest('#spentSortDropdown')) {
+            spentSortDropdown.classList.remove('show');
+        }
+    });
+
+    document.getElementById('statusFilter').addEventListener('change', function () {
+        document.getElementById('searchForm').submit();
+    });
+
+    document.querySelectorAll('.unlock-user').forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const userId = this.dataset.id;
+            const userName = this.dataset.name;
+
+            document.getElementById('unlockUserId').value = userId;
+            document.getElementById('unlockMessage').innerHTML =
+                'Bạn có chắc muốn mở khóa tài khoản của <strong>' + userName + '</strong>?';
+            document.getElementById('unlockPopup').style.display = 'flex';
+            document.querySelectorAll('.menu-dropdown').forEach(m => m.classList.remove('show'));
+        });
+    });
+
+    document.getElementById('confirmUnlock').addEventListener('click', function () {
+        const userId = document.getElementById('unlockUserId').value;
+        this.disabled = true;
+        this.textContent = 'Đang mở khóa...';
+
+        fetch(BASE_URL + '/admin/user-management', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'action=unlock&userId=' + userId
+        })
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('unlockPopup').style.display = 'none';
+                if (data.status === 'success') {
+                    document.getElementById('successPopupMessage').textContent = 'Mở khóa tài khoản thành công!';
+                    document.getElementById('successPopup').style.display = 'flex';
+                    setTimeout(() => {
+                        document.getElementById('successPopup').style.display = 'none';
+                        location.reload();
+                    }, 2000);
+                } else {
+                    document.getElementById('errorPopupMessage').textContent = data.message;
+                    document.getElementById('errorPopup').style.display = 'flex';
+                }
+            })
+            .catch(() => {
+                document.getElementById('unlockPopup').style.display = 'none';
+                document.getElementById('errorPopupMessage').textContent = 'Có lỗi xảy ra khi mở khóa';
+                document.getElementById('errorPopup').style.display = 'flex';
+                this.disabled = false;
+                this.textContent = 'Mở khóa';
+            });
     });
 });
 
