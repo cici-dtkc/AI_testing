@@ -37,6 +37,12 @@
                         <option value="Gold" ${param.level == 'Gold' ? 'selected' : ''}>Gold</option>
                         <option value="Platinum" ${param.level == 'Platinum' ? 'selected' : ''}>Platinum</option>
                     </select>
+
+                    <select id="statusFilter" name="status" class="level-filter">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="active" ${param.status == 'active' ? 'selected' : ''}>Đang hoạt động</option>
+                        <option value="locked" ${param.status == 'locked' ? 'selected' : ''}>Đã bị khóa</option>
+                    </select>
                 </form>
             </div>
             <table id="userTable" class="user-table">
@@ -45,7 +51,12 @@
                     <th>Tên khách hàng</th>
                     <th>Email</th>
                     <th>Cấp thành viên</th>
-                    <th>Tổng chi tiêu</th>
+                    <th>Tổng chi tiêu
+                        <i id="spentSortBtn" class="fas fa-sort" style="cursor:pointer; color:#888; margin-left:4px;"></i>
+                        <div id="spentSortDropdown" class="sort-dropdown">
+                            <a href="#" class="sort-item" data-sort="asc">Thấp đến Cao</a>
+                            <a href="#" class="sort-item" data-sort="desc">Cao đến Thấp</a>
+                        </div></th>
                     <th>Điểm xu</th>
                     <th></th>
                 </tr>

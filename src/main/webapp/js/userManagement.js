@@ -280,6 +280,61 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.sidebar li a').forEach(link => {
         if (link.getAttribute('href') === current) link.classList.add('active');
     });
+
+    // Sắp xếp theo tổng chi tiêu(thấp -> cao, cao -> thấp)
+    const spentSortBtn = document.getElementById('spentSortBtn');
+    const spentSortDropdown = document.getElementById('spentSortDropdown');
+
+    spentSortBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        spentSortDropdown.classList.toggle('show');
+    });
+
+    document.querySelectorAll('.sort-item').forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const sortOrder = this.dataset.sort;
+
+            document.querySelectorAll('.sort-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+
+            spentSortBtn.className = sortOrder === 'asc'
+                ? 'fas fa-sort-up'
+                : 'fas fa-sort-down';
+
+            const tbody = document.getElementById('userTableBody');
+            const rows = Array.from(tbody.querySelectorAll('tr')).filter(r =>
+                !r.classList.contains('pagination-row') && r.cells.length > 1
+            );
+
+            rows.sort((a, b) => {
+                const getSpent = row => {
+                    const link = row.querySelector('.view-detail');
+                    return link ? parseFloat(link.dataset.spent) || 0 : 0;
+                };
+                return sortOrder === 'asc'
+                    ? getSpent(a) - getSpent(b)
+                    : getSpent(b) - getSpent(a);
+            });
+
+            const paginationRow = tbody.querySelector('.pagination-row');
+            rows.forEach(r => tbody.insertBefore(r, paginationRow));
+
+            initUserPagination();
+        });
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('#spentSortBtn') && !e.target.closest('#spentSortDropdown')) {
+            spentSortDropdown.classList.remove('show');
+        }
+    });
+
+    document.getElementById('statusFilter').addEventListener('change', function () {
+        document.getElementById('searchForm').submit();
+    });
 });
 
 (function autoRefresh() {

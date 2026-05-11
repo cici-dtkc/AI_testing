@@ -39,6 +39,16 @@ public class UserManagementServlet extends HttpServlet {
                 users = userDao.getAllCustomers();
             }
 
+            String statusFilter = request.getParameter("status");
+
+            if (statusFilter != null && !statusFilter.trim().isEmpty()) {
+                if ("locked".equals(statusFilter)) {
+                    users = users.stream().filter(u -> !u.isActive()).collect(java.util.stream.Collectors.toList());
+                } else if ("active".equals(statusFilter)) {
+                    users = users.stream().filter(u -> u.isActive()).collect(java.util.stream.Collectors.toList());
+                }
+            }
+
 
             if (users != null && !users.isEmpty()) {
                 System.out.println("First user: " + users.get(0));
