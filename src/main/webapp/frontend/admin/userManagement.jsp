@@ -69,7 +69,7 @@
                                 <td>
                                         ${user.fullName != null ? user.fullName : 'Chưa cập nhật'}
                                     <c:if test="${!user.isActive}">
-                                        <br><span class="locked-badge">🔒 Tài khoản đã bị khóa</span>
+                                        <br><span class="locked-badge">Tài khoản đã bị khóa</span>
                                     </c:if>
                                 </td>
                                 <td>${user.email}</td>
@@ -88,14 +88,18 @@
                                 </td>
                                 <td>${user.points} xu</td>
                                 <td class="action-cell">
-                                    <c:choose>
-                                        <c:when test="${!user.isActive}">
-                                            <span style="color: #999; font-size: 14px;">—</span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <div class="kebab-menu">
-                                                <button class="kebab-btn">⋮</button>
-                                                <div class="menu-dropdown">
+                                    <div class="kebab-menu">
+                                        <button class="kebab-btn">⋮</button>
+                                        <div class="menu-dropdown">
+                                            <c:choose>
+                                                <c:when test="${!user.isActive}">
+                                                    <a href="#" class="menu-item unlock-user"
+                                                       data-id="${user.id}"
+                                                       data-name="${user.fullName != null ? user.fullName : 'Chưa cập nhật'}">
+                                                        Mở tài khoản
+                                                    </a>
+                                                </c:when>
+                                                <c:otherwise>
                                                     <a href="#" class="menu-item view-detail"
                                                        data-id="${user.id}"
                                                        data-name="${user.fullName != null ? user.fullName : 'Chưa cập nhật'}"
@@ -116,12 +120,12 @@
                                                     <a href="#" class="menu-item permanent-lock"
                                                        data-id="${user.id}"
                                                        data-name="${user.fullName != null ? user.fullName : 'Chưa cập nhật'}">
-                                                        Khóa vĩnh viễn
+                                                        Khóa tài khoản
                                                     </a>
-                                                </div>
-                                            </div>
-                                        </c:otherwise>
-                                    </c:choose>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -247,6 +251,32 @@
             <div class="popup-box">
                 <div class="success-icon"><i class="fas fa-circle-check"></i></div>
                 <h3 id="successPopupMessage"></h3>
+            </div>
+        </div>
+
+        <div id="cannotLockPopup" class="popup-overlay">
+            <div class="popup-box">
+                <div class="error-icon"><i class="fas fa-ban"></i></div>
+                <h3>Không thể khóa tài khoản</h3>
+                <p id="cannotLockMessage" style="color:#555; line-height:1.6; margin-bottom:20px;"></p>
+                <div class="popup-actions">
+                    <button class="btn-cancel" onclick="document.getElementById('cannotLockPopup').style.display='none'">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="unlockPopup" class="popup-overlay">
+            <div class="popup-box">
+                <div class="success-icon"><i class="fas fa-lock-open"></i></div>
+                <h3>Mở khóa tài khoản</h3>
+                <input type="hidden" id="unlockUserId">
+                <p id="unlockMessage" style="color:#555; line-height:1.6; margin-bottom:20px;"></p>
+                <div class="popup-actions">
+                    <button class="btn-cancel" onclick="document.getElementById('unlockPopup').style.display='none'">Hủy</button>
+                    <button class="btn-primary" id="confirmUnlock">Mở khóa</button>
+                </div>
             </div>
         </div>
 

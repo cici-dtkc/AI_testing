@@ -242,7 +242,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.querySelectorAll('.menu-dropdown').forEach(m => m.classList.remove('show'));
                         document.getElementById('lockPopup').style.display = 'flex';
                     } else {
-                        alert(' KHÔNG THỂ KHÓA TÀI KHOẢN\n\n Người dùng: ' + userName + '\n\n Lý do: Chưa có vi phạm nào được ghi nhận');
+                        document.getElementById('cannotLockMessage').innerHTML =
+                            '<strong>Người dùng:</strong> ' + userName + '<br><br>' +
+                            '<strong>Lý do:</strong> Chưa có vi phạm nào được ghi nhận';
+                        document.getElementById('cannotLockPopup').style.display = 'flex';
                         document.querySelectorAll('.menu-dropdown').forEach(m => m.classList.remove('show'));
                     }
                 })
@@ -334,6 +337,56 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('statusFilter').addEventListener('change', function () {
         document.getElementById('searchForm').submit();
+    });
+
+    document.querySelectorAll('.unlock-user').forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const userId = this.dataset.id;
+            const userName = this.dataset.name;
+
+            document.getElementById('unlockUserId').value = userId;
+            document.getElementById('unlockMessage').innerHTML =
+                'Bạn có chắc muốn mở khóa tài khoản của <strong>' + userName + '</strong>?';
+            document.getElementById('unlockPopup').style.display = 'flex';
+            document.querySelectorAll('.menu-dropdown').forEach(m => m.classList.remove('show'));
+        });
+    });
+
+    document.getElementById('confirmUnlock').addEventListener('click', function () {
+        const userId = document.getElementById('unlockUserId').value;
+        this.disabled = true;
+        this.textContent = 'Đang mở khóa...';
+
+        fetch(BASE_URL + '/admin/user-management', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'action=unlock&userId=' + userId
+        })
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('unlockPopup').style.display = 'none';
+                if (data.status === 'success') {
+                    document.getElementById('successPopupMessage').textContent = 'Mở khóa tài khoản thành công!';
+                    document.getElementById('successPopup').style.display = 'flex';
+                    setTimeout(() => {
+                        document.getElementById('successPopup').style.display = 'none';
+                        location.reload();
+                    }, 2000);
+                } else {
+                    document.getElementById('errorPopupMessage').textContent = data.message;
+                    document.getElementById('errorPopup').style.display = 'flex';
+                }
+            })
+            .catch(() => {
+                document.getElementById('unlockPopup').style.display = 'none';
+                document.getElementById('errorPopupMessage').textContent = 'Có lỗi xảy ra khi mở khóa';
+                document.getElementById('errorPopup').style.display = 'flex';
+                this.disabled = false;
+                this.textContent = 'Mở khóa';
+            });
     });
 });
 

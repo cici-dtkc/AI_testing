@@ -29,13 +29,13 @@ public class User implements Serializable {
     private LocalDateTime deletedAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    @ColumnName("failed_login_attempts")
     private Integer failedLoginAttempts;
 
 
     public User() {
     }
 
-    // Constructor đầy đủ (tùy chọn, tiện khi tạo object thủ công)
     public User(int id, String username, String email, String passwordHash,
                 String gender, String phone, String fullName, LocalDate birthdate,
                 String address, String avatarUrl, String role, int points,

@@ -109,6 +109,14 @@ public class UserManagementServlet extends HttpServlet {
                     response.getWriter().write("{\"status\":\"error\",\"message\":\"Khóa tài khoản thất bại\"}");
                 }
 
+            } else if ("unlock".equals(action)) {
+                int userId = Integer.parseInt(request.getParameter("userId"));
+                boolean success = userDao.unlockUserAccount(userId);
+                if (success) {
+                    response.getWriter().write("{\"status\":\"success\",\"message\":\"Đã mở khóa tài khoản\"}");
+                } else {
+                    response.getWriter().write("{\"status\":\"error\",\"message\":\"Mở khóa thất bại\"}");
+                }
             } else if ("syncSpent".equals(action)) {
                 String syncType = request.getParameter("syncType");
 
@@ -135,10 +143,9 @@ public class UserManagementServlet extends HttpServlet {
                             "{\"status\":\"error\",\"message\":\"syncType không hợp lệ\"}"
                     );
                 }
-            }  else if ("check-violation".equals(action)) {
+            } else if ("check-violation".equals(action)) {
                 handleCheckViolation(request, response);
-            }
-            else {
+            } else {
                 response.getWriter().write("{\"status\":\"error\",\"message\":\"Action không hợp lệ\"}");
             }
 
