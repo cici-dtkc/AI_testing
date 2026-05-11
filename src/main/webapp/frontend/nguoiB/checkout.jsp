@@ -694,12 +694,55 @@
 
     window.addEventListener('DOMContentLoaded', function () {
         <c:if test="${not empty orderError}">
-        alert('<c:out value="${orderError}"/>');
+        showErrorPopup(`<c:out value="${orderError}" escapeXml="false"/>`);
         </c:if>
+
         <c:if test="${not empty orderSuccess}">
-        showSuccessPopup('<c:out value="${orderSuccess}"/>');
+        showSuccessPopup(`<c:out value="${orderSuccess}" escapeXml="false"/>`);
         </c:if>
     });
+
+    function showErrorPopup(message) {
+        const backdrop = document.createElement('div');
+        backdrop.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.6); z-index: 10000;
+        display: flex; align-items: center; justify-content: center;
+    `;
+
+        backdrop.innerHTML = `
+        <div style="
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        ">
+            <h2 style="color: #dc3545; font-size: 22px; margin-bottom: 10px;">
+                Sản phẩm hiện không đủ số lượng theo đơn của bạn hoặc sản phẩm đã hư hỏng
+            </h2>
+            <p style="color: #666; font-size: 15px; margin-bottom: 20px;">
+                    ${message}
+            </p>
+            <button onclick="this.closest('div').parentElement.remove()"
+                style="
+                    background: #dc3545;
+                    color: white;
+                    border: none;
+                    padding: 12px 30px;
+                    border-radius: 6px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    font-weight: 600;">
+                OK
+            </button>
+        </div>
+    `;
+
+        document.body.appendChild(backdrop);
+        setTimeout(() => backdrop.remove(), 5000);
+    }
 
     function showSuccessPopup(message) {
         const backdrop = document.createElement('div');

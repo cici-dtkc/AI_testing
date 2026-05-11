@@ -64,6 +64,7 @@ public class ComicDetailServlet extends HttpServlet {
             var relatedComics = comicService.getRelatedComics(comicId);
             var reviews = comicService.getComicReviews(comicId);
             double avgRating = comicService.getAverageRating(comicId);
+            int availableComic = comicDAO.available(comicId);
 
             ReviewDAO reviewDAO = new ReviewDAO();
             Map<Integer, Integer> ratingDistribution = reviewDAO.getRatingDistribution(comicId);
@@ -117,6 +118,7 @@ public class ComicDetailServlet extends HttpServlet {
             request.setAttribute("suggestedComics", suggestedComics);
             request.setAttribute("suggestionType", suggestionType);
             request.setAttribute("totalSell", totalSell);
+            request.setAttribute("availableComic", availableComic);
 
 
             request.getRequestDispatcher("/frontend/public/detail.jsp")

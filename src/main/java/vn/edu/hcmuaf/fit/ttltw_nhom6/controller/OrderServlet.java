@@ -236,6 +236,18 @@ public class OrderServlet extends HttpServlet {
                     return;
                 }
             }
+            for (CartItem item : selectedItems) {
+                int comicId = item.getComic().getId();
+                System.out.println("available "+comicDAO.available(comicId));
+                int available = comicDAO.available(comicId);
+
+                if (available < item.getQuantity()) {
+                    session.setAttribute("orderError", item.getComic().getNameComics() + " hiện không có sẳn");
+
+                    response.sendRedirect(request.getContextPath() + "/checkout");
+                    return;
+                }
+            }
 
             Object subtotalObj = session.getAttribute("checkoutSubtotal");
             double subtotal = subtotalObj != null ? ((Double) subtotalObj) : 0.0;

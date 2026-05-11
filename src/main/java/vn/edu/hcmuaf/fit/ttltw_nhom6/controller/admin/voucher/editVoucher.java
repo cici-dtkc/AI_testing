@@ -36,7 +36,7 @@ public class editVoucher extends HttpServlet {
         }else{
             request.setAttribute("message", "Đã chỉnh sửa thất bại");
         }
-        request.getRequestDispatcher("/fontend/admin/promotion.jsp")
+        request.getRequestDispatcher("/frontend/admin/promotion.jsp")
                 .forward(request, response);
     }
 

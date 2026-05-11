@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.ttltw_nhom6.controller;
+package vn.edu.hcmuaf.fit.ttltw_nhom6.controller.pubilc;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

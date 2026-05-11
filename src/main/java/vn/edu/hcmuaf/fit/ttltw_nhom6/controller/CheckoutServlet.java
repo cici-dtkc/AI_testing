@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.jdbi.v3.core.Jdbi;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.CartDAO;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.ComicDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.FlashSaleComicsDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.UserShippingAddressDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.db.JdbiConnector;
@@ -36,6 +37,8 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("currentUser");
 
@@ -176,6 +179,7 @@ public class CheckoutServlet extends HttpServlet {
         }
 
         String orderError = (String) session.getAttribute("orderError");
+        System.out.println(orderError);
         if (orderError != null) {
             request.setAttribute("orderError", orderError);
             session.removeAttribute("orderError");
@@ -237,7 +241,6 @@ public class CheckoutServlet extends HttpServlet {
                     ? Double.parseDouble(feeParam) : 25000;
 
             int cartId = cartDAO.getOrCreateCartByUserId(user.getId());
-
             try {
                 CacheService.cartCache.remove(cartId);
 

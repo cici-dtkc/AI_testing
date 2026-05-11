@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.CategoriesDao;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.ComicDAO;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.InventoryTransactionDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.SeriesDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Category;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Comic;
@@ -35,23 +36,22 @@ public class AddComicServlet extends HttpServlet {
     private CategoriesDao categoriesDao;
     private SeriesDAO seriesDAO;
     private Gson gson;
-
+    private InventoryTransactionDAO  inventoryTransactionDAO;
     @Override
     public void init() throws ServletException {
         comicDAO = new ComicDAO();
         categoriesDao = new CategoriesDao();
         seriesDAO = new SeriesDAO();
+        inventoryTransactionDAO = new InventoryTransactionDAO();
         gson = new Gson();
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=UTF-8");
-
         Map<String, Object> result = new HashMap<>();
 
         try {
@@ -106,13 +106,13 @@ public class AddComicServlet extends HttpServlet {
             comic.setPublisher(publisherName != null ? publisherName.trim() : null);
 
             int comicId = comicDAO.insertComic(comic);
-
             if (comicId <= 0) {
                 result.put("success", false);
                 result.put("message", "Không thể thêm truyện");
                 response.getWriter().write(gson.toJson(result));
                 return;
             }
+            inventoryTransactionDAO.insertImport(comicId, comic.getStockQuantity(),"");
 
             if (authorId > 0) {
                 comicDAO.linkComicAuthor(comicId, authorId);
@@ -196,7 +196,6 @@ public class AddComicServlet extends HttpServlet {
             result.put("success", false);
             result.put("message", "Lỗi: " + e.getMessage());
         }
-
         response.getWriter().write(gson.toJson(result));
     }
 

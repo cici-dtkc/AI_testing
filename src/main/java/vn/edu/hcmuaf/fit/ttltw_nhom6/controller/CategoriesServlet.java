@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.CategoriesDao;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.ComicDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Category;
@@ -12,7 +13,9 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Comic;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/category")
 public class CategoriesServlet extends HttpServlet {
@@ -90,6 +93,35 @@ public class CategoriesServlet extends HttpServlet {
 
         List<String> availableAuthors = comicDAO.getAuthorsByCategory(categoryId);
         List<String> availablePublishers = comicDAO.getPublishersByCategory(categoryId);
+
+
+
+        HttpSession session = request.getSession(false);
+        Integer userId = (session != null) ? (Integer) session.getAttribute("userId") : null;
+
+        List<Comic> recommendedComics;
+        boolean isPersonalized = false;
+
+        if (userId != null) {
+            recommendedComics = comicDAO.getRecommendedComicsWithFlashSale(userId, 12);
+            isPersonalized    = !recommendedComics.isEmpty();
+            if (recommendedComics.isEmpty()) {
+                recommendedComics = comicDAO.getPopularComicsWithFlashSale(12);
+            }
+        } else {
+            recommendedComics = comicDAO.getPopularComicsWithFlashSale(12);
+        }
+
+        Map<String, List<Comic>> recommendations = new LinkedHashMap<>();
+        if (!recommendedComics.isEmpty()) {
+            recommendations.put(
+                    isPersonalized ? "Dành riêng cho bạn" : "Có thể bạn thích",
+                    recommendedComics
+            );
+        }
+
+        request.setAttribute("recommendations",     recommendations);
+        request.setAttribute("isPersonalized",      isPersonalized);
 
         request.setAttribute("selectedCategory", selectedCategory);
         request.setAttribute("comicList", comicList);

@@ -118,4 +118,37 @@ public class VoucherDao {
                         .list()
         );
     }
+
+    public List<Voucher> getOutVouchers(){
+        String sql = "SELECT * from vouchers Where quantity = used_count AND end_date > NOW() order by id desc";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(Voucher.class)
+                        .list());
+    }
+    public List<Voucher> getRunningVouchers(){
+        String sql = "SELECT * from vouchers Where start_date < NOw() AND end_date > NOW() AND  quantity -used_count != 0  order by id desc";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(Voucher.class)
+                        .list());
+    }
+    public List<Voucher> getExpredVouchers(){
+        String sql = "SELECT * from vouchers Where end_date <= NOW() order by id desc";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(Voucher.class)
+                        .list());
+    }
+
+    public List<Voucher> searchVoucherById(String id){
+        String sql = "SELECT * FROM vouchers WHERE CAST(code AS CHAR) LIKE :id";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("id", "%" + id + "%")
+                        .mapToBean(Voucher.class)
+                        .list()
+        );
+    }
 }

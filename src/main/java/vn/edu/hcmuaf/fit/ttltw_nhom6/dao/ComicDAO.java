@@ -2704,4 +2704,25 @@ public class ComicDAO extends ADao {
         }
     }
 
+    public int available(int comicId) {
+        String sql = "SELECT (stock_quantity - damaged_quantity) FROM comics WHERE id = :id";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("id", comicId)
+                        .mapTo(Integer.class)
+                        .one()
+        );
+    }
+
+    public boolean minus_Stock_quanlity(int comicId, int quanlity) {
+        String sql  = "UPDATE comics SET stock_quantity = stock_quantity - :quantity WHERE id =:comicId AND  stock_quantity >= :quantity";
+        return jdbi.withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("comicId", comicId)
+                        .bind("quanlity", quanlity)
+                        .execute()
+        )>0;
+    }
+
 }

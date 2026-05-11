@@ -183,6 +183,7 @@
             </div>
 
             <p class="daban">Đã bán ${totalSell}</p>
+<%--            <p class="available">Có sẳn ${availableComic}</p>--%>
 
 
             <div class="line3">
