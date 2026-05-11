@@ -520,3 +520,42 @@ body:has(.popup-overlay[style*="display: flex"]) .menu-dropdown {
     padding-right: 20px;
     border-bottom: none !important;
 }
+
+#errorPopup .popup-box {
+    max-width: 420px;
+    text-align: center;
+}
+
+#errorPopup .error-icon i {
+    color: #ffc107;
+}
+
+#errorPopup h3 {
+    color: #dc3545;
+    margin-bottom: 12px;
+}
+
+#errorPopupMessage {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+#successPopup .popup-box {
+    max-width: 420px;
+    text-align: center;
+}
+
+#successPopup .success-icon {
+    font-size: 50px;
+    margin-bottom: 12px;
+}
+
+#successPopup .success-icon i {
+    color: #28a745;
+}
+
+#successPopupMessage {
+    color: #28a745;
+}

@@ -218,6 +218,27 @@
                 </div>
             </div>
         </div>
+
+        <div id="errorPopup" class="popup-overlay">
+            <div class="popup-box">
+                <div class="error-icon"><i class="fas fa-triangle-exclamation"></i></div>
+                <h3>Không thể nâng cấp</h3>
+                <p id="errorPopupMessage"></p>
+                <div class="popup-actions">
+                    <button class="btn-cancel" onclick="document.getElementById('errorPopup').style.display='none'">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="successPopup" class="popup-overlay">
+            <div class="popup-box">
+                <div class="success-icon"><i class="fas fa-circle-check"></i></div>
+                <h3 id="successPopupMessage"></h3>
+            </div>
+        </div>
+
     </div>
 </div>
 <script>

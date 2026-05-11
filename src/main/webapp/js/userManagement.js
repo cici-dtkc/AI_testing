@@ -149,9 +149,12 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             e.stopPropagation();
 
-            document.getElementById('upgradeUserId').value        = this.dataset.id;
-            document.getElementById('popupUserName').innerText    = 'Tên: ' + this.dataset.name;
-            document.getElementById('upgradeSelect').value        = this.dataset.currentLevel;
+            document.getElementById('upgradeUserId').value = this.dataset.id;
+            document.getElementById('popupUserName').innerText = 'Tên: ' + this.dataset.name;
+
+            const level = this.dataset.currentLevel;
+            const normalizedLevel = level.charAt(0).toUpperCase() + level.slice(1).toLowerCase();
+            document.getElementById('upgradeSelect').value = normalizedLevel;
 
             document.querySelectorAll('.menu-dropdown').forEach(m => m.classList.remove('show'));
             document.getElementById('upgradePopup').style.display = 'flex';
@@ -176,10 +179,26 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(r => r.json())
             .then(data => {
-                if (data.status === 'success') { alert(data.message); location.reload(); }
-                else { alert('Lỗi: ' + data.message); this.disabled = false; this.textContent = 'Xác nhận'; }
+                if (data.status === 'success') {
+                    document.getElementById('successPopupMessage').textContent = data.message;
+                    document.getElementById('successPopup').style.display = 'flex';
+                    setTimeout(() => {
+                        document.getElementById('successPopup').style.display = 'none';
+                        location.reload();
+                    }, 2000);
+                } else {
+                    this.disabled = false;
+                    this.textContent = 'Xác nhận';
+                    document.getElementById('errorPopupMessage').innerHTML = data.message.replace(/\n/g, '<br>');
+                    document.getElementById('errorPopup').style.display = 'flex';
+                }
             })
-            .catch(() => { alert('Có lỗi xảy ra khi nâng cấp'); this.disabled = false; this.textContent = 'Xác nhận'; });
+            .catch(() => {
+                this.disabled = false;
+                this.textContent = 'Xác nhận';
+                document.getElementById('errorPopupMessage').textContent = 'Có lỗi xảy ra khi nâng cấp';
+                document.getElementById('errorPopup').style.display = 'flex';
+            });
 
         document.getElementById('upgradePopup').style.display = 'none';
     });
@@ -223,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.querySelectorAll('.menu-dropdown').forEach(m => m.classList.remove('show'));
                         document.getElementById('lockPopup').style.display = 'flex';
                     } else {
-                        alert(' KHÔNG THỂ KHÓA TÀI KHOẢN\n\n👤 Người dùng: ' + userName + '\n\n Lý do: Chưa có vi phạm nào được ghi nhận');
+                        alert(' KHÔNG THỂ KHÓA TÀI KHOẢN\n\n Người dùng: ' + userName + '\n\n Lý do: Chưa có vi phạm nào được ghi nhận');
                         document.querySelectorAll('.menu-dropdown').forEach(m => m.classList.remove('show'));
                     }
                 })
