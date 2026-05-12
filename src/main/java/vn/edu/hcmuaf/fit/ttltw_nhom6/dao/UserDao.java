@@ -25,7 +25,7 @@ public class UserDao {
     // Tìm user theo username hoặc email
     public Optional<User> findByUsernameOrEmail(String usernameOrEmail) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM Users WHERE (username = :ue OR email = :ue OR phone = :ue) AND is_deleted = 0 AND is_active = 1")
+                handle.createQuery("SELECT * FROM Users WHERE (username = :ue OR email = :ue OR phone = :ue) AND is_deleted = 0")
                         .bind("ue", usernameOrEmail)
                         .mapToBean(User.class)
                         .findOne()
@@ -506,8 +506,18 @@ public class UserDao {
 
     public boolean unlockUserAccount(int userId) {
         return jdbi.withHandle(handle ->
-                handle.createUpdate("UPDATE users SET is_active = 1, " +
+                handle.createUpdate("UPDATE users SET is_active = 1, locked_until = NULL, " +
                                 "deleted_at = NULL, failed_login_attempts = 0, updated_at = NOW() WHERE id = :id")
+                        .bind("id", userId)
+                        .execute() > 0
+        );
+    }
+
+    public boolean lockUserTemporary(int userId, int minutes) {
+        return jdbi.withHandle(handle ->
+                handle.createUpdate("UPDATE users SET locked_until = DATE_ADD(NOW(), INTERVAL :minutes MINUTE), " +
+                                "updated_at = NOW() WHERE id = :id")
+                        .bind("minutes", minutes)
                         .bind("id", userId)
                         .execute() > 0
         );

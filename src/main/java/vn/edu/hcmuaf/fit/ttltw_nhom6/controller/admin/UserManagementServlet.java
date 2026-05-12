@@ -43,16 +43,22 @@ public class UserManagementServlet extends HttpServlet {
 
             if (statusFilter != null && !statusFilter.trim().isEmpty()) {
                 if ("locked".equals(statusFilter)) {
-                    users = users.stream().filter(u -> !u.isActive()).collect(java.util.stream.Collectors.toList());
+                    users = users.stream()
+                            .filter(u -> !u.isActive() ||
+                                    (u.getLockedUntil() != null && u.getLockedUntil().isAfter(java.time.LocalDateTime.now())))
+                            .collect(java.util.stream.Collectors.toList());
                 } else if ("active".equals(statusFilter)) {
-                    users = users.stream().filter(u -> u.isActive()).collect(java.util.stream.Collectors.toList());
+                    users = users.stream()
+                            .filter(u -> u.isActive() &&
+                                    (u.getLockedUntil() == null || u.getLockedUntil().isBefore(java.time.LocalDateTime.now())))
+                            .collect(java.util.stream.Collectors.toList());
                 }
             }
 
 
-            if (users != null && !users.isEmpty()) {
-                System.out.println("First user: " + users.get(0));
-            }
+//            if (users != null && !users.isEmpty()) {
+//                System.out.println("First user: " + users.get(0));
+//            }
 
             request.setAttribute("users", users);
             request.getRequestDispatcher("/frontend/admin/userManagement.jsp").forward(request, response);

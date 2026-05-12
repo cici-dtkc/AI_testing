@@ -15,16 +15,17 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.service.OrderViolationService;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.PasswordUtils;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    private UserDao     userDao;
+    private UserDao userDao;
     private CartService cartService;
 
     @Override
     public void init() {
-        userDao     = new UserDao(JdbiConnector.get());
+        userDao = new UserDao(JdbiConnector.get());
         cartService = new CartService();
     }
 
@@ -33,7 +34,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String usernameOrEmail = request.getParameter("username");
-        String password        = request.getParameter("password");
+        String password = request.getParameter("password");
 
         if (!PasswordUtils.isValidPasswordFormat(password)) {
             request.setAttribute("error",
@@ -43,65 +44,88 @@ public class LoginServlet extends HttpServlet {
         }
 
         Optional<User> userOpt = userDao.findByUsernameOrEmail(usernameOrEmail);
-        if (!userDao.isUserActive(userOpt)) {
-            request.setAttribute("error", "Tai khoan cua ban da bi khoa!");
+        if (!userOpt.isPresent()) {
+            request.setAttribute("error", "Hay nhap dung tai khoan va mat khau!");
             request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
             return;
         }
 
-        if (userOpt.isPresent()) {
-            User user = userOpt.get();
+        User user = userOpt.get();
+        // Check khóa vĩnh viễn
+        if (!user.isActive()) {
+            request.setAttribute("error", "Tai khoan cua ban da bi khoa vinh vien!");
+            request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
+            return;
+        }
 
-            if (PasswordUtils.verifyPassword(password, user.getPasswordHash())) {
-                OrderViolationService.getInstance().resetLoginFailureCount(user.getId());
+        // Check khóa tạm
+        if (user.getLockedUntil() != null && user.getLockedUntil().isAfter(LocalDateTime.now())) {
+            long minutesLeft = java.time.Duration.between(LocalDateTime.now(), user.getLockedUntil()).toMinutes() + 1;
+            request.setAttribute("error",
+                    "Tai khoan bi khoa tam " + minutesLeft + " phut do dang nhap sai qua nhieu lan!");
+            request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
+            return;
+        }
 
-                // BUOC 1: Lấy guest cart từ session CŨ trước khi invalidate
-                HttpSession oldSession  = request.getSession(false);
-                Cart        guestCart   = null;
-                if (oldSession != null) {
-                    guestCart = (Cart) oldSession.getAttribute("cart");
-                    oldSession.invalidate();
-                }
+        if (PasswordUtils.verifyPassword(password, user.getPasswordHash())) {
+            OrderViolationService.getInstance().resetLoginFailureCount(user.getId());
+
+            // BUOC 1: Lấy guest cart từ session CŨ trước khi invalidate
+            HttpSession oldSession = request.getSession(false);
+            Cart guestCart = null;
+            if (oldSession != null) {
+                guestCart = (Cart) oldSession.getAttribute("cart");
+                oldSession.invalidate();
+            }
 
 // BUOC 2: Tạo session mới
-                HttpSession newSession = request.getSession(true);
-                if("admin".equalsIgnoreCase(user.getRole())){
-                    newSession.setAttribute("currentUser", user);
-                    newSession.setAttribute("userId", user.getId());
-                    newSession.setAttribute("isAdmin", true);
-                    setNoCacheHeaders(response);
-                    response.sendRedirect(request.getContextPath() + "/admin/dashboard");
-                    return;
-                }
+            HttpSession newSession = request.getSession(true);
+            if ("admin".equalsIgnoreCase(user.getRole())) {
+                newSession.setAttribute("currentUser", user);
+                newSession.setAttribute("userId", user.getId());
+                newSession.setAttribute("isAdmin", true);
+                setNoCacheHeaders(response);
+                response.sendRedirect(request.getContextPath() + "/admin/dashboard");
+                return;
+            }
 
 // BUOC 3: Merge guest cart (session) vào user cart (DB)
-                Cart userCart = new Cart();
-                if (guestCart != null && !guestCart.getItems().isEmpty()) {
-                    cartService.mergeSessionCartToDb(userCart, user.getId(), guestCart);
-                } else {
-                    cartService.getCart(userCart, user.getId(), null);
-                }
-
-                newSession.setAttribute("cart",        userCart);
-                newSession.setAttribute("currentUser", user);
-
-                setNoCacheHeaders(response);
-                String redirectUrl = (String) newSession.getAttribute("redirectAfterLogin");
-                if (redirectUrl != null) {
-                    newSession.removeAttribute("redirectAfterLogin");
-                    response.sendRedirect(redirectUrl);
-                } else {
-                    response.sendRedirect(request.getContextPath() + "/home");
-                }
-
+            Cart userCart = new Cart();
+            if (guestCart != null && !guestCart.getItems().isEmpty()) {
+                cartService.mergeSessionCartToDb(userCart, user.getId(), guestCart);
             } else {
-                OrderViolationService.getInstance().incrementLoginFailureCount(usernameOrEmail);
-                OrderViolationService.getInstance().checkLoginFailureViolation(usernameOrEmail);
-                request.setAttribute("error", "Hay nhap dung tai khoan va mat khau!");
-                request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
+                cartService.getCart(userCart, user.getId(), null);
+            }
+
+            newSession.setAttribute("cart", userCart);
+            newSession.setAttribute("currentUser", user);
+
+            setNoCacheHeaders(response);
+            String redirectUrl = (String) newSession.getAttribute("redirectAfterLogin");
+            if (redirectUrl != null) {
+                newSession.removeAttribute("redirectAfterLogin");
+                response.sendRedirect(redirectUrl);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/home");
             }
 
         } else {
+            OrderViolationService.getInstance().incrementLoginFailureCount(usernameOrEmail);
+            OrderViolationService.getInstance().checkLoginFailureViolation(usernameOrEmail);
+
+            Optional<User> updatedUserOpt = userDao.findByUsernameOrEmail(usernameOrEmail);
+            if (updatedUserOpt.isPresent()) {
+                User updatedUser = updatedUserOpt.get();
+                if (updatedUser.getLockedUntil() != null
+                        && updatedUser.getLockedUntil().isAfter(LocalDateTime.now())) {
+                    long minutesLeft = java.time.Duration.between(
+                            LocalDateTime.now(), updatedUser.getLockedUntil()).toMinutes() + 1;
+                    request.setAttribute("error",
+                            "Tai khoan bi khoa tam " + minutesLeft + " phut do dang nhap sai qua nhieu lan!");
+                    request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
+                    return;
+                }
+            }
             request.setAttribute("error", "Hay nhap dung tai khoan va mat khau!");
             request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
         }
@@ -119,7 +143,7 @@ public class LoginServlet extends HttpServlet {
 
     private void setNoCacheHeaders(HttpServletResponse response) {
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        response.setHeader("Pragma","no-cache");
-        response.setDateHeader("Expires",0);
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
     }
 }

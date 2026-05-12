@@ -31,7 +31,8 @@ public class User implements Serializable {
     private LocalDateTime updatedAt;
     @ColumnName("failed_login_attempts")
     private Integer failedLoginAttempts;
-
+    @ColumnName("locked_until")
+    private LocalDateTime lockedUntil;
 
     public User() {
     }
@@ -245,4 +246,17 @@ public class User implements Serializable {
     public void setFailedLoginAttempts(Integer failedLoginAttempts) {
         this.failedLoginAttempts = failedLoginAttempts;
     }
+
+    public LocalDateTime getLockedUntil() {
+        return lockedUntil;
+    }
+
+    public void setLockedUntil(LocalDateTime lockedUntil) {
+        this.lockedUntil = lockedUntil;
+    }
+
+    public boolean isTemporarilyLocked() {
+        return lockedUntil != null && lockedUntil.isAfter(LocalDateTime.now());
+    }
+
 }
