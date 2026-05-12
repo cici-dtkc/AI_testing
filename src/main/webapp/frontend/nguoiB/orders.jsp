@@ -628,9 +628,15 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            showToastUser('Hủy đơn hàng thành công!');
+                            showToastUser(data.message || 'Hủy đơn hàng thành công!');
                             closeCancelPopup();
-                            location.reload();
+                            if (data.message && data.message.includes('bị khóa')) {
+                                setTimeout(() => {
+                                    window.location.href = '${pageContext.request.contextPath}/login';
+                                }, 2000);
+                            } else {
+                                location.reload();
+                            }
                         } else {
                             showToastUser(data.message || 'Có lỗi xảy ra, vui lòng thử lại!', 'error');
                             submitCancelBtn.disabled = false;

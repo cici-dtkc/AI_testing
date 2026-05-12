@@ -52,11 +52,13 @@
                     <th>Email</th>
                     <th>Cấp thành viên</th>
                     <th>Tổng chi tiêu
-                        <i id="spentSortBtn" class="fas fa-sort" style="cursor:pointer; color:#888; margin-left:4px;"></i>
+                        <i id="spentSortBtn" class="fas fa-sort"
+                           style="cursor:pointer; color:#888; margin-left:4px;"></i>
                         <div id="spentSortDropdown" class="sort-dropdown">
                             <a href="#" class="sort-item" data-sort="asc">Thấp đến Cao</a>
                             <a href="#" class="sort-item" data-sort="desc">Cao đến Thấp</a>
-                        </div></th>
+                        </div>
+                    </th>
                     <th>Điểm xu</th>
                     <th></th>
                 </tr>
@@ -70,6 +72,9 @@
                                         ${user.fullName != null ? user.fullName : 'Chưa cập nhật'}
                                     <c:if test="${!user.isActive}">
                                         <br><span class="locked-badge">Tài khoản đã bị khóa</span>
+                                    </c:if>
+                                    <c:if test="${user.temporarilyLocked}">
+                                        <br><span class="locked-badge-temp">${user.lockDurationDisplay}</span>
                                     </c:if>
                                 </td>
                                 <td>${user.email}</td>
@@ -92,7 +97,7 @@
                                         <button class="kebab-btn">⋮</button>
                                         <div class="menu-dropdown">
                                             <c:choose>
-                                                <c:when test="${!user.isActive}">
+                                                <c:when test="${!user.isActive || user.temporarilyLocked}">
                                                     <a href="#" class="menu-item unlock-user"
                                                        data-id="${user.id}"
                                                        data-name="${user.fullName != null ? user.fullName : 'Chưa cập nhật'}">
@@ -260,7 +265,8 @@
                 <h3>Không thể khóa tài khoản</h3>
                 <p id="cannotLockMessage" style="color:#555; line-height:1.6; margin-bottom:20px;"></p>
                 <div class="popup-actions">
-                    <button class="btn-cancel" onclick="document.getElementById('cannotLockPopup').style.display='none'">
+                    <button class="btn-cancel"
+                            onclick="document.getElementById('cannotLockPopup').style.display='none'">
                         Đóng
                     </button>
                 </div>
@@ -274,7 +280,9 @@
                 <input type="hidden" id="unlockUserId">
                 <p id="unlockMessage" style="color:#555; line-height:1.6; margin-bottom:20px;"></p>
                 <div class="popup-actions">
-                    <button class="btn-cancel" onclick="document.getElementById('unlockPopup').style.display='none'">Hủy</button>
+                    <button class="btn-cancel" onclick="document.getElementById('unlockPopup').style.display='none'">
+                        Hủy
+                    </button>
                     <button class="btn-primary" id="confirmUnlock">Mở khóa</button>
                 </div>
             </div>

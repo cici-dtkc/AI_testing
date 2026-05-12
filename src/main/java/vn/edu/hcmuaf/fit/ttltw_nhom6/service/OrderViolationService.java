@@ -27,51 +27,45 @@ public class OrderViolationService {
      */
     public void checkCancelViolation(int userId) {
 
-        OrderDAO orderDAO = new OrderDAO();
         int cancelCount = OrderHistoryDAO.countUserCancelledOrdersLastHour(userId);
 
-
-        // 2. Nếu vi phạm (>= 5 đơn)
         if (cancelCount >= VIOLATION_THRESHOLD) {
-            // Lấy thông tin user
             User user = UserDao.getInstance().getUserById(userId);
             String username = user != null ? user.getFullName() : "User #" + userId;
 
-            // Gửi thông báo cho admin
+            UserDao.getInstance().lockUserTemporary(userId, 24 * 60);
+
             NotificationService.getInstance().notifyAdminUserViolation(
                     userId,
                     username,
                     "HỦY ĐƠN HÀNG NHIỀU LẦN",
-                    String.format("Đã hủy %d đơn hàng trong vòng 1 giờ", cancelCount)
+                    String.format("Đã hủy %d đơn hàng trong vòng 1 giờ. Tài khoản tự động khóa 24 giờ.", cancelCount)
             );
-
         }
     }
 
     /**
      * Kiểm tra đăng nhập thất bại nhiều lần
-     * Sử dụng cột failed_login_attempts trong bảng Users
      */
     public void checkLoginFailureViolation(String username) {
-        // Tìm user theo username hoặc email
         Optional<User> userOpt = UserDao.getInstance().findByUsernameOrEmail(username);
-
-        if (!userOpt.isPresent()) {
-            return;
-        }
+        if (!userOpt.isPresent()) return;
 
         User user = userOpt.get();
         int failCount = user.getFailedLoginAttempts();
 
-        // Nếu vi phạm (>= 5 lần)
         if (failCount >= VIOLATION_THRESHOLD) {
+            // Tự động khóa 15 phút
+            UserDao.getInstance().lockUserTemporary(user.getId(), 15);
+            UserDao.getInstance().resetFailedLoginAttempts(user.getId());
+
+            // thông báo admin
             NotificationService.getInstance().notifyAdminUserViolation(
                     user.getId(),
                     user.getFullName() != null ? user.getFullName() : username,
                     "ĐĂNG NHẬP THẤT BẠI NHIỀU LẦN",
-                    String.format("Đã đăng nhập thất bại %d lần liên tiếp. Nghi ngờ tấn công brute-force.", failCount)
+                    "Đã tự động khóa tài khoản 15 phút do đăng nhập thất bại 5 lần liên tiếp."
             );
-
         }
     }
 
@@ -93,7 +87,6 @@ public class OrderViolationService {
         if (userOpt.isPresent()) {
             User user = userOpt.get();
             UserDao.getInstance().incrementFailedLoginAttempts(user.getId());
-            System.out.println("📈 [LoginViolation] Tăng failed_login_attempts cho user " + user.getId());
         }
     }
 }
