@@ -60,9 +60,13 @@ public class LoginServlet extends HttpServlet {
 
         // Check khóa tạm
         if (user.getLockedUntil() != null && user.getLockedUntil().isAfter(LocalDateTime.now())) {
-            long minutesLeft = java.time.Duration.between(LocalDateTime.now(), user.getLockedUntil()).toMinutes() + 1;
-            request.setAttribute("error",
-                    "Tai khoan bi khoa tam " + minutesLeft + " phut do dang nhap sai qua nhieu lan!");
+            long minutesLeft = java.time.Duration.between(LocalDateTime.now(), user.getLockedUntil()).toMinutes();
+            if (minutesLeft <= 60) {
+                request.setAttribute("error", "Tài khoản bị khóa tạm " + minutesLeft + " phút do đăng nhập sai quá nhiều lần!");
+            } else {
+                long hoursLeft = minutesLeft / 60;
+                request.setAttribute("error", "Tài khoản bị khóa tạm " + hoursLeft + " giờ do hủy đơn hàng quá nhiều lần trong 1 giờ!");
+            }
             request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
             return;
         }
@@ -116,12 +120,14 @@ public class LoginServlet extends HttpServlet {
             Optional<User> updatedUserOpt = userDao.findByUsernameOrEmail(usernameOrEmail);
             if (updatedUserOpt.isPresent()) {
                 User updatedUser = updatedUserOpt.get();
-                if (updatedUser.getLockedUntil() != null
-                        && updatedUser.getLockedUntil().isAfter(LocalDateTime.now())) {
-                    long minutesLeft = java.time.Duration.between(
-                            LocalDateTime.now(), updatedUser.getLockedUntil()).toMinutes() + 1;
-                    request.setAttribute("error",
-                            "Tai khoan bi khoa tam " + minutesLeft + " phut do dang nhap sai qua nhieu lan!");
+                if (updatedUser.getLockedUntil() != null && updatedUser.getLockedUntil().isAfter(LocalDateTime.now())) {
+                    long minutesLeft = java.time.Duration.between(LocalDateTime.now(), updatedUser.getLockedUntil()).toMinutes();
+                    if (minutesLeft <= 60) {
+                        request.setAttribute("error", "Tài khoản bị khóa tạm " + minutesLeft + " phút do đăng nhập sai quá nhiều lần!");
+                    } else {
+                        long hoursLeft = minutesLeft / 60;
+                        request.setAttribute("error", "Tài khoản bị khóa tạm " + hoursLeft + " giờ do hủy đơn hàng quá nhiều lần trong 1 giờ!");
+                    }
                     request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
                     return;
                 }

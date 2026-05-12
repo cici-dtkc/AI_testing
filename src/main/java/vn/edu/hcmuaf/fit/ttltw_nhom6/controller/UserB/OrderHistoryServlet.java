@@ -165,7 +165,14 @@ public class OrderHistoryServlet extends HttpServlet {
 
                     if (success) {
                         OrderViolationService.getInstance().checkCancelViolation(user.getId());
-                        message = "Hủy đơn thành công";
+                        User updatedUser = userDAO.getUserById(user.getId());
+                        if (updatedUser != null && updatedUser.getLockedUntil() != null
+                                && updatedUser.getLockedUntil().isAfter(java.time.LocalDateTime.now())) {
+                            session.invalidate();
+                            message = "Hủy đơn thành công. Tài khoản của bạn đã bị khóa 24 giờ do hủy quá nhiều đơn hàng!";
+                        } else {
+                            message = "Không thể hủy đơn hàng";
+                        }
                     } else {
                         message = "Không thể hủy đơn hàng";
                     }

@@ -73,9 +73,8 @@
                                     <c:if test="${!user.isActive}">
                                         <br><span class="locked-badge">Tài khoản đã bị khóa</span>
                                     </c:if>
-                                    <c:if test="${user.isActive && user.temporarilyLocked}">
-                                        <br><span class="locked-badge"
-                                         style="background:#fff3cd; color:#856404; border-color:#ffc107;">Tạm khóa 15 phút</span>
+                                    <c:if test="${user.temporarilyLocked}">
+                                        <br><span class="locked-badge-temp">${user.lockDurationDisplay}</span>
                                     </c:if>
                                 </td>
                                 <td>${user.email}</td>

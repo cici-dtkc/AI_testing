@@ -27,24 +27,20 @@ public class OrderViolationService {
      */
     public void checkCancelViolation(int userId) {
 
-        OrderDAO orderDAO = new OrderDAO();
         int cancelCount = OrderHistoryDAO.countUserCancelledOrdersLastHour(userId);
 
-
-        // 2. Nếu vi phạm (>= 5 đơn)
         if (cancelCount >= VIOLATION_THRESHOLD) {
-            // Lấy thông tin user
             User user = UserDao.getInstance().getUserById(userId);
             String username = user != null ? user.getFullName() : "User #" + userId;
 
-            // Gửi thông báo cho admin
+            UserDao.getInstance().lockUserTemporary(userId, 24 * 60);
+
             NotificationService.getInstance().notifyAdminUserViolation(
                     userId,
                     username,
                     "HỦY ĐƠN HÀNG NHIỀU LẦN",
-                    String.format("Đã hủy %d đơn hàng trong vòng 1 giờ", cancelCount)
+                    String.format("Đã hủy %d đơn hàng trong vòng 1 giờ. Tài khoản tự động khóa 24 giờ.", cancelCount)
             );
-
         }
     }
 

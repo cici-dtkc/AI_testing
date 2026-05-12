@@ -259,4 +259,14 @@ public class User implements Serializable {
         return lockedUntil != null && lockedUntil.isAfter(LocalDateTime.now());
     }
 
+    public String getLockDurationDisplay() {
+        if (lockedUntil == null || !lockedUntil.isAfter(LocalDateTime.now())) return null;
+        long minutesLeft = java.time.Duration.between(LocalDateTime.now(), lockedUntil).toMinutes();
+        if (minutesLeft < 60) return "Tài khoản bị tạm khóa còn " + minutesLeft + " phút";
+        long hoursLeft = minutesLeft / 60;
+        if (hoursLeft < 24) return "Tài khoản bị tạm khóa còn " + hoursLeft + " giờ";
+        long daysLeft = hoursLeft / 24;
+        return "Tài khoản bị tạm khóa còn " + daysLeft + " ngày";
+    }
+
 }
