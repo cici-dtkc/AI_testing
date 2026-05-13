@@ -15,9 +15,9 @@
 </c:if>
 <header class="admin-header">
     <div class="header-right">
-<%--        <a href="${pageContext.request.contextPath}/frontend/admin/chatWithCus.jsp">--%>
-<%--            <i class="fa-solid fa-comment"></i>--%>
-<%--        </a>--%>
+        <%--        <a href="${pageContext.request.contextPath}/frontend/admin/chatWithCus.jsp">--%>
+        <%--            <i class="fa-solid fa-comment"></i>--%>
+        <%--        </a>--%>
         <div class="admin-notification">
             <a href="javascript:void(0)" onclick="toggleNotificationDropdown()">
                 <i class="fa-regular fa-bell"></i>
@@ -37,12 +37,48 @@
                         </a>
                     </c:if>
                 </div>
-                <c:if test="${empty notifications}">
-                    <div class="notification-empty">
-                        <i class="fa-regular fa-bell-slash"></i>
-                        <p>Không có thông báo</p>
-                    </div>
-                </c:if>
+
+                <c:choose>
+                    <c:when test="${empty notifications}">
+                        <div class="notification-empty">
+                            <i class="fa-regular fa-bell-slash"></i>
+                            <p>Không có thông báo</p>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="notification-list">
+                            <c:forEach var="noti" items="${notifications}">
+                                <div class="notification-item ${noti.read ? 'read' : 'unread'}"
+                                     onclick="openNotificationDetail(${noti.id}, `${fn:escapeXml(noti.message)}`)">
+
+                                    <div class="noti-icon">
+                                        <c:choose>
+                                            <c:when test="${noti.type == 'USER_VIOLATION'}">
+                                                <i class="fa-solid fa-triangle-exclamation" style="color: #e74c3c;"></i>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <i class="fa-solid fa-bell" style="color: #3498db;"></i>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+
+                                    <div class="noti-content">
+                                        <p class="noti-message">
+                                                ${fn:substring(noti.message, 0,
+                                                        fn:length(noti.message) > 60 ? 60 : fn:length(noti.message))}
+                                            <c:if test="${fn:length(noti.message) > 60}">...</c:if>
+                                        </p>
+                                        <span class="noti-time">${noti.formattedCreatedAt}</span>
+                                    </div>
+
+                                    <c:if test="${!noti.read}">
+                                        <span class="unread-dot"></span>
+                                    </c:if>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
         <div class="admin-profile">
@@ -64,7 +100,8 @@
         const dropdown = document.getElementById("notificationDropdown");
         dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     }
-    window.addEventListener('click', function(e) {
+
+    window.addEventListener('click', function (e) {
         const dropdown = document.getElementById('notificationDropdown');
         const notificationDiv = document.querySelector('.admin-notification');
 
@@ -72,9 +109,10 @@
             dropdown.style.display = 'none';
         }
     });
+
     function openNotificationDetail(id, message) {
         alert(message);
-        markAsRead(id, function() {
+        markAsRead(id, function () {
             setTimeout(() => location.reload(), 300);
         });
     }
@@ -96,6 +134,7 @@
                 console.error('Error marking as read:', err);
             });
     }
+
     /**
      * Đánh dấu tất cả thông báo đã đọc
      */

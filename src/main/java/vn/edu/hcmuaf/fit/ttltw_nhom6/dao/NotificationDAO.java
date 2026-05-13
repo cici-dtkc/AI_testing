@@ -8,6 +8,8 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Notification;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -169,7 +171,37 @@ public class NotificationDAO {
         }
     }
 
+    public List<Notification> getRecentForAdminViolationOnly(int limit) {
+        String sql = """
+            SELECT id, user_id, message, type, is_read, created_at
+            FROM notifications
+            WHERE user_id = ?
+            AND type = 'USER_VIOLATION'
+            ORDER BY created_at DESC
+            LIMIT ?
+            """;
+        return JdbiConnector.get().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind(0, ADMIN_ID)
+                        .bind(1, limit)
+                        .map(new NotificationRowMapper())
+                        .collect(Collectors.toList())
+        );
+    }
+
+    public int countUnreadViolationForAdmin() {
+        String sql = "SELECT COUNT(*) FROM notifications WHERE user_id = ? AND is_read = 0 AND type = 'USER_VIOLATION'";
+        return JdbiConnector.get().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind(0, ADMIN_ID)
+                        .mapTo(Integer.class)
+                        .one()
+        );
+    }
+
     private static class NotificationRowMapper implements RowMapper<Notification> {
+        private static final DateTimeFormatter DISPLAY_FORMATTER =
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         @Override
         public Notification map(ResultSet rs, StatementContext ctx) throws SQLException {
             Notification notification = new Notification();
@@ -179,7 +211,10 @@ public class NotificationDAO {
             notification.setMessage(rs.getString("message"));
             notification.setType(rs.getString("type"));
             notification.setRead(rs.getBoolean("is_read"));
-            notification.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+
+            LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
+            notification.setCreatedAt(createdAt);
+            notification.setFormattedCreatedAt(createdAt.format(DISPLAY_FORMATTER));
 
             return notification;
         }
