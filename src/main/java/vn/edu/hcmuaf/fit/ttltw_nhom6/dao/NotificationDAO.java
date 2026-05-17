@@ -176,7 +176,7 @@ public class NotificationDAO {
             SELECT id, user_id, message, type, is_read, created_at
             FROM notifications
             WHERE user_id = ?
-            AND type = 'USER_VIOLATION'
+            AND type LIKE 'USER_VIOLATION%'
             ORDER BY created_at DESC
             LIMIT ?
             """;
@@ -190,13 +190,62 @@ public class NotificationDAO {
     }
 
     public int countUnreadViolationForAdmin() {
-        String sql = "SELECT COUNT(*) FROM notifications WHERE user_id = ? AND is_read = 0 AND type = 'USER_VIOLATION'";
+        String sql = "SELECT COUNT(*) FROM notifications WHERE user_id = ? AND is_read = 0 AND type LIKE 'USER_VIOLATION%'";
         return JdbiConnector.get().withHandle(handle ->
                 handle.createQuery(sql)
                         .bind(0, ADMIN_ID)
                         .mapTo(Integer.class)
                         .one()
         );
+    }
+
+    public List<Notification> getAdminViolationList(String typeFilter, int page, int pageSize) {
+        String sql = """
+            SELECT id, user_id, message, type, is_read, created_at
+            FROM notifications
+            WHERE user_id = ?
+            AND type LIKE ?
+            ORDER BY created_at DESC
+            LIMIT ? OFFSET ?
+            """;
+        return JdbiConnector.get().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind(0, ADMIN_ID)
+                        .bind(1, typeFilter)
+                        .bind(2, pageSize)
+                        .bind(3, (page - 1) * pageSize)
+                        .map(new NotificationRowMapper())
+                        .list()
+        );
+    }
+
+    public long countAdminViolation(String typeFilter) {
+        String sql = "SELECT COUNT(*) FROM notifications WHERE user_id = ? AND type LIKE ?";
+        return JdbiConnector.get().withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind(0, ADMIN_ID)
+                        .bind(1, typeFilter)
+                        .mapTo(Long.class)
+                        .one()
+        );
+    }
+
+    public boolean existsUnreadViolationForUser(int violatorUserId, String type) {
+        String sql = """
+        SELECT COUNT(*) FROM notifications
+        WHERE user_id = :adminId
+          AND is_read = 0
+          AND type = :type
+          AND message LIKE :pattern
+        """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("adminId", ADMIN_ID)
+                        .bind("type", type)
+                        .bind("pattern", "%(ID: " + violatorUserId + ")%")
+                        .mapTo(Integer.class)
+                        .one()
+        ) > 0;
     }
 
     private static class NotificationRowMapper implements RowMapper<Notification> {

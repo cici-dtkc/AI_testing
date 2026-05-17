@@ -2,22 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<c:if test="${pageContext.request.getParameter('debug') == 'true'}">
-    <div style="background: #fff3cd; padding: 15px; margin: 10px; border: 2px solid #ffc107; border-radius: 5px;">
-        <strong>DEBUG INFO:</strong><br>
-        Notifications count: ${fn:length(notifications)}<br>
-        Unread count: ${unreadNotificationCount}<br>
-        Admin session: ${not empty sessionScope.admin ? 'YES' : 'NO'}<br>
-        <c:if test="${not empty notifications}">
-            First notification: ${notifications[0].title}<br>
-        </c:if>
-    </div>
-</c:if>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/frontend/css/adminCss/adminHeader.css">
 <header class="admin-header">
     <div class="header-right">
-        <%--        <a href="${pageContext.request.contextPath}/frontend/admin/chatWithCus.jsp">--%>
-        <%--            <i class="fa-solid fa-comment"></i>--%>
-        <%--        </a>--%>
         <div class="admin-notification">
             <a href="javascript:void(0)" onclick="toggleNotificationDropdown()">
                 <i class="fa-regular fa-bell"></i>
@@ -31,11 +18,7 @@
             <div id="notificationDropdown" class="notification-dropdown">
                 <div class="notification-header">
                     <h4>Thông báo (${fn:length(notifications)})</h4>
-                    <c:if test="${unreadNotificationCount > 0}">
-                        <a href="javascript:void(0)" onclick="markAllAsRead()" title="Đánh dấu tất cả đã đọc">
-                            <i class="fa-solid fa-check-double"></i>
-                        </a>
-                    </c:if>
+                    <a href="${pageContext.request.contextPath}/admin/notifications">Xem tất cả</a>
                 </div>
 
                 <c:choose>
@@ -95,6 +78,24 @@
     </div>
 </header>
 
+<div class="noti-modal-overlay" id="header-noti-modal" onclick="closeHeaderNotiModal()">
+    <div class="noti-modal-box" onclick="event.stopPropagation()">
+        <div class="noti-modal-header">
+            <i class="fa-solid fa-bell"></i>
+            <h3>Chi tiết thông báo</h3>
+            <button class="noti-modal-close" onclick="closeHeaderNotiModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="noti-modal-body">
+            <p id="header-noti-modal-message"></p>
+        </div>
+        <div class="noti-modal-footer">
+            <button class="btn-close-modal" onclick="closeHeaderNotiModal()">Đóng</button>
+        </div>
+    </div>
+</div>
+
 <script>
     function toggleNotificationDropdown() {
         const dropdown = document.getElementById("notificationDropdown");
@@ -111,11 +112,20 @@
     });
 
     function openNotificationDetail(id, message) {
-        alert(message);
-        markAsRead(id, function () {
-            setTimeout(() => location.reload(), 300);
-        });
+        document.getElementById('header-noti-modal-message').innerText = message;
+        document.getElementById('header-noti-modal').classList.add('show');
+        document.getElementById('notificationDropdown').style.display = 'none';
+        markAsRead(id, null);
     }
+
+    function closeHeaderNotiModal() {
+        document.getElementById('header-noti-modal').classList.remove('show');
+        location.reload();
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeHeaderNotiModal();
+    });
 
     /**
      * Đánh dấu 1 thông báo đã đọc
