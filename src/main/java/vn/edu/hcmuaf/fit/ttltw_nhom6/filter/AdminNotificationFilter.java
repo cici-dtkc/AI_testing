@@ -10,7 +10,7 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
 
 import java.io.IOException;
 import java.util.List;
-@WebFilter("/frontend/admin/*")
+@WebFilter(urlPatterns = {"/admin/*", "/frontend/admin/*"})
 public class AdminNotificationFilter implements Filter {
     private NotificationDAO notificationDAO;
 
@@ -34,8 +34,8 @@ public class AdminNotificationFilter implements Filter {
             if (currentUser != null && isAdmin != null && isAdmin) {
                 try {
                     // Load notifications cho admin
-                    List<Notification> notifications = notificationDAO.getRecentForAdmin(10);
-                    int unreadCount = notificationDAO.countUnreadForAdmin();
+                    List<Notification> notifications = notificationDAO.getRecentForAdminViolationOnly(10);
+                    int unreadCount = notificationDAO.countUnreadViolationForAdmin();
 
                     request.setAttribute("notifications", notifications);
                     request.setAttribute("unreadNotificationCount", unreadCount);

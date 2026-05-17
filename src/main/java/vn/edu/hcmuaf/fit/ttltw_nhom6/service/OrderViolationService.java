@@ -39,7 +39,8 @@ public class OrderViolationService {
                     userId,
                     username,
                     "HỦY ĐƠN HÀNG NHIỀU LẦN",
-                    String.format("Đã hủy %d đơn hàng trong vòng 1 giờ. Tài khoản tự động khóa 24 giờ.", cancelCount)
+                    String.format("Đã hủy %d đơn hàng trong vòng 1 giờ. Tài khoản tự động khóa 24 giờ.", cancelCount),
+                    "USER_VIOLATION_CANCEL"
             );
         }
     }
@@ -64,7 +65,8 @@ public class OrderViolationService {
                     user.getId(),
                     user.getFullName() != null ? user.getFullName() : username,
                     "ĐĂNG NHẬP THẤT BẠI NHIỀU LẦN",
-                    "Đã tự động khóa tài khoản 15 phút do đăng nhập thất bại 5 lần liên tiếp."
+                    "Đã tự động khóa tài khoản 15 phút do đăng nhập thất bại 5 lần liên tiếp.",
+                    "USER_VIOLATION_LOGIN"
             );
         }
     }
