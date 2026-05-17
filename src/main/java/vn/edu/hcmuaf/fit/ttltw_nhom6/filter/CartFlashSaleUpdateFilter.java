@@ -30,7 +30,6 @@ public class CartFlashSaleUpdateFilter implements Filter {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String uri = httpRequest.getRequestURI();
-
         if (uri.contains("/login") || uri.contains("/logout")) {
             chain.doFilter(request, response);
             return;

@@ -94,12 +94,12 @@
             </a>
 
 
-            <%--            <a href="getVourcher.jsp">--%>
-            <%--                <div class="icon-item">--%>
-            <%--                    <i class="fa-solid fa-money-bill"></i>--%>
-            <%--                    <p>Săn voucher</p>--%>
-            <%--                </div>--%>
-            <%--            </a>--%>
+            <a href="${pageContext.request.contextPath}/flash-sale">
+                <div class="icon-item">
+                    <i class="fa-solid fa-money-bill"></i>
+                    <p>Săn voucher</p>
+                </div>
+            </a>
 
             <%--            <a href="../nguoiB/profile.jsp">--%>
             <%--                <div class="icon-item">--%>

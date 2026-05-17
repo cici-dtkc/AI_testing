@@ -125,7 +125,7 @@ public class FlashSaleComicsDAO extends ADao {
                      FROM order_items oi
                      JOIN orders o ON oi.order_id = o.id
                      WHERE oi.comic_id = c.id 
-                       AND o.status IN ('pending', 'confirmed', 'shipping', 'completed')),
+                       AND o.status NOT IN ('cancelled', 'returned')),
                     0
                 ) AS sold_count,
                 ROW_NUMBER() OVER (

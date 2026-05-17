@@ -68,7 +68,8 @@
 <c:if test="${activeFlashSale != null}">
     <div class="flash-sale-header">
         <h2 class="flash-sale-name">${activeFlashSale.name}</h2>
-        <p class="flash-sale-description">Giảm giá đến <strong><fmt:formatNumber value="${activeFlashSale.discountPercent}" pattern="#"/>%</strong></p>
+        <p class="flash-sale-description">Giảm giá đến <strong><fmt:formatNumber
+                value="${activeFlashSale.discountPercent}" pattern="#"/>%</strong></p>
     </div>
 </c:if>
 <div class="container-item" id="flashSaleProducts">
@@ -81,7 +82,7 @@
                         <img src="${comic.image_url}"
                              alt="${comic.name}"
                              class="product-image"
-                             onerror="this.src='${pageContext.request.contextPath}/img/no-image.png'" />
+                             onerror="this.src='${pageContext.request.contextPath}/img/no-image.png'"/>
 
                         <h3 class="product-title">${comic.name}</h3>
 
@@ -101,13 +102,14 @@
                         </div>
 
                         <div class="progress-bar">
-                            <c:set var="soldPercent" value="${(comic.sold_count / 100) * 100}" />
+                            <c:set var="soldPercent" value="${(comic.sold_count / 100) * 100}"/>
                             <c:if test="${soldPercent > 100}">
-                                <c:set var="soldPercent" value="100" />
+                                <c:set var="soldPercent" value="100"/>
                             </c:if>
                             <div class="progress-fill" style="width: ${soldPercent}%;"></div>
                         </div>
-                        <div class="sold-text">Đã bán ${comic.sold_count}</div>
+<%--                        <div class="sold-text">Đã bán ${comic.sold_count}</div>--%>
+                        <div class="sold-text">Đã bán <strong>${comic.sold_count}</strong></div>
 
                         <button class="add-to-cart" onclick="addToCart(${comic.id}, event)">
                             <i class="fas fa-cart-plus"></i> Thêm giỏ hàng
@@ -125,7 +127,7 @@
     </c:choose>
 </div>
 
-<jsp:include page="/frontend/public/Footer.jsp" />
+<jsp:include page="/frontend/public/Footer.jsp"/>
 
 <script src="${pageContext.request.contextPath}/js/flash-sale.js"></script>
 

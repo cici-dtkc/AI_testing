@@ -51,12 +51,13 @@ public class LoginServlet extends HttpServlet {
         }
 
         User user = userOpt.get();
-        // Check khóa vĩnh viễn
+        // Check khóa vĩnh viễn / chưa kích hoạt
         if (!user.isActive()) {
-            request.setAttribute("error", "Tai khoan cua ban da bi khoa vinh vien!");
+            request.setAttribute("error", "Tài khoản của bạn chưa được kích hoạt hoặc đã bị khóa!");
             request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
             return;
         }
+
 
         // Check khóa tạm
         if (user.getLockedUntil() != null && user.getLockedUntil().isAfter(LocalDateTime.now())) {
