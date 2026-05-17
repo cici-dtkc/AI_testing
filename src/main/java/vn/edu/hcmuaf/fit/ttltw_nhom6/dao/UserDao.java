@@ -40,6 +40,7 @@ public class UserDao {
                         .findOne()
         );
     }
+
     // Thêm user mới
     public void insert(User user) {
         jdbi.useHandle(handle ->
@@ -50,8 +51,29 @@ public class UserDao {
         );
     }
 
+    public void insertInactive(User user) {
+        jdbi.useHandle(handle ->
+                handle.createUpdate("INSERT INTO Users (username, email, phone, password_hash, full_name, created_at, is_active) " +
+                                "VALUES (:username, :email, :phone, :passwordHash, :fullName, NOW(), 0)")
+                        .bindBean(user)
+                        .execute()
+        );
+    }
 
+    public boolean activateUserByEmail(String email) {
+        return jdbi.withHandle(handle ->
+                handle.createUpdate("UPDATE users SET is_active = 1, updated_at = NOW() WHERE email = :email")
+                        .bind("email", email).execute() > 0);
+    }
 
+    public void deleteInactiveUser(String username, String email) {
+        jdbi.useHandle(handle ->
+                handle.createUpdate("DELETE FROM users WHERE (username = :username OR email = :email) AND is_active = 0")
+                        .bind("username", username)
+                        .bind("email", email)
+                        .execute()
+        );
+    }
     //   2 cái này cho đăng kí nó trùng username hay mail nó khỏi error 500
     public Optional<User> findByUsername(String username) {
         return jdbi.withHandle(handle ->
@@ -70,6 +92,7 @@ public class UserDao {
                         .findOne()
         );
     }
+
     // Update mật khẩu theo email của authen
     public void updatePassword(String email, String newPasswordHash) {
         jdbi.useHandle(handle ->
@@ -489,10 +512,10 @@ public class UserDao {
     public int userPoint(int id) {
         return jdbi.withHandle(handle ->
                 handle.createQuery("select points from Users where id = :ue")
-                                    .bind("ue", id)
-                                    .mapTo(Integer.class)
-                                    .one()
-                );
+                        .bind("ue", id)
+                        .mapTo(Integer.class)
+                        .one()
+        );
     }
 
     public boolean updateAvatar(int userId, String avatarUrl) {
