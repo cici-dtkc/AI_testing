@@ -25,7 +25,7 @@ public class UserDao {
     // Tìm user theo username hoặc email
     public Optional<User> findByUsernameOrEmail(String usernameOrEmail) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM Users WHERE (username = :ue OR email = :ue OR phone = :ue) AND is_deleted = 0 AND is_active = 1")
+                handle.createQuery("SELECT * FROM Users WHERE (username = :ue OR email = :ue OR phone = :ue) AND is_deleted = 0")
                         .bind("ue", usernameOrEmail)
                         .mapToBean(User.class)
                         .findOne()
@@ -40,6 +40,7 @@ public class UserDao {
                         .findOne()
         );
     }
+
     // Thêm user mới
     public void insert(User user) {
         jdbi.useHandle(handle ->
@@ -50,8 +51,29 @@ public class UserDao {
         );
     }
 
+    public void insertInactive(User user) {
+        jdbi.useHandle(handle ->
+                handle.createUpdate("INSERT INTO Users (username, email, phone, password_hash, full_name, created_at, is_active) " +
+                                "VALUES (:username, :email, :phone, :passwordHash, :fullName, NOW(), 0)")
+                        .bindBean(user)
+                        .execute()
+        );
+    }
 
+    public boolean activateUserByEmail(String email) {
+        return jdbi.withHandle(handle ->
+                handle.createUpdate("UPDATE users SET is_active = 1, updated_at = NOW() WHERE email = :email")
+                        .bind("email", email).execute() > 0);
+    }
 
+    public void deleteInactiveUser(String username, String email) {
+        jdbi.useHandle(handle ->
+                handle.createUpdate("DELETE FROM users WHERE (username = :username OR email = :email) AND is_active = 0")
+                        .bind("username", username)
+                        .bind("email", email)
+                        .execute()
+        );
+    }
     //   2 cái này cho đăng kí nó trùng username hay mail nó khỏi error 500
     public Optional<User> findByUsername(String username) {
         return jdbi.withHandle(handle ->
@@ -70,6 +92,7 @@ public class UserDao {
                         .findOne()
         );
     }
+
     // Update mật khẩu theo email của authen
     public void updatePassword(String email, String newPasswordHash) {
         jdbi.useHandle(handle ->
@@ -465,6 +488,7 @@ public class UserDao {
         // 2. Kiểm tra đăng nhập thất bại
         User userOpt = getUserById(userId);
         if (userOpt != null) {
+            System.out.println("Failed attempts: " + userOpt.getFailedLoginAttempts());
             int failCount = userOpt.getFailedLoginAttempts();
             if (failCount >= 5) {
                 violations.add(String.format("Đăng nhập thất bại %d lần liên tiếp", failCount));
@@ -488,16 +512,35 @@ public class UserDao {
     public int userPoint(int id) {
         return jdbi.withHandle(handle ->
                 handle.createQuery("select points from Users where id = :ue")
-                                    .bind("ue", id)
-                                    .mapTo(Integer.class)
-                                    .one()
-                );
+                        .bind("ue", id)
+                        .mapTo(Integer.class)
+                        .one()
+        );
     }
 
     public boolean updateAvatar(int userId, String avatarUrl) {
         return jdbi.withHandle(handle ->
                 handle.createUpdate("UPDATE users SET avatar_url = :avatar, updated_at = NOW() WHERE id = :id")
                         .bind("avatar", avatarUrl)
+                        .bind("id", userId)
+                        .execute() > 0
+        );
+    }
+
+    public boolean unlockUserAccount(int userId) {
+        return jdbi.withHandle(handle ->
+                handle.createUpdate("UPDATE users SET is_active = 1, locked_until = NULL, " +
+                                "deleted_at = NULL, failed_login_attempts = 0, updated_at = NOW() WHERE id = :id")
+                        .bind("id", userId)
+                        .execute() > 0
+        );
+    }
+
+    public boolean lockUserTemporary(int userId, int minutes) {
+        return jdbi.withHandle(handle ->
+                handle.createUpdate("UPDATE users SET locked_until = DATE_ADD(NOW(), INTERVAL :minutes MINUTE), " +
+                                "updated_at = NOW() WHERE id = :id")
+                        .bind("minutes", minutes)
                         .bind("id", userId)
                         .execute() > 0
         );

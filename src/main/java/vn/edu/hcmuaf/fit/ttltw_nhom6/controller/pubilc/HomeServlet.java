@@ -58,9 +58,6 @@ public class HomeServlet extends HttpServlet {
                 currentUser = (User) session.getAttribute("currentUser");
                 if (currentUser != null) {
                     userId = currentUser.getId();
-                    System.out.println("✓ Found user from session");
-                    System.out.println("  - User ID: " + userId);
-                    System.out.println("  - Username: " + currentUser.getUsername());
                 }
             }
 

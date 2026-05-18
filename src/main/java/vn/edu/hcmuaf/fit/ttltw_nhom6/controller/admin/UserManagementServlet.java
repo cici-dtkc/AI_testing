@@ -39,10 +39,26 @@ public class UserManagementServlet extends HttpServlet {
                 users = userDao.getAllCustomers();
             }
 
+            String statusFilter = request.getParameter("status");
 
-            if (users != null && !users.isEmpty()) {
-                System.out.println("First user: " + users.get(0));
+            if (statusFilter != null && !statusFilter.trim().isEmpty()) {
+                if ("locked".equals(statusFilter)) {
+                    users = users.stream()
+                            .filter(u -> !u.isActive() ||
+                                    (u.getLockedUntil() != null && u.getLockedUntil().isAfter(java.time.LocalDateTime.now())))
+                            .collect(java.util.stream.Collectors.toList());
+                } else if ("active".equals(statusFilter)) {
+                    users = users.stream()
+                            .filter(u -> u.isActive() &&
+                                    (u.getLockedUntil() == null || u.getLockedUntil().isBefore(java.time.LocalDateTime.now())))
+                            .collect(java.util.stream.Collectors.toList());
+                }
             }
+
+
+//            if (users != null && !users.isEmpty()) {
+//                System.out.println("First user: " + users.get(0));
+//            }
 
             request.setAttribute("users", users);
             request.getRequestDispatcher("/frontend/admin/userManagement.jsp").forward(request, response);
@@ -99,6 +115,14 @@ public class UserManagementServlet extends HttpServlet {
                     response.getWriter().write("{\"status\":\"error\",\"message\":\"Khóa tài khoản thất bại\"}");
                 }
 
+            } else if ("unlock".equals(action)) {
+                int userId = Integer.parseInt(request.getParameter("userId"));
+                boolean success = userDao.unlockUserAccount(userId);
+                if (success) {
+                    response.getWriter().write("{\"status\":\"success\",\"message\":\"Đã mở khóa tài khoản\"}");
+                } else {
+                    response.getWriter().write("{\"status\":\"error\",\"message\":\"Mở khóa thất bại\"}");
+                }
             } else if ("syncSpent".equals(action)) {
                 String syncType = request.getParameter("syncType");
 
@@ -125,10 +149,9 @@ public class UserManagementServlet extends HttpServlet {
                             "{\"status\":\"error\",\"message\":\"syncType không hợp lệ\"}"
                     );
                 }
-            }  else if ("check-violation".equals(action)) {
+            } else if ("check-violation".equals(action)) {
                 handleCheckViolation(request, response);
-            }
-            else {
+            } else {
                 response.getWriter().write("{\"status\":\"error\",\"message\":\"Action không hợp lệ\"}");
             }
 

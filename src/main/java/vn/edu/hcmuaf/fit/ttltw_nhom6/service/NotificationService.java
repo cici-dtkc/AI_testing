@@ -23,7 +23,9 @@ public class NotificationService {
     /**
      * Thông báo cho admin khi user vi phạm rule
      */
-    public void notifyAdminUserViolation(int violatorUserId, String violatorName, String ruleType, String detail) {
+    public void notifyAdminUserViolation(int violatorUserId, String violatorName, String ruleType, String detail, String type) {
+        boolean alreadyNotified = notificationDao.existsUnreadViolationForUser(violatorUserId, type);
+        if (alreadyNotified) return;
         String fullMessage = String.format(
                 "User vi phạm quy định\n\n" +
                         "User: %s (ID: %d)\n" +
@@ -33,9 +35,9 @@ public class NotificationService {
         );
 
         Notification noti = new Notification();
-        noti.setUserId(1); // admin
+        noti.setUserId(1);
         noti.setMessage(fullMessage);
-        noti.setType("USER_VIOLATION");
+        noti.setType(type);
 
         notificationDao.insertForAdmin(noti);
     }
