@@ -406,3 +406,7 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = url;
     }, 30000);
 })();
+
+document.getElementById('expenditureFilter').addEventListener('change', function () {
+    document.getElementById('searchForm').submit();
+});
