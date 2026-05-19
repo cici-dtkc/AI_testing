@@ -28,7 +28,6 @@ public class UserManagementServlet extends HttpServlet {
             String levelFilter = request.getParameter("level");
             String statusFilter = request.getParameter("status");
             String expenditure = request.getParameter("expenditure");
-            System.out.println(expenditure+" he");
             List<User> users;
 
             if (search != null && !search.trim().isEmpty() && levelFilter != null && !levelFilter.trim().isEmpty()) {
@@ -59,12 +58,10 @@ public class UserManagementServlet extends HttpServlet {
             if(expenditure != null && !expenditure.trim().isEmpty()) {
                 System.out.println("hello");
                 if("high-low".equals(expenditure)) {
-                    System.out.println("hel");
                     users = users.stream().
                             sorted(java.util.Comparator.comparing(User::getTotalSpent).reversed())
                             .collect(java.util.stream.Collectors.toList());
                 }else if("low-high".equals(expenditure)){
-                    System.out.println("hi");
                     users = users.stream().
                             sorted(java.util.Comparator.comparing(User::getTotalSpent))
                             .collect(java.util.stream.Collectors.toList());
