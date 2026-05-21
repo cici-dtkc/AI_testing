@@ -30,7 +30,6 @@
         };
     </script>
 
-    <%-- Xóa ngay để không hiện lại khi refresh --%>
     <c:remove var="successMessage" scope="session"/>
 </c:if>
 
@@ -94,19 +93,13 @@
             </a>
 
 
-            <a href="${pageContext.request.contextPath}/flash-sale">
+            <a href="${pageContext.request.contextPath}/voucher">
                 <div class="icon-item">
-                    <i class="fa-solid fa-money-bill"></i>
-                    <p>Săn voucher</p>
+                    <i class="fa-solid fa-ticket"></i>
+                    <p>Ví voucher</p>
                 </div>
             </a>
 
-            <%--            <a href="../nguoiB/profile.jsp">--%>
-            <%--                <div class="icon-item">--%>
-            <%--                    <i class="fa-solid fa-wallet"></i>--%>
-            <%--                    <p>Ví Voucher</p>--%>
-            <%--                </div>--%>
-            <%--            </a>--%>
             <a href="${pageContext.request.contextPath}/wishlist">
                 <div class="icon-item">
                     <i class="fa-solid fa-list"></i>
