@@ -1,62 +1,220 @@
-.voucher-card {
-    height: 200px;
-    width: 300px;
-}
-
-.voucher-group {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-}
-
-.voucher-group h1 {
-    margin: 100px 0 70px 0;
-    text-align: center;
-    font-size: 48px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-    text-transform: uppercase;
-    text-shadow: 4px 4px 4px #551010;
-}
-
 .container {
-    background-color:#dc2e2e;
+    background-color: #dc2e2e;
     display: flex;
     justify-content: center;
     padding-bottom: 100px;
 }
 
-.voucher-time {
+.voucher-group {
     display: flex;
-    flex-wrap: wrap;
-    width: 1000px;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
-.voucher-ship {
-    display: flex;
-    flex-wrap: wrap;
-    width: 1000px;
-    justify-content: center;
+.voucher-group h1 {
+    margin: 80px 0 40px 0;
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 6px rgba(85, 16, 16, 0.7);
+    letter-spacing: 2px;
+    width: 100%;
 }
 
+.voucher-time,
+.voucher-ship,
 .voucher-other {
     display: flex;
     flex-wrap: wrap;
     width: 1000px;
     justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
 }
 
 .voucher-card {
-    margin: 10px;
+    width: 300px;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.voucher-popup {
-    background: rgba(0, 0, 0, 0.5);
+
+.voucher-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
 }
-.voucher-popup-content{
-    position: fixed;
-    top: calc(50% - 100px);
-    left: calc(50% - 160px);
+
+.voucher-side-bar {
+    width: 8px;
+    flex-shrink: 0;
+    background: #dc2e2e;
+}
+
+.voucher-side-bar.shipping {
+    background: #1565c0;
+}
+
+.voucher-side-bar.product {
+    background: #e65100;
+}
+
+.voucher-card-inner {
+    flex: 1;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.voucher-badge-row {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.voucher-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    line-height: 1.6;
+}
+
+.badge-target-shipping {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.badge-target-product {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.badge-status-unused {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.badge-status-expired {
+    background: #f5f5f5;
+    color: #757575;
+}
+
+.badge-single-use {
+    background: #fce4ec;
+    color: #880e4f;
+}
+
+.voucher-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.3;
+}
+
+.voucher-desc {
+    font-size: 11.5px;
+    color: #666;
+    line-height: 1.45;
+}
+
+.voucher-code-box {
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    background: #fafafa;
+    border: 1.5px dashed #bbb;
+    border-radius: 6px;
+    display: inline-block;
+    color: #333;
+    width: fit-content;
+}
+
+.voucher-qty-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.voucher-qty-bar {
+    height: 4px;
+    background: #eee;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.voucher-qty-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: #dc2e2e;
+    transition: width 0.3s ease;
+}
+
+.voucher-qty-fill.depleted {
+    background: #9e9e9e;
+}
+
+.voucher-qty-text {
+    font-size: 10.5px;
+    color: #888;
+}
+
+.voucher-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid #f0f0f0;
+    margin-top: auto;
+}
+
+.voucher-expiry {
+    font-size: 11px;
+    color: #888;
+}
+
+.voucher-expiry.expired-text {
+    color: #c62828;
+    font-weight: 600;
+}
+
+.voucher-save-btn {
+    font-size: 12px;
+    padding: 5px 16px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+}
+
+.voucher-save-btn:hover {
+    background: #0056b3;
+}
+
+.voucher-save-btn.saved {
+    background: #2e7d32 !important;
+    cursor: default;
+}
+
+.voucher-card.expired-card {
+    opacity: 0.6;
+}
+
+.voucher-card.expired-card .voucher-side-bar {
+    background: #9e9e9e !important;
 }

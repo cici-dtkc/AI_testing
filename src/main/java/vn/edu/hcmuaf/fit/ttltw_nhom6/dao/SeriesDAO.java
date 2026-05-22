@@ -176,10 +176,10 @@ public class SeriesDAO extends ADao {
         String sql;
         if (isHidden == null) {
             sql = "SELECT * FROM series WHERE is_deleted = 0 " +
-                    "ORDER BY created_at DESC LIMIT :limit OFFSET :offset";
+                    "ORDER BY series_name ASC LIMIT :limit OFFSET :offset";
         } else {
             sql = "SELECT * FROM series WHERE is_deleted = 0 AND is_hidden = :hidden " +
-                    "ORDER BY created_at DESC LIMIT :limit OFFSET :offset";
+                    "ORDER BY series_name ASC LIMIT :limit OFFSET :offset";
         }
 
         List<Series> result = jdbi.withHandle(handle -> {
@@ -229,11 +229,11 @@ public class SeriesDAO extends ADao {
         String sql;
         if (isHidden == null) {
             sql = "SELECT * FROM series WHERE is_deleted = 0 " +
-                    "AND series_name LIKE :keyword ORDER BY created_at DESC";
+                    "AND series_name LIKE :keyword ORDER BY series_name ASC";
         } else {
             sql = "SELECT * FROM series WHERE is_deleted = 0 " +
                     "AND series_name LIKE :keyword AND is_hidden = :hidden " +
-                    "ORDER BY created_at DESC";
+                    "ORDER BY series_name ASC";
         }
 
         List<Series> result = jdbi.withHandle(handle -> {

@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/fontend/admin/promotion.jsp" value="file://$PROJECT_DIR$/src/main/webapp/fontend/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/frontend/nguoiB/orders.jsp" value="file://$PROJECT_DIR$/src/main/webapp/frontend/nguoiB" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/frontend/public/getVourcher.jsp" value="file://$PROJECT_DIR$/src/main/webapp/frontend/public" />
       </map>
     </option>
   </component>

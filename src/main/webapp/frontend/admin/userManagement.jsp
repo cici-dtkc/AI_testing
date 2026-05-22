@@ -43,6 +43,12 @@
                         <option value="active" ${param.status == 'active' ? 'selected' : ''}>Đang hoạt động</option>
                         <option value="locked" ${param.status == 'locked' ? 'selected' : ''}>Đã bị khóa</option>
                     </select>
+
+                    <select id="expenditureFilter" name="expenditure" class="level-filter">
+                        <option value="">Ngẫu nhiên mức chi tiêu</option>
+                        <option value="low-high" ${param.expenditure == 'low-high' ? 'selected' : ''}>Thấp lên cao</option>
+                        <option value="high-low" ${param.expenditure == 'high-low' ? 'selected' : ''}>Cao xuống thấp</option>
+                    </select>
                 </form>
             </div>
             <table id="userTable" class="user-table">

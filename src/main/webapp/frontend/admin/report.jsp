@@ -115,6 +115,167 @@
                     </table>
                 </div>
             </div>
+
+
+            <div class="voucher-stats-wrapper">
+
+                <div class="voucher-ranking">
+                    <h3>Top 5 voucher được dùng nhiều nhất</h3>
+                    <div id="voucher-ranking-list">
+
+                        <!--1-->
+                        <div class="vs-rank-item">
+                            <div class="vs-rank-badge">1</div>
+                            <div class="vs-rank-info">
+                                <div class="vs-rank-name">NEWUSER</div>
+                                <div class="vs-rank-bar-wrap"><div class="vs-rank-bar" style="width:100%"></div></div>
+                                <span class="vs-usage-label">210/500 lượt · 42%</span>
+                            </div>
+                            <div class="vs-rank-usage">210 lượt</div>
+                        </div>
+
+                        <!--1-->
+                        <div class="vs-rank-item">
+                            <div class="vs-rank-badge">2</div>
+                            <div class="vs-rank-info">
+                                <div class="vs-rank-name">SALE2024</div>
+                                <div class="vs-rank-bar-wrap"><div class="vs-rank-bar" style="width:62%"></div></div>
+                                <span class="vs-usage-label">130/200 lượt · 65%</span>
+                            </div>
+                            <div class="vs-rank-usage">130 lượt</div>
+                        </div>
+
+                        <!--1-->
+                        <div class="vs-rank-item">
+                            <div class="vs-rank-badge">3</div>
+                            <div class="vs-rank-info">
+                                <div class="vs-rank-name">SUMMER30</div>
+                                <div class="vs-rank-bar-wrap"><div class="vs-rank-bar" style="width:42%"></div></div>
+                                <span class="vs-usage-label">88/100 lượt · 88%</span>
+                            </div>
+                            <div class="vs-rank-usage">88 lượt</div>
+                        </div>
+
+                        <!--1-->
+                        <div class="vs-rank-item">
+                            <div class="vs-rank-badge">4</div>
+                            <div class="vs-rank-info">
+                                <div class="vs-rank-name">FLASH50</div>
+                                <div class="vs-rank-bar-wrap"><div class="vs-rank-bar" style="width:24%"></div></div>
+                                <span class="vs-usage-label">50/50 lượt · 100%</span>
+                            </div>
+                            <div class="vs-rank-usage">50 lượt</div>
+                        </div>
+
+                        <!--1-->
+                        <div class="vs-rank-item">
+                            <div class="vs-rank-badge">5</div>
+                            <div class="vs-rank-info">
+                                <div class="vs-rank-name">FREESHIP</div>
+                                <div class="vs-rank-bar-wrap"><div class="vs-rank-bar" style="width:21%"></div></div>
+                                <span class="vs-usage-label">45/150 lượt · 30%</span>
+                            </div>
+                            <div class="vs-rank-usage">45 lượt</div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="voucher-table-box">
+                    <h3>Danh sách voucher</h3>
+                    <table class="voucher-table">
+                        <thead>
+                        <tr>
+                            <th>Mã voucher</th>
+                            <th>Giảm</th>
+                            <th>Trạng thái</th>
+                            <th>Lượt dùng / Tổng</th>
+                            <th>Doanh thu tiết kiệm</th>
+                        </tr>
+                        </thead>
+                    </table>
+
+                    <div class="voucher-tbody-scroll">
+                        <table class="voucher-table">
+                            <tbody>
+
+                            <tr>
+                                <td><strong>SALE2024</strong></td>
+                                <td>20%</td>
+                                <td><span class="vs-badge badge-ended">Hết hạn</span></td>
+                                <td>
+                                    <div class="usage-wrap">
+                                        <span class="usage-text">130/200</span>
+                                    </div>
+                                </td>
+                                <td>2.600.000đ</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SUMMER30</strong></td>
+                                <td>30%</td>
+                                <td><span class="vs-badge badge-active">Đang hoạt động</span></td>
+                                <td>
+                                    <div class="usage-wrap">
+                                        <span class="usage-text">88/100</span>
+                                    </div>
+                                </td>
+                                <td>2.640.000đ</td>
+                            </tr>
+                            <tr>
+                                <td><strong>FLASH50</strong></td>
+                                <td>50%</td>
+                                <td><span class="vs-badge badge-ended">Hết hạn</span></td>
+                                <td>
+                                    <div class="usage-wrap">
+                                        <span class="usage-text">50/50</span>
+                                    </div>
+                                </td>
+                                <td>5.000.000đ</td>
+                            </tr>
+                            <tr>
+                                <td><strong>FREESHIP</strong></td>
+                                <td>20.000đ</td>
+                                <td><span class="vs-badge badge-active">Đang hoạt động</span></td>
+                                <td>
+                                    <div class="usage-wrap">
+                                        <span class="usage-text">45/150</span>
+                                    </div>
+                                </td>
+                                <td>900.000đ</td>
+                            </tr>
+                            <tr>
+                                <td><strong>VIP10</strong></td>
+                                <td>10%</td>
+                                <td><span class="vs-badge badge-scheduled">Sắp diễn ra</span></td>
+                                <td>
+                                    <div class="usage-wrap">
+                                        <span class="usage-text">0/300</span>
+                                    </div>
+                                </td>
+                                <td>0đ</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TETsale</strong></td>
+                                <td>25%</td>
+                                <td><span class="vs-badge badge-ended">Hết hạn</span></td>
+                                <td>
+                                    <div class="usage-wrap">
+                                        <span class="usage-text">75/100</span>
+                                    </div>
+                                </td>
+                                <td>3.750.000đ</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+
         </div>
     </div>
 </div>

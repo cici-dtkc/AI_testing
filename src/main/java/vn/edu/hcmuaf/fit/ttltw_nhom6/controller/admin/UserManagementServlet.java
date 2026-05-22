@@ -26,7 +26,8 @@ public class UserManagementServlet extends HttpServlet {
 
             String search = request.getParameter("search");
             String levelFilter = request.getParameter("level");
-
+            String statusFilter = request.getParameter("status");
+            String expenditure = request.getParameter("expenditure");
             List<User> users;
 
             if (search != null && !search.trim().isEmpty() && levelFilter != null && !levelFilter.trim().isEmpty()) {
@@ -39,8 +40,6 @@ public class UserManagementServlet extends HttpServlet {
                 users = userDao.getAllCustomers();
             }
 
-            String statusFilter = request.getParameter("status");
-
             if (statusFilter != null && !statusFilter.trim().isEmpty()) {
                 if ("locked".equals(statusFilter)) {
                     users = users.stream()
@@ -51,6 +50,20 @@ public class UserManagementServlet extends HttpServlet {
                     users = users.stream()
                             .filter(u -> u.isActive() &&
                                     (u.getLockedUntil() == null || u.getLockedUntil().isBefore(java.time.LocalDateTime.now())))
+                            .collect(java.util.stream.Collectors.toList());
+                }
+            }
+
+
+            if(expenditure != null && !expenditure.trim().isEmpty()) {
+                System.out.println("hello");
+                if("high-low".equals(expenditure)) {
+                    users = users.stream().
+                            sorted(java.util.Comparator.comparing(User::getTotalSpent).reversed())
+                            .collect(java.util.stream.Collectors.toList());
+                }else if("low-high".equals(expenditure)){
+                    users = users.stream().
+                            sorted(java.util.Comparator.comparing(User::getTotalSpent))
                             .collect(java.util.stream.Collectors.toList());
                 }
             }

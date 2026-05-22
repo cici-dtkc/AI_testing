@@ -390,19 +390,23 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-(function autoRefresh() {
-    setInterval(function () {
-        if (document.querySelector('.popup-overlay[style*="display: flex"]')) return;
+// (function autoRefresh() {
+//     setInterval(function () {
+//         if (document.querySelector('.popup-overlay[style*="display: flex"]')) return;
+//
+//         const currentSearch = document.getElementById('searchInput').value;
+//         const currentLevel  = document.getElementById('levelFilter').value;
+//         let url = BASE_URL + '/admin/user-management';
+//         const params = [];
+//
+//         if (currentSearch) params.push('search=' + encodeURIComponent(currentSearch));
+//         if (currentLevel)  params.push('level='  + encodeURIComponent(currentLevel));
+//         if (params.length) url += '?' + params.join('&');
+//
+//         window.location.href = url;
+//     }, 30000);
+// })();
 
-        const currentSearch = document.getElementById('searchInput').value;
-        const currentLevel  = document.getElementById('levelFilter').value;
-        let url = BASE_URL + '/admin/user-management';
-        const params = [];
-
-        if (currentSearch) params.push('search=' + encodeURIComponent(currentSearch));
-        if (currentLevel)  params.push('level='  + encodeURIComponent(currentLevel));
-        if (params.length) url += '?' + params.join('&');
-
-        window.location.href = url;
-    }, 30000);
-})();
+document.getElementById('expenditureFilter').addEventListener('change', function () {
+    document.getElementById('searchForm').submit();
+});
