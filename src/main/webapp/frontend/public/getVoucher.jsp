@@ -25,317 +25,252 @@
 
         <div class="voucher-time">
             <h1>Ưu đãi khung giờ ngập tràn</h1>
-
-            <div class="voucher-card">
-                <div class="voucher-side-bar product"></div>
-                <div class="voucher-card-inner">
-                    <div class="voucher-badge-row">
+            <c:forEach var="v" items="${productVouchers}">
+                <c:set var="usedPct" value="${v.usedCount * 100 / v.quantity}"/>
+                <div class="voucher-card ${v.expired ? 'expired-card' : ''}">
+                    <div class="voucher-side-bar product"></div>
+                    <div class="voucher-card-inner">
+                        <div class="voucher-badge-row">
                         <span class="voucher-badge badge-target-product">
-                            <i class="fa-solid fa-tag" style="font-size:9px"></i> Sản phẩm
-                        </span>
-                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>
-                    </div>
-                    <div class="voucher-title">Giảm 10.000đ - Toàn sàn</div>
-                    <div class="voucher-desc">Đơn từ 130.000đ · Không áp dụng Manga, Ngoại văn</div>
-                    <div class="voucher-code-box">FHS10KT11</div>
-                    <div class="voucher-qty-wrap">
-                        <div class="voucher-qty-bar"><div class="voucher-qty-fill" style="width:30%"></div></div>
-                        <span class="voucher-qty-text">Còn 70/100 lượt</span>
-                    </div>
-                    <div class="voucher-footer">
-                        <span class="voucher-expiry">HSD: 30/11/2025</span>
-                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
+                            <i class="fa-solid fa-tag" style="font-size:9px"></i> Sản phẩm</span>
+                            <c:choose>
+                                <c:when test="${v.expired}">
+                                    <span class="voucher-badge badge-status-expired">Hết hạn</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="voucher-badge badge-status-unused">Chưa dùng</span>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:if test="${v.singleUse}">
+                                <span class="voucher-badge badge-single-use">1 lần/khách</span>
+                            </c:if>
+                        </div>
+
+                        <div class="voucher-title">
+                            <c:choose>
+                                <c:when test="${v.discountType == 'percent'}">
+                                    Giảm <fmt:formatNumber value="${v.discountValue}" maxFractionDigits="0"/>%
+                                </c:when>
+                                <c:otherwise>
+                                    Giảm <fmt:formatNumber value="${v.discountValue}" type="number"
+                                                           maxFractionDigits="0"/>đ
+                                </c:otherwise>
+                            </c:choose>
+                            - ${v.applyScope == 'all' ? 'Toàn sàn' : v.applyScope}
+                        </div>
+
+                        <div class="voucher-desc">
+                            <c:if test="${v.minOrderAmount != null && v.minOrderAmount > 0}">
+                                Đơn từ <fmt:formatNumber value="${v.minOrderAmount}" type="number"
+                                                         maxFractionDigits="0"/>đ ·
+                            </c:if>
+                            Áp dụng: ${v.applyScope == 'all' ? 'Toàn bộ sản phẩm' : (v.applyScope)}
+                        </div>
+
+                        <div class="voucher-code-box">${v.code}</div>
+                        <div class="voucher-qty-wrap">
+                            <div class="voucher-qty-bar">
+                                <div class="voucher-qty-fill ${v.quantity <= v.usedCount ? 'depleted' : ''}"
+                                     style="width:${usedPct}%"></div>
+                            </div>
+                            <span class="voucher-qty-text">Còn ${v.quantity - v.usedCount}/${v.quantity} lượt</span>
+                        </div>
+                        <div class="voucher-footer">
+                        <span class="voucher-expiry ${v.expired ? 'expired-text' : ''}">
+                            HSD: ${v.endDateFormatted}</span>
+                            <c:choose>
+                                <c:when test="${v.expired || v.quantity <= v.usedCount}">
+                                    <button class="voucher-save-btn" disabled>Hết</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="voucher-card">
-                <div class="voucher-side-bar product"></div>
-                <div class="voucher-card-inner">
-                    <div class="voucher-badge-row">
-                        <span class="voucher-badge badge-target-product">
-                            <i class="fa-solid fa-tag" style="font-size:9px"></i> Sản phẩm
-                        </span>
-                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>
-                    </div>
-                    <div class="voucher-title">Giảm 20.000đ - Toàn sàn</div>
-                    <div class="voucher-desc">Đơn từ 240.000đ · Không áp dụng Manga, Ngoại văn</div>
-                    <div class="voucher-code-box">FHS20KT11</div>
-                    <div class="voucher-qty-wrap">
-                        <div class="voucher-qty-bar"><div class="voucher-qty-fill" style="width:55%"></div></div>
-                        <span class="voucher-qty-text">Còn 45/100 lượt</span>
-                    </div>
-                    <div class="voucher-footer">
-                        <span class="voucher-expiry">HSD: 30/11/2025</span>
-                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="voucher-card">
-                <div class="voucher-side-bar product"></div>
-                <div class="voucher-card-inner">
-                    <div class="voucher-badge-row">
-                        <span class="voucher-badge badge-target-product">
-                            <i class="fa-solid fa-tag" style="font-size:9px"></i> Sản phẩm
-                        </span>
-                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>
-                    </div>
-                    <div class="voucher-title">Giảm 40.000đ - Toàn sàn</div>
-                    <div class="voucher-desc">Đơn từ 490.000đ · Không áp dụng Manga, Ngoại văn</div>
-                    <div class="voucher-code-box">FHS40KT11</div>
-                    <div class="voucher-qty-wrap">
-                        <div class="voucher-qty-bar"><div class="voucher-qty-fill" style="width:20%"></div></div>
-                        <span class="voucher-qty-text">Còn 80/100 lượt</span>
-                    </div>
-                    <div class="voucher-footer">
-                        <span class="voucher-expiry">HSD: 30/11/2025</span>
-                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="voucher-card">
-                <div class="voucher-side-bar product"></div>
-                <div class="voucher-card-inner">
-                    <div class="voucher-badge-row">
-                        <span class="voucher-badge badge-target-product">
-                            <i class="fa-solid fa-tag" style="font-size:9px"></i> Sản phẩm
-                        </span>
-                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>
-                    </div>
-                    <div class="voucher-title">Giảm 80.000đ - Toàn sàn</div>
-                    <div class="voucher-desc">Đơn từ 990.000đ · Không áp dụng Manga, Ngoại văn</div>
-                    <div class="voucher-code-box">FHS80KT11</div>
-                    <div class="voucher-qty-wrap">
-                        <div class="voucher-qty-bar"><div class="voucher-qty-fill" style="width:10%"></div></div>
-                        <span class="voucher-qty-text">Còn 90/100 lượt</span>
-                    </div>
-                    <div class="voucher-footer">
-                        <span class="voucher-expiry">HSD: 30/11/2025</span>
-                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
-                    </div>
-                </div>
-            </div>
+            </c:forEach>
         </div>
 
         <div class="voucher-ship">
             <h1>Ưu đãi vận chuyển ngập tràn</h1>
-
-            <div class="voucher-card">
-                <div class="voucher-side-bar shipping"></div>
-                <div class="voucher-card-inner">
-                    <div class="voucher-badge-row">
+            <c:forEach var="v" items="${shippingVouchers}">
+                <c:set var="usedPct" value="${v.usedCount * 100 / v.quantity}"/>
+                <div class="voucher-card ${v.expired ? 'expired-card' : ''}">
+                    <div class="voucher-side-bar shipping"></div>
+                    <div class="voucher-card-inner">
+                        <div class="voucher-badge-row">
                         <span class="voucher-badge badge-target-shipping">
                             <i class="fa-solid fa-truck" style="font-size:9px"></i> Vận chuyển
                         </span>
-                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>
-                    </div>
-                    <div class="voucher-title">Giảm 10.000đ phí ship</div>
-                    <div class="voucher-desc">Đơn từ 130.000đ · Áp dụng toàn sàn</div>
-                    <div class="voucher-code-box">FHS10KT11</div>
-                    <div class="voucher-qty-wrap">
-                        <div class="voucher-qty-bar"><div class="voucher-qty-fill" style="width:40%"></div></div>
-                        <span class="voucher-qty-text">Còn 60/100 lượt</span>
-                    </div>
-                    <div class="voucher-footer">
-                        <span class="voucher-expiry">HSD: 30/11/2025</span>
-                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
-                    </div>
-                </div>
-            </div>
+                            <c:choose>
+                                <c:when test="${v.expired}">
+                                    <span class="voucher-badge badge-status-expired">Hết hạn</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="voucher-badge badge-status-unused">Chưa dùng</span>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:if test="${v.singleUse}">
+                                <span class="voucher-badge badge-single-use">1 lần/khách</span>
+                            </c:if>
+                        </div>
 
-            <div class="voucher-card">
-                <div class="voucher-side-bar shipping"></div>
-                <div class="voucher-card-inner">
-                    <div class="voucher-badge-row">
-                        <span class="voucher-badge badge-target-shipping">
-                            <i class="fa-solid fa-truck" style="font-size:9px"></i> Vận chuyển
-                        </span>
-                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>
-                    </div>
-                    <div class="voucher-title">Giảm 20.000đ phí ship</div>
-                    <div class="voucher-desc">Đơn từ 200.000đ · Áp dụng toàn sàn</div>
-                    <div class="voucher-code-box">SHIP20K2025</div>
-                    <div class="voucher-qty-wrap">
-                        <div class="voucher-qty-bar"><div class="voucher-qty-fill" style="width:65%"></div></div>
-                        <span class="voucher-qty-text">Còn 35/100 lượt</span>
-                    </div>
-                    <div class="voucher-footer">
-                        <span class="voucher-expiry">HSD: 15/12/2025</span>
-                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
-                    </div>
-                </div>
-            </div>
+                        <div class="voucher-title">
+                            <c:choose>
+                                <c:when test="${v.discountType == 'percent'}">
+                                    Giảm <fmt:formatNumber value="${v.discountValue}" maxFractionDigits="0"/>% phí ship
+                                </c:when>
+                                <c:when test="${v.discountValue == 100}">Miễn phí vận chuyển</c:when>
+                                <c:otherwise>
+                                    Giảm <fmt:formatNumber value="${v.discountValue}" type="number"
+                                                           maxFractionDigits="0"/>đ phí ship
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
 
-            <div class="voucher-card">
-                <div class="voucher-side-bar shipping"></div>
-                <div class="voucher-card-inner">
-                    <div class="voucher-badge-row">
-                        <span class="voucher-badge badge-target-shipping">
-                            <i class="fa-solid fa-truck" style="font-size:9px"></i> Vận chuyển
-                        </span>
-                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>
-                        <span class="voucher-badge badge-single-use">1 lần/khách</span>
-                    </div>
-                    <div class="voucher-title">Miễn phí vận chuyển</div>
-                    <div class="voucher-desc">Đơn từ 50.000đ · Không áp dụng COD</div>
-                    <div class="voucher-code-box">FREESHIP50</div>
-                    <div class="voucher-qty-wrap">
-                        <div class="voucher-qty-bar"><div class="voucher-qty-fill" style="width:47%"></div></div>
-                        <span class="voucher-qty-text">Còn 53/100 lượt</span>
-                    </div>
-                    <div class="voucher-footer">
-                        <span class="voucher-expiry">HSD: 31/12/2025</span>
-                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
-                    </div>
-                </div>
-            </div>
+                        <div class="voucher-desc">
+                            <c:choose>
+                                <c:when test="${v.minOrderAmount != null && v.minOrderAmount > 0}">
+                                    Đơn từ <fmt:formatNumber value="${v.minOrderAmount}" type="number"
+                                                             maxFractionDigits="0"/>đ
+                                </c:when>
+                                <c:otherwise>Không yêu cầu giá trị đơn</c:otherwise>
+                            </c:choose>
+                            · Áp dụng: ${v.applyScope == 'all' ? 'Toàn sàn' : v.applyScope}
+                        </div>
 
-            <div class="voucher-card">
-                <div class="voucher-side-bar shipping"></div>
-                <div class="voucher-card-inner">
-                    <div class="voucher-badge-row">
-                        <span class="voucher-badge badge-target-shipping">
-                            <i class="fa-solid fa-truck" style="font-size:9px"></i> Vận chuyển
-                        </span>
-                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>
-                    </div>
-                    <div class="voucher-title">Giảm 5.000đ - Giao nhanh</div>
-                    <div class="voucher-desc">Không yêu cầu giá trị đơn · Chỉ áp dụng giao nhanh</div>
-                    <div class="voucher-code-box">SHIP5KFAST</div>
-                    <div class="voucher-qty-wrap">
-                        <div class="voucher-qty-bar"><div class="voucher-qty-fill" style="width:80%"></div></div>
-                        <span class="voucher-qty-text">Còn 20/100 lượt</span>
-                    </div>
-                    <div class="voucher-footer">
-                        <span class="voucher-expiry">HSD: 01/01/2026</span>
-                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
-                    </div>
-                </div>
-            </div>
+                        <div class="voucher-code-box">${v.code}</div>
+                        <div class="voucher-qty-wrap">
+                            <div class="voucher-qty-bar">
+                                <div class="voucher-qty-fill ${v.quantity <= v.usedCount ? 'depleted' : ''}"
+                                     style="width:${usedPct}%"></div>
+                            </div>
+                            <span class="voucher-qty-text">Còn ${v.quantity - v.usedCount}/${v.quantity} lượt</span>
+                        </div>
 
-            <div class="voucher-card">
-                <div class="voucher-side-bar shipping"></div>
-                <div class="voucher-card-inner">
-                    <div class="voucher-badge-row">
-                        <span class="voucher-badge badge-target-shipping">
-                            <i class="fa-solid fa-truck" style="font-size:9px"></i> Vận chuyển
+                        <div class="voucher-footer">
+                        <span class="voucher-expiry ${v.expired ? 'expired-text' : ''}">
+                            HSD: ${v.endDateFormatted}
+                            <c:if test="${v.expired}"> · Đã hết hạn</c:if>
                         </span>
-                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>
-                        <span class="voucher-badge badge-single-use">1 lần/khách</span>
-                    </div>
-                    <div class="voucher-title">Giảm 15.000đ - Khách mới</div>
-                    <div class="voucher-desc">Chỉ áp dụng khách hàng mới · Không áp dụng combo</div>
-                    <div class="voucher-code-box">SHIP15KNEW</div>
-                    <div class="voucher-qty-wrap">
-                        <div class="voucher-qty-bar"><div class="voucher-qty-fill" style="width:25%"></div></div>
-                        <span class="voucher-qty-text">Còn 75/100 lượt</span>
-                    </div>
-                    <div class="voucher-footer">
-                        <span class="voucher-expiry">HSD: 10/12/2025</span>
-                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
+                            <c:choose>
+                                <c:when test="${v.expired || v.quantity <= v.usedCount}">
+                                    <button class="voucher-save-btn" disabled>Hết</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </c:forEach>
         </div>
 
-        <div class="voucher-other">
-            <h1>Ưu đãi ngoại lệ ngập tràn</h1>
+<%--        <div class="voucher-other">--%>
+<%--            <h1>Ưu đãi ngoại lệ ngập tràn</h1>--%>
 
-            <div class="voucher-card">
-                <div class="voucher-side-bar product"></div>
-                <div class="voucher-card-inner">
-                    <div class="voucher-badge-row">
-                        <span class="voucher-badge badge-target-product">
-                            <i class="fa-solid fa-tag" style="font-size:9px"></i> Sản phẩm
-                        </span>
-                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>
-                    </div>
-                    <div class="voucher-title">Giảm 10.000đ - Trinh thám</div>
-                    <div class="voucher-desc">Áp dụng truyện trinh thám · Không áp dụng combo</div>
-                    <div class="voucher-code-box">KID10K2025</div>
-                    <div class="voucher-qty-wrap">
-                        <div class="voucher-qty-bar"><div class="voucher-qty-fill" style="width:50%"></div></div>
-                        <span class="voucher-qty-text">Còn 50/100 lượt</span>
-                    </div>
-                    <div class="voucher-footer">
-                        <span class="voucher-expiry">HSD: 30/11/2025</span>
-                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
-                    </div>
-                </div>
-            </div>
+<%--            <div class="voucher-card">--%>
+<%--                <div class="voucher-side-bar product"></div>--%>
+<%--                <div class="voucher-card-inner">--%>
+<%--                    <div class="voucher-badge-row">--%>
+<%--                        <span class="voucher-badge badge-target-product">--%>
+<%--                            <i class="fa-solid fa-tag" style="font-size:9px"></i> Sản phẩm</span>--%>
+<%--                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>--%>
+<%--                    </div>--%>
+<%--                    <div class="voucher-title">Giảm 10.000đ - Trinh thám</div>--%>
+<%--                    <div class="voucher-desc">Áp dụng truyện trinh thám · Không áp dụng combo</div>--%>
+<%--                    <div class="voucher-code-box">KID10K2025</div>--%>
+<%--                    <div class="voucher-qty-wrap">--%>
+<%--                        <div class="voucher-qty-bar">--%>
+<%--                            <div class="voucher-qty-fill" style="width:50%"></div>--%>
+<%--                        </div>--%>
+<%--                        <span class="voucher-qty-text">Còn 50/100 lượt</span>--%>
+<%--                    </div>--%>
+<%--                    <div class="voucher-footer">--%>
+<%--                        <span class="voucher-expiry">HSD: 30/11/2025</span>--%>
+<%--                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
-            <div class="voucher-card">
-                <div class="voucher-side-bar product"></div>
-                <div class="voucher-card-inner">
-                    <div class="voucher-badge-row">
-                        <span class="voucher-badge badge-target-product">
-                            <i class="fa-solid fa-tag" style="font-size:9px"></i> Sản phẩm
-                        </span>
-                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>
-                    </div>
-                    <div class="voucher-title">Giảm 15.000đ - Mua 3 cuốn</div>
-                    <div class="voucher-desc">Mua từ 3 cuốn trở lên · Không áp dụng truyện đang giảm</div>
-                    <div class="voucher-code-box">BUY3GET15K</div>
-                    <div class="voucher-qty-wrap">
-                        <div class="voucher-qty-bar"><div class="voucher-qty-fill" style="width:35%"></div></div>
-                        <span class="voucher-qty-text">Còn 65/100 lượt</span>
-                    </div>
-                    <div class="voucher-footer">
-                        <span class="voucher-expiry">HSD: 15/12/2025</span>
-                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
-                    </div>
-                </div>
-            </div>
+<%--            <div class="voucher-card">--%>
+<%--                <div class="voucher-side-bar product"></div>--%>
+<%--                <div class="voucher-card-inner">--%>
+<%--                    <div class="voucher-badge-row">--%>
+<%--                        <span class="voucher-badge badge-target-product">--%>
+<%--                            <i class="fa-solid fa-tag" style="font-size:9px"></i> Sản phẩm--%>
+<%--                        </span>--%>
+<%--                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>--%>
+<%--                    </div>--%>
+<%--                    <div class="voucher-title">Giảm 15.000đ - Mua 3 cuốn</div>--%>
+<%--                    <div class="voucher-desc">Mua từ 3 cuốn trở lên · Không áp dụng truyện đang giảm</div>--%>
+<%--                    <div class="voucher-code-box">BUY3GET15K</div>--%>
+<%--                    <div class="voucher-qty-wrap">--%>
+<%--                        <div class="voucher-qty-bar">--%>
+<%--                            <div class="voucher-qty-fill" style="width:35%"></div>--%>
+<%--                        </div>--%>
+<%--                        <span class="voucher-qty-text">Còn 65/100 lượt</span>--%>
+<%--                    </div>--%>
+<%--                    <div class="voucher-footer">--%>
+<%--                        <span class="voucher-expiry">HSD: 15/12/2025</span>--%>
+<%--                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
-            <div class="voucher-card">
-                <div class="voucher-side-bar product"></div>
-                <div class="voucher-card-inner">
-                    <div class="voucher-badge-row">
-                        <span class="voucher-badge badge-target-product">
-                            <i class="fa-solid fa-tag" style="font-size:9px"></i> Sản phẩm
-                        </span>
-                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>
-                    </div>
-                    <div class="voucher-title">Giảm 20.000đ - Hành động</div>
-                    <div class="voucher-desc">Áp dụng truyện hành động · Không áp dụng bản đặc biệt</div>
-                    <div class="voucher-code-box">BL20K2025</div>
-                    <div class="voucher-qty-wrap">
-                        <div class="voucher-qty-bar"><div class="voucher-qty-fill" style="width:60%"></div></div>
-                        <span class="voucher-qty-text">Còn 40/100 lượt</span>
-                    </div>
-                    <div class="voucher-footer">
-                        <span class="voucher-expiry">HSD: 31/12/2025</span>
-                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
-                    </div>
-                </div>
-            </div>
+<%--            <div class="voucher-card">--%>
+<%--                <div class="voucher-side-bar product"></div>--%>
+<%--                <div class="voucher-card-inner">--%>
+<%--                    <div class="voucher-badge-row">--%>
+<%--                        <span class="voucher-badge badge-target-product">--%>
+<%--                            <i class="fa-solid fa-tag" style="font-size:9px"></i> Sản phẩm--%>
+<%--                        </span>--%>
+<%--                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>--%>
+<%--                    </div>--%>
+<%--                    <div class="voucher-title">Giảm 20.000đ - Hành động</div>--%>
+<%--                    <div class="voucher-desc">Áp dụng truyện hành động · Không áp dụng bản đặc biệt</div>--%>
+<%--                    <div class="voucher-code-box">BL20K2025</div>--%>
+<%--                    <div class="voucher-qty-wrap">--%>
+<%--                        <div class="voucher-qty-bar">--%>
+<%--                            <div class="voucher-qty-fill" style="width:60%"></div>--%>
+<%--                        </div>--%>
+<%--                        <span class="voucher-qty-text">Còn 40/100 lượt</span>--%>
+<%--                    </div>--%>
+<%--                    <div class="voucher-footer">--%>
+<%--                        <span class="voucher-expiry">HSD: 31/12/2025</span>--%>
+<%--                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
-            <!-- Card: Cuối tuần -->
-            <div class="voucher-card">
-                <div class="voucher-side-bar product"></div>
-                <div class="voucher-card-inner">
-                    <div class="voucher-badge-row">
-                        <span class="voucher-badge badge-target-product">
-                            <i class="fa-solid fa-tag" style="font-size:9px"></i> Sản phẩm
-                        </span>
-                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>
-                    </div>
-                    <div class="voucher-title">Giảm 12.000đ - Cuối tuần</div>
-                    <div class="voucher-desc">Áp dụng Thứ 7 &amp; Chủ Nhật · Không áp dụng Flash Sale</div>
-                    <div class="voucher-code-box">WEEKEND12K</div>
-                    <div class="voucher-qty-wrap">
-                        <div class="voucher-qty-bar"><div class="voucher-qty-fill" style="width:45%"></div></div>
-                        <span class="voucher-qty-text">Còn 55/100 lượt</span>
-                    </div>
-                    <div class="voucher-footer">
-                        <span class="voucher-expiry">HSD: 01/01/2026</span>
-                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<%--            <!-- Card: Cuối tuần -->--%>
+<%--            <div class="voucher-card">--%>
+<%--                <div class="voucher-side-bar product"></div>--%>
+<%--                <div class="voucher-card-inner">--%>
+<%--                    <div class="voucher-badge-row">--%>
+<%--                        <span class="voucher-badge badge-target-product">--%>
+<%--                            <i class="fa-solid fa-tag" style="font-size:9px"></i> Sản phẩm--%>
+<%--                        </span>--%>
+<%--                        <span class="voucher-badge badge-status-unused">Chưa dùng</span>--%>
+<%--                    </div>--%>
+<%--                    <div class="voucher-title">Giảm 12.000đ - Cuối tuần</div>--%>
+<%--                    <div class="voucher-desc">Áp dụng Thứ 7 &amp; Chủ Nhật · Không áp dụng Flash Sale</div>--%>
+<%--                    <div class="voucher-code-box">WEEKEND12K</div>--%>
+<%--                    <div class="voucher-qty-wrap">--%>
+<%--                        <div class="voucher-qty-bar">--%>
+<%--                            <div class="voucher-qty-fill" style="width:45%"></div>--%>
+<%--                        </div>--%>
+<%--                        <span class="voucher-qty-text">Còn 55/100 lượt</span>--%>
+<%--                    </div>--%>
+<%--                    <div class="voucher-footer">--%>
+<%--                        <span class="voucher-expiry">HSD: 01/01/2026</span>--%>
+<%--                        <button class="voucher-save-btn" onclick="saveVoucher(this)">Lưu</button>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
 
     </div>
 </div>
