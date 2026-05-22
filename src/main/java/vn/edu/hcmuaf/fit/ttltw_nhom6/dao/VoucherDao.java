@@ -151,4 +151,13 @@ public class VoucherDao {
                         .list()
         );
     }
+
+    public List<Voucher> getAllActiveVouchers() {
+        String sql = "SELECT * FROM vouchers WHERE start_date <= NOW() AND end_date > NOW() AND quantity > used_count ORDER BY discount_target, end_date";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(Voucher.class)
+                        .list()
+        );
+    }
 }

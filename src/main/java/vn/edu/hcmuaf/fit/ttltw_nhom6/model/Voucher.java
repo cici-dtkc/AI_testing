@@ -177,4 +177,9 @@ public class Voucher implements Serializable {
         if (endDate == null) return false;
         return endDate.isBefore(LocalDateTime.now());
     }
+
+    public String getEndDateFormatted() {
+        if (endDate == null) return "";
+        return endDate.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
 }
