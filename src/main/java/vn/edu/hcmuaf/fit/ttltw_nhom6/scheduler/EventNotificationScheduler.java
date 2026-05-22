@@ -23,7 +23,13 @@ public class EventNotificationScheduler implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        String siteKey = System.getenv("RECAPTCHA_SITE_KEY");
+        if (siteKey == null || siteKey.trim().isEmpty()){
+            siteKey ="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+        }
+        sce.getServletContext().setAttribute("RECAPTCHA_SITE_KEY", siteKey);
         scheduler = Executors.newScheduledThreadPool(2);
+
 
         scheduler.scheduleAtFixedRate(() -> {
             try {

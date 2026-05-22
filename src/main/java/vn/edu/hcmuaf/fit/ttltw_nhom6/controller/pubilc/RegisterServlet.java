@@ -11,6 +11,7 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.EmailUtils;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.PasswordUtils;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.ValidationUtils;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.ReCaptchaUtils;
 
 import java.io.IOException;
 import java.util.Map;
@@ -33,6 +34,12 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+        if (!ReCaptchaUtils.verify(gRecaptchaResponse)) {
+            forwardWithError(request, response, "Vui lòng xác minh CAPTCHA chính xác!");
+            return;
+        }
 
         String username        = request.getParameter("username");
         String email           = request.getParameter("email");

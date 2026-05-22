@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Đăng nhập</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/frontend/css/publicCss/login1.css">
-
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
@@ -43,6 +43,9 @@
                     <a href="${pageContext.request.contextPath}/RegisterServlet">Đăng ký tài khoản</a>
                     <a href="${pageContext.request.contextPath}/forgot-password">Quên mật khẩu</a>
                 </div>
+
+                <!-- Google reCAPTCHA Widget -->
+                <div class="g-recaptcha" data-sitekey="${applicationScope.RECAPTCHA_SITE_KEY}" style="margin-bottom: 15px; display: flex; justify-content: center;"></div>
 
                 <button type="submit" value="Đăng nhập">Đăng nhập</button>
 
@@ -133,6 +136,14 @@
             showError("Mật khẩu phải có ít nhất 8 ký tự");
             return false;
         }
+
+        // Client-side CAPTCHA verification
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (recaptchaResponse === "") {
+            showError("Vui lòng xác minh CAPTCHA chính xác!");
+            return false;
+        }
+
         return true;
     }
 
