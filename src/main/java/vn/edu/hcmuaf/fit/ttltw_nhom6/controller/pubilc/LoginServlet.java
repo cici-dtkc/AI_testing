@@ -13,6 +13,7 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.service.CartService;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.service.OrderViolationService;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.PasswordUtils;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.ReCaptchaUtils;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -32,6 +33,13 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+        if (!ReCaptchaUtils.verify(gRecaptchaResponse)) {
+            request.setAttribute("error", "Vui lòng xác minh CAPTCHA chính xác!");
+            request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
+            return;
+        }
 
         String usernameOrEmail = request.getParameter("username");
         String password = request.getParameter("password");

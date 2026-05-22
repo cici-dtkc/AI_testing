@@ -9,6 +9,7 @@
                 <meta charset="UTF-8">
                 <title>Đăng ký</title>
                 <link rel="stylesheet" href="${pageContext.request.contextPath}/frontend/css/publicCss/signIn.css">
+                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
             </head>
 
             <body>
@@ -63,15 +64,18 @@
                                                         class="eye toggle2">
                                                 </div>
 
-                                                <button type="submit" value="Đăng ký" id="registerBtn">Đăng ký</button>
-                                                <p
-                                                    style="text-align:center; margin-top:15px; font-size:14px; color:#333;">
-                                                    Bạn đã có tài khoản?
-                                                    <a href="${pageContext.request.contextPath}/login"
-                                                        style="color:#0276DA; font-weight:bold; text-decoration:none;">
-                                                        Đăng nhập
-                                                    </a>
-                                                </p>
+                                                 <!-- Google reCAPTCHA Widget -->
+                                                 <div class="g-recaptcha" data-sitekey="${applicationScope.RECAPTCHA_SITE_KEY}" style="margin-bottom: 15px; display: flex; justify-content: center;"></div>
+
+                                                 <button type="submit" value="Đăng ký" id="registerBtn">Đăng ký</button>
+                                                 <p
+                                                     style="text-align:center; margin-top:15px; font-size:14px; color:#333;">
+                                                     Bạn đã có tài khoản?
+                                                     <a href="${pageContext.request.contextPath}/login"
+                                                         style="color:#0276DA; font-weight:bold; text-decoration:none;">
+                                                         Đăng nhập
+                                                     </a>
+                                                 </p>
                             </form>
 
                         </div>
@@ -141,18 +145,25 @@
                         if (el.value === "" || el.value !== pw) { setInvalid(el); return false; }
                         setValid(el); return true;
                     }
+                    function validateEmailPhone() {
+                        return validateEmail();
+                    }
+
+                    const phoneEl = document.getElementById("phone");
                     document.getElementById("username").addEventListener("input", validateUsername);
                     document.getElementById("email").addEventListener("input", () => {
                         validateEmail();
-                        if (document.getElementById("phone").value.trim() !== "") validateEmailPhone();
+                        if (phoneEl && phoneEl.value.trim() !== "") validateEmailPhone();
                     });
                     document.getElementById("email").addEventListener("blur", validateEmailPhone);
 
-                    document.getElementById("phone").addEventListener("input", () => {
-                        validatePhone();
-                        if (document.getElementById("email").value.trim() !== "") validateEmailPhone();
-                    });
-                    document.getElementById("phone").addEventListener("blur", validateEmailPhone);
+                    if (phoneEl) {
+                        phoneEl.addEventListener("input", () => {
+                            if (typeof validatePhone === "function") validatePhone();
+                            if (document.getElementById("email").value.trim() !== "") validateEmailPhone();
+                        });
+                        phoneEl.addEventListener("blur", validateEmailPhone);
+                    }
 
                     document.getElementById("password").addEventListener("input", () => {
                         validatePassword();
@@ -190,6 +201,14 @@
                             showRegisterError("Mật khẩu xác nhận không khớp");
                             return false;
                         }
+
+                        // Client-side CAPTCHA verification
+                        const recaptchaResponse = grecaptcha.getResponse();
+                        if (recaptchaResponse === "") {
+                            showRegisterError("Vui lòng xác minh CAPTCHA chính xác!");
+                            return false;
+                        }
+
                         return true;
                     }
 
