@@ -43,6 +43,10 @@
                     <a href="${pageContext.request.contextPath}/RegisterServlet">Đăng ký tài khoản</a>
                     <a href="${pageContext.request.contextPath}/forgot-password">Quên mật khẩu</a>
                 </div>
+                <div class ="remember-me">
+                    <lable>Remember me</lable>
+                    <input type="checkbox" name="rememberMe" id="rememberMe">
+                </div>
 
                 <!-- Google reCAPTCHA Widget -->
                 <div class="g-recaptcha" data-sitekey="${applicationScope.RECAPTCHA_SITE_KEY}" style="margin-bottom: 15px; display: flex; justify-content: center;"></div>
