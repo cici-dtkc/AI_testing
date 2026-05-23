@@ -59,6 +59,7 @@
                 <li><a href="#">Ưu đãi C-Point</a></li>
                 <li><a href="#">Đơn hàng của tôi</a></li>
                 <li><a href="#">Thông báo</a></li>
+                <li><a href="#">Ví voucher</a></li>
                 <li><a href="#">Sản phẩm yêu thích</a></li>
             </ul>
         </div>
@@ -447,119 +448,6 @@
         </div>
     </div>
 
-    <div class="voucher-container" style="display: none;">
-        <h2>Ví voucher</h2>
-        <div class="vouchers-grid" id="vouchers-grid">
-            <!-- Voucher 1: Mã giảm 10K - Toàn sàn -->
-            <div class="voucher-card" data-voucher='{
-            "code": "FHS10KT11",
-            "value": "Giảm 10.000 VNĐ",
-            "condition": "Đơn hàng từ 130.000 VNĐ",
-            "exclude": "Manga, Ngoại văn,...",
-            "expiry": "30/11/2025",
-            "status": "Chưa sử dụng"
-        }'>
-                <div class="voucher-header">
-                    <span class="voucher-type">Voucher chưa sử dụng</span>
-                    <span class="voucher-status unused">Chưa sử dụng</span>
-                </div>
-                <div class="voucher-body">
-                    <div class="voucher-title">Mã Giảm 10K - Toàn Sàn</div>
-                    <div class="voucher-desc">Đơn hàng từ 130k - Không bao gồm giá trị của các sản phẩm sau Manga, Ngoại
-                        văn...
-                    </div>
-                    <div class="voucher-code">FHS10KT11</div>
-                    <button class="voucher-detail-btn" onclick="showVoucherDetails(this)">Chi tiết</button>
-                </div>
-                <div class="voucher-footer">
-                    <span class="voucher-expiry">HSD: 30/11/2025</span>
-                    <button class="copy-code-btn">Copy mã</button>
-                </div>
-            </div>
-
-            <!-- Voucher 2: Mã giảm 20K - Toàn sàn -->
-            <div class="voucher-card" data-voucher='{
-            "code": "FHS20KT11",
-            "value": "Giảm 20.000 VNĐ",
-            "condition": "Đơn hàng từ 240.000 VNĐ",
-            "exclude": "Manga, Ngoại văn,...",
-            "expiry": "30/11/2025",
-            "status": "Chưa sử dụng"
-        }'>
-                <div class="voucher-header">
-                    <span class="voucher-type">Voucher chưa sử dụng</span>
-                    <span class="voucher-status unused">Chưa sử dụng</span>
-                </div>
-                <div class="voucher-body">
-                    <div class="voucher-title">Mã Giảm 20K - Toàn Sàn</div>
-                    <div class="voucher-desc">Đơn hàng từ 240k - Không bao gồm giá trị của các sản phẩm sau Manga, Ngoại
-                        văn...
-                    </div>
-                    <div class="voucher-code">FHS20KT11</div>
-                    <button class="voucher-detail-btn" onclick="showVoucherDetails(this)">Chi tiết</button>
-                </div>
-                <div class="voucher-footer">
-                    <span class="voucher-expiry">HSD: 30/11/2025</span>
-                    <button class="copy-code-btn">Copy mã</button>
-                </div>
-            </div>
-
-            <!-- Voucher 3: Mã giảm 40K - Toàn sàn -->
-            <div class="voucher-card" data-voucher='{
-            "code": "FHS40KT11",
-            "value": "Giảm 40.000 VNĐ",
-            "condition": "Đơn hàng từ 490.000 VNĐ",
-            "exclude": "Manga, Ngoại văn,...",
-            "expiry": "30/11/2025",
-            "status": "Chưa sử dụng"
-        }'>
-                <div class="voucher-header">
-                    <span class="voucher-type">Voucher chưa sử dụng</span>
-                    <span class="voucher-status unused">Chưa sử dụng</span>
-                </div>
-                <div class="voucher-body">
-                    <div class="voucher-title">Mã Giảm 40K - Toàn Sàn</div>
-                    <div class="voucher-desc">Đơn hàng từ 490k - Không bao gồm giá trị của các sản phẩm sau Manga, Ngoại
-                        văn...
-                    </div>
-                    <div class="voucher-code">FHS40KT11</div>
-                    <button class="voucher-detail-btn" onclick="showVoucherDetails(this)">Chi tiết</button>
-                </div>
-                <div class="voucher-footer">
-                    <span class="voucher-expiry">HSD: 30/11/2025</span>
-                    <button class="copy-code-btn">Copy mã</button>
-                </div>
-            </div>
-
-            <!-- Voucher 4: Mã giảm 80K - Toàn sàn -->
-            <div class="voucher-card" data-voucher='{
-            "code": "FHS80KT11",
-            "value": "Giảm 80.000 VNĐ",
-            "condition": "Đơn hàng từ 990.000 VNĐ",
-            "exclude": "Manga, Ngoại văn,...",
-            "expiry": "30/11/2025",
-            "status": "Chưa sử dụng"
-        }'>
-                <div class="voucher-header">
-                    <span class="voucher-type">Voucher chưa sử dụng</span>
-                    <span class="voucher-status unused">Chưa sử dụng</span>
-                </div>
-                <div class="voucher-body">
-                    <div class="voucher-title">Mã Giảm 80K - Toàn Sàn</div>
-                    <div class="voucher-desc">Đơn hàng từ 990k - Không bao gồm giá trị của các sản phẩm sau Manga, Ngoại
-                        văn...
-                    </div>
-                    <div class="voucher-code">FHS80KT11</div>
-                    <button class="voucher-detail-btn" onclick="showVoucherDetails(this)">Chi tiết</button>
-                </div>
-                <div class="voucher-footer">
-                    <span class="voucher-expiry">HSD: 30/11/2025</span>
-                    <button class="copy-code-btn">Copy mã</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <%
         WishlistDAO wishlistDAO = new WishlistDAO();
         User currentUser = (User) session.getAttribute("currentUser");
@@ -708,6 +596,9 @@
         </div>
         <div class="line"></div>
         <div class="empty-message">Không có thông báo.</div>
+    </div>
+
+    <div class="user-voucher-container" style="display: none;">
     </div>
 
     <div class="popup-backdrop-review" style="display: none;"></div>
@@ -963,6 +854,7 @@
         const xuContainer = document.querySelector('.xu-container'); // Added xu-container
         const menuItems = document.querySelectorAll('.menu ul li');
         const notificationContainer = document.querySelector('.notification-container');
+        const userVoucherContainer = document.querySelector('.user-voucher-container');
 
         const fallbackDistricts = {
             '1': [{code: '001', name: 'Ba Đình'}, {code: '002', name: 'Hoàn Kiếm'}, {code: '003', name: 'Cầu Giấy'}],
@@ -1043,17 +935,12 @@
                 wishlistContainer.style.display = 'none';
                 xuContainer.style.display = 'none';
                 notificationContainer.style.display = 'none';
+                userVoucherContainer.style.display = 'none';
 
                 if (text === 'Đổi mật khẩu') {
                     changePasswordForm.style.display = 'block';
                 } else if (text === 'Đơn hàng của tôi') {
                     orderHistoryForm.style.display = 'block';
-                } else if (text === 'Ví voucher') {
-                    voucherContainer.style.display = 'block';
-                    const allVouchers = voucherContainer.querySelectorAll('.voucher-card');
-                    allVouchers.forEach(v => {
-                        v.style.display = v.classList.contains('used') ? 'none' : 'block';
-                    });
                 } else if (text === 'Sản phẩm yêu thích') {
                     wishlistContainer.style.display = 'block';
                 } else if (text === 'Ưu đãi C-Point') {
@@ -1061,7 +948,33 @@
                 } else if (text == 'Thông báo') {
                     notificationContainer.style.display = 'block';
                     loadNotifications();
-                } else {
+                } else if (text === 'Ví voucher') {
+                    userVoucherContainer.style.display = 'block';
+
+                    if (!userVoucherContainer.dataset.loaded) {
+                        userVoucherContainer.innerHTML = '<div style="text-align:center; padding:40px; color:#999;">Đang tải...</div>';
+
+                        fetch('${pageContext.request.contextPath}/user-voucher')
+                            .then(res => res.text())
+                            .then(html => {
+                                // Chỉ lấy phần nội dung bên trong body
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(html, 'text/html');
+                                const wrapper = doc.querySelector('.user-voucher-wrapper');
+                                if (wrapper) {
+                                    userVoucherContainer.innerHTML = wrapper.outerHTML;
+                                } else {
+                                    userVoucherContainer.innerHTML = html;
+                                }
+                                userVoucherContainer.dataset.loaded = 'true';
+                            })
+                            .catch(err => {
+                                console.error('Lỗi load voucher:', err);
+                                userVoucherContainer.innerHTML = '<div style="text-align:center; padding:40px; color:red;">Lỗi tải dữ liệu, vui lòng thử lại.</div>';
+                            });
+                    }
+                }
+                else {
                     profileForm.style.display = 'block'; // Default to profile form
                 }
                 e.preventDefault();
@@ -1074,6 +987,7 @@
         voucherContainer.style.display = 'none';
         wishlistContainer.style.display = 'none';
         xuContainer.style.display = 'none';
+        userVoucherContainer.style.display = 'none';
 
         const tabsContainer = document.querySelector('.tabs-container');
         const scrollLeftBtn = document.querySelector('.scroll-left');
@@ -1280,7 +1194,7 @@
                 if (linkText === 'Thông báo') {
                     menuItems.forEach(i => i.classList.remove('active'));
                     item.classList.add('active');
-                    document.querySelectorAll('.profile-form-container, .change-password-container, .order-history-container, .voucher-container, .wishlist-container, .xu-container, .notification-container')
+                    document.querySelectorAll('.profile-form-container, .change-password-container, .order-history-container, .voucher-container, .wishlist-container, .xu-container, .notification-container, .user-voucher-container')
                         .forEach(el => el.style.display = 'none');
                     document.querySelector('.notification-container').style.display = 'block';
                     if (typeof loadNotifications === 'function') {
