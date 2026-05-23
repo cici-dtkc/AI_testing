@@ -234,6 +234,7 @@ input:-webkit-autofill:focus {
 }
 .remember-me{
     display: flex;
+    margin-bottom: 20px;
 }
 #rememberMe{
     width: 15px;
