@@ -36,6 +36,30 @@ public class UserVoucherServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            response.getWriter().write("{\"success\":false,\"message\":\"Vui lòng đăng nhập\"}");
+            return;
+        }
+
+        try {
+            int promoId = Integer.parseInt(request.getParameter("promoId"));
+            String code = request.getParameter("code");
+
+            VoucherDao voucherDao = new VoucherDao();
+            boolean saved = voucherDao.saveVoucherForUser(currentUser.getId(), promoId, code);
+
+            if (saved) {
+                response.getWriter().write("{\"success\":true,\"message\":\"Đã lưu voucher thành công!\"}");
+            } else {
+                response.getWriter().write("{\"success\":false,\"message\":\"Bạn đã lưu voucher này rồi!\"}");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().write("{\"success\":false,\"message\":\"Có lỗi xảy ra!\"}");
+        }
     }
 }
