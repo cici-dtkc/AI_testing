@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.RoleUtil;
 
 import java.io.IOException;
 
@@ -32,11 +33,11 @@ public class AdminAuthFilter implements Filter {
 //                "comicstore365".equals(user.getUsername());
 
         // Hoặc kiểm tra theo role:
-         boolean isAdmin = "admin".equalsIgnoreCase(user.getRole());
+        boolean isAdmin = RoleUtil.hasAccess(user.getRole(), "admin");
 
         if (!isAdmin) {
             session.setAttribute("errorMessage", "Bạn không có quyền truy cập trang admin.");
-            httpResponse.sendError(HttpServletResponse.SC_NOT_FOUND);
+            httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
 //            httpResponse.sendRedirect(httpRequest.getContextPath() + "/home");
             return;
         }

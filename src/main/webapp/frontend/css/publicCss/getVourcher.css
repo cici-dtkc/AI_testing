@@ -218,3 +218,73 @@
 .voucher-card.expired-card .voucher-side-bar {
     background: #9e9e9e !important;
 }
+
+#login-popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-popup {
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px 28px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.login-popup-icon {
+    font-size: 36px;
+    color: #dc2e2e;
+    margin-bottom: 12px;
+}
+
+.login-popup-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 8px;
+}
+
+.login-popup-desc {
+    font-size: 13px;
+    color: #888;
+    margin: 0 0 24px;
+}
+
+.login-popup-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.login-popup-close {
+    padding: 9px 20px;
+    border-radius: 20px;
+    border: 1.5px solid #ddd;
+    background: #fff;
+    color: #555;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.login-popup-login {
+    padding: 9px 20px;
+    border-radius: 20px;
+    background: #dc2e2e;
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.login-popup-login:hover {
+    background: #b71c1c;
+}

@@ -60,6 +60,9 @@
             <li class="${fn:contains(currentURI, 'notifications') ? 'active' : ''}">
                 <a href="${contextPath}/frontend/nguoiB/notifications.jsp" data-page="notifications">Thông báo</a>
             </li>
+            <li class="${fn:contains(currentURI, 'user-voucher') ? 'active' : ''}">
+                <a href="${contextPath}/user-voucher" data-page="user-voucher">Ví voucher</a>
+            </li>
             <li class="${fn:contains(currentURI, 'wishlist') ? 'active' : ''}">
                 <a href="${contextPath}/wishlist" data-page="wishlist">Sản phẩm yêu thích</a>
             </li>

@@ -160,4 +160,60 @@ public class VoucherDao {
                         .list()
         );
     }
+
+    public List<Voucher> getProductVouchersByUser(int userId) {
+        String sql = """
+        SELECT v.* FROM vouchers v
+        JOIN user_vouchers uv ON v.id = uv.promo_id
+        WHERE uv.user_id = :userId AND uv.is_active = 1 AND uv.is_used = 0
+        AND v.discount_target != 'Vận chuyển' AND v.end_date >= NOW()
+        ORDER BY v.end_date ASC
+    """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("userId", userId)
+                        .mapToBean(Voucher.class)
+                        .list()
+        );
+    }
+
+    public List<Voucher> getShippingVouchersByUser(int userId) {
+        String sql = """
+        SELECT v.* FROM vouchers v
+        JOIN user_vouchers uv ON v.id = uv.promo_id
+        WHERE uv.user_id = :userId AND uv.is_active = 1 AND uv.is_used = 0
+        AND v.discount_target = 'Vận chuyển' AND v.end_date >= NOW()
+        ORDER BY v.end_date ASC
+    """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("userId", userId)
+                        .mapToBean(Voucher.class)
+                        .list()
+        );
+    }
+
+    public boolean saveVoucherForUser(int userId, int promoId, String code) {
+        String checkSql = "SELECT COUNT(*) FROM user_vouchers WHERE user_id = :userId AND promo_id = :promoId";
+        int count = jdbi.withHandle(handle ->
+                handle.createQuery(checkSql)
+                        .bind("userId", userId)
+                        .bind("promoId", promoId)
+                        .mapTo(Integer.class)
+                        .one()
+        );
+        if (count > 0) return false;
+
+        String sql = """
+        INSERT INTO user_vouchers (user_id, promo_id, code, acquired_at, is_active, is_used)
+        VALUES (:userId, :promoId, :code, NOW(), 1, 0)
+    """;
+        return jdbi.withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("userId", userId)
+                        .bind("promoId", promoId)
+                        .bind("code", code)
+                        .execute() > 0
+        );
+    }
 }

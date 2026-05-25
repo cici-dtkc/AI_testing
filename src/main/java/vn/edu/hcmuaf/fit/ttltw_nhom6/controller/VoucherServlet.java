@@ -27,7 +27,6 @@ public class VoucherServlet extends HttpServlet {
                 } else {
                     productVouchers.add(v);
                 }
-                System.out.println("Code: " + v.getCode() + " | Target: '" + v.getDiscountTarget() + "'");
             }
             request.setAttribute("productVouchers", productVouchers);
             request.setAttribute("shippingVouchers", shippingVouchers);
