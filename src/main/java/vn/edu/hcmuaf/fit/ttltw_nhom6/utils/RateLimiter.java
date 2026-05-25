@@ -2,9 +2,6 @@ package vn.edu.hcmuaf.fit.ttltw_nhom6.utils;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
-// tiện ích giới hạn tần suất yêu cầu (Rate Limiter) sử dụng thuật toán cửa sổ trượt (Sliding Window Log).
-
 public class RateLimiter {
     private final int maxRequests;
     private final long windowSizeMillis;

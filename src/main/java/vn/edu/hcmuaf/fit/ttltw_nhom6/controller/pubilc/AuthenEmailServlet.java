@@ -10,6 +10,8 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.db.JdbiConnector;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.EmailUtils;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.ReCaptchaUtils;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.OtpGenerator;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.OtpToken;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -41,16 +43,16 @@ public class AuthenEmailServlet extends HttpServlet {
             return;
         }
 
-        // Sinh mã OTP
-        String code = String.valueOf((int) (Math.random() * 900000) + 100000);
+        // Sinh mã OTP bảo mật
+        OtpToken otpToken = OtpGenerator.generateOtp(email, 5);
 
-        // Lưu OTP vào session
-        request.getSession().setAttribute("otp", code);
+        // Lưu OTP vào session (chỉ lưu otpToken, không lưu otp để tránh bypass)
+        request.getSession().setAttribute("otpToken", otpToken);
         request.getSession().setAttribute("otpEmail", email);
         request.getSession().setAttribute("otpSent", true); // DÙNG SESSION thay vì request
 
         // Gửi email
-        EmailUtils.sendEmail(email, "Mã xác thực quên mật khẩu", "Mã OTP của bạn là: " + code);
+        EmailUtils.sendEmail(email, "Mã xác thực quên mật khẩu", "Mã OTP của bạn là: " + otpToken.getCode());
 
         // Quay lại ForgotPass.jsp và bật popup
         request.getRequestDispatcher("/frontend/public/ForgotPass.jsp").forward(request, response);

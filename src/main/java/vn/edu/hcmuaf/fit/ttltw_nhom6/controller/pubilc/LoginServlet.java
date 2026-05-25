@@ -11,6 +11,7 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.service.CartService;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.service.OrderViolationService;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.PasswordUtils;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.ReCaptchaUtils;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.config.SecurityConfig;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -91,6 +92,7 @@ public class LoginServlet extends HttpServlet {
 
 // BUOC 2: Tạo session mới
             HttpSession newSession = request.getSession(true);
+            newSession.setAttribute("clientFingerprint", SecurityConfig.generateFingerprint(request));
 
             //save cookie
             if ("on".equals(reme)) {

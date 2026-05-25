@@ -12,6 +12,8 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.EmailUtils;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.PasswordUtils;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.ValidationUtils;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.ReCaptchaUtils;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.OtpGenerator;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.OtpToken;
 
 import java.io.IOException;
 import java.util.Map;
@@ -94,10 +96,10 @@ public class RegisterServlet extends HttpServlet {
         user.setFullName(username);
         userDao.insertInactive(user);
 
-        String code = String.valueOf((int)(Math.random()*900000)+100000);
-        request.getSession().setAttribute("otp_register",code);
+        OtpToken otpToken = OtpGenerator.generateOtp(email, 5);
+        request.getSession().setAttribute("otpToken_register", otpToken);
         request.getSession().setAttribute("otpEmail_register", email);
-        EmailUtils.sendEmail(email, "Mã xác thực đăng ký tài khoản", "Mã OTP kích hoạt tài khoản của bạn là: " + code);
+        EmailUtils.sendEmail(email, "Mã xác thực đăng ký tài khoản", "Mã OTP kích hoạt tài khoản của bạn là: " + otpToken.getCode());
         request.getRequestDispatcher("/frontend/public/VerifyRegister.jsp").forward(request, response);    }
 
     @Override
