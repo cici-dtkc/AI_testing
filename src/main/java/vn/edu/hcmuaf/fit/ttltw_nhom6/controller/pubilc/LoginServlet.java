@@ -2,10 +2,7 @@ package vn.edu.hcmuaf.fit.ttltw_nhom6.controller.pubilc;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.UserDao;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.db.JdbiConnector;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Cart;
@@ -13,6 +10,7 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.service.CartService;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.service.OrderViolationService;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.PasswordUtils;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.ReCaptchaUtils;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -33,8 +31,16 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+        if (!ReCaptchaUtils.verify(gRecaptchaResponse)) {
+            request.setAttribute("error", "Vui lòng xác minh CAPTCHA chính xác!");
+            request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
+            return;
+        }
+
         String usernameOrEmail = request.getParameter("username");
         String password = request.getParameter("password");
+        String reme = request.getParameter("rememberMe");
 
         if (!PasswordUtils.isValidPasswordFormat(password)) {
             request.setAttribute("error",
@@ -85,6 +91,17 @@ public class LoginServlet extends HttpServlet {
 
 // BUOC 2: Tạo session mới
             HttpSession newSession = request.getSession(true);
+
+            //save cookie
+            if ("on".equals(reme)) {
+                Cookie cookieNameUser = new Cookie("cookieUsername", usernameOrEmail);
+                Cookie cookiePassUser = new Cookie("cookiePass", password);
+                Cookie cookieReme = new Cookie("cookieReme", reme);
+                response.addCookie(cookieNameUser);
+                response.addCookie(cookiePassUser);
+                response.addCookie(cookieReme);
+            }
+
             if ("admin".equalsIgnoreCase(user.getRole())) {
                 newSession.setAttribute("currentUser", user);
                 newSession.setAttribute("userId", user.getId());

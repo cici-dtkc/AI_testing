@@ -9,6 +9,7 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.UserDao;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.db.JdbiConnector;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.EmailUtils;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.ReCaptchaUtils;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -25,8 +26,13 @@ public class AuthenEmailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String email = request.getParameter("email");
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+        if (!ReCaptchaUtils.verify(gRecaptchaResponse)) {
+            request.setAttribute("error", "Vui lòng xác minh CAPTCHA chính xác!");
+            request.getRequestDispatcher("/frontend/public/ForgotPass.jsp").forward(request, response);
+            return;
+        }
+            String email = request.getParameter("email");
 
         Optional<User> userOpt = userDao.findByEmail(email);
         if (userOpt.isEmpty()) {
@@ -36,7 +42,7 @@ public class AuthenEmailServlet extends HttpServlet {
         }
 
         // Sinh mã OTP
-        String code = String.valueOf((int)(Math.random() * 900000) + 100000);
+        String code = String.valueOf((int) (Math.random() * 900000) + 100000);
 
         // Lưu OTP vào session
         request.getSession().setAttribute("otp", code);

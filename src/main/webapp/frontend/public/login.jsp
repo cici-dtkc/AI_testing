@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Đăng nhập</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/frontend/css/publicCss/login1.css">
-
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
@@ -28,12 +28,12 @@
 
                 <label>Nhập Email hoặc Tên đăng nhập:</label>
                 <input type="text" id="username" placeholder="Email hoặc tên đăng nhập" name="username" maxlength="100"
-                       autocomplete="username">
+                       value="${cookie.cookieUsername.value}" autocomplete="username">
                 <span id="usernameHint" class="hint"></span>
                 <label>Nhập mật khẩu:</label>
                 <div class="password-box">
                     <input id="password" type="password" placeholder="Mật khẩu" name="password" maxlength="100"
-                           autocomplete="current-password">
+                           value= "${cookie.cookiePass.value}" autocomplete="current-password">
                     <span class="eye">
                     <img src="${pageContext.request.contextPath}/img/eyePassword.png" id="toggleEye" alt="eye">
                 </span>
@@ -43,6 +43,15 @@
                     <a href="${pageContext.request.contextPath}/RegisterServlet">Đăng ký tài khoản</a>
                     <a href="${pageContext.request.contextPath}/forgot-password">Quên mật khẩu</a>
                 </div>
+                <div class ="remember-me">
+                    <lable>Remember me</lable>
+                    <input type="checkbox" name="rememberMe"  id="rememberMe"
+                    <c:if test="${cookie.cookieReme.value eq 'on'}">checked="checked"</c:if>>
+                </div>
+
+
+                <!-- Google reCAPTCHA Widget -->
+                <div class="g-recaptcha" data-sitekey="${applicationScope.RECAPTCHA_SITE_KEY}" style="margin-bottom: 15px; display: flex; justify-content: center;"></div>
 
                 <button type="submit" value="Đăng nhập">Đăng nhập</button>
 
@@ -133,6 +142,14 @@
             showError("Mật khẩu phải có ít nhất 8 ký tự");
             return false;
         }
+
+        // Client-side CAPTCHA verification
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (recaptchaResponse === "") {
+            showError("Vui lòng xác minh CAPTCHA chính xác!");
+            return false;
+        }
+
         return true;
     }
 
