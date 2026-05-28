@@ -725,29 +725,19 @@
 
         backdrop.innerHTML = `
         <div style="
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
+            background: white; border-radius: 12px; padding: 30px;
+            max-width: 400px; width: 90%; text-align: center;
         ">
             <h2 style="color: #dc3545; font-size: 22px; margin-bottom: 10px;">
-                Sản phẩm hiện không đủ số lượng theo đơn của bạn hoặc sản phẩm đã hư hỏng
+                Đặt hàng thất bại
             </h2>
             <p style="color: #666; font-size: 15px; margin-bottom: 20px;">
-                    ${message}
+                ${message}
             </p>
             <button onclick="this.closest('div').parentElement.remove()"
-                style="
-                    background: #dc3545;
-                    color: white;
-                    border: none;
-                    padding: 12px 30px;
-                    border-radius: 6px;
-                    font-size: 16px;
-                    cursor: pointer;
-                    font-weight: 600;">
+                style="background: #dc3545; color: white; border: none;
+                       padding: 12px 30px; border-radius: 6px;
+                       font-size: 16px; cursor: pointer; font-weight: 600;">
                 OK
             </button>
         </div>
@@ -891,6 +881,10 @@
             const isExpired = v.expired;
             const isShip = v.discount_target === 'Vận chuyển';
 
+            const currentBase = subtotal;
+            const isNotEligible = !isExpired && v.min_order_amount > 0 && currentBase < v.min_order_amount;
+            const isDisabled = isExpired || isNotEligible;
+
             const selectedClass = isSelected ? ' selected' : '';
             const expiredClass = isExpired ? ' expired' : '';
             const onclickAttr = isExpired ? '' : 'onclick="selectVoucher(\'' + v.code + '\')"';
@@ -917,9 +911,11 @@
 
             const checkboxOrBadge = isExpired
                 ? '<span class="uv-badge-expired">Hết hạn</span>'
-                : '<input type="checkbox" ' + checkedAttr + ' ' + disabledAttr
-                + ' onchange="selectVoucher(\'' + v.code + '\')"'
-                + ' onclick="event.stopPropagation()" id="vc_' + v.code + '">';
+                : isNotEligible
+                    ? '<span class="uv-badge-expired">Đơn tối thiểu ' + formatNumber(v.min_order_amount) + 'đ</span>'
+                    : '<input type="checkbox" ' + checkedAttr + ' ' + disabledAttr
+                    + ' onchange="selectVoucher(\'' + v.code + '\')"'
+                    + ' onclick="event.stopPropagation()" id="vc_' + v.code + '">';
 
             return '<div class="voucher-item' + selectedClass + expiredClass + '" ' + onclickAttr + '>'
                 + '<div class="voucher-item-left ' + leftClass + '">'
@@ -973,12 +969,26 @@
     }
 
     function confirmVoucherSelection() {
-        appliedVoucher = tempSelectedVoucher || null;
-        console.log('appliedVoucher:', JSON.stringify(appliedVoucher));
+        if (tempSelectedVoucher) {
+            const v = tempSelectedVoucher;
+            const currentBase = subtotal;
+
+            if (v.min_order_amount > 0 && currentBase < v.min_order_amount) {
+                alert('Voucher "' + v.code + '" yêu cầu ' + baseLabel +
+                    ' tối thiểu ' + formatNumber(v.min_order_amount) + 'đ.\n' +
+                    'Hiện tại: ' + formatNumber(currentBase) + 'đ.');
+                return;
+            }
+            appliedVoucher = v;
+        } else {
+            appliedVoucher = null;
+        }
+
         document.getElementById('voucherCode').value = appliedVoucher?.code || '';
         const display = document.getElementById('selectedVoucherDisplay');
         const text = document.getElementById('selectedVoucherText');
         const btn = document.getElementById('openVoucherBtn');
+
         if (appliedVoucher) {
             let discountText = appliedVoucher.discount_type === 'percent'
                 ? 'Giảm ' + appliedVoucher.discount_value + '%'
@@ -990,6 +1000,7 @@
             display.style.display = 'none';
             btn.innerHTML = '<i class="fas fa-ticket-alt"></i> Chọn voucher';
         }
+
         document.getElementById('voucherOverlay').style.display = 'none';
         updateTotal();
     }

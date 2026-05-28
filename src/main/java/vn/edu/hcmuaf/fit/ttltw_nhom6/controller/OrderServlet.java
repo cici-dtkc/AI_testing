@@ -26,6 +26,7 @@ public class OrderServlet extends HttpServlet {
     private UserDao userDAO;
     private UserShippingAddressDAO userShippingAddressDAO;
     private ComicDAO comicDAO;
+    private VoucherDao voucherDao;
 
     @Override
     public void init() throws ServletException {
@@ -34,6 +35,7 @@ public class OrderServlet extends HttpServlet {
         userDAO = new UserDao(jdbi);
         userShippingAddressDAO = new UserShippingAddressDAO(jdbi);
         comicDAO = new ComicDAO(jdbi);
+        voucherDao = new VoucherDao();
     }
 
     @Override
@@ -249,6 +251,51 @@ public class OrderServlet extends HttpServlet {
                 }
             }
 
+            Voucher appliedVoucher = null;
+            String voucherCode = request.getParameter("voucherCode");
+            if (voucherCode != null && !voucherCode.trim().isEmpty()) {
+                Voucher voucher = voucherDao.getVoucherByCodeAndUser(voucherCode.trim(), user.getId());
+
+                if (voucher == null || voucher.isExpired()) {
+                    session.setAttribute("orderError", "Voucher \"" + voucherCode + "\" không hợp lệ hoặc đã hết hạn.");
+                    response.sendRedirect(request.getContextPath() + "/checkout");
+                    return;
+                }
+
+                double tempSubtotal = session.getAttribute("checkoutSubtotal") != null
+                        ? ((Number) session.getAttribute("checkoutSubtotal")).doubleValue() : 0;
+                double tempShippingFee;
+                try {
+                    String fp = request.getParameter("shippingFee");
+                    tempShippingFee = (fp != null && !fp.isEmpty()) ? Double.parseDouble(fp)
+                            : ("express".equals(request.getParameter("shipping")) ? 50000 : 25000);
+                } catch (NumberFormatException e) {
+                    tempShippingFee = 25000;
+                }
+
+                if (voucher.getMinOrderAmount() != null && voucher.getMinOrderAmount().doubleValue() > 0) {
+                    boolean isShippingVoucher = "Vận chuyển".equals(voucher.getDiscountTarget());
+                    double baseAmount = tempSubtotal;
+                    if (baseAmount < voucher.getMinOrderAmount().doubleValue()) {
+                        String baseLabel = isShippingVoucher ? "phí vận chuyển" : "giá trị đơn hàng";
+                        session.setAttribute("orderError", "Voucher \"" + voucherCode + "\" yêu cầu " + baseLabel + " tối thiểu " + voucher.getMinOrderAmount().toPlainString() + "đ.");
+                        response.sendRedirect(request.getContextPath() + "/checkout");
+                        return;
+                    }
+                }
+
+                if (voucher.isSingleUse()) {
+                    if (voucherDao.hasUserUsedVoucher(user.getId(), voucher.getId())) {
+                        session.setAttribute("orderError", "Voucher \"" + voucherCode + "\" chỉ được sử dụng 1 lần và bạn đã dùng rồi.");
+                        response.sendRedirect(request.getContextPath() + "/checkout");
+                        return;
+                    }
+                }
+
+                appliedVoucher = voucher;
+
+            }
+
             Object subtotalObj = session.getAttribute("checkoutSubtotal");
             double subtotal = subtotalObj != null ? ((Double) subtotalObj) : 0.0;
             double shippingFee;
@@ -268,7 +315,22 @@ public class OrderServlet extends HttpServlet {
                 pointsDiscount = pointsToUse;
             }
 
-            double totalAmount = subtotal + shippingFee - pointsDiscount;
+            double voucherDiscount = 0;
+            if (appliedVoucher != null) {
+                String target = appliedVoucher.getDiscountTarget();
+                boolean isShipping = target != null && target.contains("Vận chuyển");
+                double base = isShipping ? shippingFee : subtotal;
+                if ("percent".equals(appliedVoucher.getDiscountType())) {
+                    voucherDiscount = Math.floor(base * appliedVoucher.getDiscountValue().doubleValue() / 100);
+                } else {
+                    voucherDiscount = appliedVoucher.getDiscountValue() != null ? appliedVoucher.getDiscountValue().doubleValue() : 0;
+                }
+                if (isShipping) {
+                    voucherDiscount = Math.min(voucherDiscount, shippingFee);
+                }
+            }
+
+            double totalAmount = subtotal + shippingFee - pointsDiscount - voucherDiscount;
 
             if (totalAmount < 0) {
                 totalAmount = 0;
@@ -357,6 +419,11 @@ public class OrderServlet extends HttpServlet {
                 for (CartItem item : selectedItems) {
                     cartDAOClean.removeItem(userCartId, item.getComic().getId());
                 }
+
+                if (appliedVoucher != null) {
+                    voucherDao.markVoucherAsUsed(user.getId(), appliedVoucher.getId(), orderId);
+                }
+
                 if ("ewallet".equals(paymentMethod)) {
                     PaymentDAO paymentDAO = new PaymentDAO(JdbiConnector.get());
 

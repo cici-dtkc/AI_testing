@@ -21,17 +21,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSerializer;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.VoucherDao;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 @WebServlet("/checkout")
 public class CheckoutServlet extends HttpServlet {
     private UserShippingAddressDAO shippingAddressDAO;
     private CartDAO cartDAO;
+    private VoucherDao voucherDao;
 
     @Override
     public void init() throws ServletException {
         Jdbi jdbi = JdbiConnector.get();
         shippingAddressDAO = new UserShippingAddressDAO(jdbi);
         cartDAO = new CartDAO();
+        voucherDao = new VoucherDao();
     }
 
     @Override
@@ -185,6 +192,18 @@ public class CheckoutServlet extends HttpServlet {
             session.removeAttribute("orderError");
         }
         request.setAttribute("user", user);
+
+        List<Voucher> vouchers = voucherDao.getVouchersByUserId(user.getId());
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class,
+                        (JsonSerializer<LocalDateTime>) (src, typeOf, ctx) ->
+                                new com.google.gson.JsonPrimitive(
+                                        src.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))))
+                .create();
+
+        request.setAttribute("vouchersJson", gson.toJson(vouchers));
+
         request.getRequestDispatcher("/frontend/nguoiB/checkout.jsp").forward(request, response);
     }
 
