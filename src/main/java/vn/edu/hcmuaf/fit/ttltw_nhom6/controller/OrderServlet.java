@@ -292,6 +292,16 @@ public class OrderServlet extends HttpServlet {
                     }
                 }
 
+                List<Integer> comicIds = selectedItems.stream()
+                        .map(item -> item.getComic().getId())
+                        .collect(java.util.stream.Collectors.toList());
+
+                if (!voucherDao.isVoucherApplicableForItems(voucherCode.trim(), comicIds)) {
+                    session.setAttribute("orderError", "Voucher \"" + voucherCode + "\" không áp dụng được cho các sản phẩm trong đơn hàng này.");
+                    response.sendRedirect(request.getContextPath() + "/checkout");
+                    return;
+                }
+
                 appliedVoucher = voucher;
 
             }

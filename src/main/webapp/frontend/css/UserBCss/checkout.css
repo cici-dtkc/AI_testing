@@ -1238,7 +1238,7 @@ main {
     margin-bottom: 12px;
     cursor: pointer;
     transition: box-shadow 0.2s;
-    min-height: 90px;
+    min-height: 120px;
     overflow: hidden;
     position: relative;
     padding: 0;
@@ -1287,8 +1287,10 @@ main {
     border-radius: 4px;
     letter-spacing: 1px;
 }
-.vmeta { display: flex; flex-direction: column; gap: 2px; font-size: 14px; color: #8a8a8a; }
-.vmeta span { display: flex; align-items: center; gap: 4px; }
+.vmeta { display: flex; flex-direction: column; gap: 3px; font-size: 13px; color: #8a8a8a; margin-top: 2px; }
+.vmeta span { display: flex; align-items: center; gap: 5px; line-height: 1.5;
+    white-space: normal;
+flex-wrap: wrap;}
 
 .voucher-item-check {
     display: flex;
@@ -1406,7 +1408,7 @@ main {
     padding: 12px 12px 12px 16px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 6px;
     min-width: 0;
 }
@@ -1462,4 +1464,9 @@ main {
 .remove-voucher-btn:hover {
     color: #dc2626;
     transform: scale(1.1);
+}
+
+.voucher-item.scope-mismatch {
+    opacity: 0.55;
+    cursor: not-allowed;
 }

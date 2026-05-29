@@ -627,6 +627,7 @@
     const shippingRadios = document.querySelectorAll('input[name="shipping"]');
     const usePointsCheckbox = document.getElementById('usePoints');
     const subtotal = ${checkoutSubtotal};
+    const selectedCategories = ${selectedCategoriesJson != null ? selectedCategoriesJson : '[]'};
     const userPoints = ${user.points != null ? user.points : 0};
     const shippingFeeSpan = document.getElementById('shippingFee');
     const pointsDiscountRow = document.getElementById('pointsDiscountRow');
@@ -640,7 +641,7 @@
     shippingRadios.forEach(r => r.addEventListener('change', updateTotal));
     if (usePointsCheckbox) {
         usePointsCheckbox.addEventListener('change', updateTotal);
-        }
+    }
 
     const checkoutBtn = document.getElementById('checkout-qr');
     const orderForm = document.getElementById('orderForm');
@@ -767,6 +768,7 @@
         document.body.appendChild(backdrop);
         setTimeout(() => backdrop.remove(), 5000);
     }
+
     function updateTotal() {
         const selectedShipping = document.querySelector('input[name="shipping"]:checked');
         const shippingFee = selectedShipping ? parseInt(selectedShipping.dataset.fee) || 0 : 0;
@@ -786,7 +788,7 @@
             const target = (appliedVoucher.discount_target || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
             const isShipping = target.includes('van chuyen') || target === 'shipping';
-            const isProduct  = target.includes('giam gia')   || target === 'product';
+            const isProduct = target.includes('giam gia') || target === 'product';
 
             let rawDiscount = 0;
             if (appliedVoucher.discount_type === 'percent') {
@@ -871,6 +873,12 @@
 
     function renderVoucherList() {
         const list = document.getElementById('voucherList');
+        const validVouchers = userVouchers.filter(v => !v.expired);
+
+        if (!validVouchers || validVouchers.length === 0) {
+            list.innerHTML = '<div class="no-voucher-msg"><i class="fas fa-ticket-alt" style="font-size:32px;display:block;margin-bottom:10px;opacity:0.3"></i>Bạn chưa có voucher nào</div>';
+            return;
+        }
         if (!userVouchers || userVouchers.length === 0) {
             list.innerHTML = '<div class="no-voucher-msg"><i class="fas fa-ticket-alt" style="font-size:32px;display:block;margin-bottom:10px;opacity:0.3"></i>Bạn chưa có voucher nào</div>';
             return;
@@ -882,12 +890,22 @@
             const isShip = v.discount_target === 'Vận chuyển';
 
             const currentBase = subtotal;
+            const scopeMismatch = !isExpired
+                && v.apply_scope
+                && v.apply_scope !== 'Tất cả'
+                && !selectedCategories.some(cat =>
+                    cat.toLowerCase().trim() === (v.apply_scope || '').toLowerCase().trim()
+                );
             const isNotEligible = !isExpired && v.min_order_amount > 0 && currentBase < v.min_order_amount;
             const isDisabled = isExpired || isNotEligible;
+            const scopeLabel = (v.applyScope && v.applyScope !== 'Tất cả')
+                ? '<span style="font-size:12px;color:#888"><i class="fas fa-info-circle"></i> Chỉ áp dụng cho: ' + v.applyScope + '</span>'
+                : '';
 
             const selectedClass = isSelected ? ' selected' : '';
             const expiredClass = isExpired ? ' expired' : '';
-            const onclickAttr = isExpired ? '' : 'onclick="selectVoucher(\'' + v.code + '\')"';
+            const scopeClass = scopeMismatch ? ' scope-mismatch' : '';
+            const onclickAttr = (isExpired || scopeMismatch) ? '' : 'onclick="selectVoucher(\'' + v.code + '\')"';
             const checkedAttr = isSelected ? 'checked' : '';
             const disabledAttr = isExpired ? 'disabled' : '';
 
@@ -908,16 +926,21 @@
             const expiryHtml = v.end_date
                 ? '<span><i class="fas fa-clock"></i> HSD: ' + v.end_date + '</span>'
                 : '';
+            const singleUseHtml = (v.is_single_use === true || v.is_single_use === 1)
+                ? '<span style="color:#e67e22"><i class="fas fa-user-check"></i> 1 lần/khách</span>'
+                : '<span style="color:#27ae60"><i class="fas fa-infinity"></i> Nhiều lần</span>';
 
             const checkboxOrBadge = isExpired
                 ? '<span class="uv-badge-expired">Hết hạn</span>'
-                : isNotEligible
-                    ? '<span class="uv-badge-expired">Đơn tối thiểu ' + formatNumber(v.min_order_amount) + 'đ</span>'
-                    : '<input type="checkbox" ' + checkedAttr + ' ' + disabledAttr
-                    + ' onchange="selectVoucher(\'' + v.code + '\')"'
-                    + ' onclick="event.stopPropagation()" id="vc_' + v.code + '">';
+                : scopeMismatch
+                    ? '<span class="uv-badge-expired">Không áp dụng cho thể loại này</span>'
+                    : isNotEligible
+                        ? '<span class="uv-badge-expired">Đơn tối thiểu ' + formatNumber(v.min_order_amount) + 'đ</span>'
+                        : '<input type="checkbox" ' + checkedAttr + ' ' + disabledAttr
+                        + ' onchange="selectVoucher(\'' + v.code + '\')"'
+                        + ' onclick="event.stopPropagation()" id="vc_' + v.code + '">';
 
-            return '<div class="voucher-item' + selectedClass + expiredClass + '" ' + onclickAttr + '>'
+            return '<div class="voucher-item' + selectedClass + expiredClass + scopeClass +'" ' + onclickAttr + '>'
                 + '<div class="voucher-item-left ' + leftClass + '">'
                 + '<i class="fas ' + leftIcon + '"></i>'
                 + '<span>' + leftLabel + '</span>'
@@ -926,7 +949,7 @@
                 + '<div class="voucher-item-body">'
                 + '<div class="vdiscount">' + discountText + '</div>'
                 + '<div class="vcode">Mã: <span>' + v.code + '</span></div>'
-                + '<div class="vmeta">' + minOrderHtml + expiryHtml + '</div>'
+                + '<div class="vmeta">' + minOrderHtml + expiryHtml + singleUseHtml + scopeLabel + '</div>'
                 + '</div>'
                 + '<div class="voucher-item-check">' + checkboxOrBadge + '</div>'
                 + '</div>';
@@ -936,6 +959,11 @@
     function selectVoucher(code) {
         const v = userVouchers.find(x => x.code === code);
         if (!v || v.expired) return;
+        const isScopeMismatch = v.apply_scope && v.apply_scope !== 'Tất cả'
+            && !selectedCategories.some(cat =>
+                cat.toLowerCase().trim() === v.apply_scope.toLowerCase().trim()
+            );
+        if (isScopeMismatch) return;
         if (tempSelectedVoucher?.code === code || appliedVoucher?.code === code) {
             tempSelectedVoucher = null;
         } else {

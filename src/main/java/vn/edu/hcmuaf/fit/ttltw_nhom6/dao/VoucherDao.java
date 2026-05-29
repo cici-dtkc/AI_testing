@@ -231,7 +231,7 @@ public class VoucherDao {
                 handle.createQuery("""
                                     SELECT v.* FROM vouchers v
                                     JOIN user_vouchers uv ON v.id = uv.promo_id
-                                    WHERE uv.user_id = :userId AND v.end_date >= CURRENT_DATE
+                                    WHERE uv.user_id = :userId AND v.end_date >= NOW()
                                     AND v.quantity > v.used_count 
                                     AND (v.is_single_use = 0 OR (v.is_single_use = 1 AND uv.is_used = 0))
                                 """)
@@ -288,6 +288,35 @@ public class VoucherDao {
                 handle.createUpdate(sql2)
                         .bind("voucherId", voucherId)
                         .execute()
+        );
+    }
+
+    public boolean isVoucherApplicableForItems(String voucherCode, List<Integer> comicIds) {
+        String scopeSql = "SELECT apply_scope FROM vouchers WHERE code = :code";
+        String scope = jdbi.withHandle(handle ->
+                handle.createQuery(scopeSql)
+                        .bind("code", voucherCode)
+                        .mapTo(String.class)
+                        .findOne()
+                        .orElse(null)
+        );
+
+        if (scope == null) return false;
+        if ("Tất cả".equalsIgnoreCase(scope.trim())) return true;
+
+        String checkSql = """
+        SELECT COUNT(*) FROM comics c
+        JOIN categories cat ON c.category_id = cat.id
+        WHERE c.id IN (<comicIds>)
+          AND cat.name_categories = :scope
+    """;
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(checkSql.replace("<comicIds>",
+                                comicIds.stream().map(String::valueOf).collect(java.util.stream.Collectors.joining(","))))
+                        .bind("scope", scope.trim())
+                        .mapTo(Integer.class)
+                        .one() > 0
         );
     }
 }

@@ -204,6 +204,20 @@ public class CheckoutServlet extends HttpServlet {
 
         request.setAttribute("vouchersJson", gson.toJson(vouchers));
 
+        @SuppressWarnings("unchecked")
+        List<CartItem> itemsForScope = (List<CartItem>) session.getAttribute("selectedItems");
+        if (itemsForScope != null && !itemsForScope.isEmpty()) {
+            ComicDAO comicDAO = new ComicDAO(JdbiConnector.get());
+            List<String> selectedCategories = itemsForScope.stream()
+                    .map(item -> comicDAO.getCategoryName(item.getComic().getId()))
+                    .filter(cat -> cat != null && !cat.isEmpty())
+                    .distinct()
+                    .collect(java.util.stream.Collectors.toList());
+            request.setAttribute("selectedCategoriesJson", gson.toJson(selectedCategories));
+        } else {
+            request.setAttribute("selectedCategoriesJson", "[]");
+        }
+
         request.getRequestDispatcher("/frontend/nguoiB/checkout.jsp").forward(request, response);
     }
 
