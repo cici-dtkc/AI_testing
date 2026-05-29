@@ -63,6 +63,11 @@
             <li class="${fn:contains(currentURI, 'wishlist') ? 'active' : ''}">
                 <a href="${contextPath}/wishlist" data-page="wishlist">Sản phẩm yêu thích</a>
             </li>
+
+            <li class="${fn:contains(currentURI, 'status-login') ? 'active' : ''}">
+                <a href="${contextPath}/frontend/nguoiB/status-login.jsp" data-page="status-login">Trạng thái đăng nhập</a>
+            </li>
+
         </ul>
     </div>
 </div>
