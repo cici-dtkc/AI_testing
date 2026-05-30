@@ -65,7 +65,7 @@
             </li>
 
             <li class="${fn:contains(currentURI, 'status-login') ? 'active' : ''}">
-                <a href="${contextPath}/frontend/nguoiB/status-login.jsp" data-page="status-login">Trạng thái đăng nhập</a>
+                <a href="${contextPath}/status-login" data-page="status-login">Trạng thái đăng nhập</a>
             </li>
 
         </ul>

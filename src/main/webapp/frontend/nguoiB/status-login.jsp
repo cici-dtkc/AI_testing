@@ -27,7 +27,6 @@
             <table>
                 <thead>
                 <tr>
-                    <th>User ID</th>
                     <th>IP Address</th>
                     <th>User Agent</th>
                     <th>Login Time</th>
@@ -35,126 +34,23 @@
                 </tr>
                 </thead>
                 <tbody>
-
-                <tr>
-
-                    <td>101</td>
-                    <td>192.168.1.10</td>
-                    <td>Chrome/120.0</td>
-                    <td>2026-05-29 19:45:00</td>
-                    <td class="active">Đang hoạt động</td>
-                </tr>
-
-                <tr>
-                    <td>102</td>
-                    <td>192.168.1.11</td>
-                    <td>Firefox/115.0</td>
-                    <td>2026-05-28 14:20:00</td>
-                    <td class="inactive">Đã thoát</td>
-                </tr>
-
-                <tr>
-
-                    <td>101</td>
-                    <td>192.168.1.10</td>
-                    <td>Chrome/120.0</td>
-                    <td>2026-05-29 19:45:00</td>
-                    <td class="active">Đang hoạt động</td>
-                </tr>
-
-                <tr>
-                    <td>102</td>
-                    <td>192.168.1.11</td>
-                    <td>Firefox/115.0</td>
-                    <td>2026-05-28 14:20:00</td>
-                    <td class="inactive">Đã thoát</td>
-                </tr>
-
-                <tr>
-
-                    <td>101</td>
-                    <td>192.168.1.10</td>
-                    <td>Chrome/120.0</td>
-                    <td>2026-05-29 19:45:00</td>
-                    <td class="active">Đang hoạt động</td>
-                </tr>
-
-                <tr>
-                    <td>102</td>
-                    <td>192.168.1.11</td>
-                    <td>Firefox/115.0</td>
-                    <td>2026-05-28 14:20:00</td>
-                    <td class="inactive">Đã thoát</td>
-                </tr>
-
-                <tr>
-
-                    <td>101</td>
-                    <td>192.168.1.10</td>
-                    <td>Chrome/120.0</td>
-                    <td>2026-05-29 19:45:00</td>
-                    <td class="active">Đang hoạt động</td>
-                </tr>
-
-                <tr>
-                    <td>102</td>
-                    <td>192.168.1.11</td>
-                    <td>Firefox/115.0</td>
-                    <td>2026-05-28 14:20:00</td>
-                    <td class="inactive">Đã thoát</td>
-                </tr>
-
-                <tr>
-
-                    <td>101</td>
-                    <td>192.168.1.10</td>
-                    <td>Chrome/120.0</td>
-                    <td>2026-05-29 19:45:00</td>
-                    <td class="active">Đang hoạt động</td>
-                </tr>
-
-                <tr>
-                    <td>102</td>
-                    <td>192.168.1.11</td>
-                    <td>Firefox/115.0</td>
-                    <td>2026-05-28 14:20:00</td>
-                    <td class="inactive">Đã thoát</td>
-                </tr>
-
-                <tr>
-
-                    <td>101</td>
-                    <td>192.168.1.10</td>
-                    <td>Chrome/120.0</td>
-                    <td>2026-05-29 19:45:00</td>
-                    <td class="active">Đang hoạt động</td>
-                </tr>
-
-                <tr>
-                    <td>102</td>
-                    <td>192.168.1.11</td>
-                    <td>Firefox/115.0</td>
-                    <td>2026-05-28 14:20:00</td>
-                    <td class="inactive">Đã thoát</td>
-                </tr>
-
-                <tr>
-
-                    <td>101</td>
-                    <td>192.168.1.10</td>
-                    <td>Chrome/120.0</td>
-                    <td>2026-05-29 19:45:00</td>
-                    <td class="active">Đang hoạt động</td>
-                </tr>
-
-                <tr>
-                    <td>102</td>
-                    <td>192.168.1.11</td>
-                    <td>Firefox/115.0</td>
-                    <td>2026-05-28 14:20:00</td>
-                    <td class="inactive">Đã thoát</td>
-                </tr>
-
+                <c:forEach var="session" items="${loginSessions}">
+                    <tr>
+                        <td>${session.ipAddress}</td>
+                        <td>${session.userAgent}</td>
+                        <td>${session.loginTime}</td>
+                        <td class="${session.active ? 'active' : 'inactive'}">
+                            <c:choose>
+                                <c:when test="${session.active}">
+                                    Đang hoạt động
+                                </c:when>
+                                <c:otherwise>
+                                    Đã thoát
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>

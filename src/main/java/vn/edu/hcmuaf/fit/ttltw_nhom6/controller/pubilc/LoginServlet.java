@@ -102,6 +102,11 @@ public class LoginServlet extends HttpServlet {
                 response.addCookie(cookieReme);
             }
 
+            //status login
+            String ipAdress = request.getRemoteAddr();
+            String userAgent = request.getHeader("User-Agent");
+            userDao.insertStatusLoign(user.getId(), ipAdress, userAgent);
+
             if ("admin".equalsIgnoreCase(user.getRole())) {
                 newSession.setAttribute("currentUser", user);
                 newSession.setAttribute("userId", user.getId());
