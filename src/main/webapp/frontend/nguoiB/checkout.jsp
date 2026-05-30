@@ -912,7 +912,9 @@
             const leftClass = isShip ? 'type-ship' : 'type-product';
             const leftIcon = isShip ? 'fa-truck' : 'fa-tag';
             const leftLabel = isShip ? 'VẬN CHUYỂN' : 'SẢN PHẨM';
-
+            const singleUseTag = (v.is_single_use === true || v.is_single_use === 1)
+                ? '<span class="vc-single-use-tag"><i class="fas fa-user-check"></i> 1 lần/khách</span>'
+                : '';
             let discountText = '';
             if (v.discount_type === 'percent') {
                 discountText = 'Giảm ' + v.discount_value + '%';
@@ -926,9 +928,6 @@
             const expiryHtml = v.end_date
                 ? '<span><i class="fas fa-clock"></i> HSD: ' + v.end_date + '</span>'
                 : '';
-            const singleUseHtml = (v.is_single_use === true || v.is_single_use === 1)
-                ? '<span style="color:#e67e22"><i class="fas fa-user-check"></i> 1 lần/khách</span>'
-                : '<span style="color:#27ae60"><i class="fas fa-infinity"></i> Nhiều lần</span>';
 
             const checkboxOrBadge = isExpired
                 ? '<span class="uv-badge-expired">Hết hạn</span>'
@@ -947,9 +946,9 @@
                 + '</div>'
                 + '<div class="voucher-item-sep"></div>'
                 + '<div class="voucher-item-body">'
-                + '<div class="vdiscount">' + discountText + '</div>'
+                + '<div class="vdiscount-row">' + '<span class="vdiscount">' + discountText + '</span>' + singleUseTag + '</div>'
                 + '<div class="vcode">Mã: <span>' + v.code + '</span></div>'
-                + '<div class="vmeta">' + minOrderHtml + expiryHtml + singleUseHtml + scopeLabel + '</div>'
+                + '<div class="vmeta">' + minOrderHtml + expiryHtml + scopeLabel + '</div>'
                 + '</div>'
                 + '<div class="voucher-item-check">' + checkboxOrBadge + '</div>'
                 + '</div>';

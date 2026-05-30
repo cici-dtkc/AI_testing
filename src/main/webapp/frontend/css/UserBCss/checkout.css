@@ -1470,3 +1470,66 @@ flex-wrap: wrap;}
     opacity: 0.55;
     cursor: not-allowed;
 }
+
+.vdiscount-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.vc-single-use-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #7c3aed;
+    background: #ede9fe;
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.vc-single-use-tag i {
+    font-size: 10px;
+}
+
+.vpopup-tabs {
+    display: flex;
+    border-bottom: 2px solid #eee;
+}
+.vpopup-tab {
+    flex: 1;
+    padding: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #888;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+}
+.vpopup-tab.active {
+    color: #ff4c4c;
+    border-bottom-color: #ff4c4c;
+}
+.vpopup-tab:hover { color: #ff4c4c; }
+
+#openVoucherBtn {
+    padding: 10px 18px;
+    border: 1.5px dashed #ccc;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #555;
+    cursor: pointer;
+    font-size: 14px;
+    transition: border-color 0.2s, background 0.2s;
+}
+#openVoucherBtn:hover {
+    border-color: #ff4c4c;
+    background: #fff5f5;
+    color: #ff4c4c;
+}

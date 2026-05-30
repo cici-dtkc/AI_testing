@@ -26,150 +26,176 @@
         List<Voucher> shippingVouchers = (List<Voucher>) request.getAttribute("userShippingVouchers");
     %>
     <div class="user-voucher-wrapper">
-    <h2>Voucher của tôi</h2>
+        <h2>Voucher của tôi</h2>
 
-    <%
-        boolean hasAny = (productVouchers != null && !productVouchers.isEmpty())
-                || (shippingVouchers != null && !shippingVouchers.isEmpty());
-        if (!hasAny) {
-    %>
-    <div class="uv-empty">
-        <i class="fa-regular fa-ticket"></i>
-        <p>Bạn chưa lưu voucher nào</p>
-        <a href="${pageContext.request.contextPath}/voucher">Khám phá voucher ngay</a>
-    </div>
-    <%
-    } else {
-    %>
-
-    <%-- Voucher sản phẩm --%>
-    <% if (productVouchers != null && !productVouchers.isEmpty()) { %>
-    <div class="voucher-section-title">Voucher sản phẩm</div>
-    <% for (Voucher v : productVouchers) {
-        boolean isExpired = v.getEndDate() != null && v.getEndDate().isBefore(LocalDateTime.now());
-        boolean isNotStarted = isNotStarted(v.getStartDate());
-        String expiryLabel = getExpiryLabel(v.getEndDate());
-        boolean isUrgent = expiryLabel != null && expiryLabel.startsWith("Hết hạn trong");
-    %>
-    <div class="uv-card uv-card-product <%= isUrgent ? "uv-card-urgent" : "" %>">
-        <div class="uv-card-left">
-            <i class="fa-solid fa-tag"></i>
-            <span class="uv-type-label">Sản phẩm</span>
+        <%
+            boolean hasAny = (productVouchers != null && !productVouchers.isEmpty())
+                    || (shippingVouchers != null && !shippingVouchers.isEmpty());
+            if (!hasAny) {
+        %>
+        <div class="uv-empty">
+            <i class="fa-regular fa-ticket"></i>
+            <p>Bạn chưa lưu voucher nào</p>
+            <a href="${pageContext.request.contextPath}/voucher">Khám phá voucher ngay</a>
         </div>
-        <div class="uv-card-body">
-            <div class="uv-discount-value">
-                <% if ("percent".equalsIgnoreCase(v.getDiscountType())) { %>
-                Giảm <%= v.getDiscountValue().stripTrailingZeros().toPlainString() %>%
+        <%
+        } else {
+        %>
+
+        <%-- Voucher sản phẩm --%>
+        <% if (productVouchers != null && !productVouchers.isEmpty()) { %>
+        <div class="voucher-section-title">Voucher sản phẩm</div>
+        <% for (Voucher v : productVouchers) {
+            boolean isExpired = v.getEndDate() != null && v.getEndDate().isBefore(LocalDateTime.now());
+            boolean isNotStarted = isNotStarted(v.getStartDate());
+            String expiryLabel = getExpiryLabel(v.getEndDate());
+            boolean isUrgent = expiryLabel != null && expiryLabel.startsWith("Hết hạn trong");
+        %>
+        <div class="uv-card uv-card-product <%= isUrgent ? "uv-card-urgent" : "" %>">
+            <div class="uv-card-left">
+                <i class="fa-solid fa-tag"></i>
+                <span class="uv-type-label">Sản phẩm</span>
+            </div>
+            <div class="uv-card-body">
+                <div class="uv-discount-row">
+                    <div class="uv-discount-value">
+                        <% if ("percent".equalsIgnoreCase(v.getDiscountType())) { %>
+                        Giảm <%= v.getDiscountValue().stripTrailingZeros().toPlainString() %>%
+                        <% } else { %>
+                        Giảm <fmt:formatNumber value="<%= v.getDiscountValue() %>" type="number" groupingUsed="true"/>đ
+                        <% } %>
+                    </div>
+                    <% if (v.isSingleUse()) { %>
+                    <div class="uv-single-use-tag">1 lần/khách</div>
+                    <% } %>
+                </div>
+                <div class="uv-code">Mã: <span><%= v.getCode() %></span></div>
+
+                <div class="uv-apply">
+                    Áp dụng:
+                    <span><%= "all".equalsIgnoreCase(v.getApplyScope()) || "Tất cả".equalsIgnoreCase(v.getApplyScope()) ? "Toàn bộ sản phẩm" : v.getApplyScope() %></span>
+                </div>
+
+                <% if (v.getMinOrderAmount() != null && v.getMinOrderAmount().compareTo(java.math.BigDecimal.ZERO) > 0) { %>
+                <div class="uv-min-order">
+                    Đơn tối thiểu: <fmt:formatNumber value="<%= v.getMinOrderAmount() %>" type="number"
+                                                     groupingUsed="true"/>đ
+                </div>
+                <% } %>
+
+                <% if (isExpired) { %>
+                <div class="uv-expiry expired">Đã hết hạn</div>
+                <% } else if (isUrgent) { %>
+                <div class="uv-expiry urgent"><i class="fa-solid fa-clock"></i> <%= expiryLabel %>
+                </div>
                 <% } else { %>
-                Giảm <fmt:formatNumber value="<%= v.getDiscountValue() %>" type="number" groupingUsed="true"/>đ
+                <div class="uv-expiry">
+                    HSD: <fmt:formatDate value="<%= java.sql.Timestamp.valueOf(v.getEndDate()) %>"
+                                         pattern="dd/MM/yyyy"/>
+                </div>
                 <% } %>
             </div>
-            <div class="uv-code">Mã: <span><%= v.getCode() %></span></div>
+            <div class="uv-card-action">
+                <% if (isExpired) { %>
+                <span class="uv-badge-expired">Hết hạn</span>
 
-            <% if (v.getMinOrderAmount() != null && v.getMinOrderAmount().compareTo(java.math.BigDecimal.ZERO) > 0) { %>
-            <div class="uv-min-order">
-                Đơn tối thiểu: <fmt:formatNumber value="<%= v.getMinOrderAmount() %>" type="number" groupingUsed="true"/>đ
-            </div>
-            <% } %>
-
-            <% if (isExpired) { %>
-            <div class="uv-expiry expired">Đã hết hạn</div>
-            <% } else if (isUrgent) { %>
-            <div class="uv-expiry urgent"><i class="fa-solid fa-clock"></i> <%= expiryLabel %></div>
-            <% } else { %>
-            <div class="uv-expiry">
-                HSD: <fmt:formatDate value="<%= java.sql.Timestamp.valueOf(v.getEndDate()) %>" pattern="dd/MM/yyyy"/>
-            </div>
-            <% } %>
-        </div>
-        <div class="uv-card-action">
-            <% if (isExpired) { %>
-            <span class="uv-badge-expired">Hết hạn</span>
-
-            <% } else if (isNotStarted) { %>
-            <span class="uv-later-text">
+                <% } else if (isNotStarted) { %>
+                <span class="uv-later-text">
                 <i class="fa-regular fa-clock"></i> Dùng sau
             </span>
-            <span class="uv-start-date">
+                <span class="uv-start-date">
                 Từ: <fmt:formatDate value="<%= java.sql.Timestamp.valueOf(v.getStartDate()) %>" pattern="dd/MM/yyyy"/>
             </span>
 
-            <% } else { %>
-            <button class="uv-btn-urgent"
-                    data-code="<%= v.getCode() %>"
-                    onclick="useVoucher(this)">
-                Dùng ngay
-            </button>
-            <% } %>
-        </div>
-    </div>
-    <% } %>
-    <% } %>
-
-    <%-- Voucher vận chuyển --%>
-    <% if (shippingVouchers != null && !shippingVouchers.isEmpty()) { %>
-    <div class="voucher-section-title">Voucher vận chuyển</div>
-    <% for (Voucher v : shippingVouchers) {
-        boolean isExpired = v.getEndDate() != null && v.getEndDate().isBefore(LocalDateTime.now());
-        boolean isNotStarted = isNotStarted(v.getStartDate());
-        String expiryLabel = getExpiryLabel(v.getEndDate());
-        boolean isUrgent = expiryLabel != null && expiryLabel.startsWith("Hết hạn trong");
-    %>
-    <div class="uv-card uv-card-shipping <%= isUrgent ? "uv-card-urgent" : "" %>">
-        <div class="uv-card-left">
-            <i class="fa-solid fa-truck"></i>
-            <span class="uv-type-label">Vận chuyển</span>
-        </div>
-        <div class="uv-card-body">
-            <div class="uv-discount-value">
-                <% if ("percent".equalsIgnoreCase(v.getDiscountType())) { %>
-                Giảm <%= v.getDiscountValue().stripTrailingZeros().toPlainString() %>%
                 <% } else { %>
-                Giảm <fmt:formatNumber value="<%= v.getDiscountValue() %>" type="number" groupingUsed="true"/>đ
+                <button class="uv-btn-urgent"
+                        data-code="<%= v.getCode() %>"
+                        onclick="useVoucher(this)">
+                    Dùng ngay
+                </button>
                 <% } %>
             </div>
-            <div class="uv-code">Mã: <span><%= v.getCode() %></span></div>
-
-            <% if (v.getMinOrderAmount() != null && v.getMinOrderAmount().compareTo(java.math.BigDecimal.ZERO) > 0) { %>
-            <div class="uv-min-order">
-                Đơn tối thiểu: <fmt:formatNumber value="<%= v.getMinOrderAmount() %>" type="number" groupingUsed="true"/>đ
-            </div>
-            <% } %>
-
-            <% if (isExpired) { %>
-            <div class="uv-expiry expired">Đã hết hạn</div>
-            <% } else if (isUrgent) { %>
-            <div class="uv-expiry urgent"><i class="fa-solid fa-clock"></i> <%= expiryLabel %></div>
-            <% } else { %>
-            <div class="uv-expiry">
-                HSD: <fmt:formatDate value="<%= java.sql.Timestamp.valueOf(v.getEndDate()) %>" pattern="dd/MM/yyyy"/>
-            </div>
-            <% } %>
         </div>
-        <div class="uv-card-action">
-            <% if (isExpired) { %>
-            <span class="uv-badge-expired">Hết hạn</span>
-            <% } else if (isNotStarted) { %>
-            <span class="uv-later-text">
+        <% } %>
+        <% } %>
+
+        <%-- Voucher vận chuyển --%>
+        <% if (shippingVouchers != null && !shippingVouchers.isEmpty()) { %>
+        <div class="voucher-section-title">Voucher vận chuyển</div>
+        <% for (Voucher v : shippingVouchers) {
+            boolean isExpired = v.getEndDate() != null && v.getEndDate().isBefore(LocalDateTime.now());
+            boolean isNotStarted = isNotStarted(v.getStartDate());
+            String expiryLabel = getExpiryLabel(v.getEndDate());
+            boolean isUrgent = expiryLabel != null && expiryLabel.startsWith("Hết hạn trong");
+        %>
+        <div class="uv-card uv-card-shipping <%= isUrgent ? "uv-card-urgent" : "" %>">
+            <div class="uv-card-left">
+                <i class="fa-solid fa-truck"></i>
+                <span class="uv-type-label">Vận chuyển</span>
+            </div>
+            <div class="uv-card-body">
+                <div class="uv-discount-row">
+                    <div class="uv-discount-value">
+                        <% if ("percent".equalsIgnoreCase(v.getDiscountType())) { %>
+                        Giảm <%= v.getDiscountValue().stripTrailingZeros().toPlainString() %>%
+                        <% } else { %>
+                        Giảm <fmt:formatNumber value="<%= v.getDiscountValue() %>" type="number" groupingUsed="true"/>đ
+                        <% } %>
+                    </div>
+                    <% if (v.isSingleUse()) { %>
+                    <div class="uv-single-use-tag">1 lần/khách</div>
+                    <% } %>
+                </div>
+                <div class="uv-code">Mã: <span><%= v.getCode() %></span></div>
+
+                <div class="uv-apply">
+                    Áp dụng:
+                    <span><%= "all".equalsIgnoreCase(v.getApplyScope()) || "Tất cả".equalsIgnoreCase(v.getApplyScope()) ? "Toàn bộ sản phẩm" : v.getApplyScope() %></span>
+                </div>
+
+                <% if (v.getMinOrderAmount() != null && v.getMinOrderAmount().compareTo(java.math.BigDecimal.ZERO) > 0) { %>
+                <div class="uv-min-order">
+                    Đơn tối thiểu: <fmt:formatNumber value="<%= v.getMinOrderAmount() %>" type="number"
+                                                     groupingUsed="true"/>đ
+                </div>
+                <% } %>
+
+                <% if (isExpired) { %>
+                <div class="uv-expiry expired">Đã hết hạn</div>
+                <% } else if (isUrgent) { %>
+                <div class="uv-expiry urgent"><i class="fa-solid fa-clock"></i> <%= expiryLabel %>
+                </div>
+                <% } else { %>
+                <div class="uv-expiry">
+                    HSD: <fmt:formatDate value="<%= java.sql.Timestamp.valueOf(v.getEndDate()) %>"
+                                         pattern="dd/MM/yyyy"/>
+                </div>
+                <% } %>
+            </div>
+            <div class="uv-card-action">
+                <% if (isExpired) { %>
+                <span class="uv-badge-expired">Hết hạn</span>
+                <% } else if (isNotStarted) { %>
+                <span class="uv-later-text">
                 <i class="fa-regular fa-clock"></i> Dùng sau
             </span>
-            <span class="uv-start-date">
+                <span class="uv-start-date">
                 Từ: <fmt:formatDate value="<%= java.sql.Timestamp.valueOf(v.getStartDate()) %>" pattern="dd/MM/yyyy"/>
             </span>
 
-            <% } else { %>
-            <button class="uv-btn-urgent"
-                    data-code="<%= v.getCode() %>"
-                    onclick="useVoucher(this)">
-                Dùng ngay
-            </button>
-            <% } %>
+                <% } else { %>
+                <button class="uv-btn-urgent"
+                        data-code="<%= v.getCode() %>"
+                        onclick="useVoucher(this)">
+                    Dùng ngay
+                </button>
+                <% } %>
+            </div>
         </div>
-    </div>
-    <% } %>
-    <% } %>
+        <% } %>
+        <% } %>
 
-    <% } %>
+        <% } %>
         <%!
             private boolean isNotStarted(java.time.LocalDateTime startDate) {
                 if (startDate == null) return false;
@@ -183,7 +209,7 @@
 
                 Duration duration = Duration.between(now, endDate);
                 long totalMinutes = duration.toMinutes();
-                long totalHours   = duration.toHours();
+                long totalHours = duration.toHours();
 
                 if (totalMinutes < 60) {
                     return "Hết hạn trong: " + totalMinutes + " phút";
@@ -196,7 +222,7 @@
                 }
             }
         %>
-</div>
+    </div>
 </main>
 <jsp:include page="/frontend/public/Footer.jsp"/>
 <script>
@@ -217,8 +243,10 @@
     function useVoucher(btn) {
         const code = btn.getAttribute('data-code');
         try {
-            navigator.clipboard.writeText(code).catch(() => {});
-        } catch (e) {}
+            navigator.clipboard.writeText(code).catch(() => {
+            });
+        } catch (e) {
+        }
 
         // showToast('Đã lưu mã ' + code + '! Đang chuyển đến giỏ hàng...', 'success');
 
@@ -228,7 +256,7 @@
     }
 
     function showToast(message, type) {
-        const colors = { success: '#28a745', warning: '#f59e0b', error: '#dc3545' };
+        const colors = {success: '#28a745', warning: '#f59e0b', error: '#dc3545'};
         const toast = document.createElement('div');
         toast.textContent = message;
         toast.style.cssText = `

@@ -306,3 +306,37 @@
     color: #888;
     margin-top: 3px;
 }
+
+.uv-apply {
+    font-size: 12px;
+    color: #888;
+}
+
+.uv-apply span {
+    font-weight: 600;
+    color: #555;
+}
+
+.uv-single-use-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #7c3aed;
+    background: #ede9fe;
+    padding: 2px 8px;
+    border-radius: 20px;
+    width: fit-content;
+}
+
+.uv-single-use-tag i {
+    font-size: 10px;
+}
+
+.uv-discount-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}

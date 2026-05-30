@@ -160,10 +160,9 @@ public class Voucher implements Serializable {
         return isSingleUse;
     }
 
-    public void setSingleUse(boolean singleUse) {
+    public void setIsSingleUse(boolean singleUse) {
         isSingleUse = singleUse;
     }
-
 
     public int getUsedCount() {
         return usedCount;

@@ -227,7 +227,7 @@
                     <input type="number" id="editMaxUsage"  name="quantity" min="1">
                 </div>
                 <div class="checkbox-row">
-                    <input type="checkbox" id="editSingleUse"  name="">
+                    <input type="checkbox" id="editSingleUse"  name="is_single_use">
                     <label for="editSingleUse">Mỗi khách chỉ dùng được 1 lần</label>
                 </div>
                 <div class="date-row">
@@ -300,21 +300,22 @@
         document.getElementById('closeAddPopup').onclick = () => addPopup.style.display = 'none';
         document.getElementById('cancelDeleteBtn').onclick = () => deletedPopup.style.display = 'none';
         window.openEdit = function(code) {
-            const rows = Array.from(tbody.querySelectorAll('tr')).filter(r => !r.classList.contains('pagination-row'));
+            const rows = Array.from(tbody.querySelectorAll('tr'))
+                .filter(r => !r.classList.contains('pagination-row'));
             const row = rows.find(r => r.cells[0].textContent.trim() === code);
             if (!row) return alert('Không tìm thấy mã!');
-            document.getElementById('editCode').value = row.cells[0].textContent.trim();
-            document.getElementById('editValueDisplay').value = row.cells[1].textContent.trim();
-            document.getElementById('editTypeDisplay').value = row.cells[2].textContent.trim();
-            document.getElementById('editApplyDisplay').value = row.cells[3].textContent.trim();
-            const minOrder = row.cells[4].textContent.replace(/[^\d]/g, '');
-            document.getElementById('editMinOrder').value = minOrder || 0;
-            const usage = row.cells[3].textContent.trim();
-            const maxUsage = usage.split('/')[1]?.trim() || '100';
-            document.getElementById('editMaxUsage').value = maxUsage.replace(/\D/g, '');
-            document.getElementById('editEnd').value = row.cells[8].textContent.trim();
-            document.getElementById('editSingleUse').checked = false;
-            document.getElementById('editStart').value =  row.cells[7].textContent.trim();
+
+            document.getElementById('editCode').value          = row.cells[0].textContent.trim(); // Mã
+            document.getElementById('editValueDisplay').value  = row.cells[1].textContent.trim(); // Giá trị
+            document.getElementById('editTypeDisplay').value   = row.cells[2].textContent.trim(); // Áp dụng
+            document.getElementById('editApplyDisplay').value  = row.cells[3].textContent.trim(); // Thể loại
+            document.getElementById('editMinOrder').value      = row.cells[5].textContent.trim().replace(/[^\d]/g, '') || 0;
+            document.getElementById('editMaxUsage').value      = row.cells[4].textContent.trim().split('/')[1]?.replace(/\D/g, '') || '100';
+
+            const singleUseText = row.cells[6].textContent.trim();
+            document.getElementById('editSingleUse').checked   = (singleUseText === 'Một lần');
+            document.getElementById('editStart').value         = row.cells[7].textContent.trim();
+            document.getElementById('editEnd').value           = row.cells[8].textContent.trim();
             editPopup.style.display = 'flex';
         };
         document.getElementById('closeEditPopup').onclick = () => editPopup.style.display = 'none';

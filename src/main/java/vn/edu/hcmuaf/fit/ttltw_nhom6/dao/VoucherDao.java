@@ -319,4 +319,18 @@ public class VoucherDao {
                         .one() > 0
         );
     }
+
+    public List<Voucher> getVouchersExpiringInOneHour() {
+        String sql = """
+        SELECT * FROM vouchers
+        WHERE end_date BETWEEN DATE_ADD(NOW(), INTERVAL 55 MINUTE) 
+                           AND DATE_ADD(NOW(), INTERVAL 65 MINUTE)
+          AND quantity > used_count
+        """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(Voucher.class)
+                        .list()
+        );
+    }
 }
