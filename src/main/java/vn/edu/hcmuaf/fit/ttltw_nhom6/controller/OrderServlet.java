@@ -26,6 +26,7 @@ public class OrderServlet extends HttpServlet {
     private UserDao userDAO;
     private UserShippingAddressDAO userShippingAddressDAO;
     private ComicDAO comicDAO;
+    private VoucherDao voucherDao;
 
     @Override
     public void init() throws ServletException {
@@ -34,6 +35,7 @@ public class OrderServlet extends HttpServlet {
         userDAO = new UserDao(jdbi);
         userShippingAddressDAO = new UserShippingAddressDAO(jdbi);
         comicDAO = new ComicDAO(jdbi);
+        voucherDao = new VoucherDao();
     }
 
     @Override
@@ -63,13 +65,13 @@ public class OrderServlet extends HttpServlet {
             String shippingMethod = request.getParameter("shipping"); // standard hoặc express
             String paymentMethod = request.getParameter("payment"); // COD hoặc ewallet
 
-            session.setAttribute("pending_receiverName",  request.getParameter("receiverName"));
+            session.setAttribute("pending_receiverName", request.getParameter("receiverName"));
             session.setAttribute("pending_receiverPhone", request.getParameter("receiverPhone"));
-            session.setAttribute("pending_province",      request.getParameter("province"));
-            session.setAttribute("pending_district",      request.getParameter("district"));
-            session.setAttribute("pending_ward",          request.getParameter("ward"));
-            session.setAttribute("pending_address",       request.getParameter("address"));
-            session.setAttribute("pending_shipping",      request.getParameter("shipping"));
+            session.setAttribute("pending_province", request.getParameter("province"));
+            session.setAttribute("pending_district", request.getParameter("district"));
+            session.setAttribute("pending_ward", request.getParameter("ward"));
+            session.setAttribute("pending_address", request.getParameter("address"));
+            session.setAttribute("pending_shipping", request.getParameter("shipping"));
             String upParam = request.getParameter("usePoints");
             session.setAttribute("pending_usePoints", "on".equals(upParam) || "true".equals(upParam));
 
@@ -87,7 +89,7 @@ public class OrderServlet extends HttpServlet {
             String usePointsStr = request.getParameter("usePoints");
 
             if ("vnpay".equals(paymentMethod)) {
-                double subtotal    = (Double) session.getAttribute("checkoutSubtotal");
+                double subtotal = (Double) session.getAttribute("checkoutSubtotal");
 
                 double shippingFee;
                 try {
@@ -101,15 +103,15 @@ public class OrderServlet extends HttpServlet {
 
                 String upStr = request.getParameter("usePoints");
                 boolean usePoints = "on".equals(upStr) || "true".equals(upStr);
-                double discount    = (usePoints && user.getPoints() > 0) ? user.getPoints() : 0;
-                long totalAmount   = (long) Math.max(subtotal + shippingFee - discount, 0);
+                double discount = (usePoints && user.getPoints() > 0) ? user.getPoints() : 0;
+                long totalAmount = (long) Math.max(subtotal + shippingFee - discount, 0);
 
 //                String returnUrl = request.getScheme() + "://" + request.getServerName()
 //                        + ":" + request.getServerPort()
 //                        + request.getContextPath() + "/vnpay-return";
 //                String returnUrl = "https://nonpunctual-lissa-tychistic.ngrok-free.dev"
 //                        + request.getContextPath() + "/vnpay-return";
-                String returnUrl="http://localhost:8080/TTLTW_Nhom6/vnpay-return";
+                String returnUrl = "http://localhost:8080/TTLTW_Nhom6/vnpay-return";
 
 
                 String payUrl = VNPayUtils.createPaymentUrl(
@@ -138,8 +140,8 @@ public class OrderServlet extends HttpServlet {
                 boolean usePoints = "on".equals(usePointsParam) || "true".equals(usePointsParam);
                 session.setAttribute("pending_usePoints", usePoints);
 
-                double discount   = (usePoints && user.getPoints() > 0) ? user.getPoints() : 0;
-                long totalAmount  = (long) Math.max(subtotal + shippingFee - discount, 0);
+                double discount = (usePoints && user.getPoints() > 0) ? user.getPoints() : 0;
+                long totalAmount = (long) Math.max(subtotal + shippingFee - discount, 0);
 
                 try {
                     String payUrl = MoMoUtils.createPaymentUrl(0, totalAmount,
@@ -238,7 +240,7 @@ public class OrderServlet extends HttpServlet {
             }
             for (CartItem item : selectedItems) {
                 int comicId = item.getComic().getId();
-                System.out.println("available "+comicDAO.available(comicId));
+                System.out.println("available " + comicDAO.available(comicId));
                 int available = comicDAO.available(comicId);
 
                 if (available < item.getQuantity()) {
@@ -268,8 +270,46 @@ public class OrderServlet extends HttpServlet {
                 pointsDiscount = pointsToUse;
             }
 
-            double totalAmount = subtotal + shippingFee - pointsDiscount;
+            // MMMMMMMMM
+            Voucher appliedProductVoucher = null;
+            String voucherCode = request.getParameter("voucherCode");
+            if (voucherCode != null && !voucherCode.trim().isEmpty()) {
+                appliedProductVoucher = validateAndLoadVoucher(
+                        voucherCode.trim(), user, selectedItems, shippingFee,
+                        subtotal, request, session, voucherDao, comicDAO);
+                if (appliedProductVoucher == null) {
+                    response.sendRedirect(request.getContextPath() + "/checkout");
+                    return;
+                }
+            }
 
+            Voucher appliedShippingVoucher = null;
+            String voucherShippingCode = request.getParameter("voucherShippingCode");
+            if (voucherShippingCode != null && !voucherShippingCode.trim().isEmpty()) {
+                appliedShippingVoucher = validateAndLoadVoucher(
+                        voucherShippingCode.trim(), user, selectedItems, shippingFee,
+                        subtotal, request, session, voucherDao, comicDAO);
+                if (appliedShippingVoucher == null) {
+                    response.sendRedirect(request.getContextPath() + "/checkout");
+                    return;
+                }
+            }
+
+            double voucherProductDiscount = 0;
+            if (appliedProductVoucher != null) {
+                voucherProductDiscount = calcVoucherDiscount(
+                        appliedProductVoucher, selectedItems, subtotal, shippingFee, comicDAO);
+            }
+
+            double voucherShippingDiscount = 0;
+            if (appliedShippingVoucher != null) {
+                voucherShippingDiscount = calcVoucherDiscount(
+                        appliedShippingVoucher, selectedItems, subtotal, shippingFee, comicDAO);
+                voucherShippingDiscount = Math.min(voucherShippingDiscount, shippingFee);
+            }
+
+            double totalAmount = subtotal + shippingFee - pointsDiscount - voucherProductDiscount - voucherShippingDiscount;
+/// EEEEEEE
             if (totalAmount < 0) {
                 totalAmount = 0;
             }
@@ -357,6 +397,14 @@ public class OrderServlet extends HttpServlet {
                 for (CartItem item : selectedItems) {
                     cartDAOClean.removeItem(userCartId, item.getComic().getId());
                 }
+
+                if (appliedProductVoucher != null) {
+                    voucherDao.markVoucherAsUsed(user.getId(), appliedProductVoucher.getId(), orderId);
+                }
+                if (appliedShippingVoucher != null) {
+                    voucherDao.markVoucherAsUsed(user.getId(), appliedShippingVoucher.getId(), orderId);
+                }
+
                 if ("ewallet".equals(paymentMethod)) {
                     PaymentDAO paymentDAO = new PaymentDAO(JdbiConnector.get());
 
@@ -463,5 +511,99 @@ public class OrderServlet extends HttpServlet {
         String randomPart = java.util.UUID.randomUUID()
                 .toString().substring(0, 6).toUpperCase();
         return prefix + "-" + datePart + "-" + randomPart;
+    }
+
+    private double calcScopeSubtotal(Voucher voucher, List<CartItem> selectedItems, ComicDAO comicDAO) {
+        String scope = voucher.getApplyScope();
+        if (scope == null || scope.trim().isEmpty() || "Tất cả".equals(scope.trim())) {
+            return selectedItems.stream()
+                    .mapToDouble(i -> i.getFinalPrice() * i.getQuantity())
+                    .sum();
+        }
+        return selectedItems.stream()
+                .filter(item -> {
+                    String cat = comicDAO.getCategoryName(item.getComic().getId());
+                    return cat != null && cat.trim().equalsIgnoreCase(scope.trim());
+                })
+                .mapToDouble(i -> i.getFinalPrice() * i.getQuantity())
+                .sum();
+    }
+
+    private Voucher validateAndLoadVoucher(
+            String code, User user, List<CartItem> selectedItems,
+            double shippingFee, double subtotal,
+            HttpServletRequest request, HttpSession session,
+            VoucherDao voucherDao, ComicDAO comicDAO) {
+
+        Voucher voucher = voucherDao.getVoucherByCodeAndUser(code, user.getId());
+        if (voucher == null || voucher.isExpired()) {
+            session.setAttribute("orderError", "Voucher \"" + code + "\" không hợp lệ hoặc đã hết hạn.");
+            return null;
+        }
+
+        if (voucher.isSingleUse() && voucherDao.hasUserUsedVoucher(user.getId(), voucher.getId())) {
+            session.setAttribute("orderError", "Voucher \"" + code + "\" chỉ được sử dụng 1 lần và bạn đã dùng rồi.");
+            return null;
+        }
+
+        if (voucher.getMinOrderAmount() != null && voucher.getMinOrderAmount().doubleValue() > 0) {
+            boolean isShippingVoucher = "Vận chuyển".equals(voucher.getDiscountTarget());
+            if (isShippingVoucher) {
+                double baseForShip = calcScopeSubtotal(voucher, selectedItems, comicDAO);
+                if (baseForShip < voucher.getMinOrderAmount().doubleValue()) {
+                    String scopeLabel = (voucher.getApplyScope() != null && !"Tất cả".equals(voucher.getApplyScope()))
+                            ? "sản phẩm thể loại \"" + voucher.getApplyScope() + "\""
+                            : "giá trị đơn hàng";
+                    session.setAttribute("orderError", "Voucher \"" + code + "\" yêu cầu " + scopeLabel
+                            + " tối thiểu " + voucher.getMinOrderAmount().toPlainString() + "đ.");
+                    return null;
+                }
+            } else {
+                double baseAmount = calcScopeSubtotal(voucher, selectedItems, comicDAO);
+                if (baseAmount < voucher.getMinOrderAmount().doubleValue()) {
+                    String scopeLabel = (voucher.getApplyScope() != null && !"Tất cả".equals(voucher.getApplyScope()))
+                            ? "sản phẩm thể loại \"" + voucher.getApplyScope() + "\""
+                            : "giá trị đơn hàng";
+                    session.setAttribute("orderError", "Voucher \"" + code + "\" yêu cầu " + scopeLabel
+                            + " tối thiểu " + voucher.getMinOrderAmount().toPlainString() + "đ.");
+                    return null;
+                }
+            }
+        }
+
+        List<Integer> comicIds = selectedItems.stream()
+                .map(item -> item.getComic().getId())
+                .collect(java.util.stream.Collectors.toList());
+        if (!voucherDao.isVoucherApplicableForItems(code, comicIds)) {
+            session.setAttribute("orderError", "Voucher \"" + code + "\" không áp dụng được cho các sản phẩm trong đơn hàng này.");
+            return null;
+        }
+
+        return voucher;
+    }
+
+    private double calcVoucherDiscount(Voucher voucher, List<CartItem> selectedItems,
+                                       double subtotal, double shippingFee, ComicDAO comicDAO) {
+        boolean isShipping = "Vận chuyển".equals(voucher.getDiscountTarget());
+        double base;
+        if (isShipping) {
+            base = shippingFee;
+        } else {
+            base = calcScopeSubtotal(voucher, selectedItems, comicDAO);
+        }
+
+        double discount;
+        if ("percent".equals(voucher.getDiscountType())) {
+            discount = Math.floor(base * voucher.getDiscountValue().doubleValue() / 100.0);
+        } else {
+            discount = voucher.getDiscountValue() != null ? voucher.getDiscountValue().doubleValue() : 0;
+        }
+
+        if (isShipping) {
+            discount = Math.min(discount, shippingFee);
+        } else {
+            discount = Math.min(discount, base);
+        }
+        return discount;
     }
 }

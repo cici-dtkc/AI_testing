@@ -20,7 +20,7 @@ public class VoucherDao {
     }
 
     public boolean addVoucher(Voucher voucher) {
-        String sql ="insert into vouchers (code, discount_type, discount_value, discount_target, " +
+        String sql = "insert into vouchers (code, discount_type, discount_value, discount_target, " +
                 " apply_scope, quantity, start_date, end_date, min_order_amount, is_single_use, used_count)" +
                 " values ( :code, :discount_type, :discount_value, :discount_target, :apply_scope, :quantity, " +
                 " :start_date, :end_date, :min_order_amount, :is_single_use, :used_count)";
@@ -28,18 +28,18 @@ public class VoucherDao {
 
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
-                    .bind("code", voucher.getCode())
-                    .bind("discount_type", voucher.getDiscountType())
-                    .bind("discount_value", voucher.getDiscountValue())
-                    .bind("discount_target", voucher.getDiscountTarget())
-                    .bind("apply_scope", voucher.getApplyScope())
-                    .bind("quantity", voucher.getQuantity())
-                    .bind("start_date", voucher.getStartDate())
-                    .bind("end_date", voucher.getEndDate())
-                    .bind("min_order_amount", voucher.getMinOrderAmount())
-                    .bind("is_single_use", voucher.isSingleUse())
-                    .bind("used_count", voucher.getUsedCount())
-                        .execute() >0
+                        .bind("code", voucher.getCode())
+                        .bind("discount_type", voucher.getDiscountType())
+                        .bind("discount_value", voucher.getDiscountValue())
+                        .bind("discount_target", voucher.getDiscountTarget())
+                        .bind("apply_scope", voucher.getApplyScope())
+                        .bind("quantity", voucher.getQuantity())
+                        .bind("start_date", voucher.getStartDate())
+                        .bind("end_date", voucher.getEndDate())
+                        .bind("min_order_amount", voucher.getMinOrderAmount())
+                        .bind("is_single_use", voucher.isSingleUse())
+                        .bind("used_count", voucher.getUsedCount())
+                        .execute() > 0
         );
 
 
@@ -51,7 +51,7 @@ public class VoucherDao {
                 handle.createQuery(sql)
                         .mapToBean(Voucher.class)
                         .list()
-                );
+        );
     }
 
     public boolean isExistCode(String code) {
@@ -74,44 +74,45 @@ public class VoucherDao {
         );
     }
 
-    public List<String> getCategories(){
+    public List<String> getCategories() {
         String sql = "Select name_categories from categories";
         return jdbi.withHandle(handle ->
                 handle.createQuery(sql)
-                   .mapTo(String.class)
-                    .list()
-                );
+                        .mapTo(String.class)
+                        .list()
+        );
     }
+
     public boolean updateVoucher(String code, BigDecimal minOrderAmount, int quantity,
-                              LocalDateTime startDate,  LocalDateTime endDate, boolean isSingleUse) {
+                                 LocalDateTime startDate, LocalDateTime endDate, boolean isSingleUse) {
 
         return jdbi.withHandle(handle ->
-               handle.createUpdate("""
-            UPDATE vouchers
-            SET 
-                min_order_amount = :minOrderAmount,
-                quantity = :quantity,
-                start_date = :startDate,
-                end_date = :endDate,
-                is_single_use = :isSingleUse
-            WHERE code = :code
-        """)
+                handle.createUpdate("""
+                                    UPDATE vouchers
+                                    SET 
+                                        min_order_amount = :minOrderAmount,
+                                        quantity = :quantity,
+                                        start_date = :startDate,
+                                        end_date = :endDate,
+                                        is_single_use = :isSingleUse
+                                    WHERE code = :code
+                                """)
                         .bind("minOrderAmount", minOrderAmount)
                         .bind("quantity", quantity)
                         .bind("startDate", startDate)
                         .bind("endDate", endDate)
                         .bind("isSingleUse", isSingleUse)
                         .bind("code", code)
-                        .execute() >0
+                        .execute() > 0
         );
     }
 
     public List<Voucher> getVouchersExpiringTomorrow() {
         String sql = """
-        SELECT * FROM vouchers
-        WHERE DATE(end_date) = DATE(DATE_ADD(NOW(), INTERVAL 1 DAY))
-          AND quantity > used_count
-        """;
+                SELECT * FROM vouchers
+                WHERE DATE(end_date) = DATE(DATE_ADD(NOW(), INTERVAL 1 DAY))
+                  AND quantity > used_count
+                """;
         return jdbi.withHandle(handle ->
                 handle.createQuery(sql)
                         .mapToBean(Voucher.class)
@@ -119,21 +120,23 @@ public class VoucherDao {
         );
     }
 
-    public List<Voucher> getOutVouchers(){
+    public List<Voucher> getOutVouchers() {
         String sql = "SELECT * from vouchers Where quantity = used_count AND end_date > NOW() order by id desc";
         return jdbi.withHandle(handle ->
                 handle.createQuery(sql)
                         .mapToBean(Voucher.class)
                         .list());
     }
-    public List<Voucher> getRunningVouchers(){
+
+    public List<Voucher> getRunningVouchers() {
         String sql = "SELECT * from vouchers Where start_date < NOw() AND end_date > NOW() AND  quantity -used_count != 0  order by id desc";
         return jdbi.withHandle(handle ->
                 handle.createQuery(sql)
                         .mapToBean(Voucher.class)
                         .list());
     }
-    public List<Voucher> getExpredVouchers(){
+
+    public List<Voucher> getExpredVouchers() {
         String sql = "SELECT * from vouchers Where end_date <= NOW() order by id desc";
         return jdbi.withHandle(handle ->
                 handle.createQuery(sql)
@@ -141,7 +144,7 @@ public class VoucherDao {
                         .list());
     }
 
-    public List<Voucher> searchVoucherById(String id){
+    public List<Voucher> searchVoucherById(String id) {
         String sql = "SELECT * FROM vouchers WHERE CAST(code AS CHAR) LIKE :id";
 
         return jdbi.withHandle(handle ->
@@ -165,8 +168,11 @@ public class VoucherDao {
         String sql = """
         SELECT v.* FROM vouchers v
         JOIN user_vouchers uv ON v.id = uv.promo_id
-        WHERE uv.user_id = :userId AND uv.is_active = 1 AND uv.is_used = 0
-        AND v.discount_target != 'Vận chuyển' AND v.end_date >= NOW()
+        WHERE uv.user_id = :userId
+          AND v.discount_target != 'Vận chuyển'
+          AND v.end_date >= NOW()
+          AND v.quantity > v.used_count
+          AND (v.is_single_use = 0 OR (v.is_single_use = 1 AND uv.is_used = 0))
         ORDER BY v.end_date ASC
     """;
         return jdbi.withHandle(handle ->
@@ -181,8 +187,11 @@ public class VoucherDao {
         String sql = """
         SELECT v.* FROM vouchers v
         JOIN user_vouchers uv ON v.id = uv.promo_id
-        WHERE uv.user_id = :userId AND uv.is_active = 1 AND uv.is_used = 0
-        AND v.discount_target = 'Vận chuyển' AND v.end_date >= NOW()
+        WHERE uv.user_id = :userId
+          AND v.discount_target = 'Vận chuyển'
+          AND v.end_date >= NOW()
+          AND v.quantity > v.used_count
+          AND (v.is_single_use = 0 OR (v.is_single_use = 1 AND uv.is_used = 0))
         ORDER BY v.end_date ASC
     """;
         return jdbi.withHandle(handle ->
@@ -205,15 +214,123 @@ public class VoucherDao {
         if (count > 0) return false;
 
         String sql = """
-        INSERT INTO user_vouchers (user_id, promo_id, code, acquired_at, is_active, is_used)
-        VALUES (:userId, :promoId, :code, NOW(), 1, 0)
-    """;
+                    INSERT INTO user_vouchers (user_id, promo_id, code, acquired_at, is_active, is_used)
+                    VALUES (:userId, :promoId, :code, NOW(), 1, 0)
+                """;
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("userId", userId)
                         .bind("promoId", promoId)
                         .bind("code", code)
                         .execute() > 0
+        );
+    }
+
+    public List<Voucher> getVouchersByUserId(int userId) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("""
+                                    SELECT v.* FROM vouchers v
+                                    JOIN user_vouchers uv ON v.id = uv.promo_id
+                                    WHERE uv.user_id = :userId AND v.end_date >= NOW()
+                                    AND v.quantity > v.used_count 
+                                    AND (v.is_single_use = 0 OR (v.is_single_use = 1 AND uv.is_used = 0))
+                                """)
+                        .bind("userId", userId)
+                        .mapToBean(Voucher.class)
+                        .list()
+        );
+    }
+
+    public boolean hasUserUsedVoucher(int userId, int voucherId) {
+        String sql = """
+                    SELECT COUNT(*) FROM user_vouchers
+                    WHERE user_id = :userId AND promo_id = :voucherId AND is_used = 1
+                """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("userId", userId)
+                        .bind("voucherId", voucherId)
+                        .mapTo(Integer.class)
+                        .one() > 0
+        );
+    }
+
+    public Voucher getVoucherByCodeAndUser(String code, int userId) {
+        String sql = """
+                    SELECT v.* FROM vouchers v
+                    JOIN user_vouchers uv ON v.id = uv.promo_id
+                    WHERE v.code = :code AND uv.user_id = :userId AND v.quantity > v.used_count
+                    AND (v.is_single_use = 0 OR (v.is_single_use = 1 AND uv.is_used = 0))
+                """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("code", code)
+                        .bind("userId", userId)
+                        .mapToBean(Voucher.class)
+                        .findOne()
+                        .orElse(null)
+        );
+    }
+
+    public void markVoucherAsUsed(int userId, int voucherId, int orderId) {
+        String sql1 = "UPDATE user_vouchers SET is_used = 1, used_at = NOW(), used_order_id = :orderId " +
+                "WHERE user_id = :userId AND promo_id = :voucherId";
+        jdbi.useHandle(handle ->
+                handle.createUpdate(sql1)
+                        .bind("orderId", orderId)
+                        .bind("userId", userId)
+                        .bind("voucherId", voucherId)
+                        .execute()
+        );
+
+        String sql2 = "UPDATE vouchers SET used_count = used_count + 1 WHERE id = :voucherId";
+        jdbi.useHandle(handle ->
+                handle.createUpdate(sql2)
+                        .bind("voucherId", voucherId)
+                        .execute()
+        );
+    }
+
+    public boolean isVoucherApplicableForItems(String voucherCode, List<Integer> comicIds) {
+        String scopeSql = "SELECT apply_scope FROM vouchers WHERE code = :code";
+        String scope = jdbi.withHandle(handle ->
+                handle.createQuery(scopeSql)
+                        .bind("code", voucherCode)
+                        .mapTo(String.class)
+                        .findOne()
+                        .orElse(null)
+        );
+
+        if (scope == null) return false;
+        if ("Tất cả".equalsIgnoreCase(scope.trim())) return true;
+
+        String checkSql = """
+        SELECT COUNT(*) FROM comics c
+        JOIN categories cat ON c.category_id = cat.id
+        WHERE c.id IN (<comicIds>)
+          AND cat.name_categories = :scope
+    """;
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(checkSql.replace("<comicIds>",
+                                comicIds.stream().map(String::valueOf).collect(java.util.stream.Collectors.joining(","))))
+                        .bind("scope", scope.trim())
+                        .mapTo(Integer.class)
+                        .one() > 0
+        );
+    }
+
+    public List<Voucher> getVouchersExpiringInOneHour() {
+        String sql = """
+        SELECT * FROM vouchers
+        WHERE end_date BETWEEN DATE_ADD(NOW(), INTERVAL 55 MINUTE) 
+                           AND DATE_ADD(NOW(), INTERVAL 65 MINUTE)
+          AND quantity > used_count
+        """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(Voucher.class)
+                        .list()
         );
     }
 }

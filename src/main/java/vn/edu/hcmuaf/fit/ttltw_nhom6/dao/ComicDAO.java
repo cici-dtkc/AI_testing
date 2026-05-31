@@ -2725,4 +2725,13 @@ public class ComicDAO extends ADao {
         )>0;
     }
 
+    public String getCategoryName(int comicId) {
+        return jdbi.withHandle(h ->
+                h.createQuery("SELECT c.name_categories FROM categories c JOIN comics co ON co.category_id = c.id WHERE co.id = :id")
+                        .bind("id", comicId)
+                        .mapTo(String.class)
+                        .findOne().orElse("")
+        );
+    }
+
 }

@@ -21,17 +21,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSerializer;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.VoucherDao;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 @WebServlet("/checkout")
 public class CheckoutServlet extends HttpServlet {
     private UserShippingAddressDAO shippingAddressDAO;
     private CartDAO cartDAO;
+    private VoucherDao voucherDao;
 
     @Override
     public void init() throws ServletException {
         Jdbi jdbi = JdbiConnector.get();
         shippingAddressDAO = new UserShippingAddressDAO(jdbi);
         cartDAO = new CartDAO();
+        voucherDao = new VoucherDao();
     }
 
     @Override
@@ -185,6 +192,46 @@ public class CheckoutServlet extends HttpServlet {
             session.removeAttribute("orderError");
         }
         request.setAttribute("user", user);
+
+        List<Voucher> vouchers = voucherDao.getVouchersByUserId(user.getId());
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class,
+                        (JsonSerializer<LocalDateTime>) (src, typeOf, ctx) ->
+                                new com.google.gson.JsonPrimitive(
+                                        src.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))))
+                .create();
+
+        request.setAttribute("vouchersJson", gson.toJson(vouchers));
+
+        @SuppressWarnings("unchecked")
+        List<CartItem> itemsForScope = (List<CartItem>) session.getAttribute("selectedItems");
+        if (itemsForScope != null && !itemsForScope.isEmpty()) {
+            ComicDAO comicDAO = new ComicDAO(JdbiConnector.get());
+            List<String> selectedCategories = itemsForScope.stream()
+                    .map(item -> comicDAO.getCategoryName(item.getComic().getId()))
+                    .filter(cat -> cat != null && !cat.isEmpty())
+                    .distinct()
+                    .collect(java.util.stream.Collectors.toList());
+            request.setAttribute("selectedCategoriesJson", gson.toJson(selectedCategories));
+        } else {
+            request.setAttribute("selectedCategoriesJson", "[]");
+        }
+
+        if (itemsForScope != null && !itemsForScope.isEmpty()) {
+            ComicDAO comicDAO = new ComicDAO(JdbiConnector.get());
+            java.util.Map<String, Double> comicScopeSubtotalMap = new java.util.HashMap<>();
+            for (CartItem item : itemsForScope) {
+                String cat = comicDAO.getCategoryName(item.getComic().getId());
+                if (cat != null && !cat.isEmpty()) {
+                    comicScopeSubtotalMap.merge(cat, item.getFinalPrice() * item.getQuantity(), Double::sum);
+                }
+            }
+            request.setAttribute("scopeSubtotalMapJson", gson.toJson(comicScopeSubtotalMap));
+        } else {
+            request.setAttribute("scopeSubtotalMapJson", "{}");
+        }
+
         request.getRequestDispatcher("/frontend/nguoiB/checkout.jsp").forward(request, response);
     }
 
@@ -243,8 +290,6 @@ public class CheckoutServlet extends HttpServlet {
             int cartId = cartDAO.getOrCreateCartByUserId(user.getId());
             try {
                 CacheService.cartCache.remove(cartId);
-
-                System.out.println("[DEBUG] Bắt đầu checkout cartId=" + cartId + " userId=" + user.getId());
 
                 int orderId = cartDAO.checkout(
                         cartId,

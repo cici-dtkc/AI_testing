@@ -295,4 +295,30 @@ public class NotificationDAO {
             batch.execute();
         });
     }
+
+    public boolean existsVoucherExpiringNotif(int userId, String voucherCode, String phase) {
+        String sql = """
+        SELECT COUNT(*) FROM notifications
+        WHERE user_id = :userId
+          AND type = 'VOUCHER_EXPIRING'
+          AND message LIKE :codePattern
+          AND message LIKE :phasePattern
+        """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("userId", userId)
+                        .bind("codePattern", "%" + voucherCode + "%")
+                        .bind("phasePattern", "%[" + phase + "]%")
+                        .mapTo(Integer.class)
+                        .one()
+        ) > 0;
+    }
+
+    public List<Integer> getAllActiveUserIds() {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT id FROM users WHERE is_deleted = 0")
+                        .mapTo(Integer.class)
+                        .list()
+        );
+    }
 }

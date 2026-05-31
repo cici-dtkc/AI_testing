@@ -132,7 +132,7 @@
                         <input type="radio" name="payment" value="COD" checked>
                         <img src="https://cdn-icons-png.flaticon.com/512/2489/2489756.png"
                              alt="COD" style="width:28px;vertical-align:middle;margin:0 8px 0 4px;">
-                             Thanh toán khi nhận hàng (COD)
+                        Thanh toán khi nhận hàng (COD)
                     </label><br>
 
                     <label class="payment-option">
@@ -156,6 +156,42 @@
                         <p>Sử dụng <strong>${user.points != null ? user.points : 0}</strong> xu (1 xu = 1đ)</p>
                         <input type="checkbox" name="usePoints" id="usePoints"
                         ${(user.points == null || user.points <= 0) ? 'disabled' : ''}>
+                    </div>
+                </section>
+
+                <section class="promotion">
+                    <h2>Chọn voucher:</h2>
+                    <div class="voucher-action-row">
+                        <%--                        <div id="selectedVoucherDisplay" style="display:none;" class="selected-voucher-info">--%>
+                        <%--                            <i class="fas fa-tag"></i>--%>
+                        <%--                            <span id="selectedVoucherText"></span>--%>
+                        <%--                            <button type="button" onclick="removeVoucher()" class="remove-voucher-btn">--%>
+                        <%--                                <i class="fas fa-times"></i>--%>
+                        <%--                            </button>--%>
+                        <%--                        </div>--%>
+
+                        <div id="selectedProductVoucherDisplay" style="display:none;" class="selected-voucher-info">
+                            <i class="fas fa-tag"></i>
+                            <span id="selectedProductVoucherText"></span>
+                            <button type="button" onclick="removeVoucher('product')" class="remove-voucher-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                        <div id="selectedShippingVoucherDisplay" style="display:none;" class="selected-voucher-info"
+                             style="margin-top:6px;">
+                            <i class="fas fa-truck"></i>
+                            <span id="selectedShippingVoucherText"></span>
+                            <button type="button" onclick="removeVoucher('shipping')" class="remove-voucher-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                        <button type="button" id="openVoucherBtn" onclick="openVoucherPopup()">
+                            <i class="fas fa-ticket-alt"></i> Chọn voucher
+                        </button>
+                        <input type="hidden" name="voucherCode" id="voucherCode">
+                        <input type="hidden" name="voucherShippingCode" id="voucherShippingCode">
                     </div>
                 </section>
             </form>
@@ -199,6 +235,14 @@
                 <p>Giảm giá từ xu:</p>
                 <span id="pointsDiscount">0đ</span>
             </div>
+            <div class="summary-row" id="voucherDiscountRow" style="display: none;">
+                <p>Giảm giá từ voucher:</p>
+                <span id="voucherDiscountSpan">0đ</span>
+            </div>
+            <div class="summary-row" id="voucherShippingDiscountRow" style="display: none;">
+                <p>Giảm giá vận chuyển:</p>
+                <span id="voucherShippingDiscountSpan">0đ</span>
+            </div>
             <div class="summary-row total-row">
                 <p><strong>TỔNG THANH TOÁN:</strong></p>
                 <span id="totalAmount">
@@ -207,6 +251,30 @@
             </div>
             <button type="button" id="checkout-qr">ĐẶT HÀNG</button>
         </section>
+    </div>
+</div>
+
+<div id="voucherOverlay" onclick="closeVoucherPopup(event)" style="display:none;">
+    <div id="voucherPopup" onclick="event.stopPropagation()">
+        <div class="vpopup-header">
+            <h3>Chọn voucher</h3>
+            <button onclick="closeVoucherPopup(null)" aria-label="Đóng"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div class="vpopup-tabs">
+            <button class="vpopup-tab active" id="tabProduct" onclick="switchVoucherTab('product')">
+                <i class="fas fa-tag"></i> Voucher sản phẩm
+            </button>
+            <button class="vpopup-tab" id="tabShipping" onclick="switchVoucherTab('shipping')">
+                <i class="fas fa-truck"></i> Voucher vận chuyển
+            </button>
+        </div>
+
+        <div id="voucherListProduct"></div>
+        <div id="voucherListShipping" style="display:none;"></div>
+        <div class="vpopup-footer">
+            <button type="button" onclick="confirmVoucherSelection()">Áp dụng</button>
+        </div>
     </div>
 </div>
 
@@ -383,17 +451,17 @@
             // }
             const stdETA = document.getElementById('standardETA');
             const expETA = document.getElementById('expressETA');
-            if (stdFee != null){
+            if (stdFee != null) {
                 stdRadio.dataset.fee = stdFee;
                 stdRadio.disabled = false;
                 if (stdDisplay) stdDisplay.textContent = formatNumber(stdFee) + ' đ';
-                try{
-                    const eta = await  getExpectedDelivery(stdService.service_id,ghnDistrictId, ghnWardCode);
-                    if (stdETA) stdETA.textContent = '— Dự kiến: '+eta;
-                }catch (e) {
+                try {
+                    const eta = await getExpectedDelivery(stdService.service_id, ghnDistrictId, ghnWardCode);
+                    if (stdETA) stdETA.textContent = '— Dự kiến: ' + eta;
+                } catch (e) {
                     if (stdETA) stdETA.textContent = '';
                 }
-            }else {
+            } else {
                 stdRadio.disabled = true;
                 if (stdDisplay) stdDisplay.textContent = 'Không khả dụng';
                 if (stdETA) stdETA.textContent = '';
@@ -592,6 +660,8 @@
     const shippingRadios = document.querySelectorAll('input[name="shipping"]');
     const usePointsCheckbox = document.getElementById('usePoints');
     const subtotal = ${checkoutSubtotal};
+    const selectedCategories = ${selectedCategoriesJson != null ? selectedCategoriesJson : '[]'};
+    const scopeSubtotalMap = ${scopeSubtotalMapJson != null ? scopeSubtotalMapJson : '{}'};
     const userPoints = ${user.points != null ? user.points : 0};
     const shippingFeeSpan = document.getElementById('shippingFee');
     const pointsDiscountRow = document.getElementById('pointsDiscountRow');
@@ -599,35 +669,13 @@
     const totalAmountSpan = document.getElementById('totalAmount');
 
     function formatNumber(num) {
-        return Math.round(num).toLocaleString('vi-VN');
-    }
-
-    function updateTotal() {
-        const selectedShipping = document.querySelector('input[name="shipping"]:checked');
-        const shippingFee = selectedShipping ? parseInt(selectedShipping.dataset.fee) || 0 : 0;
-
-        const hiddenFee = document.getElementById('hiddenShippingFee');
-        if (hiddenFee) hiddenFee.value = shippingFee;
-
-        let pointsDiscount = 0;
-        if (usePointsCheckbox?.checked) pointsDiscount = userPoints;
-
-        const total = subtotal + shippingFee - pointsDiscount;
-
-        if (shippingFeeSpan) shippingFeeSpan.textContent = formatNumber(shippingFee) + ' đ';
-
-        if (usePointsCheckbox?.checked) {
-            if (pointsDiscountRow) pointsDiscountRow.style.display = 'flex';
-            if (pointsDiscountSpan) pointsDiscountSpan.textContent = '-' + formatNumber(pointsDiscount) + ' đ';
-        } else {
-            if (pointsDiscountRow) pointsDiscountRow.style.display = 'none';
-        }
-
-        if (totalAmountSpan) totalAmountSpan.textContent = formatNumber(total) + ' đ';
+        return Number(num || 0).toLocaleString('vi-VN');
     }
 
     shippingRadios.forEach(r => r.addEventListener('change', updateTotal));
-    if (usePointsCheckbox) usePointsCheckbox.addEventListener('change', updateTotal);
+    if (usePointsCheckbox) {
+        usePointsCheckbox.addEventListener('change', updateTotal);
+    }
 
     const checkoutBtn = document.getElementById('checkout-qr');
     const orderForm = document.getElementById('orderForm');
@@ -712,29 +760,19 @@
 
         backdrop.innerHTML = `
         <div style="
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
+            background: white; border-radius: 12px; padding: 30px;
+            max-width: 400px; width: 90%; text-align: center;
         ">
             <h2 style="color: #dc3545; font-size: 22px; margin-bottom: 10px;">
-                Sản phẩm hiện không đủ số lượng theo đơn của bạn hoặc sản phẩm đã hư hỏng
+                Đặt hàng thất bại
             </h2>
             <p style="color: #666; font-size: 15px; margin-bottom: 20px;">
-                    ${message}
+                ${message}
             </p>
             <button onclick="this.closest('div').parentElement.remove()"
-                style="
-                    background: #dc3545;
-                    color: white;
-                    border: none;
-                    padding: 12px 30px;
-                    border-radius: 6px;
-                    font-size: 16px;
-                    cursor: pointer;
-                    font-weight: 600;">
+                style="background: #dc3545; color: white; border: none;
+                       padding: 12px 30px; border-radius: 6px;
+                       font-size: 16px; cursor: pointer; font-weight: 600;">
                 OK
             </button>
         </div>
@@ -765,31 +803,321 @@
         setTimeout(() => backdrop.remove(), 5000);
     }
 
+    function updateTotal() {
+        const selectedShipping = document.querySelector('input[name="shipping"]:checked');
+        const shippingFee = selectedShipping ? parseInt(selectedShipping.dataset.fee) || 0 : 0;
+        const hiddenFee = document.getElementById('hiddenShippingFee');
+        if (hiddenFee) hiddenFee.value = shippingFee;
+
+        let pointsDiscount = 0;
+
+        if (usePointsCheckbox && usePointsCheckbox.checked) {
+            pointsDiscount = Number(userPoints) || 0;
+        }
+
+        let voucherProductDiscount = 0;
+        const voucherProductRow = document.getElementById('voucherDiscountRow');
+        const voucherProductSpan = document.getElementById('voucherDiscountSpan');
+        if (appliedProductVoucher) {
+            voucherProductDiscount = calcVoucherDiscountJS(appliedProductVoucher, shippingFee);
+            if (voucherProductRow) voucherProductRow.style.display = 'flex';
+            if (voucherProductSpan) voucherProductSpan.textContent = '-' + formatNumber(voucherProductDiscount) + ' đ';
+        } else {
+            if (voucherProductRow) voucherProductRow.style.display = 'none';
+        }
+
+        let voucherShippingDiscount = 0;
+        let voucherShippingRow = document.getElementById('voucherShippingDiscountRow');
+        let voucherShippingSpan = document.getElementById('voucherShippingDiscountSpan');
+        if (appliedShippingVoucher) {
+            voucherShippingDiscount = calcVoucherDiscountJS(appliedShippingVoucher, shippingFee);
+            voucherShippingDiscount = Math.min(voucherShippingDiscount, shippingFee);
+            if (voucherShippingRow) voucherShippingRow.style.display = 'flex';
+            if (voucherShippingSpan) voucherShippingSpan.textContent = '-' + formatNumber(voucherShippingDiscount) + ' đ';
+        } else {
+            if (voucherShippingRow) voucherShippingRow.style.display = 'none';
+        }
+
+        const total = Math.max(0, subtotal + shippingFee - pointsDiscount - voucherProductDiscount - voucherShippingDiscount);
+
+        if (shippingFeeSpan) shippingFeeSpan.textContent = formatNumber(shippingFee) + ' đ';
+
+        if (pointsDiscount > 0) {
+            if (pointsDiscountRow) pointsDiscountRow.style.display = 'flex';
+            if (pointsDiscountSpan) pointsDiscountSpan.textContent = '-' + formatNumber(pointsDiscount) + ' đ';
+        } else {
+            if (pointsDiscountRow) pointsDiscountRow.style.display = 'none';
+        }
+
+        if (totalAmountSpan) totalAmountSpan.textContent = formatNumber(total) + ' đ';
+    }
+
+    function calcVoucherDiscountJS(voucher, currentShippingFee) {
+        const isShip = (voucher.discount_target || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes('van chuyen')
+            || voucher.discount_target === 'Vận chuyển';
+
+        let base;
+        if (isShip) {
+            base = currentShippingFee;
+        } else if (voucher.apply_scope && voucher.apply_scope !== 'Tất cả') {
+            base = calcScopeSubtotalJS(voucher.apply_scope);
+        } else {
+            base = subtotal;
+        }
+
+        let discount;
+        if (voucher.discount_type === 'percent') {
+            discount = Math.floor(base * voucher.discount_value / 100);
+        } else {
+            discount = voucher.discount_value || 0;
+        }
+        return Math.min(discount, base);
+    }
+
     loadProvinces();
     updateTotal();
 </script>
 <script>
-   async function getExpectedDelivery(serviceId, toDistrict, toWard){
-       const res = await fetch("https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/leadtime", {
-           method: "POST",
-           headers: {
-               "Content-Type": "application/json",
-               "Token": GHN_TOKEN,
-               "ShopId": String(GHN_SHOP_ID)
-           },
-           body: JSON.stringify({
-               from_district_id: FROM_DISTRICT,
-               to_district_id: toDistrict,
-               to_ward_code: toWard,
-               service_id: serviceId
-           })
-       });
-       const json = await res.json();
-       if (json.code !== 200) throw new Error(json.message);
-       const ts = json.data.leadtime;
-       const date = new Date(ts * 1000);
-       return date.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
-   }
+    async function getExpectedDelivery(serviceId, toDistrict, toWard) {
+        const res = await fetch("https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/leadtime", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Token": GHN_TOKEN,
+                "ShopId": String(GHN_SHOP_ID)
+            },
+            body: JSON.stringify({
+                from_district_id: FROM_DISTRICT,
+                to_district_id: toDistrict,
+                to_ward_code: toWard,
+                service_id: serviceId
+            })
+        });
+        const json = await res.json();
+        if (json.code !== 200) throw new Error(json.message);
+        const ts = json.data.leadtime;
+        const date = new Date(ts * 1000);
+        return date.toLocaleDateString('vi-VN', {day: '2-digit', month: '2-digit', year: 'numeric'});
+    }
+</script>
+
+<script>
+    const userVouchers = (${vouchersJson != null ? vouchersJson : '[]'}).map(v => ({
+        ...v,
+        code: v.code,
+        expired: v.expired ?? false,
+        discount_value: v.discountValue ?? v.discount_value ?? 0,
+        discount_type: v.discountType ?? v.discount_type ?? 'fixed',
+        discount_target: v.discountTarget ?? v.discount_target ?? '',
+        apply_scope: v.applyScope ?? v.apply_scope ?? 'Tất cả',
+        min_order_amount: v.minOrderAmount ?? v.min_order_amount ?? 0,
+        is_single_use: v.isSingleUse ?? v.is_single_use ?? false,
+        end_date: v.endDate ?? v.end_date ?? null,
+    }));
+
+    const productVouchers = userVouchers.filter(v => v.discount_target !== 'Vận chuyển');
+    const shippingVouchers = userVouchers.filter(v => v.discount_target === 'Vận chuyển');
+
+    let currentTab = 'product';
+    let tempSelectedProductVoucher = null;
+    let tempSelectedShippingVoucher = null;
+    let appliedProductVoucher = null;
+    let appliedShippingVoucher = null;
+
+    function switchVoucherTab(tab) {
+        currentTab = tab;
+        document.getElementById('tabProduct').classList.toggle('active', tab === 'product');
+        document.getElementById('tabShipping').classList.toggle('active', tab === 'shipping');
+        document.getElementById('voucherListProduct').style.display = tab === 'product' ? '' : 'none';
+        document.getElementById('voucherListShipping').style.display = tab === 'shipping' ? '' : 'none';
+    }
+
+    function openVoucherPopup() {
+        tempSelectedProductVoucher = appliedProductVoucher;
+        tempSelectedShippingVoucher = appliedShippingVoucher;
+        document.getElementById('voucherOverlay').style.display = 'flex';
+        renderVoucherList('product');
+        renderVoucherList('shipping');
+    }
+
+    function closeVoucherPopup(e) {
+        if (e && e.target !== document.getElementById('voucherOverlay')) return;
+        document.getElementById('voucherOverlay').style.display = 'none';
+        tempSelectedProductVoucher = null;
+        tempSelectedShippingVoucher = null;
+    }
+
+    function renderVoucherList(type) {
+        const listId = type === 'product' ? 'voucherListProduct' : 'voucherListShipping';
+        const vouchers = type === 'product' ? productVouchers : shippingVouchers;
+        const tempSel = type === 'product' ? tempSelectedProductVoucher : tempSelectedShippingVoucher;
+        const list = document.getElementById(listId);
+
+        if (!vouchers || vouchers.length === 0) {
+            list.innerHTML = '<div class="no-voucher-msg"><i class="fas fa-ticket-alt" style="font-size:32px;display:block;margin-bottom:10px;opacity:0.3"></i>Không có voucher nào</div>';
+            return;
+        }
+
+        const selectedShipping = document.querySelector('input[name="shipping"]:checked');
+        const currentShippingFee = selectedShipping ? parseInt(selectedShipping.dataset.fee) || 0 : 0;
+
+        list.innerHTML = vouchers.map(function (v) {
+            const isSelected = tempSel && tempSel.code === v.code;
+            const isExpired = v.expired;
+            const isShip = v.discount_target === 'Vận chuyển';
+
+            const scopeMismatch = !isExpired && !isShip
+                && v.apply_scope && v.apply_scope !== 'Tất cả'
+                && !selectedCategories.some(cat =>
+                    cat.toLowerCase().trim() === (v.apply_scope || '').toLowerCase().trim()
+                );
+
+            let isNotEligible = false;
+            if (!isExpired && v.min_order_amount > 0) {
+                if (isShip) {
+                    const baseForShip = (v.apply_scope && v.apply_scope !== 'Tất cả')
+                        ? calcScopeSubtotalJS(v.apply_scope)
+                        : subtotal;
+                    isNotEligible = baseForShip < v.min_order_amount;
+                } else if (v.apply_scope && v.apply_scope !== 'Tất cả') {
+                    const scopeSubtotal = calcScopeSubtotalJS(v.apply_scope);
+                    isNotEligible = scopeSubtotal < v.min_order_amount;
+                } else {
+                    isNotEligible = subtotal < v.min_order_amount;
+                }
+            }
+
+            const isDisabled = isExpired || isNotEligible || scopeMismatch;
+            const selectedClass = isSelected ? ' selected' : '';
+            const expiredClass = isExpired ? ' expired' : '';
+            const scopeClass = scopeMismatch ? ' scope-mismatch' : '';
+            const onclickAttr = isDisabled ? '' : `onclick="selectVoucher('\${v.code}', '\${type}')"`;
+
+            const leftClass = isShip ? 'type-ship' : 'type-product';
+            const leftIcon = isShip ? 'fa-truck' : 'fa-tag';
+            const leftLabel = isShip ? 'VẬN CHUYỂN' : 'SẢN PHẨM';
+
+            const singleUseTag = (v.is_single_use === true || v.is_single_use === 1)
+                ? '<span class="vc-single-use-tag"><i class="fas fa-user-check"></i> 1 lần/khách</span>' : '';
+
+            let discountText = v.discount_type === 'percent'
+                ? 'Giảm ' + v.discount_value + '%'
+                : 'Giảm ' + formatNumber(v.discount_value) + 'đ';
+
+            let minLabel = '';
+            if (v.min_order_amount) {
+                if (isShip) {
+                    minLabel = '<span>Đơn tối thiểu ' + formatNumber(v.min_order_amount) + 'đ</span>';
+                } else if (v.apply_scope && v.apply_scope !== 'Tất cả') {
+                    minLabel = '<span>Đơn tối thiểu ' + formatNumber(v.min_order_amount) + 'đ</span>';
+                } else {
+                    minLabel = '<span>Đơn tối thiểu ' + formatNumber(v.min_order_amount) + 'đ</span>';
+                }
+            }
+
+            const expiryHtml = v.end_date
+                ? '<span>HSD: ' + v.end_date + '</span>' : '';
+            const scopeLabel = (v.apply_scope && v.apply_scope !== 'Tất cả')
+                ? '<span style="font-size:12px;color:#888">Chỉ áp dụng: ' + v.apply_scope + '</span>' : '';
+
+            let badge = '';
+            if (isExpired) {
+                badge = '<span class="uv-badge-expired">Hết hạn</span>';
+            } else if (scopeMismatch) {
+                badge = '<span class="uv-badge-expired">Không áp dụng thể loại này</span>';
+            } else if (isNotEligible) {
+                badge = '<span class="uv-badge-expired">Chưa đủ điều kiện</span>';
+            } else {
+                badge = `<input type="checkbox" \${isSelected ? 'checked' : ''} id="vc_\${v.code}"
+     onchange="selectVoucher('\${v.code}', '\${type}')"
+     onclick="event.stopPropagation()">`;
+            }
+
+            return `<div class="voucher-item\${selectedClass}\${expiredClass}\${scopeClass}" \${onclickAttr}>
+    <div class="voucher-item-left \${leftClass}">
+        <i class="fas \${leftIcon}"></i><span>\${leftLabel}</span>
+    </div>
+    <div class="voucher-item-sep"></div>
+    <div class="voucher-item-body">
+        <div class="vdiscount-row"><span class="vdiscount">\${discountText}</span>\${singleUseTag}</div>
+        <div class="vcode">Mã: <span>\${v.code}</span></div>
+        <div class="vmeta">\${minLabel}\${expiryHtml}\${scopeLabel}</div>
+    </div>
+    <div class="voucher-item-check">\${badge}</div>
+</div>`;
+        }).join('');
+    }
+
+    function calcScopeSubtotalJS(scope) {
+        if (!scope || scope === 'Tất cả') return subtotal;
+        const scopeKey = Object.keys(scopeSubtotalMap).find(
+            k => k.toLowerCase().trim() === scope.toLowerCase().trim()
+        );
+        return scopeKey ? scopeSubtotalMap[scopeKey] : 0;
+    }
+
+    function selectVoucher(code, type) {
+        const v = userVouchers.find(x => x.code === code);
+        if (!v || v.expired) return;
+
+        if (type === 'product') {
+            tempSelectedProductVoucher = (tempSelectedProductVoucher?.code === code) ? null : v;
+        } else {
+            tempSelectedShippingVoucher = (tempSelectedShippingVoucher?.code === code) ? null : v;
+        }
+        renderVoucherList(type);
+    }
+
+    function confirmVoucherSelection() {
+        appliedProductVoucher = tempSelectedProductVoucher;
+        appliedShippingVoucher = tempSelectedShippingVoucher;
+
+        document.getElementById('voucherCode').value = appliedProductVoucher?.code || '';
+        document.getElementById('voucherShippingCode').value = appliedShippingVoucher?.code || '';
+
+        updateVoucherDisplay('product', appliedProductVoucher);
+        updateVoucherDisplay('shipping', appliedShippingVoucher);
+
+        const hasAny = appliedProductVoucher || appliedShippingVoucher;
+        const count = (appliedProductVoucher ? 1 : 0) + (appliedShippingVoucher ? 1 : 0);
+        document.getElementById('openVoucherBtn').innerHTML =
+            `<i class="fas fa-ticket-alt"></i> \${hasAny ? 'Thay đổi voucher (' + count + ')' : 'Chọn voucher'}`;
+
+        document.getElementById('voucherOverlay').style.display = 'none';
+        updateTotal();
+    }
+
+    function updateVoucherDisplay(type, voucher) {
+        const displayId = type === 'product' ? 'selectedProductVoucherDisplay' : 'selectedShippingVoucherDisplay';
+        const textId = type === 'product' ? 'selectedProductVoucherText' : 'selectedShippingVoucherText';
+        const display = document.getElementById(displayId);
+        const text = document.getElementById(textId);
+        if (voucher) {
+            let discountText = voucher.discount_type === 'percent'
+                ? 'Giảm ' + voucher.discount_value + '%'
+                : 'Giảm ' + formatNumber(voucher.discount_value) + 'đ';
+            text.textContent = voucher.code + ' — ' + discountText;
+            display.style.display = 'flex';
+        } else {
+            display.style.display = 'none';
+        }
+    }
+
+    function removeVoucher(type) {
+        if (type === 'product') {
+            appliedProductVoucher = null;
+            document.getElementById('voucherCode').value = '';
+            updateVoucherDisplay('product', null);
+        } else {
+            appliedShippingVoucher = null;
+            document.getElementById('voucherShippingCode').value = '';
+            updateVoucherDisplay('shipping', null);
+        }
+        const count = (appliedProductVoucher ? 1 : 0) + (appliedShippingVoucher ? 1 : 0);
+        document.getElementById('openVoucherBtn').innerHTML =
+            `<i class="fas fa-ticket-alt"></i> \${count > 0 ? 'Thay đổi voucher (' + count + ')' : 'Chọn voucher'}`;
+        updateTotal();
+    }
 </script>
 
 </body>

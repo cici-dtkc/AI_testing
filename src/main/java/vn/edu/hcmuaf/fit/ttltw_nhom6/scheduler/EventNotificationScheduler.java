@@ -43,12 +43,48 @@ public class EventNotificationScheduler implements ServletContextListener {
 
         scheduler.scheduleAtFixedRate(() -> {
             try {
-                checkExpiringVouchers();
+                checkExpiringVouchers("1DAY");
+                checkExpiringVouchers("1HOUR");
             } catch (Exception e) {
-                System.err.println("[Scheduler] Voucher check failed: " + e.getMessage());
+                System.err.println("[Scheduler] Voucher 1DAY check failed: " + e.getMessage());
                 e.printStackTrace();
             }
-        }, 0, 1440, TimeUnit.MINUTES);
+        }, 0, 60, TimeUnit.MINUTES);
+    }
+
+    private void checkExpiringVouchers(String phase) {
+        VoucherDao voucherDao = new VoucherDao();
+        NotificationDAO notificationDAO = NotificationDAO.getInstance();
+
+        List<Voucher> vouchers = "1DAY".equals(phase)
+                ? voucherDao.getVouchersExpiringTomorrow()
+                : voucherDao.getVouchersExpiringInOneHour();
+
+        if (vouchers.isEmpty()) return;
+
+        List<Integer> userIds = notificationDAO.getAllActiveUserIds();
+
+        for (Voucher v : vouchers) {
+            String endDateFormatted = v.getEndDate() != null
+                    ? v.getEndDate().format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"))
+                    : "N/A";
+
+            String timeLabel = "1DAY".equals(phase) ? "còn 1 ngày" : "còn 1 tiếng";
+            String message = "Mã giảm giá \"" + v.getCode() + "\" sắp hết hạn (" + timeLabel + ")!\n"
+                    + "HSD: " + endDateFormatted + "\n"
+                    + "[" + phase + "]";
+
+            for (int userId : userIds) {
+                if (!notificationDAO.existsVoucherExpiringNotif(userId, v.getCode(), phase)) {
+                    vn.edu.hcmuaf.fit.ttltw_nhom6.model.Notification noti =
+                            new vn.edu.hcmuaf.fit.ttltw_nhom6.model.Notification();
+                    noti.setUserId(userId);
+                    noti.setMessage(message);
+                    noti.setType("VOUCHER_EXPIRING");
+                    notificationDAO.insert(noti);
+                }
+            }
+        }
     }
 
     private void checkNewlyCreatedFlashSales() {
