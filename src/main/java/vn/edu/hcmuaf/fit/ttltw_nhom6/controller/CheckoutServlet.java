@@ -218,6 +218,20 @@ public class CheckoutServlet extends HttpServlet {
             request.setAttribute("selectedCategoriesJson", "[]");
         }
 
+        if (itemsForScope != null && !itemsForScope.isEmpty()) {
+            ComicDAO comicDAO = new ComicDAO(JdbiConnector.get());
+            java.util.Map<String, Double> comicScopeSubtotalMap = new java.util.HashMap<>();
+            for (CartItem item : itemsForScope) {
+                String cat = comicDAO.getCategoryName(item.getComic().getId());
+                if (cat != null && !cat.isEmpty()) {
+                    comicScopeSubtotalMap.merge(cat, item.getFinalPrice() * item.getQuantity(), Double::sum);
+                }
+            }
+            request.setAttribute("scopeSubtotalMapJson", gson.toJson(comicScopeSubtotalMap));
+        } else {
+            request.setAttribute("scopeSubtotalMapJson", "{}");
+        }
+
         request.getRequestDispatcher("/frontend/nguoiB/checkout.jsp").forward(request, response);
     }
 
@@ -276,8 +290,6 @@ public class CheckoutServlet extends HttpServlet {
             int cartId = cartDAO.getOrCreateCartByUserId(user.getId());
             try {
                 CacheService.cartCache.remove(cartId);
-
-                System.out.println("[DEBUG] Bắt đầu checkout cartId=" + cartId + " userId=" + user.getId());
 
                 int orderId = cartDAO.checkout(
                         cartId,
