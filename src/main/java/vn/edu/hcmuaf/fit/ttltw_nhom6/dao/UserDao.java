@@ -545,4 +545,17 @@ public class UserDao {
                         .execute() > 0
         );
     }
+
+    public boolean insertStatusLoign(int idUser, String ipAdress, String userAgent ){
+        String sql ="insert login_sessions(user_id, ip_address, user_agent, login_time, active) " +
+                " values(:idUser, :ipAdress, :userAgent, NOW(), 1)";
+
+        return jdbi.withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("idUser", idUser)
+                        .bind("ipAdress", ipAdress)
+                        .bind("userAgent", userAgent)
+                        .execute()>0
+        );
+    }
 }
