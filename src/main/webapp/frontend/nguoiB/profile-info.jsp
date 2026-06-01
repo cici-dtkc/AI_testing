@@ -43,7 +43,37 @@
             });
         </script>
     </c:if>
+    <c:if test="${not empty errorMessage}">
+        <script>
+            window.addEventListener('DOMContentLoaded', function () {
+                const overlay = document.createElement('div');
+                overlay.className = 'msg-overlay';
 
+                overlay.innerHTML =
+                    '<div class="msg-popup">' +
+                    '<div class="msg-popup-icon"></div>' +
+                    '<h3>Lỗi</h3>' +
+                    '<p>${errorMessage}</p>' +
+                    '<button class="msg-btn-ok">OK</button>' +
+                    '</div>';
+
+                document.body.appendChild(overlay);
+                requestAnimationFrame(() => overlay.classList.add('show'));
+
+                function closeMsg() {
+                    overlay.classList.remove('show');
+                    setTimeout(() => overlay.remove(), 250);
+                }
+
+
+                overlay.addEventListener('click', function (e) {
+                    if (e.target === overlay) closeMsg();
+                });
+
+
+            });
+        </script>
+    </c:if>
 
     <jsp:include page="/frontend/nguoiB/ASideUser.jsp"/>
 

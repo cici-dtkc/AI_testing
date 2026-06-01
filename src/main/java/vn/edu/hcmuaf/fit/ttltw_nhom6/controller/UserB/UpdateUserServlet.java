@@ -58,9 +58,9 @@ public class UpdateUserServlet extends HttpServlet {
                     houseNumber, district, province
             );
             if (result.hasErrors()){
-                request.setAttribute("errors", result.getErrors());
+                request.setAttribute("errorMessage", result.getErrors());
                 request.setAttribute("firstError", result.getFirstError());
-                request.getRequestDispatcher("/frontend/nguoiB/profile-info.jsp").forward(request, response);
+                doGet(request, response);
                 return;
             }
 
