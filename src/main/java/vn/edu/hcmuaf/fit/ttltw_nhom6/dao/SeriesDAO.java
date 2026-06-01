@@ -94,17 +94,31 @@ public class SeriesDAO extends ADao {
      * Ẩn/Hiện series
      */
     public boolean updateSeriesVisibility(int id, boolean hidden) {
-        String sql = "UPDATE series SET is_hidden = :hidden, updated_at = :updatedAt WHERE id = :id";
+        String sqlSeries = "UPDATE series SET is_hidden = :hidden, updated_at = :updatedAt WHERE id = :id";
+        String sqlComics = "UPDATE comics SET is_hidden = :hidden WHERE series_id = :seriesId";
 
-        int rows = jdbi.withHandle(handle ->
-                handle.createUpdate(sql)
+        try {
+            int rows = jdbi.withHandle(handle -> {
+                // Update series visibility
+                int affectedRows = handle.createUpdate(sqlSeries)
                         .bind("id", id)
                         .bind("hidden", hidden)
                         .bind("updatedAt", LocalDateTime.now())
-                        .execute()
-        );
+                        .execute();
 
-        return rows > 0;
+                // Also update visibility for all comics belonging to this series
+                handle.createUpdate(sqlComics)
+                        .bind("seriesId", id)
+                        .bind("hidden", hidden ? 1 : 0)
+                        .execute();
+
+                return affectedRows;
+            });
+            return rows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 
