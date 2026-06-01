@@ -21,7 +21,6 @@
                         <jsp:include page="/frontend/admin/ASide.jsp" />
                         <div class="main-content">
                             <%@ include file="HeaderAdmin.jsp" %>
-
                                 <div class="admin-content">
                                     <div class="page-header">
                                         <h2>Quản lý kho hàng & Thống kê tồn kho</h2>
@@ -32,8 +31,6 @@
                                             </button>
                                         </div>
                                     </div>
-
-                                    <!-- Tabs Navigation -->
                                     <div class="tabs-container">
                                         <button class="tab-btn active" onclick="switchTab('lowStockTab')">
                                             <i class="fa-solid fa-triangle-exclamation"></i> Cần nhập gấp
@@ -46,7 +43,6 @@
                                             <i class="fa-solid fa-clock-rotate-left"></i> Nhật ký giao dịch
                                         </button>
                                     </div>
-
                                     <div id="lowStockTab" class="tab-content active">
                                         <div class="control-panel">
                                             <form method="get"
@@ -432,6 +428,7 @@
                             }, 3000);
                         }
 
+                        // Search catalog
                         function filterCatalog() {
                             const input = document.getElementById('catalogSearch');
                             const filter = input.value.toLowerCase().trim();
