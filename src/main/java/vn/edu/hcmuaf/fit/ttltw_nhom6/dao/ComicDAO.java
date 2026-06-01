@@ -675,6 +675,7 @@ public class ComicDAO extends ADao {
                         ) AS flash_sale ON c.id = flash_sale.comic_id AND flash_sale.rn = 1
                         WHERE c.volume = ws.max_volume + 1
                         AND c.is_deleted = 0
+                        AND c.is_hidden = 0
                         AND c.stock_quantity > 0
                         AND NOT EXISTS (
                             SELECT 1 FROM Wishlist w2 
@@ -718,6 +719,7 @@ public class ComicDAO extends ADao {
                               AND NOW() BETWEEN fs.start_time AND fs.end_time
                         ) AS flash_sale ON c.id = flash_sale.comic_id AND flash_sale.rn = 1
                         WHERE c.is_deleted = 0
+                        AND c.is_hidden = 0
                         AND c.stock_quantity > 0
                         AND NOT EXISTS (
                             SELECT 1 FROM Wishlist w2 
@@ -760,6 +762,7 @@ public class ComicDAO extends ADao {
                     AND o.status NOT IN ('cancelled', 'returned')
                 """ + buildFlashSaleJoin() + """
                     WHERE c.is_deleted = 0
+                    AND c.is_hidden = 0
                     AND c.stock_quantity > 0
                     GROUP BY c.id
                     ORDER BY totalSold DESC, c.created_at DESC
