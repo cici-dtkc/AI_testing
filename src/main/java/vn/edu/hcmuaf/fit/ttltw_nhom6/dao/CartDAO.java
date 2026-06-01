@@ -241,7 +241,6 @@ public class CartDAO {
 
         return jdbi.inTransaction(handle -> {
 
-            // 1.Load cart items
             List<Map<String, Object>> items = handle.createQuery(
                             "SELECT ci.quantity, ci.price_at_purchase, ci.flash_sale_price, ci.flash_sale_id, " +
                                     "       c.id AS comic_id, c.name_comics " +
@@ -257,7 +256,6 @@ public class CartDAO {
 
             if (items.isEmpty()) throw new Exception("Giỏ hàng trống!");
 
-            // 2. Lock đúng rows comics
             List<Integer> comicIds = items.stream()
                     .map(i -> ((Number) i.get("comic_id")).intValue())
                     .distinct()
@@ -277,7 +275,6 @@ public class CartDAO {
                 stockMap.put(((Number) row.get("comic_id")).intValue(), row);
             }
 
-            // 3. Kiểm tra flash sale còn hạn không
             List<Integer> flashSaleIds = items.stream()
                     .filter(i -> i.get("flash_sale_id") != null)
                     .map(i -> ((Number) i.get("flash_sale_id")).intValue())
@@ -297,8 +294,6 @@ public class CartDAO {
                         .list()
                         .forEach(activeFlashSaleIds::add);
             }
-
-            // 4. Validate stock + trừ kho
             for (Map<String, Object> item : items) {
                 int comicId = ((Number) item.get("comic_id")).intValue();
                 int qty     = ((Number) item.get("quantity")).intValue();
@@ -329,10 +324,7 @@ public class CartDAO {
                 if (rowsAffected == 0) {
                     throw new Exception("Sản phẩm \"" + name + "\" vừa hết hàng, vui lòng thử lại!");
                 }
-// GỌI thêm INSERT INTO inventory_transaction Ở ĐÂY
             }
-
-            // 5.  Tính tổng tiền
             double subtotal = 0;
             for (Map<String, Object> item : items) {
                 int qty = ((Number) item.get("quantity")).intValue();
@@ -353,8 +345,6 @@ public class CartDAO {
             double totalAmount = subtotal + shippingFee;
 
             String trackingCode = generateTrackingCode(shippingProvider);
-
-            // 6. Tạo order
             int orderId = handle.createUpdate(
                             "INSERT INTO orders " +
                                     "  (user_id, status, total_amount, shipping_address_id, " +
@@ -378,7 +368,6 @@ public class CartDAO {
                     .mapTo(Integer.class)
                     .one();
 
-            // 7. Tạo order_items
             for (Map<String, Object> item : items) {
                 int comicId = ((Number) item.get("comic_id")).intValue();
                 int qty     = ((Number) item.get("quantity")).intValue();
@@ -406,9 +395,15 @@ public class CartDAO {
                         .bind("price", finalPrice)
                         .bind("flashSaleId", flashSaleId)
                         .execute();
-            }
 
-            // 8. Đánh dấu cart checked_out
+                handle.createUpdate(
+                                "INSERT INTO inventory_transaction (comic_id, type, quantity, note, created_at) " +
+                                        "VALUES (:comicId, 'EXPORT', :qty, :note, NOW())")
+                        .bind("comicId", comicId)
+                        .bind("qty", qty)
+                        .bind("note", "Bán hàng qua đơn hàng #" + orderId)
+                        .execute();
+            }
             handle.createUpdate(
                             "UPDATE cart SET status = 'checked_out', updated_at = NOW() " +
                                     "WHERE id = :cartId")
