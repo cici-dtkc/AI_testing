@@ -50,17 +50,17 @@
                                                 class="filter-group">
                                                 <label for="thresholdSelect"
                                                     style="font-weight: 600; font-size: 14px;">Mức cảnh báo tồn:</label>
-                                                <select id="thresholdSelect" name="threshold" class="form-select"
-                                                    onchange="this.form.submit()">
-                                                    <option value="5" ${threshold==5 ? 'selected' : '' }>&lt;= 5 cuốn
-                                                    </option>
-                                                    <option value="10" ${threshold==10 ? 'selected' : '' }>&lt;= 10 cuốn
-                                                    </option>
-                                                    <option value="20" ${threshold==20 ? 'selected' : '' }>&lt;= 20 cuốn
-                                                    </option>
-                                                    <option value="50" ${threshold==50 ? 'selected' : '' }>&lt;= 50 cuốn
-                                                    </option>
+                                                <select id="thresholdSelect" name="threshold" class="form-select">
+                                                    <option value="5" ${threshold==5 ? 'selected' : '' }>&lt;= 5 cuốn</option>
+                                                    <option value="10" ${threshold==10 ? 'selected' : '' }>&lt;= 10 cuốn</option>
+                                                    <option value="20" ${threshold==20 ? 'selected' : '' }>&lt;= 20 cuốn</option>
+                                                    <option value="50" ${threshold==50 ? 'selected' : '' }>&lt;= 50 cuốn</option>
+                                                    <option value="custom" ${threshold!=5 && threshold!=10 && threshold!=20 && threshold!=50 ? 'selected' : '' }>Tùy chỉnh...</option>
                                                 </select>
+                                                <div id="customThresholdContainer" style="display: ${threshold!=5 && threshold!=10 && threshold!=20 && threshold!=50 ? 'inline-flex' : 'none'}; align-items: center; gap: 8px;">
+                                                    <input type="number" id="customThresholdInput" class="form-input" min="1" value="${threshold}" style="width: 80px; min-width: 80px; padding: 6px 10px;" placeholder="Số lượng">
+                                                    <button type="button" class="btn btn-primary" onclick="submitCustomThreshold()" style="padding: 6px 12px; font-size: 13px;">Áp dụng</button>
+                                                </div>
                                             </form>
                                             <div style="font-size: 14px; color: var(--text-muted); font-weight: 500;">
                                                 Có <b>${fn:length(lowStockComics)}</b> tác phẩm dưới mức an toàn.
@@ -76,6 +76,7 @@
                                                         <th>Bị hỏng</th>
                                                         <th>Khả dụng (Bán)</th>
                                                         <th>Đã bán (Completed)</th>
+                                                        <th>Đánh giá & Gợi ý</th>
                                                         <th>Hành động</th>
                                                     </tr>
                                                 </thead>
@@ -83,7 +84,7 @@
                                                     <c:choose>
                                                         <c:when test="${empty lowStockComics}">
                                                             <tr>
-                                                                <td colspan="6"
+                                                                <td colspan="7"
                                                                     style="text-align: center; color: var(--text-muted); padding: 24px;">
                                                                     Không có tác phẩm nào dưới mức cảnh báo. Kho hàng an
                                                                     toàn!
@@ -92,6 +93,8 @@
                                                         </c:when>
                                                         <c:otherwise>
                                                             <c:forEach var="comic" items="${lowStockComics}">
+                                                                <c:set var="targetStock" value="${(threshold * 3) > comic.total_sold ? (threshold * 3) : comic.total_sold}" />
+                                                                <c:set var="suggestedQty" value="${targetStock - comic.available_quantity}" />
                                                                 <tr>
                                                                     <td>
                                                                         <div class="comic-cell">
@@ -118,8 +121,22 @@
                                                                     </td>
                                                                     <td>${comic.total_sold}</td>
                                                                     <td>
+                                                                        <c:choose>
+                                                                            <c:when test="${suggestedQty > 0}">
+                                                                                <span class="badge badge-warning" style="background-color: #FEF3C7; color: #D97706; border: 1px solid #FFE0B2; font-weight: 600; padding: 4px 8px; border-radius: 6px; font-size: 12px; display: inline-flex; align-items: center; gap: 4px;">
+                                                                                    <i class="fa-solid fa-truck-ramp-box"></i> Nhập thêm <b>${suggestedQty}</b> cuốn
+                                                                                </span>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <span class="badge badge-success" style="background-color: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; font-weight: 600; padding: 4px 8px; border-radius: 6px; font-size: 12px; display: inline-flex; align-items: center; gap: 4px;">
+                                                                                    <i class="fa-solid fa-circle-check"></i> Không cần nhập
+                                                                                </span>
+                                                                            </c:otherwise>
+                                                                        </c:choose>
+                                                                    </td>
+                                                                    <td>
                                                                         <button class="btn btn-success btn-sm"
-                                                                            onclick="openAdjustmentModal(${comic.id}, 'import')">
+                                                                            onclick="openAdjustmentModal(${comic.id}, 'import', ${suggestedQty > 0 ? suggestedQty : 0})">
                                                                             <i class="fa-solid fa-plus"></i> Nhập hàng
                                                                             nhanh
                                                                         </button>
@@ -347,7 +364,7 @@
                             if (clickedBtn) clickedBtn.classList.add('active');
                         }
 
-                        function openAdjustmentModal(comicId, actionType) {
+                        function openAdjustmentModal(comicId, actionType, defaultQty) {
                             const modal = document.getElementById('adjustmentModal');
                             const selectComic = document.getElementById('modalComicSelect');
                             const selectAction = document.getElementById('modalActionSelect');
@@ -369,6 +386,11 @@
 
                             if (actionType) {
                                 selectAction.value = actionType;
+                            }
+
+                            if (defaultQty && defaultQty > 0) {
+                                inputQty.value = defaultQty;
+                                inputNote.value = "Nhập hàng tự động theo gợi ý tồn kho an toàn";
                             }
 
                             modal.style.display = "flex";
@@ -468,6 +490,53 @@
                                 }
                             });
                         }
+                        document.addEventListener("DOMContentLoaded", function() {
+                            const select = document.getElementById('thresholdSelect');
+                            const customContainer = document.getElementById('customThresholdContainer');
+                            const customInput = document.getElementById('customThresholdInput');
+
+                            if (select) {
+                                select.addEventListener('change', function() {
+                                    if (select.value === 'custom') {
+                                        customContainer.style.display = 'inline-flex';
+                                        customInput.focus();
+                                    } else {
+                                        customContainer.style.display = 'none';
+                                        select.form.submit();
+                                    }
+                                });
+                            }
+
+                            if (customInput) {
+                                customInput.addEventListener('keypress', function(e) {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        submitCustomThreshold();
+                                    }
+                                });
+                            }
+                        });
+
+                        function submitCustomThreshold() {
+                            const input = document.getElementById('customThresholdInput');
+                            const val = parseInt(input.value);
+                            if (isNaN(val) || val < 1) {
+                                alert('Vui lòng nhập số cuốn hợp lệ (lớn hơn 0)');
+                                return;
+                            }
+                            const form = document.getElementById('thresholdSelect').form;
+                            let hiddenInput = form.querySelector('input[name="threshold"]');
+                            if (!hiddenInput) {
+                                hiddenInput = document.createElement('input');
+                                hiddenInput.type = 'hidden';
+                                hiddenInput.name = 'threshold';
+                                form.appendChild(hiddenInput);
+                            }
+                            hiddenInput.value = val;
+                            document.getElementById('thresholdSelect').name = "";
+                            form.submit();
+                        }
+
                         window.onclick = function (event) {
                             const modal = document.getElementById('adjustmentModal');
                             if (event.target === modal) {
