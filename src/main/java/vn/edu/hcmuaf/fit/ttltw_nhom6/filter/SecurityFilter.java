@@ -22,14 +22,11 @@ public class SecurityFilter implements Filter {
         
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-
-        // 1. HTTP Security Headers
         httpResponse.setHeader("X-Frame-Options", "DENY");
         httpResponse.setHeader("X-Content-Type-Options", "nosniff");
         httpResponse.setHeader("X-XSS-Protection", "1; mode=block");
         httpResponse.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
         
-        // Define Content-Security-Policy
         String csp = "default-src 'self'; " +
                      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.google.com/ https://www.gstatic.com/; " +
                      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdnjs.cloudflare.com/; " +
@@ -39,7 +36,6 @@ public class SecurityFilter implements Filter {
                      "connect-src 'self' https://www.google.com/;";
         httpResponse.setHeader("Content-Security-Policy", csp);
 
-        // 2. Session Hijacking Detection
         String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
         boolean isStatic = path.startsWith("/frontend/css/") || path.startsWith("/frontend/js/") || path.startsWith("/img/")
                 || path.endsWith(".css") || path.endsWith(".js") || path.endsWith(".png") || path.endsWith(".jpg")
@@ -54,13 +50,11 @@ public class SecurityFilter implements Filter {
                 
                 if (sessionFingerprint != null) {
                     if (!sessionFingerprint.equals(currentFingerprint)) {
-                        // Fingerprint mismatch -> Session Hijacking suspected -> Invalidate session and redirect
-                        session.invalidate();
+                     session.invalidate();
                         httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
                         return;
                     }
                 } else {
-                    // Save fingerprint to session if not yet present
                     session.setAttribute("clientFingerprint", currentFingerprint);
                 }
             }

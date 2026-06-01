@@ -21,52 +21,41 @@ import java.util.Optional;
 public class LoginServlet extends HttpServlet {
     private UserDao userDao;
     private CartService cartService;
-
     @Override
     public void init() {
         userDao = new UserDao(JdbiConnector.get());
         cartService = new CartService();
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
         if (!ReCaptchaUtils.verify(gRecaptchaResponse)) {
             request.setAttribute("error", "Vui lòng xác minh CAPTCHA chính xác!");
             request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
             return;
         }
-
         String usernameOrEmail = request.getParameter("username");
         String password = request.getParameter("password");
         String reme = request.getParameter("rememberMe");
-
         if (!PasswordUtils.isValidPasswordFormat(password)) {
             request.setAttribute("error",
                     "Mat khau it nhat 8 ky tu, gom chu hoa, chu thuong, so va ky tu dac biet!");
             request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
             return;
         }
-
         Optional<User> userOpt = userDao.findByUsernameOrEmail(usernameOrEmail);
         if (!userOpt.isPresent()) {
             request.setAttribute("error", "Hay nhap dung tai khoan va mat khau!");
             request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
             return;
         }
-
         User user = userOpt.get();
-        // Check khóa vĩnh viễn / chưa kích hoạt
         if (!user.isActive()) {
             request.setAttribute("error", "Tài khoản của bạn chưa được kích hoạt hoặc đã bị khóa!");
             request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
             return;
         }
-
-
-        // Check khóa tạm
         if (user.getLockedUntil() != null && user.getLockedUntil().isAfter(LocalDateTime.now())) {
             long minutesLeft = java.time.Duration.between(LocalDateTime.now(), user.getLockedUntil()).toMinutes();
             if (minutesLeft <= 60) {
@@ -78,22 +67,16 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
             return;
         }
-
         if (PasswordUtils.verifyPassword(password, user.getPasswordHash())) {
             OrderViolationService.getInstance().resetLoginFailureCount(user.getId());
-
-            // BUOC 1: Lấy guest cart từ session CŨ trước khi invalidate
             HttpSession oldSession = request.getSession(false);
             Cart guestCart = null;
             if (oldSession != null) {
                 guestCart = (Cart) oldSession.getAttribute("cart");
                 oldSession.invalidate();
             }
-
-// BUOC 2: Tạo session mới
             HttpSession newSession = request.getSession(true);
             newSession.setAttribute("clientFingerprint", SecurityConfig.generateFingerprint(request));
-
             //save cookie
             if ("on".equals(reme)) {
                 Cookie cookieNameUser = new Cookie("cookieUsername", usernameOrEmail);
@@ -117,8 +100,6 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/admin/dashboard");
                 return;
             }
-
-// BUOC 3: Merge guest cart (session) vào user cart (DB)
             Cart userCart = new Cart();
             if (guestCart != null && !guestCart.getItems().isEmpty()) {
                 cartService.mergeSessionCartToDb(userCart, user.getId(), guestCart);
@@ -161,7 +142,6 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
         }
     }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -171,7 +151,6 @@ public class LoginServlet extends HttpServlet {
         }
         request.getRequestDispatcher("/frontend/public/login.jsp").forward(request, response);
     }
-
     private void setNoCacheHeaders(HttpServletResponse response) {
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");

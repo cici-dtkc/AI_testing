@@ -202,7 +202,6 @@
                             return false;
                         }
 
-                        // Client-side CAPTCHA verification
                         const recaptchaResponse = grecaptcha.getResponse();
                         if (recaptchaResponse === "") {
                             showRegisterError("Vui lòng xác minh CAPTCHA chính xác!");

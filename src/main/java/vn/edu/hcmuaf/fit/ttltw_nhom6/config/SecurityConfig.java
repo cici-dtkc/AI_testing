@@ -7,10 +7,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 public class SecurityConfig {
-
-    /**
-     * Resolves the real client IP address, taking into account common reverse proxy headers.
-     */
     public static String getClientIp(HttpServletRequest request) {
         String ipAddress = request.getHeader("X-Forwarded-For");
         if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
@@ -22,16 +18,11 @@ public class SecurityConfig {
         if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getRemoteAddr();
         }
-        // If there are multiple IPs in X-Forwarded-For (comma-separated list), take the first one
         if (ipAddress != null && ipAddress.contains(",")) {
             ipAddress = ipAddress.split(",")[0].trim();
         }
         return ipAddress;
     }
-
-    /**
-     * Generates a unique SHA-256 fingerprint for the request based on the client IP and User-Agent.
-     */
     public static String generateFingerprint(HttpServletRequest request) {
         String ip = getClientIp(request);
         String userAgent = request.getHeader("User-Agent");
@@ -55,10 +46,6 @@ public class SecurityConfig {
             throw new RuntimeException("SHA-256 algorithm not found", e);
         }
     }
-
-    /**
-     * Generates a cryptographically strong random token for CSRF defense.
-     */
     public static String generateCsrfToken() {
         return UUID.randomUUID().toString();
     }
