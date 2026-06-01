@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    color: #333;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.page-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.permission-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.permission-table thead th {
+    text-align: left;
+    padding: 12px 15px;
+    background-color: #ffeaea;
+    font-weight: bold;
+    border-bottom: 1px solid #f0dcdc;
+}
+
+.permission-table tbody tr td {
+    padding: 12px 15px;
+    border-top: 1px solid #f3f6f9;
+}
+
+.permission-table tbody tr:hover {
+    background-color: #fff1f1;
+}
+
+.role-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: bold;
+    background: #ffeaea;
+    color: #ff4c4c;
+    border: 1px solid #ffb3b3;
+}
+
+.btn-assign {
+    background-color: #ff4c4c;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.btn-assign:hover {
+    background-color: #ff6a6a;
+}
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-box {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 480px;
+    width: 90%;
+    position: relative;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+}
+
+.popup-box h3 {
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.popup-box p#userName {
+    font-size: 0.875rem;
+    color: #374151;
+    background: #f3f4f6;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    border-left: 3px solid #ff4c4c;
+}
+
+.popup-box select#roleId {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d2d2d2;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 18px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.popup-box select#roleId:focus {
+    border-color: #ff4c4c;
+}
+
+.popup-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid #e1e5e9;
+}
+
+.popup-actions button {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#saveRoleBtn {
+    background: #ff4c4c;
+    color: #fff;
+}
+
+#saveRoleBtn:hover {
+    background: #ff6a6a;
+}
+
+.popup-actions button:not(#saveRoleBtn) {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.popup-actions button:not(#saveRoleBtn):hover {
+    background: #d5d5d5;
+}
+

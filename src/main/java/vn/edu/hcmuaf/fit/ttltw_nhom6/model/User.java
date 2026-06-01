@@ -33,6 +33,9 @@ public class User implements Serializable {
     private Integer failedLoginAttempts;
     @ColumnName("locked_until")
     private LocalDateTime lockedUntil;
+    private int roleId;
+    @ColumnName("role_name")
+    private String roleName;
 
     public User() {
     }
@@ -219,6 +222,22 @@ public class User implements Serializable {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     // toString để in ra đẹp khi test

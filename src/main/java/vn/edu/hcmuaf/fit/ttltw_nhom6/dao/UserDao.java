@@ -558,4 +558,30 @@ public class UserDao {
                         .execute()>0
         );
     }
+
+    public boolean updateRole(int userId, int roleId) {
+        String sql = """
+            UPDATE users
+            SET role_id = :roleId
+            WHERE id = :userId
+            """;
+        return jdbi.withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("roleId", roleId)
+                        .bind("userId", userId)
+                        .execute() > 0
+        );
+    }
+
+    public List<User> getAllUsers() {
+        String sql = """
+                SELECT u.*, r.role_name
+                FROM users u
+                LEFT JOIN roles r ON u.role_id = r.id
+        """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(User.class)
+                        .list());
+    }
 }
