@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<fmt:setLocale value="vi_VN"/>
-<fmt:setBundle basename="java.text.DecimalFormatSymbols"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -31,6 +30,7 @@
                     <th>User Agent</th>
                     <th>Login Time</th>
                     <th>Trạng thái</th>
+                    <th>Login</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,6 +49,20 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
+                        <c:choose>
+                            <c:when test="${session.active}">
+                                <td>
+                                    <form action="${pageContext.request.contextPath}/logout-status" method="post">
+                                        <input type="hidden" name="ipAddress" value="${session.ipAddress}"/>
+                                        <input type="hidden" name="user_id" value="${session.userId}"/>
+                                        <button type="submit">Đăng xuất</button>
+                                    </form>
+                                </td>
+                            </c:when>
+                            <c:otherwise>
+                                <td></td>
+                            </c:otherwise>
+                        </c:choose>
                     </tr>
                 </c:forEach>
                 </tbody>

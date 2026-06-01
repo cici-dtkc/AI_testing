@@ -3,6 +3,7 @@ package vn.edu.hcmuaf.fit.ttltw_nhom6.controller.pubilc;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.LoginSessionDao;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.UserDao;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.db.JdbiConnector;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Cart;
@@ -21,10 +22,12 @@ import java.util.Optional;
 public class LoginServlet extends HttpServlet {
     private UserDao userDao;
     private CartService cartService;
+    private LoginSessionDao loginSessionDao;
     @Override
     public void init() {
         userDao = new UserDao(JdbiConnector.get());
         cartService = new CartService();
+        loginSessionDao = new LoginSessionDao();
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -91,6 +94,7 @@ public class LoginServlet extends HttpServlet {
             String ipAdress = request.getRemoteAddr();
             String userAgent = request.getHeader("User-Agent");
             userDao.insertStatusLoign(user.getId(), ipAdress, userAgent);
+            loginSessionDao.setActiveWhileLogin(ipAdress);
 
             if ("admin".equalsIgnoreCase(user.getRole())) {
                 newSession.setAttribute("currentUser", user);
