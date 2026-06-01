@@ -43,18 +43,11 @@ public class AuthenEmailServlet extends HttpServlet {
             return;
         }
 
-        // Sinh mã OTP bảo mật
         OtpToken otpToken = OtpGenerator.generateOtp(email, 5);
-
-        // Lưu OTP vào session (chỉ lưu otpToken, không lưu otp để tránh bypass)
         request.getSession().setAttribute("otpToken", otpToken);
         request.getSession().setAttribute("otpEmail", email);
-        request.getSession().setAttribute("otpSent", true); // DÙNG SESSION thay vì request
-
-        // Gửi email
+        request.getSession().setAttribute("otpSent", true); 
         EmailUtils.sendEmail(email, "Mã xác thực quên mật khẩu", "Mã OTP của bạn là: " + otpToken.getCode());
-
-        // Quay lại ForgotPass.jsp và bật popup
         request.getRequestDispatcher("/frontend/public/ForgotPass.jsp").forward(request, response);
     }
 }
