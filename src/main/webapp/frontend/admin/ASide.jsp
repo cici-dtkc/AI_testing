@@ -41,6 +41,12 @@
                 </a>
             </li>
             <li>
+                <a href="${pageContext.request.contextPath}/admin/inventory">
+                    <img src="${pageContext.request.contextPath}/img/product.png" class="icon">
+                    <span>Quản lý kho hàng</span>
+                </a>
+            </li>
+            <li>
                 <a href="${pageContext.request.contextPath}/admin/user-management">
                     <img src="${pageContext.request.contextPath}/img/user.png" class="icon">
                     <span>Quản lý người dùng</span>

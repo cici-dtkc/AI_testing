@@ -100,6 +100,12 @@ public class OrderDAO extends ADao {
                                 "Không thể trừ tồn kho cho sản phẩm ID: " + item.getComicId()
                         );
                     }
+
+                    handle.createUpdate("INSERT INTO inventory_transaction (comic_id, type, quantity, note, created_at) VALUES (?, 'EXPORT', ?, ?, NOW())")
+                            .bind(0, item.getComicId())
+                            .bind(1, item.getQuantity())
+                            .bind(2, "Bán hàng qua đơn hàng #" + orderId)
+                            .execute();
                 }
 
                 batch.execute();
@@ -264,13 +270,10 @@ public class OrderDAO extends ADao {
                     !"Cancelled".equalsIgnoreCase(oldStatus)) {
 
                 if (order.getPointUsed() != 0 && order.getPointUsed() > 0) {
-                    // Hoàn xu cho user
                     handle.createUpdate("UPDATE users SET points = points + ?, updated_at = NOW() WHERE id = ?")
                             .bind(0, order.getPointUsed())
                             .bind(1, userId)
                             .execute();
-
-                    // Ghi log giao dịch hoàn xu
                     String insertTransactionSql = "INSERT INTO PointTransactions " +
                             "(user_id, order_id, points, transaction_type, description, created_at) " +
                             "VALUES (?, ?, ?, ?, ?, ?)";
@@ -300,6 +303,11 @@ public class OrderDAO extends ADao {
                             .bind(1, item.getComicId())
                             .execute();
 
+                    handle.createUpdate("INSERT INTO inventory_transaction (comic_id, type, quantity, note, created_at) VALUES (?, 'IMPORT', ?, ?, NOW())")
+                            .bind(0, item.getComicId())
+                            .bind(1, item.getQuantity())
+                            .bind(2, "Hoàn kho từ đơn hàng bị hủy #" + orderId)
+                            .execute();
                 }
             }
 
@@ -326,6 +334,12 @@ public class OrderDAO extends ADao {
                                     "UPDATE comics SET stock_quantity = stock_quantity + ? WHERE id = ?")
                             .bind(0, item.getQuantity())
                             .bind(1, item.getComicId())
+                            .execute();
+
+                    handle.createUpdate("INSERT INTO inventory_transaction (comic_id, type, quantity, note, created_at) VALUES (?, 'IMPORT', ?, ?, NOW())")
+                            .bind(0, item.getComicId())
+                            .bind(1, item.getQuantity())
+                            .bind(2, "Hoàn kho từ đơn hàng bị trả #" + orderId)
                             .execute();
                 }
             }
@@ -553,7 +567,7 @@ public class OrderDAO extends ADao {
 
     public boolean cancelOrderWithHistory(int orderId, int userId, String reason) {
         return jdbi.inTransaction(handle -> {
-            // 1. Lấy thông tin đơn hàng
+            // Lấy thông tin đơn hàng
             Order order = handle.createQuery("SELECT * FROM orders WHERE id = ?")
                     .bind(0, orderId)
                     .mapToBean(Order.class)
@@ -570,7 +584,7 @@ public class OrderDAO extends ADao {
                 return false;
             }
 
-            // 2. Cập nhật trạng thái đơn hàng
+            // Cập nhật trạng thái đơn hàng
             int updated = handle.createUpdate("UPDATE orders SET status = ? WHERE id = ?")
                     .bind(0, "Cancelled")
                     .bind(1, orderId)
@@ -580,7 +594,7 @@ public class OrderDAO extends ADao {
                 return false;
             }
 
-            // 3. Lưu vào order_history
+            // Lưu vào order_history
             String insertHistorySql = """
             INSERT INTO order_history (order_id, status_from, status_to, changed_by, reason, changed_at)
             VALUES (?, ?, ?, ?, ?, ?)
@@ -595,7 +609,7 @@ public class OrderDAO extends ADao {
                     .bind(5, LocalDateTime.now())
                     .execute();
 
-            // 4. Hoàn xu nếu đã sử dụng
+            // Hoàn xu nếu đã sử dụng
             if (order.getPointUsed() > 0) {
                 handle.createUpdate("UPDATE users SET points = points + ? WHERE id = ?")
                         .bind(0, order.getPointUsed())
@@ -618,7 +632,7 @@ public class OrderDAO extends ADao {
                         .execute();
             }
 
-            // 5. Hoàn lại tồn kho
+            // Hoàn lại tồn kho
             List<OrderItem> orderItems = handle.createQuery(
                             "SELECT * FROM order_items WHERE order_id = ?")
                     .bind(0, orderId)
@@ -630,6 +644,12 @@ public class OrderDAO extends ADao {
                                 "UPDATE comics SET stock_quantity = stock_quantity + ? WHERE id = ?")
                         .bind(0, item.getQuantity())
                         .bind(1, item.getComicId())
+                        .execute();
+
+                handle.createUpdate("INSERT INTO inventory_transaction (comic_id, type, quantity, note, created_at) VALUES (?, 'IMPORT', ?, ?, NOW())")
+                        .bind(0, item.getComicId())
+                        .bind(1, item.getQuantity())
+                        .bind(2, "Hoàn kho từ đơn hàng bị hủy #" + orderId)
                         .execute();
             }
 
