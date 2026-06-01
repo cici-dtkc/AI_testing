@@ -23,4 +23,23 @@ public class LoginSessionDao {
                         .list()
         );
     }
+    public boolean setActiveWhileLogin(String ip_address){
+        String sql = "update login_sessions set active = 1 where ip_address = :ip_address";
+        return jdbi.withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("ip_address",ip_address)
+                        .execute()> 0
+        );
+
+    }
+
+    public boolean logoutStatusSession(String ip_address){
+        String sql = "update login_sessions set active = 0 where ip_address = :ip_address";
+        return jdbi.withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("ip_address",ip_address)
+                        .execute()> 0
+        );
+
+    }
 }

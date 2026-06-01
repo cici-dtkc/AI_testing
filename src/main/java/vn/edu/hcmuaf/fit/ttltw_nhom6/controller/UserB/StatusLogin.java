@@ -25,18 +25,17 @@ public class StatusLogin extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User currentUser = null;
-        int userId = 0;
-
-        if (session != null) {
-            currentUser = (User) session.getAttribute("currentUser");
-            if (currentUser != null) {
-                userId = currentUser.getId();
-                List<LoginSession> lstStatusLogin = loginSessionDao.displayAllStatusLogin(userId);
-                request.setAttribute("loginSessions", lstStatusLogin);
-            }
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("currentUser") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
         }
+        User currentUser = (User) session.getAttribute("currentUser");
+        int userId = currentUser.getId();
+
+        List<LoginSession> lstStatusLogin = loginSessionDao.displayAllStatusLogin(userId);
+        request.setAttribute("loginSessions", lstStatusLogin);
+
 
         request.getRequestDispatcher("/frontend/nguoiB/status-login.jsp").forward(request, response);
 
