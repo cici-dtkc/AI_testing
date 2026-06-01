@@ -65,6 +65,12 @@
                 </a>
             </li>
             <li>
+                <a href="${pageContext.request.contextPath}/admin/permission-management">
+                    <img src="${pageContext.request.contextPath}/img/authorization.png" class="icon">
+                    <span>Phân quyền</span>
+                </a>
+            </li>
+            <li>
                 <a href="${pageContext.request.contextPath}/admin/ReportManagement">
                     <img src="${pageContext.request.contextPath}/img/report.png" class="icon">
                     <span>Thống kê</span>
