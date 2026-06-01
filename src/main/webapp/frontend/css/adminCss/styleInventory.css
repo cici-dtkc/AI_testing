@@ -17,6 +17,16 @@ body {
     margin: 0;
 }
 
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
 .admin-content {
     padding: 24px;
     max-width: 1400px;
