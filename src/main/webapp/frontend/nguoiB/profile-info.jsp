@@ -19,63 +19,31 @@
 <jsp:include page="/frontend/public/header.jsp"/>
 
 <main>
-    <%
-        String message = (String) request.getAttribute("message");
-        if (message != null) {
-    %>
-    <script>
-        window.addEventListener('DOMContentLoaded', function () {
-            const overlay = document.createElement('div');
-            overlay.className = 'msg-overlay';
-            overlay.innerHTML =
-                '<div class="msg-popup">' +
-                '<div class="msg-popup-icon"></div>' +
-                '<h3>Thành công</h3>' +
-                '<p><%= message %></p>' +
-                '<button class="msg-btn-ok">OK</button>' +
-                '</div>';
-            document.body.appendChild(overlay);
-            requestAnimationFrame(() => overlay.classList.add('show'));
+    <c:if test="${not empty message}">
+        <script>
+            window.addEventListener('DOMContentLoaded', function () {
+                const overlay = document.createElement('div');
+                overlay.className = 'msg-overlay';
+                overlay.innerHTML =
+                    '<div class="msg-popup">' +
+                    '<div class="msg-popup-icon"></div>' +
+                    '<h3>Thành công</h3>' +
+                    '<p>${message}</p>' +
+                    '<button class="msg-btn-ok">OK</button>' +
+                    '</div>';
+                document.body.appendChild(overlay);
+                requestAnimationFrame(() => overlay.classList.add('show'));
 
-            function closeMsg() {
-                overlay.classList.remove('show');
-                setTimeout(() => overlay.remove(), 250);
-            }
+                function closeMsg() {
+                    overlay.classList.remove('show');
+                    setTimeout(() => overlay.remove(), 250);
+                }
 
-            overlay.querySelector('.msg-btn-ok').addEventListener('click', closeMsg);
-            overlay.addEventListener('click', function (e) {
-                if (e.target === overlay) closeMsg();
+                overlay.querySelector('.msg-btn-ok').addEventListener('click', closeMsg);
             });
-            document.addEventListener('keydown', function esc(e) {
-                if (e.key === 'Escape') { document.removeEventListener('keydown', esc); closeMsg(); }
-            });
-        });
-    </script>
-    <%
-        }
-        User currentUser = (User) session.getAttribute("currentUser");
-        String fullName = currentUser != null && currentUser.getFullName() != null ? currentUser.getFullName() : "";
-        String[] nameParts = fullName.split(" ", 2);
-        String ho = nameParts.length > 0 ? nameParts[0] : "";
-        String ten = nameParts.length > 1 ? nameParts[1] : "";
-        String phone = currentUser != null && currentUser.getPhone() != null ? currentUser.getPhone() : "";
-        String email = currentUser != null && currentUser.getEmail() != null ? currentUser.getEmail() : "";
-        String gender = currentUser != null && currentUser.getGender() != null ? currentUser.getGender() : "male";
-        int day = 1, month = 1, year = 2000;
-        if (currentUser != null && currentUser.getBirthdate() != null) {
-            day = currentUser.getBirthdate().getDayOfMonth();
-            month = currentUser.getBirthdate().getMonthValue();
-            year = currentUser.getBirthdate().getYear();
-        }
-        String address = currentUser != null && currentUser.getAddress() != null ? currentUser.getAddress() : "";
-        String[] addressParts = address.split(",\\s*");
-        String houseNumber = addressParts.length > 0 ? addressParts[0].trim() : "";
-        String district = addressParts.length > 1 ? addressParts[1].trim() : "";
-        String province = addressParts.length > 2 ? addressParts[2].trim() : "";
-        String country = addressParts.length > 3 ? addressParts[3].trim() : "Việt Nam";
-        boolean isProvinceCode = province.matches("\\d+");
-        boolean isDistrictCode = district.matches("\\d+");
-    %>
+        </script>
+    </c:if>
+
 
     <jsp:include page="/frontend/nguoiB/ASideUser.jsp"/>
 
@@ -84,36 +52,36 @@
         <form action="${pageContext.request.contextPath}/updateUser" method="post">
             <div class="form-group">
                 <label for="ho">Họ: *</label>
-                <input type="text" id="ho" name="ho" value="<%= ho %>" placeholder="Nhập họ" required>
+                <input type="text" id="ho" name="ho" value="${ho}" placeholder="Nhập họ" required>
             </div>
             <div class="form-group">
                 <label for="ten">Tên: *</label>
-                <input type="text" id="ten" name="ten" value="<%= ten %>" placeholder="Nhập tên" required>
+                <input type="text" id="ten" name="ten" value="${ten}" placeholder="Nhập tên" required>
             </div>
             <div class="form-group">
                 <label for="phone">Số điện thoại:</label>
-                <input type="tel" id="phone" name="phone" value="<%= phone %>" placeholder="Nhập số điện thoại"
+                <input type="tel" id="phone" name="phone" value="${phone}" placeholder="Nhập số điện thoại"
                        required pattern="[0-9]{10}" maxlength="10" title="nhập lại sdt"/>
             </div>
             <div class="form-group">
                 <label for="email">Email: </label>
-                <input type="email" id="email" name="email" value="<%= email %>" placeholder="Nhập email" required>
+                <input type="email" id="email" name="email" value="${email}" placeholder="Nhập email" required>
             </div>
             <div class="form-group">
                 <div class="genders">
                     <label>Giới tính: *</label>
                     <div class="gender-options">
-                        <label><input type="radio" name="gender" value="male" <%= "male".equals(gender) ? "checked" : "" %>> Nam</label>
-                        <label><input type="radio" name="gender" value="female" <%= "female".equals(gender) ? "checked" : "" %>> Nữ</label>
+                        <label><input type="radio" name="gender" value="male" ${gender eq 'male' ? 'checked' : ''}> Nam</label>
+                        <label><input type="radio" name="gender" value="female"  ${gender eq 'female' ? 'checked' : ''}> Nữ</label>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="birthday">
                     <label for="day">Ngày tháng năm sinh: *</label>
-                    <input type="number" id="day" name="day" value="<%= day %>" min="1" max="31" required> /
-                    <input type="number" id="month" name="month" value="<%= month %>" min="1" max="12" required> /
-                    <input type="number" id="year" name="year" value="<%= year %>" min="1900" max="2025" required>
+                    <input type="number" id="day" name="day" value="${day}" min="1" max="31" required> /
+                    <input type="number" id="month" name="month" value="${month}" min="1" max="12" required> /
+                    <input type="number" id="year" name="year" value="${year}" min="1900" max="2025" required>
                 </div>
             </div>
             <div class="form-group">
@@ -134,7 +102,7 @@
                     </div>
 
                     <label for="house-number">Số nhà: *</label>
-                    <input type="text" id="house-number" name="house-number" value="<%= houseNumber %>" placeholder="Nhập số nhà, xã" required>
+                    <input type="text" id="house-number" name="house-number" value="${houseNumber}" placeholder="Nhập số nhà, xã" required>
                 </div>
             </div>
 
@@ -152,10 +120,10 @@
 
         const provinceSelect = document.getElementById("province");
         const districtSelect = document.getElementById("district");
-        const savedProvince = "<%= province %>";
-        const savedDistrict = "<%= district %>";
-        const isProvinceCode = <%= isProvinceCode %>;
-        const isDistrictCode = <%= isDistrictCode %>;
+        const savedProvince = "${province}";
+        const savedDistrict = "${district}";
+        const isProvinceCode = "${isProvinceCode}";
+        const isDistrictCode = "${isDistrictCode}";
         fetch(API_BASE + "/p/")
             .then(res => {
                 if (!res.ok) throw new Error("Không load được tỉnh");
