@@ -44,8 +44,8 @@ public class UserDao {
     // Thêm user mới
     public void insert(User user) {
         jdbi.useHandle(handle ->
-                handle.createUpdate("INSERT INTO Users (username, email,phone, password_hash, full_name, created_at) " +
-                                "VALUES (:username, :email,:phone, :passwordHash, :fullName, NOW())")
+                handle.createUpdate("INSERT INTO Users (username, email,phone, password_hash, full_name, role, role_id, created_at) " +
+                                "VALUES (:username, :email,:phone, :passwordHash, :fullName, 'user', 6, NOW())")
                         .bindBean(user)
                         .execute()
         );
@@ -53,8 +53,8 @@ public class UserDao {
 
     public void insertInactive(User user) {
         jdbi.useHandle(handle ->
-                handle.createUpdate("INSERT INTO Users (username, email, phone, password_hash, full_name, created_at, is_active) " +
-                                "VALUES (:username, :email, :phone, :passwordHash, :fullName, NOW(), 0)")
+                handle.createUpdate("INSERT INTO Users (username, email, phone, password_hash, full_name, role, role_id, created_at, is_active) " +
+                                "VALUES (:username, :email, :phone, :passwordHash, :fullName, 'user', 6, NOW(), 0)")
                         .bindBean(user)
                         .execute()
         );

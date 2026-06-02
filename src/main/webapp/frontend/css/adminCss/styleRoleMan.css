@@ -171,3 +171,38 @@ body {
     background: #d5d5d5;
 }
 
+.btn-override{
+    background-color: #ff4c4c;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.btn-override:hover {
+    background-color: #ff6a6a;
+}
+
+#overridePopup .popup-box {
+    max-width: 700px;
+    width: 95%;
+    overflow-x: auto;
+}
+
+#overridePopup .permission-table td,
+#overridePopup .permission-table th {
+    white-space: nowrap;
+    padding: 8px 12px;
+}
+
+#overridePopup .permission-table button {
+    padding: 4px 8px;
+    margin: 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
