@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.ComicDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Comic;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.RoleUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,6 +37,15 @@ public class DeleteComicServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         JsonObject jsonResponse = new JsonObject();
+
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (!RoleUtil.canManage(currentUser, "manage_product")) {
+            jsonResponse.addProperty("success", false);
+            jsonResponse.addProperty("message", "Bạn không có quyền thực hiện thao tác này.");
+            out.print(gson.toJson(jsonResponse));
+            out.flush();
+            return;
+        }
 
         try {
             String comicIdsParam = request.getParameter("comicIds");

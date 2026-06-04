@@ -28,21 +28,34 @@ public class ManageFlashSaleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        List<FlashSale> flashSales = flashSaleDAO.getAllFlashSales();
+        int pageSize = 5;
+        int page = 1;
+        String pageParam = request.getParameter("page");
+        if (pageParam != null && !pageParam.trim().isEmpty()) {
+            try {
+                page = Integer.parseInt(pageParam);
+                if (page < 1) page = 1;
+            } catch (NumberFormatException e) {
+                page = 1;
+            }
+        }
+        List<FlashSale> flashSales = flashSaleDAO.getFlashSalesPaginated(page, pageSize);
+        int totalFlashSales = flashSaleDAO.countFlashSales();
+        int totalPages = (int) Math.ceil((double) totalFlashSales / pageSize);
+        if (totalPages < 1) totalPages = 1;
+        if (page > totalPages) {
+            page = totalPages;
+        }
         request.setAttribute("flashSales", flashSales);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", totalPages);
         request.setAttribute("timeFormatter", TIME_FORMATTER);
-
         request.getRequestDispatcher("/frontend/admin/flashSaleMan.jsp").forward(request, response);
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String action = request.getParameter("action");
-
-
         if ("delete".equals(action)) {
             handleDelete(request, response);
         }
@@ -56,7 +69,6 @@ public class ManageFlashSaleServlet extends HttpServlet {
             sendJsonResponse(response, false, "Action không hợp lệ!");
         }
     }
-
     private void handleUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
@@ -64,10 +76,8 @@ public class ManageFlashSaleServlet extends HttpServlet {
             double discountPercent = Double.parseDouble(request.getParameter("discountPercent"));
             String startTimeStr = request.getParameter("startTime");
             String endTimeStr = request.getParameter("endTime");
-
             LocalDateTime startTime = LocalDateTime.parse(startTimeStr);
             LocalDateTime endTime = LocalDateTime.parse(endTimeStr);
-
             String[] comicIdsArr = request.getParameterValues("comicIds");
             List<Integer> newComicIds = new ArrayList<>();
             if (comicIdsArr != null) {
@@ -75,21 +85,16 @@ public class ManageFlashSaleServlet extends HttpServlet {
                     newComicIds.add(Integer.parseInt(cid));
                 }
             }
-
             boolean updated = flashSaleDAO.updateFlashSale(id, name, discountPercent, startTime, endTime);
-
             if (!updated) {
                 sendJsonResponse(response, false, "Không tìm thấy Flash Sale để cập nhật!");
                 return;
             }
-
             flashSaleComicsDAO.deleteLinksByFlashSaleId(id);
             if (!newComicIds.isEmpty()) {
                 flashSaleComicsDAO.insertLinks(id, newComicIds);
             }
-
             sendJsonResponse(response, true, "Cập nhật Flash Sale thành công!");
-
         } catch (Exception e) {
             e.printStackTrace();
             sendJsonResponse(response, false, "Lỗi server: " + e.getMessage());
@@ -99,16 +104,13 @@ public class ManageFlashSaleServlet extends HttpServlet {
     private void handleDelete(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String idStr = request.getParameter("id");
-
         if (idStr == null || idStr.trim().isEmpty()) {
             sendJsonResponse(response, false, "ID không được để trống!");
             return;
         }
-
         try {
             int id = Integer.parseInt(idStr.trim());
             boolean deleted = flashSaleDAO.deleteById(id);
-
             if (deleted) {
                 sendJsonResponse(response, true, "Xóa Flash Sale thành công!");
             } else {
@@ -118,16 +120,13 @@ public class ManageFlashSaleServlet extends HttpServlet {
             sendJsonResponse(response, false, "ID không hợp lệ!");
         }
     }
-
     private void handleDetail(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String idStr = request.getParameter("id");
-
         if (idStr == null || idStr.trim().isEmpty()) {
             sendJsonResponse(response, false, "ID không được để trống!");
             return;
         }
-
         try {
             int id = Integer.parseInt(idStr.trim());
 
@@ -136,9 +135,7 @@ public class ManageFlashSaleServlet extends HttpServlet {
                 sendJsonResponse(response, false, "Không tìm thấy Flash Sale!");
                 return;
             }
-
             List<Map<String, Object>> comics = flashSaleComicsDAO.getComicsByFlashSaleId(id);
-
             StringBuilder json = new StringBuilder();
             json.append("{\"success\":true,\"data\":{");
             json.append("\"id\":").append(fs.getId()).append(",");
@@ -148,7 +145,6 @@ public class ManageFlashSaleServlet extends HttpServlet {
             json.append("\"endTime\":\"").append(fs.getEndTime().format(TIME_FORMATTER)).append("\",");
             json.append("\"status\":\"").append(fs.getStatus()).append("\",");
             json.append("\"comics\":[");
-
             for (int i = 0; i < comics.size(); i++) {
                 Map<String, Object> comic = comics.get(i);
                 if (i > 0) json.append(",");
@@ -158,13 +154,10 @@ public class ManageFlashSaleServlet extends HttpServlet {
                 json.append("\"discount\":").append(comic.get("discount_percent"));
                 json.append("}");
             }
-
             json.append("]}}");
-
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json.toString());
-
         } catch (NumberFormatException e) {
             sendJsonResponse(response, false, "ID không hợp lệ!");
         } catch (Exception e) {
@@ -172,8 +165,6 @@ public class ManageFlashSaleServlet extends HttpServlet {
             sendJsonResponse(response, false, "Lỗi server: " + e.getMessage());
         }
     }
-
-
     private void sendJsonResponse(HttpServletResponse response, boolean success, String message)
             throws IOException {
         response.setContentType("application/json");
@@ -181,8 +172,6 @@ public class ManageFlashSaleServlet extends HttpServlet {
         String json = "{\"success\": " + success + ", \"message\": \"" + escapeJson(message) + "\"}";
         response.getWriter().write(json);
     }
-
-
     private String escapeJson(String str) {
         if (str == null) return "";
         return str.replace("\\", "\\\\")

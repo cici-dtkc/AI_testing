@@ -15,6 +15,7 @@ import java.io.IOException;
 @WebFilter({"/frontend/admin/*", "/admin/*"})
 public class AdminAuthFilter implements Filter {
     private final RoleDAO roleDAO = new RoleDAO();
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -37,10 +38,11 @@ public class AdminAuthFilter implements Filter {
 
         // Hoặc kiểm tra theo role:
         boolean isAdmin = RoleUtil.hasAccess(role, "super_admin")
-                        || RoleUtil.hasAccess(role, "admin_product")
-                        || RoleUtil.hasAccess(role, "admin_order")
-                        || RoleUtil.hasAccess(role, "admin_user")
-                        || RoleUtil.hasAccess(role, "admin_promotion");
+                || RoleUtil.hasAccess(role, "admin")
+                || RoleUtil.hasAccess(role, "admin_product")
+                || RoleUtil.hasAccess(role, "admin_order")
+                || RoleUtil.hasAccess(role, "admin_user")
+                || RoleUtil.hasAccess(role, "admin_promotion");
 
         if (!isAdmin) {
             session.setAttribute("errorMessage", "Bạn không có quyền truy cập trang admin.");

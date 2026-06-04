@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.ComicDAO;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.RoleUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,6 +31,15 @@ public class ToggleComicHiddenServlet extends HttpServlet {
 
         Map<String, Object> jsonResponse = new HashMap<>();
         PrintWriter out = response.getWriter();
+
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (!RoleUtil.canManage(currentUser, "manage_product")) {
+            jsonResponse.put("success", false);
+            jsonResponse.put("message", "Bạn không có quyền thực hiện thao tác này.");
+            out.print(gson.toJson(jsonResponse));
+            out.flush();
+            return;
+        }
 
         try {
             String idStr = request.getParameter("id");
