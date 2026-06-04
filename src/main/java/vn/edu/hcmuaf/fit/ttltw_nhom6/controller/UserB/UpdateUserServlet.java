@@ -58,9 +58,9 @@ public class UpdateUserServlet extends HttpServlet {
                     houseNumber, district, province
             );
             if (result.hasErrors()){
-                request.setAttribute("errors", result.getErrors());
+                request.setAttribute("errorMessage", result.getErrors());
                 request.setAttribute("firstError", result.getFirstError());
-                request.getRequestDispatcher("/frontend/nguoiB/profile-info.jsp").forward(request, response);
+                doGet(request, response);
                 return;
             }
 
@@ -99,9 +99,7 @@ public class UpdateUserServlet extends HttpServlet {
             e.printStackTrace();
             request.setAttribute("message", "Có lỗi xảy ra: " + e.getMessage());
         }
-
-        // Forward về trang profile
-        request.getRequestDispatcher("/frontend/nguoiB/profile-info.jsp").forward(request, response);
+        doGet(request, response);
     }
 
     @Override
@@ -114,6 +112,67 @@ public class UpdateUserServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
+
+
+        String fullName = currentUser.getFullName() != null ? currentUser.getFullName().trim() : "";
+
+        String ho = "";
+        String ten = "";
+
+        int lastSpace = fullName.lastIndexOf(" ");
+        if (lastSpace > 0) {
+            ho = fullName.substring(0, lastSpace);
+            ten = fullName.substring(lastSpace + 1);
+        } else {
+            ten = fullName;
+        }
+
+        String phone = currentUser.getPhone() != null ? currentUser.getPhone() : "";
+        String email = currentUser.getEmail() != null ? currentUser.getEmail() : "";
+        String gender = currentUser.getGender() != null ? currentUser.getGender() : "male";
+
+        int day = 1;
+        int month = 1;
+        int year = 2000;
+
+        if (currentUser.getBirthdate() != null) {
+                day = currentUser.getBirthdate().getDayOfMonth();
+                month = currentUser.getBirthdate().getMonthValue();
+                year = currentUser.getBirthdate().getYear();
+        }
+
+        String address = currentUser.getAddress() != null ? currentUser.getAddress(): "";
+
+        String houseNumber = "";
+        String district = "";
+        String province = "";
+        String country = "Việt Nam";
+
+        String[] addressParts = address.split(",\\s*");
+
+        if (addressParts.length > 0) houseNumber = addressParts[0].trim();
+        if (addressParts.length > 1) district = addressParts[1].trim();
+        if (addressParts.length > 2) province = addressParts[2].trim();
+        if (addressParts.length > 3) country = addressParts[3].trim();
+
+        request.setAttribute("ho", ho);
+        request.setAttribute("ten", ten);
+        request.setAttribute("phone", phone);
+        request.setAttribute("email", email);
+        request.setAttribute("gender", gender);
+
+        request.setAttribute("day", day);
+        request.setAttribute("month", month);
+        request.setAttribute("year", year);
+
+        request.setAttribute("houseNumber", houseNumber);
+        request.setAttribute("district", district);
+        request.setAttribute("province", province);
+        request.setAttribute("country", country);
+        request.setAttribute("isProvinceCode", province.matches("\\\\d+"));
+        request.setAttribute("isDistrictCode", district.matches("\\\\d+"));
+
+
 
         // Forward sang trang profile
         request.getRequestDispatcher("/frontend/nguoiB/profile-info.jsp").forward(request, response);
