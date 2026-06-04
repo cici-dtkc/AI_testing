@@ -15,7 +15,7 @@ public class PermissonDAO {
 
     public List<Permission> getAllPermissions() {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM permissions ORDER BY id")
+                handle.createQuery("SELECT id, permission_name as permissionName, description FROM permissions ORDER BY id")
                         .mapToBean(Permission.class)
                         .list()
         );

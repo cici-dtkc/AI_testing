@@ -1,9 +1,15 @@
 package vn.edu.hcmuaf.fit.ttltw_nhom6.model;
 
+import com.google.gson.annotations.SerializedName;
+import org.jdbi.v3.core.mapper.reflect.ColumnName;
+
 public class Permission {
     private int id;
+    @ColumnName("permission_name")
     private String permissionName;
     private String description;
+    private boolean fromRole;
+    private String overrideStatus;
 
     public Permission() {
     }
@@ -36,5 +42,21 @@ public class Permission {
 
     public void setPermissionName(String permissionName) {
         this.permissionName = permissionName;
+    }
+
+    public boolean isFromRole() {
+        return fromRole;
+    }
+
+    public void setFromRole(boolean fromRole) {
+        this.fromRole = fromRole;
+    }
+
+    public String getOverrideStatus() {
+        return overrideStatus;
+    }
+
+    public void setOverrideStatus(String overrideStatus) {
+        this.overrideStatus = overrideStatus;
     }
 }

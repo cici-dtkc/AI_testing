@@ -240,7 +240,6 @@ public class User implements Serializable {
         this.roleName = roleName;
     }
 
-    // toString để in ra đẹp khi test
     @Override
     public String toString() {
         return "User{" +
