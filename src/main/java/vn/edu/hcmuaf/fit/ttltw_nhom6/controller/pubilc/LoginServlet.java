@@ -4,9 +4,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.LoginSessionDao;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.RoleDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.UserDao;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.db.JdbiConnector;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Cart;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Role;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.service.CartService;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.service.OrderViolationService;
@@ -23,11 +25,14 @@ public class LoginServlet extends HttpServlet {
     private UserDao userDao;
     private CartService cartService;
     private LoginSessionDao loginSessionDao;
+    private RoleDAO roleDAO;
+
     @Override
     public void init() {
         userDao = new UserDao(JdbiConnector.get());
         cartService = new CartService();
         loginSessionDao = new LoginSessionDao();
+        roleDAO = new RoleDAO();
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -96,14 +101,26 @@ public class LoginServlet extends HttpServlet {
             userDao.insertStatusLoign(user.getId(), ipAdress, userAgent);
             loginSessionDao.setActiveWhileLogin(ipAdress);
 
-            if ("admin".equalsIgnoreCase(user.getRole())) {
-                newSession.setAttribute("currentUser", user);
-                newSession.setAttribute("userId", user.getId());
+            Role role = roleDAO.getRoleById(user.getRoleId());
+            boolean isAdmin = role != null && role.getLevel() < 3;
+            newSession.setAttribute("currentUser", user);
+            newSession.setAttribute("userId", user.getId());
+            setNoCacheHeaders(response);
+
+            if (isAdmin) {
                 newSession.setAttribute("isAdmin", true);
-                setNoCacheHeaders(response);
                 response.sendRedirect(request.getContextPath() + "/admin/dashboard");
                 return;
             }
+
+//            if ("admin".equalsIgnoreCase(user.getRole())) {
+//                newSession.setAttribute("currentUser", user);
+//                newSession.setAttribute("userId", user.getId());
+//                newSession.setAttribute("isAdmin", true);
+//                setNoCacheHeaders(response);
+//                response.sendRedirect(request.getContextPath() + "/admin/dashboard");
+//                return;
+//            }
             Cart userCart = new Cart();
             if (guestCart != null && !guestCart.getItems().isEmpty()) {
                 cartService.mergeSessionCartToDb(userCart, user.getId(), guestCart);
@@ -112,9 +129,9 @@ public class LoginServlet extends HttpServlet {
             }
 
             newSession.setAttribute("cart", userCart);
-            newSession.setAttribute("currentUser", user);
+//            newSession.setAttribute("currentUser", user);
 
-            setNoCacheHeaders(response);
+//            setNoCacheHeaders(response);
             String redirectUrl = (String) newSession.getAttribute("redirectAfterLogin");
             if (redirectUrl != null) {
                 newSession.removeAttribute("redirectAfterLogin");

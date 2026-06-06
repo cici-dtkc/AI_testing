@@ -206,3 +206,26 @@ body {
     cursor: pointer;
     font-size: 12px;
 }
+.toast {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    padding: 14px 20px;
+    border-radius: 8px;
+    color: white !important;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 99999 !important;
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.3s ease;
+    max-width: 360px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    pointer-events: none;
+}
+.toast.show {
+    opacity: 1 !important;
+    transform: translateX(0);
+}
+.toast.error   { background: #e74c3c !important; }
+.toast.success { background: #2ecc71 !important; }

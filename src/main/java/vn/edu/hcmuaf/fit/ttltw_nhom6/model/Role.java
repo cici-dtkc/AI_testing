@@ -9,6 +9,8 @@ public class Role {
     private String roleName;
     @ColumnName("description")
     private String description;
+    @ColumnName("level")
+    private int level;
 
     public Role() {
     }
@@ -41,5 +43,13 @@ public class Role {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

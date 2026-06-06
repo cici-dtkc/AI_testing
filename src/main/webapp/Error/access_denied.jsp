@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="vn.edu.hcmuaf.fit.ttltw_nhom6.model.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +32,25 @@
 <div class="box">
     <h1>403 - Access Denied</h1>
     <p>Bạn không có quyền truy cập trang này.</p>
-    <a href="<%=request.getContextPath()%>/home">Quay về trang chủ</a>
+    <%
+        User currentUser = (session != null) ? (User) session.getAttribute("currentUser") : null;
+        Boolean isAdmin = (session != null) ? (Boolean) session.getAttribute("isAdmin") : null;
+
+        String backUrl;
+        String backText;
+
+        if (currentUser == null) {
+            backUrl = request.getContextPath() + "/login";
+            backText = "Đăng nhập";
+        } else if (Boolean.TRUE.equals(isAdmin)) {
+            backUrl = request.getContextPath() + "/admin/dashboard";
+            backText = "Quay về Dashboard";
+        } else {
+            backUrl = request.getContextPath() + "/home";
+            backText = "Quay về trang chủ";
+        }
+    %>
+    <a href="<%= backUrl %>"><%= backText %></a>
 </div>
 </body>
 </html>
