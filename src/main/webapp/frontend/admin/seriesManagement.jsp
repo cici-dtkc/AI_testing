@@ -117,7 +117,7 @@
             </table>
         </div>
     </div>
-    <form action="${pageContext.request.contextPath}/AddSeriesServlet" method="post" enctype="multipart/form-data"
+    <form action="${pageContext.request.contextPath}/admin/add-series" method="post" enctype="multipart/form-data"
           id="addSeriesForm">
         <div class="modal-overlay" id="addSeriesModal">
             <div class="modal-box two-column">
@@ -163,7 +163,7 @@
             </div>
         </div>
     </form>
-    <form action="${pageContext.request.contextPath}/EditSeriesServlet" method="post" enctype="multipart/form-data"
+    <form action="${pageContext.request.contextPath}/admin/edit-series" method="post" enctype="multipart/form-data"
           id="editSeriesForm">
         <div class="modal-overlay" id="editSeriesModal">
             <div class="modal-box two-column">
@@ -365,7 +365,7 @@
         }
         this.disabled = true;
         this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xóa...';
-        const deleteUrl = '${pageContext.request.contextPath}/DeleteSeriesServlet?id=' + deleteSeriesId;
+        const deleteUrl = '${pageContext.request.contextPath}/admin/delete-series?id=' + deleteSeriesId;
         window.location.href = deleteUrl;
     });
     document.getElementById("cancelDeleteBtn").addEventListener("click", function () {

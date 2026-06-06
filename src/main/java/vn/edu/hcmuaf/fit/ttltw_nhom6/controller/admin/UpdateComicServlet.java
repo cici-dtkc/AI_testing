@@ -47,7 +47,7 @@ public class UpdateComicServlet extends HttpServlet {
         response.setContentType("application/json; charset=UTF-8");
         Map<String, Object> result = new HashMap<>();
         User currentUser = (User) request.getSession().getAttribute("currentUser");
-        if (!RoleUtil.canManage(currentUser, "manage_Product")){
+        if (!RoleUtil.canManage(currentUser, "manage_product")){
             result.put("success", false);
             result.put("message", "Bạn không có quyền thực hiện thao tác này.");
             response.getWriter().write(gson.toJson(result));
