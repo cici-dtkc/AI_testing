@@ -141,12 +141,57 @@ public class UserPermissionDAO {
                         .collect(Collectors.toSet())
         );
 
+        // Thêm các quyền mặc định dựa trên vai trò để dự phòng
+        try {
+            String roleName = jdbi.withHandle(handle ->
+                    handle.createQuery("SELECT r.role_name FROM roles r JOIN users u ON u.role_id = r.id WHERE u.id = :userId")
+                            .bind("userId", userId)
+                            .mapTo(String.class)
+                            .findOne()
+                            .orElse(null)
+            );
+            if (roleName != null) {
+                if ("super_admin".equalsIgnoreCase(roleName)) {
+                    perms.add("manage_product");
+                    perms.add("manage_series");
+                    perms.add("manage_category");
+                    perms.add("manage_order");
+                    perms.add("manage_inventory");
+                    perms.add("manage_user");
+                    perms.add("manage_flashsale");
+                    perms.add("manage_promotion");
+                    perms.add("manage_permissions");
+                } else if ("admin_product".equalsIgnoreCase(roleName)) {
+                    perms.add("manage_product");
+                    perms.add("manage_series");
+                    perms.add("manage_category");
+                } else if ("admin_order".equalsIgnoreCase(roleName)) {
+                    perms.add("manage_order");
+                } else if ("admin_user".equalsIgnoreCase(roleName)) {
+                    perms.add("manage_user");
+                    perms.add("manage_permissions");
+                } else if ("admin_promotion".equalsIgnoreCase(roleName)) {
+                    perms.add("manage_promotion");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         List<UserPermissonOverride> overrides = getOverridesByUserId(userId);
         for (UserPermissonOverride o : overrides) {
+            String permissionName = o.getPermissionName();
             if (o.isGranted()) {
-                perms.add(o.getPermissionName());
+                perms.add(permissionName);
             } else {
-                perms.remove(o.getPermissionName());
+                perms.remove(permissionName);
+                // Xóa cả trường hợp khác biệt hoa thường
+                perms.remove(permissionName.toLowerCase());
+                perms.remove(permissionName.toUpperCase());
+                if (permissionName.equalsIgnoreCase("manage_product")) {
+                    perms.remove("manage_product");
+                    perms.remove("manage_Product");
+                }
             }
         }
         return perms;
@@ -154,7 +199,14 @@ public class UserPermissionDAO {
 
     // kiểm tra 1 quyền cụ thể
     public boolean hasPermission(int userId, String permissionName) {
-        return getEffectivePermissions(userId).contains(permissionName);
+        if (permissionName == null) return false;
+        Set<String> perms = getEffectivePermissions(userId);
+        for (String p : perms) {
+            if (permissionName.equalsIgnoreCase(p)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Lấy quyền thuần từ role

@@ -19,7 +19,7 @@
 <body>
 <div class="container">
     <jsp:include page="/frontend/admin/ASide.jsp"/>
-<div class="main-content">
+    <div class="main-content">
         <%@ include file="HeaderAdmin.jsp" %>
         <h2 class="page-title">Quản lý Flash Sale</h2>
         <div class="flashSale-page">
@@ -74,7 +74,8 @@
                                         <button class="btn-view" data-id="${fs.id}">
                                             <i class="fa-solid fa-eye"></i>
                                         </button>
-                                        <button class="btn-edit openEditFlashSale" data-id="${fs.id}" data-status="${fs.status}">
+                                        <button class="btn-edit openEditFlashSale" data-id="${fs.id}"
+                                                data-status="${fs.status}">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
                                         <button class="btn-delete" data-id="${fs.id}">
@@ -85,6 +86,13 @@
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
+                    </tbody>
+                    <tbody id="paginationBody">
+                    <tr class="pagination-row">
+                        <td colspan="5">
+                            <div class="pagination" id="paginationContainer"></div>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -120,7 +128,7 @@
                 <input type="text" id="comicSearchInput"
                        placeholder="Tìm truyện theo tên để thêm vào Flash Sale"
                        class="search-input" autocomplete="off">
-                <div id="searchResults" class="search-results"> </div>
+                <div id="searchResults" class="search-results"></div>
             </div>
             <div class="selected-comics-list" id="selectedProductList">
                 <p class="empty-message">Chưa có truyện nào được chọn. Hãy tìm và thêm truyện ở trên.</p>
@@ -224,5 +232,50 @@
         </div>
     </div>
 </div>
+
+<script>
+    (function () {
+        var PAGE_GROUP_SIZE = 3;
+        var TOTAL_PAGES = parseInt('${totalPages}') || 1;
+        var CURRENT_PAGE = parseInt('${currentPage}') || 1;
+        var BASE_URL = '${pageContext.request.contextPath}/admin/manage-flashsale';
+        function buildUrl(page) {
+            return BASE_URL + '?page=' + page;
+        }
+        function renderPagination() {
+            var container = document.getElementById('paginationContainer');
+            var paginationBody = document.getElementById('paginationBody');
+            if (!container) return;
+            // Nếu chỉ có 1 trang duy nhất, ẩn phần phân trang đi
+            if (TOTAL_PAGES <= 1) {
+                if (paginationBody) paginationBody.style.display = 'none';
+                return;
+            }
+            var currentGroup = Math.floor((CURRENT_PAGE - 1) / PAGE_GROUP_SIZE);
+            var startPage = currentGroup * PAGE_GROUP_SIZE + 1;
+            var endPage = Math.min(startPage + PAGE_GROUP_SIZE - 1, TOTAL_PAGES);
+            var hasPrev = startPage > 1;
+            var hasNext = endPage < TOTAL_PAGES;
+            var html = '';
+            if (hasPrev) {
+                html += '<button class="page-btn nav-btn" onclick="window.location.href=\'' + buildUrl(startPage - 1) + '\'">&laquo;</button>';
+            } else {
+                html += '<button class="page-btn nav-btn" disabled>&laquo;</button>';
+            }
+            for (var i = startPage; i <= endPage; i++) {
+                var activeClass = (i === CURRENT_PAGE) ? ' active' : '';
+                html += '<button class="page-btn' + activeClass + '" onclick="window.location.href=\'' + buildUrl(i) + '\'">' + i + '</button>';
+            }
+            if (hasNext) {
+                html += '<button class="page-btn nav-btn" onclick="window.location.href=\'' + buildUrl(endPage + 1) + '\'">&raquo;</button>';
+            } else {
+                html += '<button class="page-btn nav-btn" disabled>&raquo;</button>';
+            }
+            container.innerHTML = html;
+        }
+        document.addEventListener('DOMContentLoaded', renderPagination);
+    })();
+</script>
+
 </body>
 </html>

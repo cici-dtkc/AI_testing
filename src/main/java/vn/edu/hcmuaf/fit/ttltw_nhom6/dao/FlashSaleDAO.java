@@ -246,4 +246,32 @@ public class FlashSaleDAO extends ADao {
                         .execute()
         );
     }
+
+    public List<FlashSale> getFlashSalesPaginated(int page, int pageSize) {
+        updateStatuses();
+        int offset = (page - 1) * pageSize;
+        String sql = """
+                    SELECT id, name, discount_percent, start_time, end_time, status, created_at
+                    FROM FlashSale
+                    WHERE is_deleted = 0
+                    ORDER BY created_at DESC
+                    LIMIT :limit OFFSET :offset
+                """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("limit", pageSize)
+                        .bind("offset", offset)
+                        .mapToBean(FlashSale.class)
+                        .list()
+        );
+    }
+    public int countFlashSales() {
+        String sql = "SELECT COUNT(*) FROM FlashSale WHERE is_deleted = 0";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapTo(Integer.class)
+                        .one()
+        );
+    }
+
 }

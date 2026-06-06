@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Series;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.RoleUtil;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.service.CloudinaryService;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.SeriesDAO;
 
@@ -41,6 +43,13 @@ public class AddSeriesServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (!RoleUtil.canManage(currentUser, "manage_series")) {
+            request.getSession().setAttribute("errorMessage", "Bạn không có quyền thực hiện thao tác này.");
+            response.sendRedirect(request.getContextPath() + "/admin/SeriesManagement");
+            return;
+        }
 
         try {
             String seriesName = request.getParameter("seriesName");
