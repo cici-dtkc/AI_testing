@@ -222,6 +222,7 @@ async function populateEditForm(comic) {
     await loadDetailImages(comic.id);
     console.log('Form population complete!');
 }
+
 async function loadThumbnailImage(thumbnailUrl) {
     console.log('Loading thumbnail:', thumbnailUrl);
     if (!thumbnailUrl) {
@@ -366,90 +367,69 @@ async function loadDetailImages(comicId) {
     }
 }
 
-// LOAD CATEGORIES
 async function loadCategoriesForEdit(selectedCategoryId) {
-    console.log('loadCategoriesForEdit called with:', selectedCategoryId);
-
     try {
-        const url = contextPath + '/admin/categories/list';
-        console.log('Fetching categories from:', url);
-
-        const response = await fetch(url);
-        const result = await response.json();
-
-        console.log('Categories response:', result);
-
+        const response = await fetch(contextPath + '/admin/ProductManagement', {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+        const data = await response.json();
         const categorySelect = document.querySelector('#editForm [name="categoryId"]');
-
-        if (!categorySelect) {
-            console.error(' Category select not found!');
-            return;
-        }
-
-        if (result.success && result.categories) {
-            console.log('Categories loaded:', result.categories.length);
-
+        if (!categorySelect) return;
+        const sourceSelect = document.querySelector('#addForm [name="categoryId"]');
+        if (sourceSelect) {
             let options = '<option value="">-- Chọn thể loại --</option>';
-
-            result.categories.forEach(cat => {
-                const selected = (cat.id == selectedCategoryId) ? 'selected' : '';
-                options += `<option value="${cat.id}" ${selected}>${cat.nameCategories}</option>`;
-
-                if (selected) {
-                    console.log('Selected category:', cat.nameCategories);
-                }
+            sourceSelect.querySelectorAll('option').forEach(opt => {
+                if (!opt.value) return;
+                const selected = (opt.value == selectedCategoryId) ? 'selected' : '';
+                options += `<option value="${opt.value}" ${selected}>${opt.textContent}</option>`;
             });
-
             categorySelect.innerHTML = options;
-            console.log('Category select updated');
-        } else {
-            console.error('Failed to load categories:', result.message);
         }
     } catch (error) {
         console.error('Error loading categories:', error);
     }
 }
-
 async function loadSeriesForEdit(selectedSeriesId) {
-    console.log('loadSeriesForEdit called with:', selectedSeriesId);
-
     try {
-        const url = contextPath + '/admin/series/list';
-        console.log('Fetching series from:', url);
-
-        const response = await fetch(url);
-        const result = await response.json();
-
-        console.log('Series response:', result);
-
         const seriesSelect = document.querySelector('#editForm [name="seriesId"]');
+        if (!seriesSelect) return;
 
-        if (!seriesSelect) {
-            console.error('Series select not found!');
-            return;
-        }
-
-        if (result.success && result.series) {
-            console.log('Series loaded:', result.series.length);
-
+        const sourceSelect = document.querySelector('#addForm [name="seriesId"]');
+        if (sourceSelect && sourceSelect.options.length > 1) {
             let options = '<option value="">-- Chọn bộ truyện --</option>';
-
-            result.series.forEach(s => {
-                const selected = (s.id == selectedSeriesId) ? 'selected' : '';
-                options += `<option value="${s.id}" ${selected}>${s.seriesName}</option>`;
-
-                if (selected) {
-                    console.log('Selected series:', s.seriesName);
-                }
+            sourceSelect.querySelectorAll('option').forEach(opt => {
+                if (!opt.value) return;
+                const selected = (opt.value == selectedSeriesId) ? 'selected' : '';
+                options += `<option value="${opt.value}" ${selected}>${opt.textContent}</option>`;
             });
-
             seriesSelect.innerHTML = options;
-            console.log('Series select updated');
         } else {
-            console.error('Failed to load series:', result.message);
+            console.warn('addForm seriesId select not found or empty');
         }
     } catch (error) {
         console.error('Error loading series:', error);
+    }
+}
+
+async function loadCategoriesForEdit(selectedCategoryId) {
+    try {
+        const categorySelect = document.querySelector('#editForm [name="categoryId"]');
+        if (!categorySelect) return;
+
+        const sourceSelect = document.querySelector('#addForm [name="categoryId"]');
+        if (sourceSelect && sourceSelect.options.length > 1) {
+            let options = '<option value="">-- Chọn thể loại --</option>';
+            sourceSelect.querySelectorAll('option').forEach(opt => {
+                if (!opt.value) return;
+                const selected = (opt.value == selectedCategoryId) ? 'selected' : '';
+                options += `<option value="${opt.value}" ${selected}>${opt.textContent}</option>`;
+            });
+            categorySelect.innerHTML = options;
+        } else {
+            console.warn('addForm categoryId select not found or empty');
+        }
+    } catch (error) {
+        console.error('Error loading categories:', error);
     }
 }
 function setupEditImageUpload() {
