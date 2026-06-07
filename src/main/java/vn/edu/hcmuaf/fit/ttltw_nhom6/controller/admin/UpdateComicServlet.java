@@ -65,7 +65,7 @@ public class UpdateComicServlet extends HttpServlet {
 
             int comicId = Integer.parseInt(comicIdStr);
 
-            Comic existingComic = comicDAO.getComicById3(comicId);
+            Comic existingComic = comicDAO.getComicById2(comicId);
             if (existingComic == null) {
                 result.put("success", false);
                 result.put("message", "Không tìm thấy truyện");

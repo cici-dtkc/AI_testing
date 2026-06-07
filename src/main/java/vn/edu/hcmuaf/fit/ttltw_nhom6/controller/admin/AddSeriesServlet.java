@@ -34,7 +34,7 @@ public class AddSeriesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/SeriesManagement");
+        response.sendRedirect(request.getContextPath() + "/admin/SeriesManagement");
     }
 
     @Override
@@ -74,7 +74,7 @@ public class AddSeriesServlet extends HttpServlet {
 
             if (seriesDAO.isSeriesNameExistsExcludingId(seriesName, totalVolumes)) {
                 request.getSession().setAttribute("errorMessage", "Tên series '" + seriesName + "' đã tồn tại!");
-                response.sendRedirect(request.getContextPath() + "/SeriesManagement");
+                response.sendRedirect(request.getContextPath() + "/admin/SeriesManagement");
                 return;
             }
 
@@ -87,7 +87,7 @@ public class AddSeriesServlet extends HttpServlet {
                 } catch (IOException e) {
                     e.printStackTrace();
                     request.getSession().setAttribute("errorMessage", "Lỗi khi upload ảnh: " + e.getMessage());
-                    response.sendRedirect(request.getContextPath() + "/SeriesManagement");
+                    response.sendRedirect(request.getContextPath() + "/admin/SeriesManagement");
                     return;
                 }
             } else {
@@ -119,6 +119,6 @@ public class AddSeriesServlet extends HttpServlet {
             request.getSession().setAttribute("errorMessage", "Có lỗi xảy ra: " + e.getMessage());
         }
 
-        response.sendRedirect(request.getContextPath() + "/SeriesManagement");
+        response.sendRedirect(request.getContextPath() + "/admin/SeriesManagement");
     }
 }
