@@ -3,9 +3,11 @@ package vn.edu.hcmuaf.fit.ttltw_nhom6.scheduler;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
+import org.jdbi.v3.core.Jdbi;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.FlashSaleDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.NotificationDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.VoucherDao;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.db.JdbiConnector;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.FlashSale;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Voucher;
 
@@ -23,6 +25,7 @@ public class EventNotificationScheduler implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        initDbRolesAndPermissions();
         String siteKey = System.getenv("RECAPTCHA_SITE_KEY");
         if (siteKey == null || siteKey.trim().isEmpty()){
             siteKey ="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
@@ -50,6 +53,46 @@ public class EventNotificationScheduler implements ServletContextListener {
                 e.printStackTrace();
             }
         }, 0, 60, TimeUnit.MINUTES);
+    }
+
+    private void initDbRolesAndPermissions() {
+        try {
+            org.jdbi.v3.core.Jdbi jdbi = vn.edu.hcmuaf.fit.ttltw_nhom6.db.JdbiConnector.get();
+            jdbi.useHandle(handle -> {
+                // 1. Chèn role admin nếu chưa tồn tại
+                handle.createUpdate("INSERT INTO roles (role_name, description) " +
+                        "SELECT 'admin', 'Quản trị viên thường' " +
+                        "FROM DUAL " +
+                        "WHERE NOT EXISTS (SELECT 1 FROM roles WHERE role_name = 'admin')").execute();
+                // 2. Chèn các permissions nếu chưa tồn tại
+                String[] permissions = {
+                        "manage_product", "Quản lý sản phẩm (Thêm/Sửa/Xóa)",
+                        "manage_series", "Quản lý series (Thêm/Sửa/Xóa)",
+                        "manage_category", "Quản lý thể loại (Thêm/Sửa/Xóa)",
+                        "manage_order", "Quản lý đơn hàng (Sửa/Xóa/Cập nhật)",
+                        "manage_inventory", "Quản lý kho (Nhập/Cập nhật)",
+                        "manage_user", "Quản lý người dùng (Khóa/Mở khóa)",
+                        "manage_flashsale", "Quản lý Flash Sale (Thêm/Sửa/Xóa)",
+                        "manage_promotion", "Quản lý khuyến mãi/Voucher (Thêm/Sửa/Xóa)",
+                        "manage_permissions", "Quản lý phân quyền (Gán/Override)"
+                };
+                for (int i = 0; i < permissions.length; i += 2) {
+                    String pName = permissions[i];
+                    String pDesc = permissions[i+1];
+                    handle.createUpdate("INSERT INTO permissions (permission_name, description) " +
+                                    "SELECT :pName, :pDesc " +
+                                    "FROM DUAL " +
+                                    "WHERE NOT EXISTS (SELECT 1 FROM permissions WHERE permission_name = :pName)")
+                            .bind("pName", pName)
+                            .bind("pDesc", pDesc)
+                            .execute();
+                }
+            });
+            System.out.println("[Database Init] Roles and permissions initialized successfully.");
+        } catch (Exception e) {
+            System.err.println("[Database Init] Failed to initialize roles/permissions: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void checkExpiringVouchers(String phase) {

@@ -6,10 +6,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.SeriesDAO;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.RoleUtil;
 
 import java.io.IOException;
 
-@WebServlet(name = "DeleteSeriesServlet", urlPatterns = {"/DeleteSeriesServlet"})
+@WebServlet(name = "DeleteSeriesServlet", urlPatterns = {"/admin/delete-series", "/DeleteSeriesServlet"})
 public class DeleteSeriesServlet extends HttpServlet {
 
     private SeriesDAO seriesDAO;
@@ -25,6 +27,13 @@ public class DeleteSeriesServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (!RoleUtil.canManage(currentUser, "manage_series")) {
+            request.getSession().setAttribute("errorMessage", "Bạn không có quyền thực hiện thao tác này.");
+            response.sendRedirect(request.getContextPath() + "/admin/SeriesManagement");
+            return;
+        }
 
         try {
             String seriesIdParam = request.getParameter("id");

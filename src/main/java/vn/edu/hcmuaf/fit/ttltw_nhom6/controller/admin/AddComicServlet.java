@@ -8,14 +8,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.CategoriesDao;
-import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.ComicDAO;
-import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.InventoryTransactionDAO;
-import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.SeriesDAO;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.*;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Category;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Comic;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.ComicImage;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.service.CloudinaryService;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.RoleUtil;
 
 
 import java.io.IOException;
@@ -36,7 +35,8 @@ public class AddComicServlet extends HttpServlet {
     private CategoriesDao categoriesDao;
     private SeriesDAO seriesDAO;
     private Gson gson;
-    private InventoryTransactionDAO  inventoryTransactionDAO;
+    private InventoryTransactionDAO inventoryTransactionDAO;
+
     @Override
     public void init() throws ServletException {
         comicDAO = new ComicDAO();
@@ -53,6 +53,13 @@ public class AddComicServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=UTF-8");
         Map<String, Object> result = new HashMap<>();
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (!RoleUtil.canManage(currentUser, "manage_product")) {
+            result.put("success", false);
+            result.put("message", "Bạn không có quyền thực hiện thao tác này.");
+            response.getWriter().write(gson.toJson(result));
+            return;
+        }
 
         try {
             Comic comic = extractComicFromRequest(request);
@@ -112,7 +119,7 @@ public class AddComicServlet extends HttpServlet {
                 response.getWriter().write(gson.toJson(result));
                 return;
             }
-            inventoryTransactionDAO.insertImport(comicId, comic.getStockQuantity(),"");
+            inventoryTransactionDAO.insertImport(comicId, comic.getStockQuantity(), "");
 
             if (authorId > 0) {
                 comicDAO.linkComicAuthor(comicId, authorId);

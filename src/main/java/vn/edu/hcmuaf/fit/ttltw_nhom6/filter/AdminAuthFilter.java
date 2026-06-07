@@ -16,6 +16,7 @@ import java.io.IOException;
 @WebFilter({"/frontend/admin/*", "/admin/*"})
 public class AdminAuthFilter implements Filter {
     private final RoleDAO roleDAO = new RoleDAO();
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -23,18 +24,12 @@ public class AdminAuthFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession(false);
-
-        // Kiểm tra đã đăng nhập chưa
         if (session == null || session.getAttribute("currentUser") == null) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             return;
         }
-
-        // Kiểm tra có phải admin không
         User user = (User) session.getAttribute("currentUser");
         Role role = roleDAO.getRoleById(user.getRoleId());
-//        boolean isAdmin = "comicstore365@gmail.com".equals(user.getEmail()) ||
-//                "comicstore365".equals(user.getUsername());
 
         if (role == null || role.getLevel() >= 3) {
             httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Bạn không có quyền truy cập trang admin.");
@@ -44,10 +39,9 @@ public class AdminAuthFilter implements Filter {
         String uri = httpRequest.getRequestURI();
         String contextPath = httpRequest.getContextPath();
         String path = uri.substring(contextPath.length());
-
         boolean isSuperAdminOnly = path.startsWith("/admin/permission-management") ||
-                                   path.startsWith("/admin/permission-override") ||
-                                   path.startsWith("/admin/role");
+                path.startsWith("/admin/permission-override") ||
+                path.startsWith("/admin/role");
         if (isSuperAdminOnly && !RoleHierarchyService.isSuperAdmin(role)) {
             String requestedWith = httpRequest.getHeader("X-Requested-With");
             String contentType = httpRequest.getHeader("Accept");
@@ -61,18 +55,91 @@ public class AdminAuthFilter implements Filter {
             }
             return;
         }
+        String roleName = role.getRoleName();
+        boolean isSuperOrAdmin = "super_admin".equalsIgnoreCase(roleName) || "admin".equalsIgnoreCase(roleName);
+        boolean hasAccess = false;
 
-        // Hoặc kiểm tra theo role:
-        boolean isAdmin = RoleUtil.hasAccess(role, "super_admin")
-                        || RoleUtil.hasAccess(role, "admin_product")
-                        || RoleUtil.hasAccess(role, "admin_order")
-                        || RoleUtil.hasAccess(role, "admin_user")
-                        || RoleUtil.hasAccess(role, "admin_promotion");
+        if (isSuperOrAdmin) {
+            hasAccess = true;
+        } else {
+            String method = httpRequest.getMethod();
+            if ("GET".equalsIgnoreCase(method)) {
+                hasAccess = true;
+            } else {
+                boolean isProductPath = path.startsWith("/admin/ProductManagement")
+                        || path.startsWith("/admin/products/add")
+                        || path.startsWith("/admin/products/update")
+                        || path.startsWith("/admin/products/delete")
+                        || path.startsWith("/admin/add-comic")
+                        || path.startsWith("/admin/update-comic")
+                        || path.startsWith("/admin/delete-comic")
+                        || path.startsWith("/admin/toggle-comic-hidden")
+                        || path.startsWith("/admin/list-comics")
+                        || path.startsWith("/admin/get-comic-detail")
+                        || path.startsWith("/admin/get-comic-images")
+                        || path.startsWith("/admin/search-comics");
 
-        if (!isAdmin) {
-            session.setAttribute("errorMessage", "Bạn không có quyền truy cập trang admin.");
+                boolean isSeriesPath = path.startsWith("/admin/SeriesManagement")
+                        || path.startsWith("/admin/series/")
+                        || path.startsWith("/admin/add-series")
+                        || path.startsWith("/admin/edit-series")
+                        || path.startsWith("/admin/delete-series");
+
+                boolean isCategoryPath = path.startsWith("/admin/CategoryManagement")
+                        || path.startsWith("/admin/category/")
+                        || path.startsWith("/admin/addCategory")
+                        || path.startsWith("/admin/updateCategory")
+                        || path.startsWith("/admin/deleteCategory")
+                        || path.startsWith("/admin/listCategories")
+                        || path.startsWith("/admin/getCategoryById")
+                        || path.startsWith("/admin/categories/");
+
+                boolean isFlashSalePath = path.startsWith("/admin/manage-flashsale")
+                        || path.startsWith("/admin/create-flashsale");
+
+                boolean isInventoryPath = path.startsWith("/admin/inventory");
+
+                if (isProductPath || isCategoryPath) {
+                    // admin_product được sửa Sản phẩm và Thể loại
+                    hasAccess = "admin_product".equalsIgnoreCase(roleName)
+                            || RoleUtil.canManage(user, "manage_product")
+                            || RoleUtil.canManage(user, "manage_category");
+                }
+                else if (isSeriesPath) {
+                    // Chỉ admin_product mới được thêm/sửa/xóa Series
+                    hasAccess = "admin_product".equalsIgnoreCase(roleName)
+                            || RoleUtil.canManage(user, "manage_series");
+                }
+                else if (isFlashSalePath) {
+                    hasAccess = RoleUtil.canManage(user, "manage_flashsale");
+                }
+                else if (isInventoryPath) {
+                    hasAccess = RoleUtil.canManage(user, "manage_inventory");
+                }
+                else if (path.startsWith("/admin/user-management")
+                        || path.startsWith("/admin/permission-management")
+                        || path.startsWith("/admin/permission-override")) {
+                    hasAccess = "admin_user".equalsIgnoreCase(roleName)
+                            || RoleUtil.canManage(user, "manage_user")
+                            || RoleUtil.canManage(user, "manage_permissions");
+                }
+                else if (path.startsWith("/admin/orders") || path.startsWith("/admin/order-management")) {
+                    hasAccess = "admin_order".equalsIgnoreCase(roleName)
+                            || RoleUtil.canManage(user, "manage_order");
+                }
+                else if (path.startsWith("/admin/vouchersManagement")) {
+                    hasAccess = "admin_promotion".equalsIgnoreCase(roleName)
+                            || RoleUtil.canManage(user, "manage_promotion");
+                }
+                else {
+                    hasAccess = true;
+                }
+            }
+        }
+
+        if (!hasAccess) {
+            session.setAttribute("errorMessage", "Bạn không có quyền thực hiện hành động này.");
             httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
-//            httpResponse.sendRedirect(httpRequest.getContextPath() + "/home");
             return;
         }
 

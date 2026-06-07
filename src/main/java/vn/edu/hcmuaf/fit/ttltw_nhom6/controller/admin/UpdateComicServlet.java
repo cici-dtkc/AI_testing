@@ -11,7 +11,9 @@ import jakarta.servlet.http.Part;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.ComicDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Comic;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.ComicImage;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.service.CloudinaryService;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.RoleUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,8 +45,14 @@ public class UpdateComicServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=UTF-8");
-
         Map<String, Object> result = new HashMap<>();
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (!RoleUtil.canManage(currentUser, "manage_product")){
+            result.put("success", false);
+            result.put("message", "Bạn không có quyền thực hiện thao tác này.");
+            response.getWriter().write(gson.toJson(result));
+            return;
+        }
 
         try {
             String comicIdStr = request.getParameter("comicId");
@@ -57,7 +65,7 @@ public class UpdateComicServlet extends HttpServlet {
 
             int comicId = Integer.parseInt(comicIdStr);
 
-            Comic existingComic = comicDAO.getComicById3(comicId);
+            Comic existingComic = comicDAO.getComicById2(comicId);
             if (existingComic == null) {
                 result.put("success", false);
                 result.put("message", "Không tìm thấy truyện");
