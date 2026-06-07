@@ -70,4 +70,49 @@ public class RoleDAO {
                         .execute() > 0
         );
     }
+
+    public List<String> getPermissionsByRoleId(int roleId) {
+        String sql = """
+            SELECT p.permission_name 
+            FROM permissions p
+            JOIN role_permissions rp ON p.id = rp.permission_id
+            WHERE rp.role_id = :roleId
+            """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("roleId", roleId)
+                        .mapTo(String.class)
+                        .list()
+        );
+    }
+
+    public List<String> getGrantedOverridesByUserId(int userId) {
+        String sql = """
+            SELECT p.permission_name
+            FROM permissions p
+            JOIN user_permission_overrides upo ON p.id = upo.permission_id
+            WHERE upo.user_id = :userId AND upo.is_granted = 1
+            """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("userId", userId)
+                        .mapTo(String.class)
+                        .list()
+        );
+    }
+
+    public List<String> getRevokedOverridesByUserId(int userId) {
+        String sql = """
+            SELECT p.permission_name
+            FROM permissions p
+            JOIN user_permission_overrides upo ON p.id = upo.permission_id
+            WHERE upo.user_id = :userId AND upo.is_granted = 0
+            """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("userId", userId)
+                        .mapTo(String.class)
+                        .list()
+        );
+    }
 }
