@@ -25,10 +25,12 @@
                                     <div class="page-header">
                                         <h2>Quản lý kho hàng & Thống kê tồn kho</h2>
                                         <div class="filter-group">
+                                            <c:if test="${canEditInventory}">
                                             <button class="btn btn-primary"
                                                 onclick="openAdjustmentModal(null, 'import')">
                                                 <i class="fa-solid fa-plus"></i> Điều chỉnh kho thủ công
                                             </button>
+                                            </c:if>
                                         </div>
                                     </div>
                                     <div class="tabs-container">
@@ -135,11 +137,17 @@
                                                                         </c:choose>
                                                                     </td>
                                                                     <td>
-                                                                        <button class="btn btn-success btn-sm"
-                                                                            onclick="openAdjustmentModal(${comic.id}, 'import', ${suggestedQty > 0 ? suggestedQty : 0})">
-                                                                            <i class="fa-solid fa-plus"></i> Nhập hàng
-                                                                            nhanh
-                                                                        </button>
+                                                                        <c:choose>
+                                                                            <c:when test="${canEditInventory}">
+                                                                                <button class="btn btn-success btn-sm"
+                                                                                        onclick="openAdjustmentModal(${comic.id}, 'import', ${suggestedQty > 0 ? suggestedQty : 0})">
+                                                                                    <i class="fa-solid fa-plus"></i> Nhập hàng nhanh
+                                                                                </button>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <span class="text-muted" style="font-size:13px;">Chỉ xem</span>
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                     </td>
                                                                 </tr>
                                                             </c:forEach>
@@ -191,24 +199,27 @@
                                                                 </span>
                                                             </td>
                                                             <td>
-                                                                <div style="display: flex; gap: 8px;">
-                                                                    <button class="btn btn-success btn-outline"
-                                                                        onclick="openAdjustmentModal(${comic.id}, 'import')"
-                                                                        title="Nhập thêm kho">
-                                                                        <i class="fa-solid fa-plus"></i> Nhập
-                                                                    </button>
-                                                                    <button class="btn btn-danger btn-outline"
-                                                                        onclick="openAdjustmentModal(${comic.id}, 'export')"
-                                                                        title="Xuất kho thủ công">
-                                                                        <i class="fa-solid fa-minus"></i> Xuất
-                                                                    </button>
-                                                                    <button class="btn btn-warning btn-outline"
-                                                                        onclick="openAdjustmentModal(${comic.id}, 'damage')"
-                                                                        title="Báo sản phẩm hỏng">
-                                                                        <i class="fa-solid fa-triangle-exclamation"></i>
-                                                                        Hỏng
-                                                                    </button>
-                                                                </div>
+                                                                <c:choose>
+                                                                    <c:when test="${canEditInventory}">
+                                                                        <div style="display: flex; gap: 8px;">
+                                                                            <button class="btn btn-success btn-outline"
+                                                                                    onclick="openAdjustmentModal(${comic.id}, 'import')">
+                                                                                <i class="fa-solid fa-plus"></i> Nhập
+                                                                            </button>
+                                                                            <button class="btn btn-danger btn-outline"
+                                                                                    onclick="openAdjustmentModal(${comic.id}, 'export')">
+                                                                                <i class="fa-solid fa-minus"></i> Xuất
+                                                                            </button>
+                                                                            <button class="btn btn-warning btn-outline"
+                                                                                    onclick="openAdjustmentModal(${comic.id}, 'damage')">
+                                                                                <i class="fa-solid fa-triangle-exclamation"></i> Hỏng
+                                                                            </button>
+                                                                        </div>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <span class="text-muted" style="font-size:13px;">Chỉ xem</span>
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>
@@ -293,7 +304,7 @@
                                 </div>
                         </div>
                     </div>
-
+                    <c:if test="${canEditInventory}">
                     <div class="modal-overlay" id="adjustmentModal">
                         <div class="modal-box">
                             <div class="modal-header">
@@ -343,7 +354,7 @@
                             </form>
                         </div>
                     </div>
-
+                    </c:if>
                     <div class="toast-container" id="toastContainer"></div>
 
                     <script>

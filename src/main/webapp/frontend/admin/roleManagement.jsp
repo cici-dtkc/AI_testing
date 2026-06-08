@@ -137,20 +137,24 @@
     document.getElementById("saveRoleBtn").addEventListener("click", function () {
         const userId = document.getElementById("userId").value;
         const roleId = document.getElementById("roleId").value;
+
         fetch("${pageContext.request.contextPath}/admin/permission-management", {
             method: "POST",
             headers: {"Content-Type": "application/x-www-form-urlencoded"},
             body: "userId=" + userId + "&roleId=" + roleId
-        }).then(response => {
-            if (response.status === 403) {
-                return response.json().then(data => {
-                    showToast(data.error, "error");
-                });
-            } else {
-                showToast("Cập nhật quyền thành công!", "success");
-                setTimeout(() => location.reload(), 1000);
-            }
-        });
+        })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    showToast("Cập nhật quyền thành công!", "success");
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    showToast(data.error || "Có lỗi xảy ra!", "error");
+                }
+            })
+            .catch(err => {
+                showToast("Lỗi kết nối máy chủ!", "error");
+            });
     });
 
         document.querySelectorAll(".btn-override").forEach(btn => {
