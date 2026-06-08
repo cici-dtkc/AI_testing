@@ -48,10 +48,19 @@ public class PermissionManagementServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
         String userIdStr = request.getParameter("userId");
         String roleIdStr = request.getParameter("roleId");
 
-        if (userIdStr != null && roleIdStr != null) {
+        if (userIdStr == null || roleIdStr == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"error\": \"Thiếu tham số!\"}");
+            return;
+        }
+
+        try {
             int targetUserId = Integer.parseInt(userIdStr);
             int newRoleId = Integer.parseInt(roleIdStr);
 
@@ -62,7 +71,6 @@ public class PermissionManagementServlet extends HttpServlet {
 
             if (!RoleHierarchyService.canAssignRole(currentAdminRole, newRole)) {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                response.setContentType("application/json");
                 response.getWriter().write("{\"error\": \"Bạn không thể gán role cao hơn hoặc bằng quyền của mình!\"}");
                 return;
             }
@@ -71,12 +79,23 @@ public class PermissionManagementServlet extends HttpServlet {
             Role targetCurrentRole = roleDao.getRoleById(targetUser.getRoleId());
             if (!RoleHierarchyService.canAssignRole(currentAdminRole, targetCurrentRole)) {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                response.setContentType("application/json");
                 response.getWriter().write("{\"error\": \"Bạn không thể thay đổi quyền của user có cấp bậc cao hơn hoặc bằng mình!\"}");
                 return;
             }
+
             userDao.updateRole(targetUserId, newRoleId);
+
+            // Trả về JSON thay vì redirect
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("{\"success\": true, \"message\": \"Cập nhật quyền thành công!\"}");
+
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"error\": \"ID không hợp lệ!\"}");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("{\"error\": \"Lỗi máy chủ: " + e.getMessage() + "\"}");
         }
-        response.sendRedirect(request.getContextPath() + "/admin/permission-management");
     }
 }

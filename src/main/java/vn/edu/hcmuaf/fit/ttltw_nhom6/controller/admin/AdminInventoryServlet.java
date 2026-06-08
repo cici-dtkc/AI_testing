@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.InventoryTransactionDAO;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.RoleUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -71,6 +73,21 @@ public class AdminInventoryServlet extends HttpServlet {
         response.setContentType("application/json");
 
         Map<String, Object> jsonResponse = new HashMap<>();
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
+            jsonResponse.put("success", false);
+            jsonResponse.put("message", "Phiên làm việc hết hạn!");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write(gson.toJson(jsonResponse));
+            return;
+        }
+        if (!RoleUtil.canManage(currentUser, "manage_inventory")) {
+            jsonResponse.put("success", false);
+            jsonResponse.put("message", "Bạn không có quyền thực hiện thao tác này!");
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().write(gson.toJson(jsonResponse));
+            return;
+        }
         if (request.getSession().getAttribute("currentUser") == null) {
             jsonResponse.put("success", false);
             jsonResponse.put("message", "Phiên làm việc hết hạn hoặc bạn không có quyền!");
