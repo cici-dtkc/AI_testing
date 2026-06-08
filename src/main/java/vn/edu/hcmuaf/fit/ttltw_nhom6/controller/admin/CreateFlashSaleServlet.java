@@ -9,7 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.FlashSaleComicsDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.FlashSaleDAO;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.RoleDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.FlashSale;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Role;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -62,6 +65,16 @@ public class CreateFlashSaleServlet extends HttpServlet {
             double discountPercent;
             try {
                 discountPercent = Double.parseDouble(discountPercentStr.trim());
+
+                User user = (User) req.getSession().getAttribute("currentUser");
+                Role role = new RoleDAO().getRoleById(user.getRoleId());
+
+                if (role.getRoleName().equalsIgnoreCase("admin_promotion") && discountPercent > 50) {
+                    responseJson.addProperty("success", false);
+                    responseJson.addProperty("message", "admin_promotion chỉ được tạo Flash Sale giảm tối đa 50%!");
+                    resp.getWriter().write(responseJson.toString());
+                    return;
+                }
                 if (discountPercent < 1 || discountPercent > 90) {
                     responseJson.addProperty("success", false);
                     responseJson.addProperty("message", "Phần trăm giảm phải từ 1% đến 90%");
