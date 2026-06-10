@@ -19,7 +19,8 @@ public class RoleHierarchyService {
         return currentUserRole.getLevel() < targetUserRole.getLevel();
     }
 
-    public static boolean isSuperAdmin(Role role) {
+    public static boolean
+    isSuperAdmin(Role role) {
         return role != null && role.getLevel() == 1;
     }
 
