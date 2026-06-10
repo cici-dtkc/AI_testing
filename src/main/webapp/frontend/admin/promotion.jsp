@@ -22,18 +22,29 @@
             <div class="promo-top">
                 <form action="${pageContext.request.contextPath}/admin/search-voucher" method="get">
                     <div class="search-box">
-                        <input type ="text" name ="idVoucher" value ="${size_voucher <= 0? '' : idVoucher}" placeholder="Tìm kiếm theo mã">
+                        <input type="text" name="idVoucher" value="${size_voucher <= 0? '' : idVoucher}"
+                               placeholder="Tìm kiếm theo mã">
                         <button type="submit">
                             <i class="fas fa-magnifying-glass"></i>
                         </button>
                     </div>
                 </form>
-                <button class="btn-add" id="openAddPopup">
-                    <i class="fas fa-plus"></i> Thêm mã
-                </button>
+                <c:choose>
+                    <c:when test="${canAdd}">
+                        <button class="btn-add" id="openAddPopup">
+                            <i class="fas fa-plus"></i> Thêm mã
+                        </button>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="btn-add" disabled title="Bạn không có quyền thêm"
+                                style="opacity:0.5; cursor:not-allowed;">
+                            <i class="fas fa-plus"></i> Thêm mã
+                        </button>
+                    </c:otherwise>
+                </c:choose>
                 <form action="${pageContext.request.contextPath}/admin/sortVoucher" method="GET">
-                    <select id="statusFilter" name = "statusFilter" onchange="this.form.submit()">
-                        <option value="all-status" >Tất cả trạng thái</option>
+                    <select id="statusFilter" name="statusFilter" onchange="this.form.submit()">
+                        <option value="all-status">Tất cả trạng thái</option>
                         <option value="running" ${param.statusFilter == "running"? 'selected' :""}>Đang chạy</option>
                         <option value="expired" ${param.statusFilter == "expired"? 'selected' :""}>Hết hạn</option>
                         <option value="out" ${param.statusFilter == "out"? 'selected' :""}>Hết lượt</option>
@@ -93,10 +104,33 @@
                         </c:choose>
 
                         <td>
-                            <button class="edit-btn" onclick="openEdit('${voucher.code}')"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="delete-btn" onclick="openDeletePopup('${voucher.code}')">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                            <c:choose>
+                                <c:when test="${canEdit}">
+                                    <button class="edit-btn" onclick="openEdit('${voucher.code}')"><i
+                                            class="fa-solid fa-pen-to-square"></i></button>
+                                    </button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button class="edit-btn" disabled title="Bạn không có quyền sửa"
+                                            style="opacity:0.5; cursor:not-allowed;">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <c:choose>
+                                <c:when test="${canDelete}">
+                                    <button class="delete-btn" onclick="openDeletePopup('${voucher.code}')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button class="delete-btn" disabled title="Bạn không có quyền xóa"
+                                            style="opacity:0.5; cursor:not-allowed;">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
                     </tr>
                 </c:forEach>
@@ -128,14 +162,14 @@
                 </div>
                 <div>
                     <label>Áp dụng</label>
-                    <select id="addTarget" name="discount_target"  required>
+                    <select id="addTarget" name="discount_target" required>
                         <option value="Vận chuyển">Vận chuyển</option>
                         <option value="Giảm giá">Giảm giá</option>
                     </select>
                 </div>
                 <div>
                     <label>Loại</label>
-                    <select id="addType"  name="discount_type" required>
+                    <select id="addType" name="discount_type" required>
                         <option value="">Chọn loại</option>
                         <option value="percent">Phần trăm (%)</option>
                         <option value="fixed">Số tiền (₫)</option>
@@ -173,8 +207,8 @@
 
                 <!-- Chọn thể loại (ẩn mặc định) -->
                 <div id="addCategoryBox" style="grid-column: 1 / -1;  display: none;">
-                    <label for="addCategory" >Thể loại</label>
-                    <select id="addCategory" name="cate" disabled>  </select>
+                    <label for="addCategory">Thể loại</label>
+                    <select id="addCategory" name="cate" disabled> </select>
                 </div>
 
                 <!-- Ngày bắt đầu + kết thúc -->
@@ -198,42 +232,42 @@
     </div>
 </div>
 <div class="popup-overlay" id="editPopup">
-    <form action="${pageContext.request.contextPath}/admin/editVoucher" method="POST" >
+    <form action="${pageContext.request.contextPath}/admin/editVoucher" method="POST">
         <div class="popup-box">
             <h3>Sửa mã khuyến mãi</h3>
             <div class="popup-grid">
                 <div>
                     <label>Tên mã</label>
-                    <input type= 'text'  id="editCode"  name="code" class="readonly">
+                    <input type='text' id="editCode" name="code" class="readonly">
                 </div>
                 <div>
                     <label>Loại giảm giá</label>
-                    <input type= 'text'id="editTypeDisplay"  name="" class="readonly">
+                    <input type='text' id="editTypeDisplay" name="" class="readonly">
                 </div>
                 <div>
                     <label>Giá trị giảm</label>
-                    <input type= 'text'  id="editValueDisplay"  name="" class="readonly">
+                    <input type='text' id="editValueDisplay" name="" class="readonly">
                 </div>
                 <div>
                     <label>Áp dụng cho</label>
-                    <input type= 'text' id="editApplyDisplay"  name="" class="readonly">
+                    <input type='text' id="editApplyDisplay" name="" class="readonly">
                 </div>
                 <div>
                     <label>Đơn tối thiểu</label>
-                    <input type="number" id="editMinOrder" min="0"  name="minOrder" placeholder="0">
+                    <input type="number" id="editMinOrder" min="0" name="minOrder" placeholder="0">
                 </div>
                 <div>
                     <label>Số lượng tối đa</label>
-                    <input type="number" id="editMaxUsage"  name="quantity" min="1">
+                    <input type="number" id="editMaxUsage" name="quantity" min="1">
                 </div>
                 <div class="checkbox-row">
-                    <input type="checkbox" id="editSingleUse"  name="is_single_use">
+                    <input type="checkbox" id="editSingleUse" name="is_single_use">
                     <label for="editSingleUse">Mỗi khách chỉ dùng được 1 lần</label>
                 </div>
                 <div class="date-row">
                     <div>
                         <label>Từ ngày</label>
-                        <input type="datetime-local" id="editStart"  name="startDate">
+                        <input type="datetime-local" id="editStart" name="startDate">
                     </div>
                     <div>
                         <label>Đến ngày</label>
@@ -244,14 +278,14 @@
 
             <div class="btn-row">
                 <button class="btn-cancel" id="closeEditPopup" type="button">Hủy</button>
-                <button class="btn-save" id="saveEditBtn"type="submit">Cập nhật</button>
+                <button class="btn-save" id="saveEditBtn" type="submit">Cập nhật</button>
             </div>
         </div>
     </form>
 
 </div>
 <div class="popup-overlay" id="deleteConfirmPopup">
-    <form  action="${pageContext.request.contextPath}/admin/deleteVoucher" method="POST">
+    <form action="${pageContext.request.contextPath}/admin/deleteVoucher" method="POST">
 
         <input type="hidden" name="deleted-code" id="deleteCode">
 
@@ -260,14 +294,14 @@
             <h3>Xác nhận xóa</h3>
             <p>Bạn có chắc muốn xóa mã <b id="deleteVoucherCode"></b> này không?</p>
             <div class="btn-row">
-                <button class="btn-cancel" id="cancelDeleteBtn" type ="button">Không</button>
+                <button class="btn-cancel" id="cancelDeleteBtn" type="button">Không</button>
                 <button class="btn-save" id="confirmDeleteBtn" type="submit">Có</button>
             </div>
         </div>
     </form>
 </div>
 
-<c:if test = "${not empty message}" >
+<c:if test="${not empty message}">
     <script type="text/javascript">
         window.onload = function () {
             setTimeout(() => {
@@ -279,9 +313,9 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const addPopup       = document.getElementById('addPopup');
-        const tbody          = document.getElementById('promoTableBody');
-        const editPopup      = document.getElementById('editPopup');
+        const addPopup = document.getElementById('addPopup');
+        const tbody = document.getElementById('promoTableBody');
+        const editPopup = document.getElementById('editPopup');
         const deletedPopup = document.getElementById('deleteConfirmPopup');
         document.getElementById('openAddPopup').onclick = () => {
             addPopup.style.display = 'flex';
@@ -299,23 +333,23 @@
         };
         document.getElementById('closeAddPopup').onclick = () => addPopup.style.display = 'none';
         document.getElementById('cancelDeleteBtn').onclick = () => deletedPopup.style.display = 'none';
-        window.openEdit = function(code) {
+        window.openEdit = function (code) {
             const rows = Array.from(tbody.querySelectorAll('tr'))
                 .filter(r => !r.classList.contains('pagination-row'));
             const row = rows.find(r => r.cells[0].textContent.trim() === code);
             if (!row) return alert('Không tìm thấy mã!');
 
-            document.getElementById('editCode').value          = row.cells[0].textContent.trim(); // Mã
-            document.getElementById('editValueDisplay').value  = row.cells[1].textContent.trim(); // Giá trị
-            document.getElementById('editTypeDisplay').value   = row.cells[2].textContent.trim(); // Áp dụng
-            document.getElementById('editApplyDisplay').value  = row.cells[3].textContent.trim(); // Thể loại
-            document.getElementById('editMinOrder').value      = row.cells[5].textContent.trim().replace(/[^\d]/g, '') || 0;
-            document.getElementById('editMaxUsage').value      = row.cells[4].textContent.trim().split('/')[1]?.replace(/\D/g, '') || '100';
+            document.getElementById('editCode').value = row.cells[0].textContent.trim(); // Mã
+            document.getElementById('editValueDisplay').value = row.cells[1].textContent.trim(); // Giá trị
+            document.getElementById('editTypeDisplay').value = row.cells[2].textContent.trim(); // Áp dụng
+            document.getElementById('editApplyDisplay').value = row.cells[3].textContent.trim(); // Thể loại
+            document.getElementById('editMinOrder').value = row.cells[5].textContent.trim().replace(/[^\d]/g, '') || 0;
+            document.getElementById('editMaxUsage').value = row.cells[4].textContent.trim().split('/')[1]?.replace(/\D/g, '') || '100';
 
             const singleUseText = row.cells[6].textContent.trim();
-            document.getElementById('editSingleUse').checked   = (singleUseText === 'Một lần');
-            document.getElementById('editStart').value         = row.cells[7].textContent.trim();
-            document.getElementById('editEnd').value           = row.cells[8].textContent.trim();
+            document.getElementById('editSingleUse').checked = (singleUseText === 'Một lần');
+            document.getElementById('editStart').value = row.cells[7].textContent.trim();
+            document.getElementById('editEnd').value = row.cells[8].textContent.trim();
             editPopup.style.display = 'flex';
         };
         document.getElementById('closeEditPopup').onclick = () => editPopup.style.display = 'none';
@@ -325,7 +359,7 @@
 </script>
 
 <script>
-    (function(){
+    (function () {
         let currentPage = 1;
         const ROWS_PER_PAGE = 6;
 
@@ -353,7 +387,7 @@
             }
         }
 
-        function showPage(page){
+        function showPage(page) {
             const start = (page - 1) * ROWS_PER_PAGE;
             const end = start + ROWS_PER_PAGE;
             rows.forEach((r, idx) => {
@@ -417,10 +451,10 @@
 </script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const form = document.querySelector(".popup-box form");
 
-        form.addEventListener("submit", function(event) {
+        form.addEventListener("submit", function (event) {
             // Lấy giá trị các input
             const code = document.getElementById("addCode").value.trim();
             const discountTarget = document.getElementById("addTarget").value;

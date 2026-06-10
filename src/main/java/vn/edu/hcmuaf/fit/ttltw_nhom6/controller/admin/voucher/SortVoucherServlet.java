@@ -34,6 +34,7 @@ public class SortVoucherServlet extends HttpServlet {
 
 
         request.setAttribute("allVouchers", allVouchers);
+        VoucherDisplay.setPermissionAttributes(request);
         request.getRequestDispatcher("/frontend/admin/promotion.jsp")
                 .forward(request, response);
     }

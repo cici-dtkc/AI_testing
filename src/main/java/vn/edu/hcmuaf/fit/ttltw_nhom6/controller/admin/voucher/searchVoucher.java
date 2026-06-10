@@ -29,6 +29,7 @@ public class searchVoucher extends HttpServlet {
         request.setAttribute("size_voucher", allVouchers.size());
 
         request.setAttribute("allVouchers", allVouchers);
+        VoucherDisplay.setPermissionAttributes(request);
         request.getRequestDispatcher("/frontend/admin/promotion.jsp")
                 .forward(request, response);
     }
