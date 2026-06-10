@@ -172,6 +172,8 @@ public class UserPermissionDAO {
                     perms.add("manage_permissions");
                 } else if ("admin_promotion".equalsIgnoreCase(roleName)) {
                     perms.add("manage_promotion");
+                } else if ("admin_inventory".equalsIgnoreCase(roleName)) {
+                    perms.add("manage_inventory");
                 }
             }
         } catch (Exception e) {

@@ -29,15 +29,15 @@ public class AdminInventoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
-        if (request.getSession().getAttribute("currentUser") == null) {
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-
+boolean canEditInventory = RoleUtil.canManage(currentUser,"manage_inventory");
+        request.setAttribute("canEditInventory", canEditInventory);
         try {
             int threshold = 10;
             String thresholdStr = request.getParameter("threshold");

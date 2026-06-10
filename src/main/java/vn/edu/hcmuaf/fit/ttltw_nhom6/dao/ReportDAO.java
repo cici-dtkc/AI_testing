@@ -26,10 +26,8 @@ public class ReportDAO {
 
 
             Double totalRevenue = handle.createQuery(
-                            "SELECT COALESCE(SUM(total_amount), 0) " +
-                                    "FROM orders " +
-                                    "WHERE order_date IS NOT NULL " +
-                                    "AND DATE(order_date) BETWEEN :start AND :end"
+                            "SELECT COALESCE(SUM(total_amount), 0) FROM orders "
+                                    + "WHERE status = 'Completed' AND DATE(order_date) BETWEEN :start AND :end"
                     )
                     .bind("start", startDate)
                     .bind("end", endDate)

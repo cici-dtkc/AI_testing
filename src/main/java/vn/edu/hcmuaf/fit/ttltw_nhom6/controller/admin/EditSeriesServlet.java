@@ -35,16 +35,14 @@ public class EditSeriesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/SeriesManagement");
+        response.sendRedirect(request.getContextPath() + "/admin/SeriesManagement");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
         User currentUser = (User) request.getSession().getAttribute("currentUser");
         if (!RoleUtil.canManage(currentUser, "manage_series")) {
             request.getSession().setAttribute("errorMessage", "Bạn không có quyền thực hiện thao tác này.");
@@ -57,7 +55,7 @@ public class EditSeriesServlet extends HttpServlet {
 
             if (seriesIdParam == null || seriesIdParam.trim().isEmpty()) {
                 request.getSession().setAttribute("errorMessage", "Thiếu ID series!");
-                response.sendRedirect(request.getContextPath() + "/SeriesManagement");
+                response.sendRedirect(request.getContextPath() + "/admin/SeriesManagement");
                 return;
             }
 
@@ -67,7 +65,7 @@ public class EditSeriesServlet extends HttpServlet {
 
             if (!optionalSeries.isPresent()) {
                 request.getSession().setAttribute("errorMessage", "Không tìm thấy series!");
-                response.sendRedirect(request.getContextPath() + "/SeriesManagement");
+                response.sendRedirect(request.getContextPath() + "/admin/SeriesManagement");
                 return;
             }
 
@@ -94,7 +92,7 @@ public class EditSeriesServlet extends HttpServlet {
 
             if (seriesDAO.isSeriesNameExistsExcludingId(seriesName, seriesId)) {
                 request.getSession().setAttribute("errorMessage", "Tên series '" + seriesName + "' đã tồn tại!");
-                response.sendRedirect(request.getContextPath() + "/SeriesManagement");
+                response.sendRedirect(request.getContextPath() + "/admin/SeriesManagement");
                 return;
             }
 
@@ -126,7 +124,7 @@ public class EditSeriesServlet extends HttpServlet {
                 } catch (IOException e) {
                     e.printStackTrace();
                     request.getSession().setAttribute("errorMessage", "Lỗi khi upload ảnh mới: " + e.getMessage());
-                    response.sendRedirect(request.getContextPath() + "/SeriesManagement");
+                    response.sendRedirect(request.getContextPath() + "/admin/SeriesManagement");
                     return;
                 }
             }
@@ -147,6 +145,6 @@ public class EditSeriesServlet extends HttpServlet {
             e.printStackTrace();
             request.getSession().setAttribute("errorMessage", "Có lỗi xảy ra: " + e.getMessage());
         }
-        response.sendRedirect(request.getContextPath() + "/SeriesManagement");
+        response.sendRedirect(request.getContextPath() + "/admin/SeriesManagement");
     }
 }
