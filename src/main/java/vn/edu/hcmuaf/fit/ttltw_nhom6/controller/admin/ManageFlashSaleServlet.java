@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.FlashSaleComicsDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.FlashSaleDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.FlashSale;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.service.ACLChecker;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -28,6 +30,11 @@ public class ManageFlashSaleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("currentUser");
+        request.setAttribute("canAdd", ACLChecker.hasPermission(user, "ADD_FLASHSALE"));
+        request.setAttribute("canEdit", ACLChecker.hasPermission(user, "EDIT_FLASHSALE"));
+        request.setAttribute("canDelete", ACLChecker.hasPermission(user, "DELETE_FLASHSALE"));
+
         int pageSize = 5;
         int page = 1;
         String pageParam = request.getParameter("page");

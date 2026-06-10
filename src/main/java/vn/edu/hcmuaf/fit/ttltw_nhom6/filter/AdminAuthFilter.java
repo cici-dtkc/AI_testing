@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.RoleDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Role;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.service.ACLChecker;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.service.RoleHierarchyService;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.RoleUtil;
 
@@ -104,35 +105,66 @@ public class AdminAuthFilter implements Filter {
                     hasAccess = "admin_product".equalsIgnoreCase(roleName)
                             || RoleUtil.canManage(user, "manage_product")
                             || RoleUtil.canManage(user, "manage_category");
-                }
-                else if (isSeriesPath) {
+                } else if (isSeriesPath) {
                     // Chỉ admin_product mới được thêm/sửa/xóa Series
                     hasAccess = "admin_product".equalsIgnoreCase(roleName)
                             || RoleUtil.canManage(user, "manage_series");
-                }
-                else if (isFlashSalePath) {
-                    hasAccess = RoleUtil.canManage(user, "manage_flashsale");
-                }
-                else if (isInventoryPath) {
+                } else if (isFlashSalePath) {
+                    String action = httpRequest.getParameter("action");
+                    if ("detail".equals(action)) {
+                        hasAccess = true;
+                    } else {
+                        hasAccess = "admin_promotion".equalsIgnoreCase(roleName)
+                                || RoleUtil.canManage(user, "manage_flashsale");
+                    }
+                } else if (isInventoryPath) {
                     hasAccess = RoleUtil.canManage(user, "manage_inventory");
-                }
-                else if (path.startsWith("/admin/user-management")
+                } else if (path.startsWith("/admin/user-management")
                         || path.startsWith("/admin/permission-management")
                         || path.startsWith("/admin/permission-override")) {
                     hasAccess = "admin_user".equalsIgnoreCase(roleName)
                             || RoleUtil.canManage(user, "manage_user")
                             || RoleUtil.canManage(user, "manage_permissions");
-                }
-                else if (path.startsWith("/admin/orders") || path.startsWith("/admin/order-management")) {
+                } else if (path.startsWith("/admin/orders") || path.startsWith("/admin/order-management")) {
                     hasAccess = "admin_order".equalsIgnoreCase(roleName)
                             || RoleUtil.canManage(user, "manage_order");
-                }
-                else if (path.startsWith("/admin/vouchersManagement")) {
+                } else if (path.startsWith("/admin/vouchersManagement")
+                        || path.startsWith("/admin/vouchers")
+                        || path.startsWith("/admin/deleteVoucher")
+                        || path.startsWith("/admin/editVoucher")
+                        || path.startsWith("/admin/search-voucher")
+                        || path.startsWith("/admin/loadCategory")
+                        || path.startsWith("/admin/sortVoucher")) {
                     hasAccess = "admin_promotion".equalsIgnoreCase(roleName)
                             || RoleUtil.canManage(user, "manage_promotion");
-                }
-                else {
+                } else {
                     hasAccess = true;
+                }
+            }
+        }
+
+        boolean isPromotionOnly = path.startsWith("/admin/manage-flashsale") ||
+                path.startsWith("/admin/create-flashsale") ||
+                path.startsWith("/admin/vouchersManagement") ||
+                path.startsWith("/admin/vouchers") ||
+                path.startsWith("/admin/deleteVoucher") ||
+                path.startsWith("/admin/editVoucher") ||
+                path.startsWith("/admin/search-voucher") ||
+                path.startsWith("/admin/loadCategory") ||
+                path.startsWith("/admin/sortVoucher");
+
+        String currentAction = httpRequest.getParameter("action");
+        if (isPromotionOnly && !"detail".equals(currentAction) && !RoleHierarchyService.isSuperAdmin(role)) {
+            boolean isAdminRole = "admin".equalsIgnoreCase(roleName);
+            if (!isAdminRole) {
+                String method = httpRequest.getMethod();
+                if (!"GET".equalsIgnoreCase(method)) {
+                    boolean hasAnyPromotionPermission = ACLChecker.hasPermission(user, "VIEW_FLASHSALE")
+                            || ACLChecker.hasPermission(user, "VIEW_PROMOTION");
+                    if (!hasAnyPromotionPermission) {
+                        httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
+                        return;
+                    }
                 }
             }
         }

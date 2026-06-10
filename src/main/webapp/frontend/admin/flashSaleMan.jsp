@@ -28,9 +28,19 @@
                     <input type="text" id="searchInput" placeholder="Tìm kiếm tên Flash Sale">
                     <i class="fas fa-magnifying-glass"></i>
                 </div>
-                <button class="btn-add" id="openAddPopup">
-                    <i class="fas fa-plus"></i> Tạo Flash Sale
-                </button>
+                <c:choose>
+                    <c:when test="${canAdd}">
+                        <button class="btn-add" id="openAddPopup">
+                            <i class="fas fa-plus"></i> Tạo Flash Sale
+                        </button>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="btn-add" disabled title="Bạn không có quyền tạo"
+                                style="opacity:0.5; cursor:not-allowed;">
+                            <i class="fas fa-plus"></i> Tạo Flash Sale
+                        </button>
+                    </c:otherwise>
+                </c:choose>
             </div>
             <div class="flashSale-list">
                 <table class="flashSale-table">
@@ -74,13 +84,35 @@
                                         <button class="btn-view" data-id="${fs.id}">
                                             <i class="fa-solid fa-eye"></i>
                                         </button>
-                                        <button class="btn-edit openEditFlashSale" data-id="${fs.id}"
-                                                data-status="${fs.status}">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </button>
-                                        <button class="btn-delete" data-id="${fs.id}">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
+
+                                        <c:choose>
+                                            <c:when test="${canEdit}">
+                                                <button class="btn-edit openEditFlashSale" data-id="${fs.id}"
+                                                        data-status="${fs.status}">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button class="btn-edit" disabled title="Bạn không có quyền sửa"
+                                                        style="opacity:0.5; cursor:not-allowed;">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <c:choose>
+                                            <c:when test="${canDelete}">
+                                                <button class="btn-delete" data-id="${fs.id}">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button class="btn-delete" disabled title="Bạn không có quyền xóa"
+                                                        style="opacity:0.5; cursor:not-allowed;">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -239,9 +271,11 @@
         var TOTAL_PAGES = parseInt('${totalPages}') || 1;
         var CURRENT_PAGE = parseInt('${currentPage}') || 1;
         var BASE_URL = '${pageContext.request.contextPath}/admin/manage-flashsale';
+
         function buildUrl(page) {
             return BASE_URL + '?page=' + page;
         }
+
         function renderPagination() {
             var container = document.getElementById('paginationContainer');
             var paginationBody = document.getElementById('paginationBody');
@@ -273,6 +307,7 @@
             }
             container.innerHTML = html;
         }
+
         document.addEventListener('DOMContentLoaded', renderPagination);
     })();
 </script>

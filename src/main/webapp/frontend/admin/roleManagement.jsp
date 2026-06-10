@@ -76,7 +76,7 @@
 </div>
 
 <div id="overridePopup" class="popup-overlay">
-    <div class="popup-box" style="min-width: 550px">
+    <div class="popup-box" style="min-width: 550px; max-height: 80vh; overflow-y: auto;">
         <h3>Override Permission — <span id="overrideUserName"></span></h3>
         <input type="hidden" id="overrideUserId">
 

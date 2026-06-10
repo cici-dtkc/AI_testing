@@ -82,6 +82,7 @@ public class VoucherServlet extends HttpServlet {
 
             request.setAttribute("message","Tạo thành công!");
             request.setAttribute("allVouchers", voucherDao.getAllVouchers());
+            VoucherDisplay.setPermissionAttributes(request);
             request.getRequestDispatcher("/frontend/admin/promotion.jsp").forward(request, response);
         }
 
