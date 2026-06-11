@@ -178,6 +178,9 @@
                                     ${orderDetail.hasReviewed ? 'disabled' : ''}>
                                         ${orderDetail.hasReviewed ? 'Đã đánh giá' : 'Đánh giá'}
                                 </button>
+                                <a href="${pageContext.request.contextPath}/order-detail?orderId=${order.id}">
+                                    <button class="action-btn contact-seller">Chi tiết</button>
+                                </a>
                             </c:when>
 
                             <c:when test="${order.status == 'Pending'}">
@@ -187,10 +190,16 @@
                                 <button class="action-btn cancel-order" onclick="openCancelPopup(${order.id})">
                                     Hủy đơn hàng
                                 </button>
+                                <a href="${pageContext.request.contextPath}/order-detail?orderId=${order.id}">
+                                    <button class="action-btn contact-seller">Chi tiết</button>
+                                </a>
                             </c:when>
                             <c:when test="${order.status == 'AwaitingPickup'}">
                                 <a href="https://zalo.me/0394158994" target="_blank">
                                     <button class="action-btn contact-seller">Liên hệ</button>
+                                </a>
+                                <a href="${pageContext.request.contextPath}/order-detail?orderId=${order.id}">
+                                    <button class="action-btn contact-seller">Chi tiết</button>
                                 </a>
                             </c:when>
 
@@ -201,6 +210,9 @@
                                 <button class="action-btn receive-order" onclick="receiveOrder(${order.id})">
                                     Đã nhận hàng
                                 </button>
+                                <a href="${pageContext.request.contextPath}/order-detail?orderId=${order.id}">
+                                    <button class="action-btn contact-seller">Chi tiết</button>
+                                </a>
                             </c:when>
 
                             <c:when test="${order.status == 'Cancelled' || order.status == 'Returned'}">
@@ -209,6 +221,9 @@
 
                                 <a href="https://zalo.me/0394158994" target="_blank">
                                     <button class="action-btn contact-seller">Liên hệ</button>
+                                </a>
+                                <a href="${pageContext.request.contextPath}/order-detail?orderId=${order.id}">
+                                    <button class="action-btn contact-seller">Chi tiết</button>
                                 </a>
                             </c:when>
                         </c:choose>

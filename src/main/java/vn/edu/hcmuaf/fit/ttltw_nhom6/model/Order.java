@@ -3,6 +3,7 @@ package vn.edu.hcmuaf.fit.ttltw_nhom6.model;
 import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Order {
     private int id;
@@ -31,6 +32,22 @@ public class Order {
     private LocalDateTime createdAt;
     @ColumnName("tracking_code")
     private String trackingCode;
+    @ColumnName("confirmed_at")
+    private LocalDateTime confirmedAt;
+    @ColumnName("shipping_at")
+    private LocalDateTime shippingAt;
+    @ColumnName("delivered_at")
+    private LocalDateTime deliveredAt;
+    @ColumnName("completed_at")
+    private LocalDateTime completedAt;
+    @ColumnName("cancelled_at")
+    private LocalDateTime cancelledAt;
+    @ColumnName("returned_at")
+    private LocalDateTime returnedAt;
+    @ColumnName("product_discount")
+    private double productDiscount;
+    @ColumnName("shipping_discount")
+    private double shippingDiscount;
 
     public Order() {}
 
@@ -146,5 +163,102 @@ public class Order {
         this.trackingCode = trackingCode;
     }
 
+    public LocalDateTime getCancelledAt() {
+        return cancelledAt;
+    }
 
+    public void setCancelledAt(LocalDateTime cancelledAt) {
+        this.cancelledAt = cancelledAt;
+    }
+
+    public LocalDateTime getCompletedAt() {
+        return completedAt;
+    }
+
+    public void setCompletedAt(LocalDateTime completedAt) {
+        this.completedAt = completedAt;
+    }
+
+    public LocalDateTime getConfirmedAt() {
+        return confirmedAt;
+    }
+
+    public void setConfirmedAt(LocalDateTime confirmedAt) {
+        this.confirmedAt = confirmedAt;
+    }
+
+    public LocalDateTime getDeliveredAt() {
+        return deliveredAt;
+    }
+
+    public void setDeliveredAt(LocalDateTime deliveredAt) {
+        this.deliveredAt = deliveredAt;
+    }
+
+    public LocalDateTime getReturnedAt() {
+        return returnedAt;
+    }
+
+    public void setReturnedAt(LocalDateTime returnedAt) {
+        this.returnedAt = returnedAt;
+    }
+
+    public LocalDateTime getShippingAt() {
+        return shippingAt;
+    }
+
+    public void setShippingAt(LocalDateTime shippingAt) {
+        this.shippingAt = shippingAt;
+    }
+
+    public double getProductDiscount() {
+        return productDiscount;
+    }
+
+    public void setProductDiscount(double productDiscount) {
+        this.productDiscount = productDiscount;
+    }
+
+    public double getShippingDiscount() {
+        return shippingDiscount;
+    }
+
+    public void setShippingDiscount(double shippingDiscount) {
+        this.shippingDiscount = shippingDiscount;
+    }
+
+    public String getOrderDateFormatted() {
+        return orderDate != null
+                ? orderDate.format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"))
+                : "—";
+    }
+    public String getConfirmedAtFormatted() {
+        return confirmedAt != null
+                ? confirmedAt.format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"))
+                : "—";
+    }
+    public String getShippingAtFormatted() {
+        return shippingAt != null
+                ? shippingAt.format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"))
+                : "—";
+    }
+    public String getCompletedAtFormatted() {
+        return completedAt != null
+                ? completedAt.format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"))
+                : "—";
+    }
+    public String getCancelledAtFormatted() {
+        return cancelledAt != null
+                ? cancelledAt.format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"))
+                : "—";
+    }
+    public String getReturnedAtFormatted() {
+        return returnedAt != null
+                ? returnedAt.format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"))
+                : "—";
+    }
+
+    public double getOriginalItemTotal() {
+        return totalAmount - shippingFee + shippingDiscount + productDiscount + pointUsed;
+    }
 }
