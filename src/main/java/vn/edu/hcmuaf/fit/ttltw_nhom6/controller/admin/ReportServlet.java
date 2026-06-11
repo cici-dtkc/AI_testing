@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.ReportDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.FlashSaleDAO;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.VoucherDao;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Voucher;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -21,12 +23,14 @@ public class ReportServlet extends HttpServlet {
     private ReportDAO reportDAO;
     private FlashSaleDAO flashSaleDAO;
     private Gson gson;
+    private VoucherDao voucherDao;
 
     @Override
     public void init() throws ServletException {
         super.init();
         reportDAO = new ReportDAO();
         flashSaleDAO = new FlashSaleDAO();
+        voucherDao = new VoucherDao();
         gson = new Gson();
     }
 
@@ -35,6 +39,11 @@ public class ReportServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String path = request.getServletPath();
+
+        List<Voucher> allVoucher = voucherDao.getAllVouchers();
+        System.out.println("Vouchers size: " + allVoucher.size());
+        request.setAttribute("allVouchers", allVoucher);
+
 
         if ("/admin/ReportManagement".equals(path)) {
             request.getRequestDispatcher("/frontend/admin/report.jsp").forward(request, response);

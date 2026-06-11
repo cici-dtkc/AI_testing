@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="vn.edu.hcmuaf.fit.ttltw_nhom6.model.Voucher" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -199,73 +202,35 @@
                     <div class="voucher-tbody-scroll">
                         <table class="voucher-table">
                             <tbody>
+                            <c:forEach var="voucher" items="${allVouchers}">
+                                <tr>
+                                    <td><strong>${voucher.code}</strong></td>
 
-                            <tr>
-                                <td><strong>SALE2024</strong></td>
-                                <td>20%</td>
-                                <td><span class="vs-badge badge-ended">Hết hạn</span></td>
-                                <td>
-                                    <div class="usage-wrap">
-                                        <span class="usage-text">130/200</span>
-                                    </div>
-                                </td>
-                                <td>2.600.000đ</td>
-                            </tr>
-                            <tr>
-                                <td><strong>SUMMER30</strong></td>
-                                <td>30%</td>
-                                <td><span class="vs-badge badge-active">Đang hoạt động</span></td>
-                                <td>
-                                    <div class="usage-wrap">
-                                        <span class="usage-text">88/100</span>
-                                    </div>
-                                </td>
-                                <td>2.640.000đ</td>
-                            </tr>
-                            <tr>
-                                <td><strong>FLASH50</strong></td>
-                                <td>50%</td>
-                                <td><span class="vs-badge badge-ended">Hết hạn</span></td>
-                                <td>
-                                    <div class="usage-wrap">
-                                        <span class="usage-text">50/50</span>
-                                    </div>
-                                </td>
-                                <td>5.000.000đ</td>
-                            </tr>
-                            <tr>
-                                <td><strong>FREESHIP</strong></td>
-                                <td>20.000đ</td>
-                                <td><span class="vs-badge badge-active">Đang hoạt động</span></td>
-                                <td>
-                                    <div class="usage-wrap">
-                                        <span class="usage-text">45/150</span>
-                                    </div>
-                                </td>
-                                <td>900.000đ</td>
-                            </tr>
-                            <tr>
-                                <td><strong>VIP10</strong></td>
-                                <td>10%</td>
-                                <td><span class="vs-badge badge-scheduled">Sắp diễn ra</span></td>
-                                <td>
-                                    <div class="usage-wrap">
-                                        <span class="usage-text">0/300</span>
-                                    </div>
-                                </td>
-                                <td>0đ</td>
-                            </tr>
-                            <tr>
-                                <td><strong>TETsale</strong></td>
-                                <td>25%</td>
-                                <td><span class="vs-badge badge-ended">Hết hạn</span></td>
-                                <td>
-                                    <div class="usage-wrap">
-                                        <span class="usage-text">75/100</span>
-                                    </div>
-                                </td>
-                                <td>3.750.000đ</td>
-                            </tr>
+                                    <td>${voucher.discountValue}%</td>
+
+                                    <c:choose>
+                                        <c:when test="${voucher.expired}">
+                                            <td><span class="vs-badge badge-ended">Hết hạn</span></td>
+                                        </c:when>
+                                        <c:when test="${voucher.usedCount == voucher.quantity}">
+                                            <td><span class="vs-badge badge-ended">Hết lượt</span></td>
+                                        </c:when>
+
+                                        <c:otherwise>
+                                            <td><span class="vs-badge badge-active">Đang hoạt động</span></td>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                    <td>
+                                        <div class="usage-wrap">
+                                            <span class="usage-text">${voucher.usedCount}/${voucher.quantity}</span>
+                                        </div>
+                                    </td>
+                                    <td>2.600.000đ</td>
+                                </tr>
+
+                            </c:forEach>
+
 
                             </tbody>
                         </table>
