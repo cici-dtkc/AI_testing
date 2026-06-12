@@ -126,19 +126,7 @@
                     <h3>Top 5 voucher được dùng nhiều nhất</h3>
                     <div id="voucher-ranking-list">
 
-                        <c:forEach var="voucher" items="${Top5Vouchers}" varStatus="loop">
-                            <div class="vs-rank-item">
-                                <div class="vs-rank-badge">${loop.index +1}</div>
-                                <div class="vs-rank-info">
-                                    <div class="vs-rank-name">${voucher.code}</div>
-                                    <div class="vs-rank-bar-wrap"><div class="vs-rank-bar" style="width:${voucher.usedCount *100 /voucher.quantity}%"></div></div>
-                                    <span class="vs-usage-label">${voucher.usedCount}/${voucher.quantity} lượt · ${voucher.usedCount *100 /voucher.quantity}%</span>
-                                </div>
-                                <div class="vs-rank-usage">${voucher.usedCount} lượt</div>
-                            </div>
-                        </c:forEach>
-
-
+                            <p></p>
 
                     </div>
                 </div>
@@ -160,36 +148,11 @@
 
                     <div class="voucher-tbody-scroll">
                         <table class="voucher-table">
-                            <tbody>
-                            <c:forEach var="voucher" items="${allVouchers}">
+                            <tbody id="voucher-table-body">
+
                                 <tr>
-                                    <td><strong>${voucher.code}</strong></td>
-
-                                    <td>${voucher.discountValue}%</td>
-
-                                    <c:choose>
-                                        <c:when test="${voucher.expired}">
-                                            <td><span class="vs-badge badge-ended">Hết hạn</span></td>
-                                        </c:when>
-                                        <c:when test="${voucher.usedCount == voucher.quantity}">
-                                            <td><span class="vs-badge badge-ended">Hết lượt</span></td>
-                                        </c:when>
-
-                                        <c:otherwise>
-                                            <td><span class="vs-badge badge-active">Đang hoạt động</span></td>
-                                        </c:otherwise>
-                                    </c:choose>
-
-                                    <td>
-                                        <div class="usage-wrap">
-                                            <span class="usage-text">${voucher.usedCount}/${voucher.quantity}</span>
-                                        </div>
-                                    </td>
-                                    <td>2.600.000đ</td>
+                                    <td colspan="5"></td>
                                 </tr>
-
-                            </c:forEach>
-
 
                             </tbody>
                         </table>
@@ -244,6 +207,8 @@
                     updateTopProducts(data.topProducts);
                     updateChart(currentChartType);
                     updateFlashSales(data.flashSales);
+                    updateVoucherRanking(data.topVouchers);
+                    updateVoucherTable(data.allVouchers);
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -446,6 +411,51 @@
                     }
                 }
             });
+        }
+
+        function updateVoucherRanking(vouchers) {
+            const rankingEl = document.getElementById('voucher-ranking-list');
+            if (!vouchers || vouchers.length === 0) {
+                rankingEl.innerHTML = '<p>Không có voucher</p>';
+                return;
+            }
+            rankingEl.innerHTML = vouchers.map(function(v, i) {
+                const percent = v.quantity > 0 ? Math.round(v.usedCount * 100 / v.quantity) : 0;
+                return '<div class="vs-rank-item">' +
+                    '<div class="vs-rank-badge">' + (i + 1) + '</div>' +
+                    '<div class="vs-rank-info">' +
+                    '<div class="vs-rank-name">' + v.code + '</div>' +
+                    '<div class="vs-rank-bar-wrap"><div class="vs-rank-bar" style="width:' + percent + '%"></div></div>' +
+                    '<span class="vs-usage-label">' + v.usedCount + '/' + v.quantity + ' lượt · ' + percent + '%</span>' +
+                    '</div>' +
+                    '<div class="vs-rank-usage">' + v.usedCount + ' lượt</div>' +
+                    '</div>';
+            }).join('');
+        }
+
+        function updateVoucherTable(vouchers) {
+            const tbody = document.getElementById('voucher-table-body');
+            if (!vouchers || vouchers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5">Không có voucher</td></tr>';
+                return;
+            }
+            tbody.innerHTML = vouchers.map(function(v) {
+                let statusHtml;
+                if (v.expired) {
+                    statusHtml = '<span class="vs-badge badge-ended">Hết hạn</span>';
+                } else if (v.usedCount >= v.quantity) {
+                    statusHtml = '<span class="vs-badge badge-ended">Hết lượt</span>';
+                } else {
+                    statusHtml = '<span class="vs-badge badge-active">Đang hoạt động</span>';
+                }
+                return '<tr>' +
+                    '<td>' + v.code + '</td>' +
+                    '<td>' + v.discountValue + '%</td>' +
+                    '<td>' + statusHtml + '</td>' +
+                    '<td>' + v.usedCount + '/' + v.quantity + '</td>' +
+                    '<td>' + formatCurrency(v.savedRevenue || 0) + '</td>' +
+                    '</tr>';
+            }).join('');
         }
 
         document.querySelectorAll('.kpi-card[data-chart]').forEach(card => {
