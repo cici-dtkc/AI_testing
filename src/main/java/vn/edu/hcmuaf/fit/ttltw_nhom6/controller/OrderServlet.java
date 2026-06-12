@@ -375,6 +375,8 @@ public class OrderServlet extends HttpServlet {
             order.setShippingProvider(shippingMethod);
             order.setShippingFee(shippingFee);
             order.setPointUsed(pointsToUse);
+            order.setProductDiscount(voucherProductDiscount);
+            order.setShippingDiscount(voucherShippingDiscount);
             order.setCreatedAt(LocalDateTime.now());
 
 

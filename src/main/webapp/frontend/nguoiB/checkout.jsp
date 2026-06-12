@@ -192,6 +192,8 @@
                         </button>
                         <input type="hidden" name="voucherCode" id="voucherCode">
                         <input type="hidden" name="voucherShippingCode" id="voucherShippingCode">
+                        <input type="hidden" name="productDiscount" id="productDiscountInput" value="0">
+                        <input type="hidden" name="shippingDiscount" id="shippingDiscountInput" value="0">
                     </div>
                 </section>
             </form>
@@ -291,6 +293,7 @@
     const defaultProvince = document.getElementById('defaultProvince')?.value || '';
     const defaultDistrict = document.getElementById('defaultDistrict')?.value || '';
     const defaultWard = document.getElementById('defaultWard')?.value || '';
+
 
     const GHN_TOKEN = "bb67bb35-1796-11f1-b2c0-1ab1fd37f3b7";
     const GHN_SHOP_ID = 6302109;
@@ -731,7 +734,7 @@
             if (checked && checked.dataset.fee) {
                 document.getElementById('hiddenShippingFee').value = checked.dataset.fee;
             }
-
+            updateTotal();
             checkoutBtn.disabled = true;
             checkoutBtn.textContent = 'Đang xử lý...';
             districtSelect.disabled = false;
@@ -803,6 +806,11 @@
         setTimeout(() => backdrop.remove(), 5000);
     }
 
+    let tempSelectedProductVoucher = null;
+    let tempSelectedShippingVoucher = null;
+    let appliedProductVoucher = null;
+    let appliedShippingVoucher = null;
+
     function updateTotal() {
         const selectedShipping = document.querySelector('input[name="shipping"]:checked');
         const shippingFee = selectedShipping ? parseInt(selectedShipping.dataset.fee) || 0 : 0;
@@ -848,7 +856,10 @@
         } else {
             if (pointsDiscountRow) pointsDiscountRow.style.display = 'none';
         }
-
+        const pdInput = document.getElementById('productDiscountInput');
+        const sdInput = document.getElementById('shippingDiscountInput');
+        if (pdInput) pdInput.value = voucherProductDiscount;
+        if (sdInput) sdInput.value = voucherShippingDiscount;
         if (totalAmountSpan) totalAmountSpan.textContent = formatNumber(total) + ' đ';
     }
 
@@ -919,10 +930,6 @@
     const shippingVouchers = userVouchers.filter(v => v.discount_target === 'Vận chuyển');
 
     let currentTab = 'product';
-    let tempSelectedProductVoucher = null;
-    let tempSelectedShippingVoucher = null;
-    let appliedProductVoucher = null;
-    let appliedShippingVoucher = null;
 
     function switchVoucherTab(tab) {
         currentTab = tab;
