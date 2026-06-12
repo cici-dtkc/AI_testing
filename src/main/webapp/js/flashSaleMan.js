@@ -90,6 +90,32 @@ function initializeAddFlashSale() {
             searchResults.style.display = 'none';
         }
     });
+    document.getElementById('addByCategoryBtn')?.addEventListener('click', () => {
+        const select = document.getElementById('categorySelect');
+        const categoryId = select.value;
+        const categoryName = select.options[select.selectedIndex].text;
+
+        fetch(`${contextPath}/admin/search-comics?categoryId=${categoryId}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('notifyPopup')?.remove();
+
+                let addedCount = 0;
+                data.forEach(comic => {
+                    if (!document.getElementById('comic-' + comic.id)) {
+                        addComicToAddList(comic.id, comic.name);
+                        addedCount++;
+                    }
+                });
+
+                const skipped = data.length - addedCount;
+                let msg = `Đã thêm ${addedCount} truyện từ thể loại "${categoryName}"`;
+                if (skipped > 0) msg += ` (bỏ qua ${skipped} truyện đã có)`;
+                showNotifyPopup(msg, 'success');
+            });
+    });
+
+
     document.getElementById('createFlashSaleBtn')?.addEventListener('click', createFlashSale);
 }
 

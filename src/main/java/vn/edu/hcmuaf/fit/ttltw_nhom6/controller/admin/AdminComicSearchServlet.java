@@ -36,8 +36,21 @@ public class AdminComicSearchServlet extends HttpServlet {
 
         String keyword = request.getParameter("keyword");
         String searchType = request.getParameter("type");
+        String categoryIdParam = request.getParameter("categoryId");
 
         List<Comic> comics = new ArrayList<>();
+
+        if (categoryIdParam != null && !categoryIdParam.trim().isEmpty()) {
+
+            int categoryId = Integer.parseInt(categoryIdParam.trim());
+            List<Comic> result = comicDAO.getComicsByCategory1WithFlashSale(categoryId);
+            if (result != null){
+                comics.addAll(result);
+            }
+
+            sendJsonResponse(response, toSimplified(comics));
+            return;
+        }
 
         if (keyword == null || keyword.trim().isEmpty()) {
             sendJsonResponse(response, comics);
@@ -87,5 +100,16 @@ public class AdminComicSearchServlet extends HttpServlet {
     private void sendJsonResponse(HttpServletResponse response, Object data) throws IOException {
         String json = gson.toJson(data);
         response.getWriter().write(json);
+    }
+
+    private List<Map<String, Object>> toSimplified(List<Comic> comics) {
+        List<Map<String, Object>> result = new ArrayList<>();
+        for (Comic comic : comics) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", comic.getId());
+            map.put("name", comic.getNameComics());
+            result.add(map);
+        }
+        return result;
     }
 }

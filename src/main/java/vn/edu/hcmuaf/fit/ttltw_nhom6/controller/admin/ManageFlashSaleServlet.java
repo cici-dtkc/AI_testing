@@ -6,8 +6,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.CategoriesDao;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.FlashSaleComicsDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.FlashSaleDAO;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Category;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.FlashSale;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.service.ACLChecker;
@@ -22,11 +24,15 @@ import java.util.Map;
 @MultipartConfig
 @WebServlet("/admin/manage-flashsale")
 public class ManageFlashSaleServlet extends HttpServlet {
-
+    private CategoriesDao  categoriesDao;
     private final FlashSaleDAO flashSaleDAO = new FlashSaleDAO();
     private final FlashSaleComicsDAO flashSaleComicsDAO = new FlashSaleComicsDAO();
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
 
+    @Override
+    public void init() throws ServletException {
+        categoriesDao = new CategoriesDao();
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -53,10 +59,14 @@ public class ManageFlashSaleServlet extends HttpServlet {
         if (page > totalPages) {
             page = totalPages;
         }
+        List<Category> categories = categoriesDao.getAllCategories();
+
         request.setAttribute("flashSales", flashSales);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("timeFormatter", TIME_FORMATTER);
+        request.setAttribute("categories", categories);
+
         request.getRequestDispatcher("/frontend/admin/flashSaleMan.jsp").forward(request, response);
     }
     @Override
