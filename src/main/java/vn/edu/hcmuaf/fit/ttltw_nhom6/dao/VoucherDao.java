@@ -7,9 +7,12 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Voucher;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VoucherDao {
     private final Jdbi jdbi;
@@ -333,4 +336,56 @@ public class VoucherDao {
                         .list()
         );
     }
+
+    public List<Voucher> get5TheMostUsedVouchers() {
+        String sql = "select * from vouchers order by used_count DESC LIMIT 5";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(Voucher.class)
+                        .list()
+        );
+    }
+
+    public List<Map<String, Object>> getAllVouchersAsMap(LocalDate startDate, LocalDate endDate) {
+        String sql = "SELECT id, code, discount_value, quantity, used_count, end_date " +
+                "FROM vouchers WHERE start_date >= :startDate AND end_date <= :endDate " +
+                "ORDER BY used_count DESC";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("startDate", startDate)
+                        .bind("endDate", endDate)
+                        .map((rs, ctx) -> {
+                            Map<String, Object> m = new HashMap<>();
+                            m.put("code", rs.getString("code"));
+                            m.put("discountValue", rs.getBigDecimal("discount_value"));
+                            m.put("quantity", rs.getInt("quantity"));
+                            m.put("usedCount", rs.getInt("used_count"));
+                            java.sql.Timestamp endDate2 = rs.getTimestamp("end_date");
+                            m.put("expired", endDate2 != null && endDate2.toLocalDateTime().isBefore(java.time.LocalDateTime.now()));
+                            m.put("savedRevenue", 0);
+                            return m;
+                        })
+                        .list()
+        );
+    }
+
+    public List<Map<String, Object>> get5TheMostUsedVouchersAsMap(LocalDate startDate, LocalDate endDate) {
+        String sql = "SELECT code, quantity, used_count " +
+                "FROM vouchers WHERE start_date >= :startDate AND end_date <= :endDate " +
+                "ORDER BY used_count DESC LIMIT 5";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("startDate", startDate)
+                        .bind("endDate", endDate)
+                        .map((rs, ctx) -> {
+                            Map<String, Object> m = new HashMap<>();
+                            m.put("code", rs.getString("code"));
+                            m.put("quantity", rs.getInt("quantity"));
+                            m.put("usedCount", rs.getInt("used_count"));
+                            return m;
+                        })
+                        .list()
+        );
+    }
+
 }

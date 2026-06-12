@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.ReportDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.FlashSaleDAO;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.VoucherDao;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Voucher;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -21,12 +23,14 @@ public class ReportServlet extends HttpServlet {
     private ReportDAO reportDAO;
     private FlashSaleDAO flashSaleDAO;
     private Gson gson;
+    private VoucherDao voucherDao;
 
     @Override
     public void init() throws ServletException {
         super.init();
         reportDAO = new ReportDAO();
         flashSaleDAO = new FlashSaleDAO();
+        voucherDao = new VoucherDao();
         gson = new Gson();
     }
 
@@ -147,6 +151,8 @@ public class ReportServlet extends HttpServlet {
             List<Map<String, Object>> flashSaleStats = reportDAO.getFlashSaleTopRevenue(5);
             result.put("flashSales", flashSaleStats);
 
+            result.put("topVouchers", voucherDao.get5TheMostUsedVouchersAsMap(startDate, endDate));
+            result.put("allVouchers", voucherDao.getAllVouchersAsMap(startDate, endDate));
             String jsonResponse = gson.toJson(result);
 
             response.getWriter().write(jsonResponse);
