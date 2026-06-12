@@ -333,4 +333,13 @@ public class VoucherDao {
                         .list()
         );
     }
+
+    public List<Voucher> get5TheMostUsedVouchers() {
+        String sql = "select * from vouchers order by used_count DESC LIMIT 5";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .mapToBean(Voucher.class)
+                        .list()
+        );
+    }
 }

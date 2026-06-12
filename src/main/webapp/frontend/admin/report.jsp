@@ -126,60 +126,19 @@
                     <h3>Top 5 voucher được dùng nhiều nhất</h3>
                     <div id="voucher-ranking-list">
 
-                        <!--1-->
-                        <div class="vs-rank-item">
-                            <div class="vs-rank-badge">1</div>
-                            <div class="vs-rank-info">
-                                <div class="vs-rank-name">NEWUSER</div>
-                                <div class="vs-rank-bar-wrap"><div class="vs-rank-bar" style="width:100%"></div></div>
-                                <span class="vs-usage-label">210/500 lượt · 42%</span>
+                        <c:forEach var="voucher" items="${Top5Vouchers}" varStatus="loop">
+                            <div class="vs-rank-item">
+                                <div class="vs-rank-badge">${loop.index +1}</div>
+                                <div class="vs-rank-info">
+                                    <div class="vs-rank-name">${voucher.code}</div>
+                                    <div class="vs-rank-bar-wrap"><div class="vs-rank-bar" style="width:${voucher.usedCount *100 /voucher.quantity}%"></div></div>
+                                    <span class="vs-usage-label">${voucher.usedCount}/${voucher.quantity} lượt · ${voucher.usedCount *100 /voucher.quantity}%</span>
+                                </div>
+                                <div class="vs-rank-usage">${voucher.usedCount} lượt</div>
                             </div>
-                            <div class="vs-rank-usage">210 lượt</div>
-                        </div>
+                        </c:forEach>
 
-                        <!--1-->
-                        <div class="vs-rank-item">
-                            <div class="vs-rank-badge">2</div>
-                            <div class="vs-rank-info">
-                                <div class="vs-rank-name">SALE2024</div>
-                                <div class="vs-rank-bar-wrap"><div class="vs-rank-bar" style="width:62%"></div></div>
-                                <span class="vs-usage-label">130/200 lượt · 65%</span>
-                            </div>
-                            <div class="vs-rank-usage">130 lượt</div>
-                        </div>
 
-                        <!--1-->
-                        <div class="vs-rank-item">
-                            <div class="vs-rank-badge">3</div>
-                            <div class="vs-rank-info">
-                                <div class="vs-rank-name">SUMMER30</div>
-                                <div class="vs-rank-bar-wrap"><div class="vs-rank-bar" style="width:42%"></div></div>
-                                <span class="vs-usage-label">88/100 lượt · 88%</span>
-                            </div>
-                            <div class="vs-rank-usage">88 lượt</div>
-                        </div>
-
-                        <!--1-->
-                        <div class="vs-rank-item">
-                            <div class="vs-rank-badge">4</div>
-                            <div class="vs-rank-info">
-                                <div class="vs-rank-name">FLASH50</div>
-                                <div class="vs-rank-bar-wrap"><div class="vs-rank-bar" style="width:24%"></div></div>
-                                <span class="vs-usage-label">50/50 lượt · 100%</span>
-                            </div>
-                            <div class="vs-rank-usage">50 lượt</div>
-                        </div>
-
-                        <!--1-->
-                        <div class="vs-rank-item">
-                            <div class="vs-rank-badge">5</div>
-                            <div class="vs-rank-info">
-                                <div class="vs-rank-name">FREESHIP</div>
-                                <div class="vs-rank-bar-wrap"><div class="vs-rank-bar" style="width:21%"></div></div>
-                                <span class="vs-usage-label">45/150 lượt · 30%</span>
-                            </div>
-                            <div class="vs-rank-usage">45 lượt</div>
-                        </div>
 
                     </div>
                 </div>

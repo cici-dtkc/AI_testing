@@ -41,9 +41,10 @@ public class ReportServlet extends HttpServlet {
         String path = request.getServletPath();
 
         List<Voucher> allVoucher = voucherDao.getAllVouchers();
-        System.out.println("Vouchers size: " + allVoucher.size());
+        List<Voucher> Top5Vouchers = voucherDao.get5TheMostUsedVouchers();
+//        System.out.println("Vouchers size: " + allVoucher.size());
         request.setAttribute("allVouchers", allVoucher);
-
+        request.setAttribute("Top5Vouchers", Top5Vouchers);
 
         if ("/admin/ReportManagement".equals(path)) {
             request.getRequestDispatcher("/frontend/admin/report.jsp").forward(request, response);
