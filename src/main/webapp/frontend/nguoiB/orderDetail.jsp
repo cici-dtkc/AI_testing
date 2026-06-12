@@ -22,7 +22,16 @@
   <div class="order-history-container">
 
     <div class="detail-back-row">
-      <a href="${pageContext.request.contextPath}/order-history" class="btn-back">
+      <c:set var="backFilter" value="completed"/>
+      <c:choose>
+        <c:when test="${order.status == 'Pending'}"><c:set var="backFilter" value="pending"/></c:when>
+        <c:when test="${order.status == 'AwaitingPickup'}"><c:set var="backFilter" value="shipping"/></c:when>
+        <c:when test="${order.status == 'Shipping'}"><c:set var="backFilter" value="delivery"/></c:when>
+        <c:when test="${order.status == 'Completed'}"><c:set var="backFilter" value="completed"/></c:when>
+        <c:when test="${order.status == 'Cancelled'}"><c:set var="backFilter" value="canceled"/></c:when>
+        <c:when test="${order.status == 'Returned'}"><c:set var="backFilter" value="refund"/></c:when>
+      </c:choose>
+      <a href="${pageContext.request.contextPath}/order-history?filter=${backFilter}" class="btn-back">
         <i class="fa-solid fa-arrow-left"></i> Trở lại
       </a>
       <h2 class="detail-title">Chi tiết đơn hàng <span>#${order.id}</span></h2>
@@ -37,21 +46,21 @@
           <div class="step-label">Đơn Hàng Đã Đặt</div>
           <div class="step-time">${order.orderDateFormatted}</div>
         </div>
-        <div class="step-line ${s == 'Pending' ? '' : 'done'}"></div>
+        <div class="step-line ${s == 'Pending' || s == 'Cancelled' ? '' : 'done'}"></div>
 
-        <div class="step ${s == 'Pending' ? 'pending-step' : 'done'}">
+        <div class="step ${s == 'Pending' || s == 'Cancelled' ? 'pending-step' : 'done'}">
           <div class="step-icon"><i class="fa-solid fa-circle-dollar-to-slot"></i></div>
           <div class="step-label">Đã Xác Nhận</div>
           <div class="step-time">${order.confirmedAtFormatted}</div>
         </div>
-        <div class="step-line ${s == 'Pending' || s == 'AwaitingPickup' ? '' : 'done'}"></div>
+        <div class="step-line ${s == 'Pending' || s == 'AwaitingPickup' || s == 'Cancelled' ? '' : 'done'}"></div>
 
-        <div class="step ${s == 'Pending' || s == 'AwaitingPickup' ? 'pending-step' : 'done'}">
+        <div class="step ${s == 'Pending' || s == 'AwaitingPickup' || s == 'Cancelled' ? 'pending-step' : 'done'}">
           <div class="step-icon"><i class="fa-solid fa-truck"></i></div>
           <div class="step-label">Đã Giao Cho ĐVVC</div>
           <div class="step-time">${order.shippingAtFormatted}</div>
         </div>
-        <div class="step-line ${s == 'Completed' || s == 'Cancelled' || s == 'Returned' ? 'done' : ''}"></div>
+        <div class="step-line ${s == 'Completed' || s == 'Cancelled' ? 'done' : ''}"></div>
 
         <div class="step ${s == 'Completed' ? 'done' : (s == 'Cancelled' ? 'cancelled-step' : (s == 'Returned' ? 'returned-step' : 'pending-step'))}">
           <div class="step-icon">
@@ -77,9 +86,9 @@
             </c:choose>
           </div>
         </div>
-        <div class="step-line ${s == 'Completed' ? 'done' : ''}"></div>
+        <div class="step-line ${s == 'Completed' && hasReviewed ? 'done' : ''}"></div>
 
-        <div class="step ${s == 'Completed' ? 'done' : 'pending-step'}">
+        <div class="step ${s == 'Completed' && hasReviewed ? 'done' : 'pending-step'}">
           <div class="step-icon"><i class="fa-solid fa-star"></i></div>
           <div class="step-label">Đánh Giá</div>
           <div class="step-time">—</div>
@@ -130,7 +139,7 @@
           </div>
         </c:if>
 
-        <c:if test="${order.status == 'Shipping' || order.status == 'Completed'}">
+        <c:if test="${order.status == 'Shipping' || order.status == 'Completed' || order.status == 'Returned'}">
           <div class="tl-item">
             <div class="tl-dot tl-dot--done"><i class="fa-solid fa-truck"></i></div>
             <div class="tl-body">
@@ -141,7 +150,7 @@
           </div>
         </c:if>
 
-        <c:if test="${order.status == 'AwaitingPickup' || order.status == 'Shipping' || order.status == 'Completed'}">
+        <c:if test="${order.status == 'AwaitingPickup' || order.status == 'Shipping' || order.status == 'Completed' || order.status == 'Returned'}">
           <div class="tl-item">
             <div class="tl-dot tl-dot--done"><i class="fa-solid fa-box"></i></div>
             <div class="tl-body">
@@ -238,7 +247,7 @@
         </div>
         <div class="summary-row">
           <span>Phí vận chuyển</span>
-          <span><fmt:formatNumber value="${order.shippingFee + order.shippingDiscount}" type="number" groupingUsed="true"/>đ</span>
+          <span><fmt:formatNumber value="${order.shippingFee}" type="number" groupingUsed="true"/>đ</span>
         </div>
 
           <c:if test="${order.shippingDiscount != null and order.shippingDiscount > 0}">

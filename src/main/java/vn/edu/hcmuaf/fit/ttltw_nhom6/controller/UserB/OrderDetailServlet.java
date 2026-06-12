@@ -20,6 +20,7 @@ public class OrderDetailServlet extends HttpServlet {
     private ComicDAO comicDAO;
     private PaymentDAO paymentDAO;
     private FlashSaleComicsDAO flashSaleComicsDAO;
+    private ReviewDAO reviewDAO;
 
     @Override
     public void init() throws ServletException {
@@ -27,6 +28,7 @@ public class OrderDetailServlet extends HttpServlet {
         comicDAO = new ComicDAO();
         paymentDAO = new PaymentDAO();
         flashSaleComicsDAO = new FlashSaleComicsDAO();
+        reviewDAO = new ReviewDAO();
     }
 
     @Override
@@ -112,6 +114,8 @@ public class OrderDetailServlet extends HttpServlet {
         request.setAttribute("items", itemsWithComics);
         request.setAttribute("paymentMethod", paymentMethod);
 
+        boolean hasReviewed = reviewDAO.hasUserReviewedOrder(user.getId(), orderId);
+        request.setAttribute("hasReviewed", hasReviewed);
         request.getRequestDispatcher("/frontend/nguoiB/orderDetail.jsp")
                 .forward(request, response);
     }
