@@ -6,9 +6,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.RoleDAO;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.UserDao;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.db.JdbiConnector;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.model.Role;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.User;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.service.ACLChecker;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.service.RoleHierarchyService;
 
 import java.io.IOException;
 import java.util.List;
@@ -68,10 +72,13 @@ public class UserManagementServlet extends HttpServlet {
                 }
             }
 
+            User currentUser = (User) request.getSession().getAttribute("currentUser");
+            Role currentRole = new RoleDAO().getRoleById(currentUser.getRoleId());
+            boolean isAdminUser = "admin_user".equalsIgnoreCase(currentRole.getRoleName()) || RoleHierarchyService.isSuperAdmin(currentRole);
+            request.setAttribute("canLock", isAdminUser || ACLChecker.hasPermission(currentUser, "LOCK_USER"));
+            request.setAttribute("canUnlock", isAdminUser || ACLChecker.hasPermission(currentUser, "UNLOCK_USER"));
+            request.setAttribute("canUpgrade", isAdminUser || ACLChecker.hasPermission(currentUser, "UPGRADE_USER"));
 
-//            if (users != null && !users.isEmpty()) {
-//                System.out.println("First user: " + users.get(0));
-//            }
 
             request.setAttribute("users", users);
             request.getRequestDispatcher("/frontend/admin/userManagement.jsp").forward(request, response);
