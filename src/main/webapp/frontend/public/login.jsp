@@ -117,6 +117,12 @@
         errorBox.style.display = "none";
         errorBox.innerText = "";
 
+        const usernameHint = document.getElementById("usernameHint");
+        const passwordHint = document.getElementById("passwordHint");
+        if (usernameHint.classList.contains("error") || passwordHint.classList.contains("error")) {
+            return false;
+        }
+
         if (username === "") {
             showError("Vui lòng nhập email hoặc tên đăng nhập");
             document.getElementById("username").focus();
@@ -213,20 +219,22 @@
         }
 
         if (val.length < 8) {
-            setInputState(this, hint, false, `Mật khẩu phải có ít nhất 8 ký tự (cần thêm ${8 - val.length} ký tự)`);
+            setInputState(this, hint, false, "Mật khẩu phải có ít nhất 8 ký tự");
             return;
         }
 
         const hasUpper = /[A-Z]/.test(val);
         const hasLower = /[a-z]/.test(val);
         const hasSpecial = /[\W_]/.test(val);
+        const hasNumber = /[0-9]/.test(val);
 
-        if (!hasUpper || !hasLower || !hasSpecial) {
+        if (!hasUpper || !hasLower || !hasSpecial || !hasNumber) {
             let missing = [];
             if (!hasUpper) missing.push("chữ hoa");
             if (!hasLower) missing.push("chữ thường");
+            if (!hasNumber) missing.push("chữ số");
             if (!hasSpecial) missing.push("ký tự đặc biệt");
-            setInputState(this, hint, false, `Mật khẩu phải có: ${missing.join(", ")}`);
+            setInputState(this, hint, false, "Mật khẩu phải có " + missing.join(", "));
             return;
         }
 

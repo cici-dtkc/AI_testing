@@ -50,7 +50,7 @@
                 <strong>Thành công:</strong> ${success}
             </div>
         </c:if>
-        <form action="${pageContext.request.contextPath}/change-password" method="post">
+        <form  id="changePasswordForm" action="${pageContext.request.contextPath}/change-password" method="post">
             <div class="form-group">
                 <label for="current-password">Mật khẩu hiện tại*:</label>
                 <input type="password" id="current-password" name="current-password" required>
@@ -58,7 +58,7 @@
             <div class="form-group">
                 <label for="new-password">Mật khẩu mới*:</label>
                 <input type="password" id="new-password" name="new-password" required>
-                <p class="password-requirement">Yêu cầu: Tối thiểu 8 ký tự, bao gồm chữ hoa và thường, số và ký tự đặc biệt.</p>
+                <p id="passwordHint" class="password-requirement">Yêu cầu: Tối thiểu 8 ký tự, bao gồm chữ hoa và thường, số và ký tự đặc biệt.</p>
             </div>
             <div class="form-group">
                 <label for="confirm-password">Xác nhận mật khẩu mới*:</label>
@@ -73,6 +73,95 @@
     </div>
 </main>
 <jsp:include page="/frontend/public/Footer.jsp"/>
+
+<script>
+    const newPasswordInput = document.getElementById("new-password");
+    const passwordHint = document.getElementById("passwordHint");
+
+    newPasswordInput.addEventListener("input", function () {
+        const val = this.value;
+
+        if (val === "") {
+            passwordHint.style.color = "";
+            passwordHint.innerText = "Yêu cầu: Tối thiểu 8 ký tự, bao gồm chữ hoa và thường, số và ký tự đặc biệt.";
+            return;
+        }
+
+        let missing = [];
+        const hasSpecial = /[^A-Za-z0-9]/.test(val);
+
+        if (val.length < 8) missing.push("ít nhất 8 ký tự");
+        if (!/[A-Z]/.test(val)) missing.push("chữ hoa");
+        if (!/[a-z]/.test(val)) missing.push("chữ thường");
+        if (!/[0-9]/.test(val)) missing.push("chữ số");
+        if (!hasSpecial) missing.push("ký tự đặc biệt");
+
+        if (missing.length > 0) {
+            passwordHint.style.color = "red";
+            passwordHint.innerText = "Mật khẩu còn thiếu " + missing.join(", ");
+        }else {
+            passwordHint.style.color = "green";
+            passwordHint.innerText = "Mật khẩu hợp lệ";
+        }
+        if (confirmPasswordInput.value !== "") {
+            confirmPasswordInput.dispatchEvent(new Event("input"));
+        }
+    });
+
+    const confirmPasswordInput = document.getElementById("confirm-password");
+    const confirmHint = document.createElement("p");
+    confirmHint.className = "password-requirement";
+    confirmPasswordInput.parentNode.insertBefore(confirmHint, confirmPasswordInput.nextSibling);
+
+    confirmPasswordInput.addEventListener("input", function () {
+        const val = this.value;
+
+        if (val === "") {
+            confirmHint.style.color = "";
+            confirmHint.innerText = "";
+            return;
+        }
+
+        if (val !== newPasswordInput.value) {
+            confirmHint.style.color = "red";
+            confirmHint.innerText = "Mật khẩu không giống";
+        } else {
+            confirmHint.style.color = "green";
+            confirmHint.innerText = "Mật khẩu hợp lệ";
+        }
+    });
+
+    newPasswordInput.addEventListener("input", function () {
+        if (confirmPasswordInput.value !== "") {
+            confirmPasswordInput.dispatchEvent(new Event("input"));
+        }
+    });
+
+    document.getElementById("changePasswordForm").addEventListener("submit", function (e) {
+        const newVal     = newPasswordInput.value;
+        const confirmVal = confirmPasswordInput.value;
+
+        const isValid = newVal.length >= 8
+            && /[A-Z]/.test(newVal)
+            && /[a-z]/.test(newVal)
+            && /[0-9]/.test(newVal)
+            && /[^A-Za-z0-9]/.test(newVal);
+
+        if (!isValid) {
+            e.preventDefault();
+            newPasswordInput.focus();
+            return;
+        }
+
+        if (confirmVal !== newVal) {
+            e.preventDefault();
+            confirmHint.style.color = "red";
+            confirmHint.innerText = "Mật khẩu không giống";
+            confirmPasswordInput.focus();
+        }
+    });
+</script>
+
 
 </body>
 </html>
