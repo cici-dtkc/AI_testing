@@ -119,12 +119,27 @@ public class AdminAuthFilter implements Filter {
                     }
                 } else if (isInventoryPath) {
                     hasAccess = RoleUtil.canManage(user, "manage_inventory");
-                } else if (path.startsWith("/admin/user-management")
-                        || path.startsWith("/admin/permission-management")
-                        || path.startsWith("/admin/permission-override")) {
-                    hasAccess = "admin_user".equalsIgnoreCase(roleName)
-                            || RoleUtil.canManage(user, "manage_user")
-                            || RoleUtil.canManage(user, "manage_permissions");
+
+//                } else if (path.startsWith("/admin/user-management")
+//                        || path.startsWith("/admin/permission-management")
+//                        || path.startsWith("/admin/permission-override")) {
+//                    hasAccess = "admin_user".equalsIgnoreCase(roleName)
+//                            || RoleUtil.canManage(user, "manage_user")
+//                            || RoleUtil.canManage(user, "manage_permissions");
+                } else if (path.startsWith("/admin/user-management")) {
+                        String action = httpRequest.getParameter("action");
+                            if ("admin_user".equalsIgnoreCase(roleName)) {
+                                hasAccess = true;
+                            } else if ("lock".equals(action)) {
+                                hasAccess = ACLChecker.hasPermission(user, "LOCK_USER");
+                            } else if ("unlock".equals(action)) {
+                                hasAccess = ACLChecker.hasPermission(user, "UNLOCK_USER");
+                            } else if ("upgrade".equals(action)) {
+                                hasAccess = ACLChecker.hasPermission(user, "UPGRADE_USER");
+                            } else {
+                                hasAccess = false;
+                            }
+
                 } else if (path.startsWith("/admin/orders") || path.startsWith("/admin/order-management")) {
                     hasAccess = "admin_order".equalsIgnoreCase(roleName)
                             || RoleUtil.canManage(user, "manage_order");
