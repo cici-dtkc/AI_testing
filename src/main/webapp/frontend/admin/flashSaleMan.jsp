@@ -155,6 +155,20 @@
                     <input type="datetime-local" name="endTime" required>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label>Thêm theo thể loại</label>
+                <div class="category-select-row">
+                    <select id="categorySelect">
+                        <option value="">-- Áp thể loại --</option>
+                        <c:forEach var="cat" items="${categories}">
+                            <option value="${cat.id}">${cat.nameCategories}</option>
+                        </c:forEach>
+                    </select>
+                    <button type="button" id="addByCategoryBtn">Thêm thể loại</button>
+                </div>
+            </div>
+
             <h4>Áp dụng cho truyện:</h4>
             <div class="comic-search-container">
                 <input type="text" id="comicSearchInput"

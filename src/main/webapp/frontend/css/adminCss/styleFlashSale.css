@@ -616,3 +616,36 @@ body {
     color: #fff;
     border-color: #FF7A7A;
 }
+
+.category-select-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 3px;
+}
+
+.category-select-row select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+
+.category-select-row select:focus {
+    border-color: #4a90d9;
+}
+
+#addByCategoryBtn {
+    padding: 10px 16px;
+    background: #4a90d9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 14px;
+    transition: background 0.2s;
+}
