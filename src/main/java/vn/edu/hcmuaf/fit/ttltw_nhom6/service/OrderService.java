@@ -203,6 +203,7 @@ public class OrderService {
                     data.put("cancelledBy", "N/A");
                     data.put("cancelledAt", null);
                 }
+                enrichSingleCancelledBy(data);
             } catch (Exception e) {
                 data.put("cancellationReason", "Không có lý do");
                 data.put("cancelledBy", "N/A");
@@ -644,14 +645,72 @@ public class OrderService {
      * Tìm kiếm đơn hàng cho tab TRẢ HÀNG/HOÀN TIỀN
      */
     public List<Map<String, Object>> searchReturnedOrders(String keyword) {
-        return searchOrdersByTab(keyword, "Returned");
+        try {
+            List<Map<String, Object>> returns = orderReturnDAO.searchReturns(keyword);
+            for (Map<String, Object> returnOrder : returns) {
+                formatReturnOrderData(returnOrder);
+            }
+            return returns;
+        } catch (Exception e) {
+            System.err.println("Error in searchReturnedOrders: " + e.getMessage());
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     /**
      * Tìm kiếm đơn hàng cho tab ĐƠN BỊ HỦY
      */
     public List<Map<String, Object>> searchCancelledOrders(String keyword) {
-        return searchOrdersByTab(keyword, "Cancelled");
+        List<Map<String, Object>> orders = searchOrdersByTab(keyword, "Cancelled");
+        enrichCancelledByName(orders);
+        return orders;
+    }
+
+    private void enrichCancelledByName(List<Map<String, Object>> orders) {
+        for (Map<String, Object> order : orders) {
+            enrichSingleCancelledBy(order);
+        }
+    }
+
+    private void enrichSingleCancelledBy(Map<String, Object> order) {
+        Object cancelledByObj = order.get("cancelledBy");
+        if (cancelledByObj == null) return;
+        String cancelledBy = cancelledByObj.toString().trim();
+        if ("Admin".equalsIgnoreCase(cancelledBy)) {
+            order.put("cancelledBy", "Admin");
+            return;
+        }
+
+        try {
+            int userId = -1;
+
+            if (cancelledBy.matches("\\d+")) {
+                userId = Integer.parseInt(cancelledBy);
+            } else if ("Customer".equalsIgnoreCase(cancelledBy)) {
+                Object userIdObj = order.get("userId");
+                if (userIdObj != null) {
+                    userId = ((Number) userIdObj).intValue();
+                }
+            }
+
+            if (userId > 0) {
+                User user = userDAO.getUserById(userId);
+                if (user != null) {
+                    String displayName = user.getFullName() != null
+                            ? user.getFullName()
+                            : user.getEmail();
+                    order.put("cancelledBy", "Customer");
+                    order.put("cancelledByName", displayName);
+                } else {
+                    order.put("cancelledBy", "Customer");
+                    order.put("cancelledByName", "Khách hàng");
+                }
+            }
+        } catch (Exception e) {
+            order.put("cancelledBy", "Customer");
+            order.put("cancelledByName", "Khách hàng");
+        }
     }
 
     /**
