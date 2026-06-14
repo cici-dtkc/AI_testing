@@ -207,7 +207,7 @@ public class OrderServlet extends HttpServlet {
 
                 String returnURL = "https://nonpunctual-lissa-tychistic.ngrok-free.dev"
                         + request.getContextPath() + "/vnpay-return";
-                String orderInfo = "Thanh toan don hang - " + recipientName.trim();
+                String orderInfo = "Thanh toan don hang " + user.getId();
                 String paymentUrl = VNPayUtils.createPaymentUrl(
                         user.getId(), totalVnpay, orderInfo, returnURL, ipAddress
                 );
