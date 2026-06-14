@@ -41,7 +41,11 @@ public class ReportServlet extends HttpServlet {
         String path = request.getServletPath();
 
         if ("/admin/ReportManagement".equals(path)) {
-            request.setAttribute("comicSold", reportDAO.comicSold());
+//            List<Map<String, Object>> comics = reportDAO.comicSold();
+//            int totalSold = comics.stream().mapToInt(c -> ((Number)c.get("total_sold")).intValue()).sum();
+//
+//            request.setAttribute("totalSold", totalSold);
+//            request.setAttribute("comicSold", comics);
             request.getRequestDispatcher("/frontend/admin/report.jsp").forward(request, response);
             return;
         }
@@ -154,6 +158,13 @@ public class ReportServlet extends HttpServlet {
 
             result.put("topVouchers", voucherDao.get5TheMostUsedVouchersAsMap(startDate, endDate));
             result.put("allVouchers", voucherDao.getAllVouchersAsMap(startDate, endDate));
+
+            List<Map<String, Object>> comicsSold = reportDAO.comicSold(startDate, endDate);
+            int totalSold = comicsSold.stream().mapToInt(c -> ((Number) c.get("total_sold")).intValue()).sum();
+
+            result.put("comicsSold", comicsSold);
+            result.put("totalSold", totalSold);
+
             String jsonResponse = gson.toJson(result);
 
             response.getWriter().write(jsonResponse);

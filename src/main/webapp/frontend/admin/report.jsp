@@ -166,7 +166,7 @@
             <div class="comics-status-wrapper">
                 <div class="comics-status-box sold-box">
                     <h3>Truyện đã bán
-                        <span class="comics-count-badge" id="sold-count">0</span>
+                        <span class="comics-count-badge" id="sold-count"></span>
                     </h3>
                     <input type="text" class="comics-search" id="sold-search"
                            placeholder="Tìm kiếm truyện">
@@ -181,14 +181,7 @@
                             </thead>
 
                             <tbody id="sold-comics-body">
-                               <c:forEach var="comic" items="${comicSold}">
-                                   <tr>
-                                   <tr>
-                                       <td>${comic['name_comics']}</td>
-                                       <td>${comic['total_sold']}</td>
-                                        <td>${comic['revenue']}đ</td>
-                               </tr>
-                               </c:forEach>
+                                <tr><td colspan="3"></td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -268,6 +261,7 @@
                     updateFlashSales(data.flashSales);
                     updateVoucherRanking(data.topVouchers);
                     updateVoucherTable(data.allVouchers);
+                    updateComicsSold(data.comicsSold, data.totalSold);
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -515,6 +509,27 @@
                     '<td>' + formatCurrency(v.savedRevenue || 0) + '</td>' +
                     '</tr>';
             }).join('');
+        }
+
+        function updateComicsSold(comicsSold, totalSold) {
+            const tbody = document.getElementById('sold-comics-body');
+            const countBadge = document.getElementById('sold-count');
+
+            if (countBadge) countBadge.textContent = totalSold || 0;
+
+            if (!comicsSold || comicsSold.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3">Không có truyện</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = comicsSold.map(c =>
+                '<tr>' +
+                '<td>' + c.name_comics + '</td>' +
+                '<td>' + formatNumber(c.total_sold) + '</td>' +
+                '<td>' + formatCurrency(c.revenue) + '</td>' +
+                '</tr>'
+            ).join('');
+
         }
 
         document.querySelectorAll('.kpi-card[data-chart]').forEach(card => {

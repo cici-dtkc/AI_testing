@@ -237,14 +237,21 @@ public class ReportDAO {
         });
     }
 
-    public List<Map<String, Object>> comicSold() {
-        String sql = "SELECT c.id, c.name_comics, SUM(oi.quantity) AS total_sold, SUM(oi.quantity * c.price) AS revenue " +
-                "FROM comics c JOIN order_items oi ON c.id = oi.comic_id JOIN orders o ON oi.order_id = o.id " +
-                "WHERE YEAR(o.order_date) = YEAR(CURDATE()) AND o.status IN ('completed','success') " +
-                "GROUP BY c.id, c.name_comics ";
+    public List<Map<String, Object>> comicSold(LocalDate startDate, LocalDate endDate) {
+        String sql = "SELECT c.id, c.name_comics, SUM(oi.quantity) AS total_sold, " +
+                "SUM(oi.quantity * c.price) AS revenue " +
+                "FROM comics c " +
+                "JOIN order_items oi ON c.id = oi.comic_id " +
+                "JOIN orders o ON oi.order_id = o.id " +
+                "WHERE o.order_date BETWEEN :startDate AND :endDate " +
+                "AND o.status IN ('completed','success') " +
+                "GROUP BY c.id, c.name_comics " +
+                "ORDER BY total_sold DESC";
 
         return jdbi.withHandle(handle ->
                 handle.createQuery(sql)
+                        .bind("startDate", startDate)
+                        .bind("endDate", endDate)
                         .mapToMap()
                         .list()
         );
