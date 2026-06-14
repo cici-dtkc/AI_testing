@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="vn.edu.hcmuaf.fit.ttltw_nhom6.model.Voucher" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -172,15 +173,22 @@
                     <div class="comics-scroll">
                         <table class="comics-table">
                             <thead>
-                            <tr>
-                                <th>Tên truyện</th>
-                                <th>Đã bán</th>
-                                <th>Doanh thu</th>
-                            </tr>
+                                <tr>
+                                    <th>Tên truyện</th>
+                                    <th>Đã bán</th>
+                                    <th>Doanh thu</th>
+                                </tr>
                             </thead>
 
                             <tbody id="sold-comics-body">
-                                <tr><td colspan="3" class="comics-empty">không có</td></tr>
+                               <c:forEach var="comic" items="${comicSold}">
+                                   <tr>
+                                   <tr>
+                                       <td>${comic['name_comics']}</td>
+                                       <td>${comic['total_sold']}</td>
+                                        <td>${comic['revenue']}đ</td>
+                               </tr>
+                               </c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -196,16 +204,19 @@
                         <table class="comics-table">
 
                             <thead>
-                            <tr>
-                                <th>Tên truyện</th>
-                                <th>Thể loại</th>
-                                <th>Trạng thái</th>
-                            </tr>
+                                <tr>
+                                    <th>Tên truyện</th>
+                                    <th>Số lượng trong kho</th>
+                                </tr>
                             </thead>
 
                             <tbody id="unsold-comics-body">
-                                <tr><td colspan="3" class="comics-empty">không có</td></tr>
+                                <tr>
+                                    <td>Dragon Ball</td>
+                                    <td>1000</td>
+                                </tr>
                             </tbody>
+
                         </table>
                     </div>
                 </div>

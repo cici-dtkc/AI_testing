@@ -41,6 +41,7 @@ public class ReportServlet extends HttpServlet {
         String path = request.getServletPath();
 
         if ("/admin/ReportManagement".equals(path)) {
+            request.setAttribute("comicSold", reportDAO.comicSold());
             request.getRequestDispatcher("/frontend/admin/report.jsp").forward(request, response);
             return;
         }
