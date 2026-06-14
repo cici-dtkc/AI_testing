@@ -256,4 +256,23 @@ public class ReportDAO {
                         .list()
         );
     }
+
+    public List<Map<String, Object>> comicUnsold(LocalDate startDate, LocalDate endDate) {
+        String sql = "SELECT c.id, c.name_comics, c.stock_quantity AS stock " +
+                "FROM comics c " +
+                "WHERE c.id NOT IN ( " +
+                "    SELECT DISTINCT oi.comic_id FROM order_items oi " +
+                "    JOIN orders o ON oi.order_id = o.id " +
+                "    WHERE o.order_date BETWEEN :startDate AND :endDate " +
+                "    AND o.status IN ('completed','success') " +
+                ") " +
+                "ORDER BY c.name_comics";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("startDate", startDate)
+                        .bind("endDate", endDate)
+                        .mapToMap()
+                        .list()
+        );
+    }
 }

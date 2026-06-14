@@ -657,3 +657,6 @@ body {
 @media (max-width: 1200px) {
     .comics-status-wrapper { flex-direction: column; }
 }
+.comics-table th {
+    white-space: nowrap;
+}
