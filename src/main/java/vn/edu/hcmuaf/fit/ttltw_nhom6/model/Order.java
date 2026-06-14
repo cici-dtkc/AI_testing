@@ -48,6 +48,12 @@ public class Order {
     private double productDiscount;
     @ColumnName("shipping_discount")
     private double shippingDiscount;
+    @ColumnName("user_name")
+    private String userName;
+    private Double averageRating;
+    private Integer reviewCount;
+
+
 
     public Order() {}
 
@@ -260,5 +266,52 @@ public class Order {
 
     public double getOriginalItemTotal() {
         return totalAmount - shippingFee + shippingDiscount + productDiscount + pointUsed;
+    }
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public Integer getReviewCount() {
+        return reviewCount;
+    }
+
+    public void setReviewCount(Integer reviewCount) {
+        this.reviewCount = reviewCount;
+    }
+    public boolean getHasReview() {
+        return reviewCount != null && reviewCount > 0;
+    }
+
+    public int getFullStars() {
+        if (averageRating == null) return 0;
+        return (int) averageRating.doubleValue();
+    }
+
+    public boolean getHasHalfStar() {
+        if (averageRating == null) return false;
+
+        double decimal = averageRating - averageRating.intValue();
+        return decimal >= 0.5;
+    }
+
+    public int getEmptyStars() {
+        return 5 - getFullStars() - (getHasHalfStar() ? 1 : 0);
+    }
+
+    public String getFormattedRating() {
+        if (averageRating == null) return "0.0";
+        return String.format("%.1f", averageRating);
     }
 }

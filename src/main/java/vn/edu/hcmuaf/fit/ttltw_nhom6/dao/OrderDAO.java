@@ -247,7 +247,13 @@ public class OrderDAO extends ADao {
                     updateSql = "UPDATE orders SET status = ?, shipping_at = NOW() WHERE id = ?";
                     break;
                 case "Completed":
-                    updateSql = "UPDATE orders SET status = ?, completed_at = NOW() WHERE id = ?";
+                    updateSql = """
+        UPDATE orders
+        SET status = ?,
+            delivered_at = COALESCE(delivered_at, NOW()),
+            completed_at = NOW()
+        WHERE id = ?
+        """;
                     break;
                 case "Cancelled":
                     updateSql = "UPDATE orders SET status = ?, cancelled_at = NOW() WHERE id = ?";
@@ -696,81 +702,105 @@ public class OrderDAO extends ADao {
      * Tìm kiếm đơn hàng đã giao với thông tin đánh giá
      */
     public List<Map<String, Object>> searchCompletedOrdersWithRating(String keyword) {
+
         if (keyword == null) keyword = "";
 
         String trimmedKeyword = keyword.trim();
         boolean isNumber = trimmedKeyword.matches("\\d+");
 
-        String sqlById = """
-        SELECT 
-            o.id, o.user_id, o.order_date, o.total_amount,
-            o.recipient_name, o.shipping_phone, o.shipping_address,
-            o.shipping_provider, o.shipping_fee, o.points_used, o.status,
-            p.payment_method, p.payment_status, p.transaction_id,
-            AVG(r.rating) as average_rating,
-            COUNT(r.id) as review_count
-        FROM orders o
-        LEFT JOIN payments p ON o.id = p.order_id
-        LEFT JOIN reviews r ON o.id = r.order_id
-        WHERE o.status = 'Completed' AND o.id = ?
-        GROUP BY o.id, o.user_id, o.order_date, o.total_amount,
-                 o.recipient_name, o.shipping_phone, o.shipping_address,
-                 o.shipping_provider, o.shipping_fee, o.points_used, o.status,
-                 p.payment_method, p.payment_status, p.transaction_id
-        ORDER BY o.order_date DESC
-    """;
+        String baseSelect = """
+        SELECT
+            o.id,
+            o.user_id,
+            o.order_date,
+            o.completed_at,
+            o.delivered_at,
+            o.total_amount,
+            o.recipient_name,
+            o.shipping_phone,
+            o.shipping_address,
+            o.shipping_provider,
+            o.shipping_fee,
+            o.points_used,
+            o.status,
 
-        String sqlByName = """
-        SELECT 
-            o.id, o.user_id, o.order_date, o.total_amount,
-            o.recipient_name, o.shipping_phone, o.shipping_address,
-            o.shipping_provider, o.shipping_fee, o.points_used, o.status,
-            p.payment_method, p.payment_status, p.transaction_id,
-            AVG(r.rating) as average_rating,
-            COUNT(r.id) as review_count
-        FROM orders o
-        LEFT JOIN payments p ON o.id = p.order_id
-        LEFT JOIN reviews r ON o.id = r.order_id
-        WHERE o.status = 'Completed' 
-          AND LOWER(o.recipient_name) LIKE LOWER(?)
-        GROUP BY o.id, o.user_id, o.order_date, o.total_amount,
-                 o.recipient_name, o.shipping_phone, o.shipping_address,
-                 o.shipping_provider, o.shipping_fee, o.points_used, o.status,
-                 p.payment_method, p.payment_status, p.transaction_id
-        ORDER BY o.order_date DESC
-    """;
+            p.payment_method,
+            p.payment_status,
+            p.transaction_id,
 
-        String sqlAll = """
-        SELECT 
-            o.id, o.user_id, o.order_date, o.total_amount,
-            o.recipient_name, o.shipping_phone, o.shipping_address,
-            o.shipping_provider, o.shipping_fee, o.points_used, o.status,
-            p.payment_method, p.payment_status, p.transaction_id,
-            AVG(r.rating) as average_rating,
-            COUNT(r.id) as review_count
+            AVG(r.rating) AS average_rating,
+            COUNT(r.id) AS review_count
+
         FROM orders o
-        LEFT JOIN payments p ON o.id = p.order_id
-        LEFT JOIN reviews r ON o.id = r.order_id
-        WHERE o.status = 'Completed'
-        GROUP BY o.id, o.user_id, o.order_date, o.total_amount,
-                 o.recipient_name, o.shipping_phone, o.shipping_address,
-                 o.shipping_provider, o.shipping_fee, o.points_used, o.status,
-                 p.payment_method, p.payment_status, p.transaction_id
-        ORDER BY o.order_date DESC
-    """;
+        LEFT JOIN payments p
+            ON o.id = p.order_id
+        LEFT JOIN reviews r
+            ON o.id = r.order_id
+        """;
+
+        String groupOrder = """
+        GROUP BY
+            o.id,
+            o.user_id,
+            o.order_date,
+            o.completed_at,
+            o.delivered_at,
+            o.total_amount,
+            o.recipient_name,
+            o.shipping_phone,
+            o.shipping_address,
+            o.shipping_provider,
+            o.shipping_fee,
+            o.points_used,
+            o.status,
+            p.payment_method,
+            p.payment_status,
+            p.transaction_id
+
+        ORDER BY COALESCE(o.completed_at, o.order_date) DESC
+        """;
+
+        String sqlById =
+                baseSelect +
+                        """
+                        WHERE o.status = 'Completed'
+                          AND o.id = ?
+                        """
+                        + groupOrder;
+
+        String sqlByName =
+                baseSelect +
+                        """
+                        WHERE o.status = 'Completed'
+                          AND LOWER(o.recipient_name) LIKE LOWER(?)
+                        """
+                        + groupOrder;
+
+        String sqlAll =
+                baseSelect +
+                        """
+                        WHERE o.status = 'Completed'
+                        """
+                        + groupOrder;
 
         return jdbi.withHandle(handle -> {
+
             if (isNumber && !trimmedKeyword.isEmpty()) {
+
                 return handle.createQuery(sqlById)
                         .bind(0, Integer.parseInt(trimmedKeyword))
                         .mapToMap()
                         .list();
+
             } else if (!trimmedKeyword.isEmpty()) {
+
                 return handle.createQuery(sqlByName)
                         .bind(0, "%" + trimmedKeyword + "%")
                         .mapToMap()
                         .list();
+
             } else {
+
                 return handle.createQuery(sqlAll)
                         .mapToMap()
                         .list();
