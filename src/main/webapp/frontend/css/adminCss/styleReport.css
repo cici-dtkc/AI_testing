@@ -567,3 +567,93 @@ body {
     font-size: 11px;
     font-weight: 600;
 }
+
+.comics-status-wrapper {
+    display: flex;
+    gap: 24px;
+    margin-top: 28px;
+}
+
+.comics-status-box {
+    flex: 1;
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.comics-status-box h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comics-count-badge {
+    margin-left: auto;
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.comics-search {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-bottom: 12px;
+    outline: none;
+}
+.comics-search:focus { border-color: #2196F3; }
+
+.comics-scroll {
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.comics-table { width: 100%; border-collapse: collapse; }
+.comics-table th {
+    text-align: left;
+    padding: 10px 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    background: #fafafa;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 0;
+}
+.comics-table td {
+    padding: 10px 8px;
+    font-size: 13px;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+}
+.comics-table tr:last-child td { border-bottom: none; }
+.comics-table tr:hover td { background: #f9f9f9; }
+
+.sold-qty { font-weight: 600; color: #2e7d32; }
+.unsold-label {
+    font-size: 11px;
+    color: #c62828;
+    background: #fdecea;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+.comics-empty {
+    text-align: center;
+    color: #999;
+    padding: 30px 0;
+    font-style: italic;
+}
+
+@media (max-width: 1200px) {
+    .comics-status-wrapper { flex-direction: column; }
+}

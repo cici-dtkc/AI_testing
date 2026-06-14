@@ -162,6 +162,54 @@
             </div>
 
 
+            <div class="comics-status-wrapper">
+                <div class="comics-status-box sold-box">
+                    <h3>Truyện đã bán
+                        <span class="comics-count-badge" id="sold-count">0</span>
+                    </h3>
+                    <input type="text" class="comics-search" id="sold-search"
+                           placeholder="Tìm kiếm truyện">
+                    <div class="comics-scroll">
+                        <table class="comics-table">
+                            <thead>
+                            <tr>
+                                <th>Tên truyện</th>
+                                <th>Đã bán</th>
+                                <th>Doanh thu</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="sold-comics-body">
+                                <tr><td colspan="3" class="comics-empty">không có</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="comics-status-box unsold-box">
+                    <h3>Truyện chưa bán
+                        <span class="comics-count-badge" id="unsold-count">0</span>
+                    </h3>
+                    <input type="text" class="comics-search" id="unsold-search"
+                           placeholder="Tìm kíếm truyện">
+                    <div class="comics-scroll">
+                        <table class="comics-table">
+
+                            <thead>
+                            <tr>
+                                <th>Tên truyện</th>
+                                <th>Thể loại</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="unsold-comics-body">
+                                <tr><td colspan="3" class="comics-empty">không có</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
