@@ -237,7 +237,8 @@ public class CartDAO {
     public int checkout(int cartId, int userId, int shippingAddressId,
                         String recipientName, String shippingPhone,
                         String shippingAddress, String shippingProvider,
-                        double shippingFee, int pointsUsed) throws Exception {
+                        double shippingFee, int pointsUsed,
+                        double productDiscount, double shippingDiscount) throws Exception {
 
         return jdbi.inTransaction(handle -> {
 
@@ -342,18 +343,21 @@ public class CartDAO {
 
                 subtotal += unitPrice * qty;
             }
-            double totalAmount = subtotal + shippingFee;
+            double totalAmount = subtotal + shippingFee - productDiscount - shippingDiscount - pointsUsed;
+            if (totalAmount < 0) totalAmount = 0;
 
             String trackingCode = generateTrackingCode(shippingProvider);
             int orderId = handle.createUpdate(
                             "INSERT INTO orders " +
                                     "  (user_id, status, total_amount, shipping_address_id, " +
                                     "   recipient_name, shipping_phone, shipping_address, " +
-                                    "   shipping_provider, shipping_fee, points_used, tracking_code, order_date, created_at) " +
+                                    "   shipping_provider, shipping_fee, points_used, tracking_code, " +
+                                    "product_discount, shipping_discount, order_date, created_at) " +
                                     "VALUES " +
                                     "  (:userId, 'pending', :totalAmount, :shippingAddressId, " +
                                     "   :recipientName, :shippingPhone, :shippingAddress, " +
-                                    "   :shippingProvider, :shippingFee, :pointsUsed, :tracking, NOW(), NOW())")
+                                    "   :shippingProvider, :shippingFee, :pointsUsed, :tracking, " +
+                                    ":productDiscount, :shippingDiscount, NOW(), NOW())")
                     .bind("userId", userId)
                     .bind("totalAmount", totalAmount)
                     .bind("shippingAddressId", shippingAddressId)
@@ -364,6 +368,8 @@ public class CartDAO {
                     .bind("shippingFee", shippingFee)
                     .bind("pointsUsed", pointsUsed)
                     .bind("tracking", trackingCode)
+                    .bind("productDiscount", productDiscount)
+                    .bind("shippingDiscount", shippingDiscount)
                     .executeAndReturnGeneratedKeys("id")
                     .mapTo(Integer.class)
                     .one();

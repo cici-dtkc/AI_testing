@@ -171,7 +171,7 @@ public class OrderHistoryServlet extends HttpServlet {
                             session.invalidate();
                             message = "Hủy đơn thành công. Tài khoản của bạn đã bị khóa 24 giờ do hủy quá nhiều đơn hàng!";
                         } else {
-                            message = "Không thể hủy đơn hàng";
+                            message = "Hủy đơn hàng thành công!";
                         }
                     } else {
                         message = "Không thể hủy đơn hàng";

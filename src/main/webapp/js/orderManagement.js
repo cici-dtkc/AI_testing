@@ -511,29 +511,36 @@ window.closeOrderDetailPopup = closeOrderDetailPopup;
         }
     };
 
-
     function searchOrders(keyword, config) {
         const tbody = document.getElementById(config.tbody);
         const paginationContainer = document.getElementById(config.pagination);
         if (!tbody || !paginationContainer) return;
 
         if (!keyword || keyword.trim() === '') {
-            const allRows = Array.from(tbody.querySelectorAll('tr')).filter(r => !isPaginationRow(r));
-            allRows.forEach(row => row.style.display = '');
-            const rowsPerPage = 5;
-            const totalPages = Math.ceil(allRows.length / rowsPerPage);
-            let currentPage = 1;
-            function goToPage(page) {
-                currentPage = page;
-                showPage(page, allRows, rowsPerPage);
-                renderPaginationButtons(paginationContainer, totalPages, currentPage, goToPage);
-            }
-            renderPaginationButtons(paginationContainer, totalPages, currentPage, goToPage);
-            if (totalPages > 0) showPage(1, allRows, rowsPerPage);
+            showLoading(tbody);
+            fetch(`${BASE_URL}/admin/orders?action=loadTab&status=${config.status}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (!data.success) return;
+
+                    tbody.querySelectorAll('tr:not([class*="pagination-row"])').forEach(r => r.remove());
+
+                    const fragment = document.createDocumentFragment();
+                    (data.orders || []).forEach(order => {
+                        const row = createOrderRow(order, config.status);
+                        fragment.appendChild(row);
+                    });
+
+                    const paginationRow = tbody.querySelector('[class*="pagination-row"]');
+                    if (paginationRow) tbody.insertBefore(fragment, paginationRow);
+                    else tbody.appendChild(fragment);
+
+                    attachButtonEvents(tbody, config.status);
+                    initDynamicPagination(config.tbody, config.pagination, config.pageButtonClass, 5);
+                })
+                .catch(() => showError(tbody, 'Lỗi kết nối'));
             return;
         }
-
-        showLoading(tbody);
 
         fetch(`${BASE_URL}/admin/orders?action=searchByTab&keyword=${encodeURIComponent(keyword)}&status=${config.status}`)
             .then(response => response.json())
@@ -692,10 +699,17 @@ window.closeOrderDetailPopup = closeOrderDetailPopup;
     }
 
     function createReturnedRow(order) {
-        const returnStatus = order.return_status
-            || order.returnStatus
-            || order.status
-            || '';
+        const orderCode    = order.order_code    || order.orderCode    || order.id || '';
+        const customerName = order.customer_name || order.customerName || order.userName || order.recipientName || '';
+        const reason= order.reason || '';
+        const refundAmount = order.formatted_refund_amount || order.formattedAmount || '';
+        const statusClass  = order.status_class  || order.statusClass  || '';
+        const statusDisplay= order.status_display|| order.statusDisplay|| '';
+        const returnId     = order.return_id     || order.returnId     || '';
+        const productName  = order.product_name  || order.productName  || '';
+        const quantity     = order.total_quantity|| order.quantity     || '';
+        const returnDate   = order.formatted_return_date || order.returnDate || '';
+        const returnStatus = order.return_status || order.returnStatus || order.status || '';
         const isPending = returnStatus === 'Pending';
 
         let displayReason = order.reason || '';
@@ -704,28 +718,28 @@ window.closeOrderDetailPopup = closeOrderDetailPopup;
         }
 
         const actionButtons = isPending
-            ? `<button class="btn-refund" data-return-id="${order.return_id}">Xác nhận hoàn tiền</button>
-           <button class="btn-reject" 
-                   data-return-id="${order.return_id}" 
-                   data-order-code="${order.order_code || ''}" 
-                   data-customer="${order.customer_name || ''}">Từ chối</button>`
+            ? `<button class="btn-refund" data-return-id="${returnId}">Xác nhận hoàn tiền</button>
+           <button class="btn-reject"
+                   data-return-id="${returnId}"
+                   data-order-code="${orderCode}"
+                   data-customer="${customerName}">Từ chối</button>`
             : `<span style="color: #999;">-</span>`;
 
         return `
-        <td>${order.order_code || order.id}</td>
-        <td>${order.customer_name || ''}</td>
+        <td>${orderCode}</td>
+        <td>${customerName}</td>
         <td class="reason-cell">${displayReason}</td>
-        <td class="amount-cell">${order.formatted_refund_amount || ''}</td>
-        <td><span class="status ${order.status_class || ''}">${order.status_display || ''}</span></td>
+        <td class="amount-cell">${refundAmount}</td>
+        <td><span class="status ${statusClass}">${statusDisplay}</span></td>
         <td>
             <button class="btn-detail"
-                data-return-id="${order.return_id}"
-                data-order-code="${order.order_code || ''}"
-                data-customer="${order.customer_name || ''}"
-                data-product="${order.product_name || ''}"
-                data-quantity="${order.total_quantity || order.quantity || ''}"
-                data-amount="${order.formatted_refund_amount || ''}"
-                data-date="${order.formatted_return_date || ''}">
+                data-return-id="${returnId}"
+                data-order-code="${orderCode}"
+                data-customer="${customerName}"
+                data-product="${productName}"
+                data-quantity="${quantity}"
+                data-amount="${refundAmount}"
+                data-date="${returnDate}">
                 Xem
             </button>
         </td>
@@ -740,7 +754,8 @@ window.closeOrderDetailPopup = closeOrderDetailPopup;
         if (cancelledBy === 'Admin') {
             cancelledByDisplay = '<span style="color: #dc2626; font-weight: 500;"><i class="fas fa-user-shield"></i> Admin</span>';
         } else if (cancelledBy === 'Customer') {
-            cancelledByDisplay = '<span style="color: #2563eb; font-weight: 500;"><i class="fas fa-user"></i> Khách hàng</span>';
+            const name = order.cancelledByName || 'Khách hàng';
+            cancelledByDisplay = `<span style="color: #2563eb; font-weight: 500;"><i class="fas fa-user"></i> ${name}</span>`;
         }
 
         return `
@@ -871,12 +886,12 @@ window.closeOrderDetailPopup = closeOrderDetailPopup;
         }
         if (status === 'Returned') {
             tbody.querySelectorAll('.btn-refund').forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     window.confirmRefund(this);
                 });
             });
             tbody.querySelectorAll('.btn-reject').forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     window.openRejectPopup(this);
                 });
             });
@@ -932,6 +947,11 @@ window.closeOrderDetailPopup = closeOrderDetailPopup;
                 searchInput.addEventListener('keypress', function (e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
+                        performSearch();
+                    }
+                });
+                searchInput.addEventListener('input', function () {
+                    if (this.value.trim() === '') {
                         performSearch();
                     }
                 });
@@ -1001,9 +1021,6 @@ window.closeOrderDetailPopup = closeOrderDetailPopup;
         fetch(`${BASE_URL}/admin/orders?action=loadTab&status=${status}`)
             .then(r => r.json())
             .then(data => {
-                if (status === 'Returned') {
-                    console.log('Returns data sample:', data.orders?.[0]);
-                }
                 loadingRow.remove();
 
                 if (!data.success) {
@@ -1050,9 +1067,8 @@ window.closeOrderDetailPopup = closeOrderDetailPopup;
             ).length > 0;
 
             if (hasJspData) {
-                loadedTabs.add(4); // Ngăn lazy load xóa data JSP
+                loadedTabs.add(4);
                 initDynamicPagination('returnTableBody', 'returnPagination', 'return-page', 5);
-                // Attach events cho nút từ JSP
                 returnTbody.querySelectorAll('.btn-refund').forEach(btn => {
                     btn.addEventListener('click', function() {
                         window.confirmRefund(this);
@@ -1078,4 +1094,154 @@ window.closeOrderDetailPopup = closeOrderDetailPopup;
         }
         // const savedTab = typeof getSavedTab === 'function' ? getSavedTab() : 0;
     });
+})();
+
+(function () {
+    const SUGGESTION_CONFIGS = [
+        { inputId: 'pendingSearch',   status: 'Pending'        },
+        { inputId: 'pickupSearch',    status: 'AwaitingPickup' },
+        { inputId: 'deliverSearch',   status: 'Shipping'       },
+        { inputId: 'deliveredSearch', status: 'Completed'      },
+        { inputId: 'returnSearch',    status: 'Returned'       },
+        { inputId: 'cancelledSearch', status: 'Cancelled'      },
+    ];
+
+    function highlightMatch(text, keyword) {
+        if (!keyword || !text) return text || '';
+        const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        return text.replace(new RegExp(`(${escaped})`, 'gi'),
+            '<span class="suggestion-highlight">$1</span>');
+    }
+
+    function initSuggestion({ inputId, status }) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+
+        const dropdown = input.parentElement.querySelector('.search-suggestions');
+        if (!dropdown) return;
+        let debounceTimer = null;
+        let currentIndex = -1;
+        let currentSuggestions = [];
+        let lastKeyword = '';
+
+        function showDropdown(items, keyword) {
+            currentSuggestions = items;
+            currentIndex = -1;
+            dropdown.innerHTML = '';
+
+            if (!items || items.length === 0) {
+                dropdown.innerHTML =
+                    '<div class="suggestion-empty">' +
+                    '<i class="fas fa-search"></i> Không tìm thấy kết quả</div>';
+                dropdown.classList.add('show');
+                return;
+            }
+
+            items.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.dataset.index = idx;
+                div.innerHTML =
+                    '<i class="fas fa-receipt suggestion-icon"></i>' +
+                    '<div class="suggestion-content">' +
+                    '<div class="suggestion-order-code">' +
+                    '<span class="suggestion-label">Mã đơn: </span>' +
+                    highlightMatch(item.orderCode || '', keyword) +
+                    '</div>' +
+                    '<div class="suggestion-customer">' +
+                    '<span class="suggestion-label">Khách hàng: </span>' +
+                    highlightMatch(item.userName || '', keyword) +
+                    '</div>' +
+                    '</div>';
+
+                div.addEventListener('mousedown', function (e) {
+                    e.preventDefault();
+                    hideDropdown();
+                    const searchEvent = new KeyboardEvent('keypress',
+                        { key: 'Enter', bubbles: true });
+                    input.dispatchEvent(searchEvent);
+                });
+                dropdown.appendChild(div);
+            });
+            dropdown.classList.add('show');
+        }
+
+        function showLoading() {
+            dropdown.innerHTML =
+                '<div class="suggestion-loading">' +
+                '<i class="fas fa-spinner fa-spin"></i> Đang tìm...</div>';
+            dropdown.classList.add('show');
+        }
+
+        function hideDropdown() {
+            dropdown.classList.remove('show');
+            currentIndex = -1;
+        }
+
+        function fetchSuggestions(keyword) {
+            if (!keyword || keyword.trim().length < 1) {
+                hideDropdown();
+                return;
+            }
+            showLoading();
+            fetch(`${BASE_URL}/admin/orders?action=searchSuggestions` +
+                `&keyword=${encodeURIComponent(keyword)}&status=${status}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        showDropdown(data.suggestions, keyword.trim());
+                    } else {
+                        hideDropdown();
+                    }
+                })
+                .catch(() => hideDropdown());
+        }
+
+        input.addEventListener('input', function () {
+            clearTimeout(debounceTimer);
+            const kw = this.value.trim();
+            lastKeyword = kw;
+            if (!kw) { hideDropdown(); return; }
+            debounceTimer = setTimeout(() => fetchSuggestions(kw), 300);
+        });
+
+        input.addEventListener('keydown', function (e) {
+            const items = dropdown.querySelectorAll('.suggestion-item');
+            if (!dropdown.classList.contains('show') || items.length === 0) return;
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                currentIndex = Math.min(currentIndex + 1, items.length - 1);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                currentIndex = Math.max(currentIndex - 1, -1);
+            } else if (e.key === 'Enter') {
+                hideDropdown();
+                return;
+            } else if (e.key === 'Escape') {
+                hideDropdown();
+                return;
+            }
+
+            items.forEach((el, i) =>
+                el.classList.toggle('highlighted', i === currentIndex));
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!input.parentElement.contains(e.target)) {
+                hideDropdown();
+            }
+        });
+
+        input.addEventListener('focus', function () {
+            if (this.value.trim()) fetchSuggestions(this.value.trim());
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () =>
+            SUGGESTION_CONFIGS.forEach(initSuggestion));
+    } else {
+        SUGGESTION_CONFIGS.forEach(initSuggestion);
+    }
 })();

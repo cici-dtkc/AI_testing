@@ -61,6 +61,9 @@ public class AdminOrderManagementServlet extends HttpServlet {
                     case "loadTab":
                         loadTabData(req, resp);
                         break;
+                    case "searchSuggestions":
+                        searchSuggestions(req, resp);
+                        break;
                     default:
                         displayOrderManagement(req, resp);
                 }
@@ -68,6 +71,72 @@ public class AdminOrderManagementServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
+        }
+    }
+
+    private void searchSuggestions(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
+        String keyword = req.getParameter("keyword");
+        String status  = req.getParameter("status");
+
+        if (keyword == null || keyword.trim().isEmpty()) {
+            resp.getWriter().write(gson.toJson(Map.of("success", true, "suggestions", new ArrayList<>())));
+            return;
+        }
+
+        try {
+            List<Map<String, Object>> orders;
+            switch (status != null ? status : "") {
+                case "Pending":
+                    orders = orderService.searchPendingOrders(keyword.trim());
+                    break;
+                case "AwaitingPickup":
+                    orders = orderService.searchAwaitingPickupOrders(keyword.trim());
+                    break;
+                case "Shipping":
+                    orders = orderService.searchShippingOrders(keyword.trim());
+                    break;
+                case "Completed":
+                    orders = orderService.searchCompletedOrders(keyword.trim());
+                    break;
+                case "Returned":
+                    orders = orderService.searchReturnedOrders(keyword.trim());
+                    break;
+                case "Cancelled":
+                    orders = orderService.searchCancelledOrders(keyword.trim());
+                    break;
+                default:
+                    orders = new ArrayList<>();
+            }
+
+            List<Map<String, Object>> suggestions = orders.stream()
+                    .limit(8)
+                    .map(order -> {
+                        Map<String, Object> s = new HashMap<>();
+                        Object code = order.get("orderCode");
+                        if (code == null) code = order.get("order_code");
+                        if (code == null) code = order.get("id");
+                        s.put("orderCode", code != null ? String.valueOf(code) : "");
+
+                        Object name = order.get("userName");
+                        if (name == null) name = order.get("user_name");
+                        if (name == null) name = order.get("customer_name");
+                        if (name == null) name = order.get("recipientName");
+                        s.put("userName", name != null ? String.valueOf(name) : "");
+
+                        return s;
+                    })
+                    .collect(java.util.stream.Collectors.toList());
+
+            resp.getWriter().write(gson.toJson(Map.of("success", true, "suggestions", suggestions
+            )));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.getWriter().write(gson.toJson(Map.of("success", false, "suggestions", new ArrayList<>()
+            )));
         }
     }
 

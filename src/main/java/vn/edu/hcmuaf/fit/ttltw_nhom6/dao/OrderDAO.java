@@ -50,8 +50,9 @@ public class OrderDAO extends ADao {
             String insertOrderSql = "INSERT INTO orders " +
                     "(user_id, order_date, status, total_amount, shipping_address_id, " +
                     "recipient_name, shipping_phone, shipping_address, shipping_provider, " +
-                    "shipping_fee, points_used, tracking_code, created_at) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "shipping_fee, points_used, tracking_code, created_at, " +
+                    "product_discount, shipping_discount) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             int orderId = handle.createUpdate(insertOrderSql)
                     .bind(0, order.getUserId())
@@ -67,6 +68,8 @@ public class OrderDAO extends ADao {
                     .bind(10, order.getPointUsed())
                     .bind(11, order.getTrackingCode())
                     .bind(12, order.getCreatedAt())
+                    .bind(13, order.getProductDiscount())
+                    .bind(14, order.getShippingDiscount())
                     .executeAndReturnGeneratedKeys("id")
                     .mapTo(Integer.class)
                     .one();
@@ -137,6 +140,7 @@ public class OrderDAO extends ADao {
     }
 
 
+
     public Optional<Order> getOrderById(int orderId) {
         return jdbi.withHandle(handle ->
                 handle.createQuery("SELECT * FROM orders WHERE id = ?")
@@ -169,8 +173,18 @@ public class OrderDAO extends ADao {
 
     public boolean updateOrderStatus(int orderId, String status) {
         return jdbi.withHandle(handle -> {
-            int updated = handle.createUpdate(
-                            "UPDATE orders SET status = ? WHERE id = ?")
+            String sql;
+            switch (status) {
+                case "Returned":
+                    sql = "UPDATE orders SET status = ?, returned_at = NOW() WHERE id = ?";
+                    break;
+                case "Cancelled":
+                    sql = "UPDATE orders SET status = ?, cancelled_at = NOW() WHERE id = ?";
+                    break;
+                default:
+                    sql = "UPDATE orders SET status = ? WHERE id = ?";
+            }
+            int updated = handle.createUpdate(sql)
                     .bind(0, status)
                     .bind(1, orderId)
                     .execute();
@@ -224,7 +238,28 @@ public class OrderDAO extends ADao {
             int userId = order.getUserId();
             double totalAmount = order.getTotalAmount();
 
-            int updated = handle.createUpdate("UPDATE orders SET status = ? WHERE id = ?")
+            String updateSql;
+            switch (newStatus) {
+                case "AwaitingPickup":
+                    updateSql = "UPDATE orders SET status = ?, confirmed_at = NOW() WHERE id = ?";
+                    break;
+                case "Shipping":
+                    updateSql = "UPDATE orders SET status = ?, shipping_at = NOW() WHERE id = ?";
+                    break;
+                case "Completed":
+                    updateSql = "UPDATE orders SET status = ?, completed_at = NOW() WHERE id = ?";
+                    break;
+                case "Cancelled":
+                    updateSql = "UPDATE orders SET status = ?, cancelled_at = NOW() WHERE id = ?";
+                    break;
+                case "Returned":
+                    updateSql = "UPDATE orders SET status = ?, returned_at = NOW() WHERE id = ?";
+                    break;
+                default:
+                    updateSql = "UPDATE orders SET status = ? WHERE id = ?";
+            }
+
+            int updated = handle.createUpdate(updateSql)
                     .bind(0, newStatus)
                     .bind(1, orderId)
                     .execute();
@@ -585,7 +620,7 @@ public class OrderDAO extends ADao {
             }
 
             // Cập nhật trạng thái đơn hàng
-            int updated = handle.createUpdate("UPDATE orders SET status = ? WHERE id = ?")
+            int updated = handle.createUpdate("UPDATE orders SET status = ?, cancelled_at = NOW() WHERE id = ?")
                     .bind(0, "Cancelled")
                     .bind(1, orderId)
                     .execute();

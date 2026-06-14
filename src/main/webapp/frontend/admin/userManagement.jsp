@@ -46,8 +46,10 @@
 
                     <select id="expenditureFilter" name="expenditure" class="level-filter">
                         <option value="">Ngẫu nhiên mức chi tiêu</option>
-                        <option value="low-high" ${param.expenditure == 'low-high' ? 'selected' : ''}>Thấp lên cao</option>
-                        <option value="high-low" ${param.expenditure == 'high-low' ? 'selected' : ''}>Cao xuống thấp</option>
+                        <option value="low-high" ${param.expenditure == 'low-high' ? 'selected' : ''}>Thấp lên cao
+                        </option>
+                        <option value="high-low" ${param.expenditure == 'high-low' ? 'selected' : ''}>Cao xuống thấp
+                        </option>
                     </select>
                 </form>
             </div>
@@ -104,11 +106,22 @@
                                         <div class="menu-dropdown">
                                             <c:choose>
                                                 <c:when test="${!user.isActive || user.temporarilyLocked}">
-                                                    <a href="#" class="menu-item unlock-user"
-                                                       data-id="${user.id}"
-                                                       data-name="${user.fullName != null ? user.fullName : 'Chưa cập nhật'}">
-                                                        Mở tài khoản
-                                                    </a>
+                                                    <c:choose>
+                                                        <c:when test="${canUnlock}">
+                                                            <a href="#" class="menu-item unlock-user"
+                                                               data-id="${user.id}"
+                                                               data-name="${user.fullName != null ? user.fullName : 'Chưa cập nhật'}">
+                                                                Mở tài khoản
+                                                            </a>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <a href="#" class="menu-item"
+                                                               style="opacity:0.4; cursor:not-allowed; pointer-events:none;"
+                                                               title="Bạn không có quyền mở khóa">
+                                                                Mở tài khoản
+                                                            </a>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <a href="#" class="menu-item view-detail"
@@ -122,17 +135,42 @@
                                                        data-created-at="${user.createdAt}">
                                                         Xem chi tiết
                                                     </a>
-                                                    <a href="#" class="menu-item upgrade-user"
-                                                       data-id="${user.id}"
-                                                       data-name="${user.fullName != null ? user.fullName : 'Chưa cập nhật'}"
-                                                       data-current-level="${user.membershipLevel != null ? user.membershipLevel : 'Normal'}">
-                                                        Nâng cấp
-                                                    </a>
-                                                    <a href="#" class="menu-item permanent-lock"
-                                                       data-id="${user.id}"
-                                                       data-name="${user.fullName != null ? user.fullName : 'Chưa cập nhật'}">
-                                                        Khóa tài khoản
-                                                    </a>
+
+                                                    <c:choose>
+                                                        <c:when test="${canUpgrade}">
+                                                            <a href="#" class="menu-item upgrade-user"
+                                                               data-id="${user.id}"
+                                                               data-name="${user.fullName != null ? user.fullName : 'Chưa cập nhật'}"
+                                                               data-current-level="${user.membershipLevel != null ? user.membershipLevel : 'Normal'}">
+                                                                Nâng cấp
+                                                            </a>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <a href="#" class="menu-item"
+                                                               style="opacity:0.4; cursor:not-allowed; pointer-events:none;"
+                                                               title="Bạn không có quyền nâng cấp">
+                                                                Nâng cấp
+                                                            </a>
+                                                        </c:otherwise>
+                                                    </c:choose>
+
+                                                    <c:choose>
+                                                        <c:when test="${canLock}">
+                                                            <a href="#" class="menu-item permanent-lock"
+                                                               data-id="${user.id}"
+                                                               data-name="${user.fullName != null ? user.fullName : 'Chưa cập nhật'}">
+                                                                Khóa tài khoản
+                                                            </a>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <a href="#" class="menu-item"
+                                                               style="opacity:0.4; cursor:not-allowed; pointer-events:none;"
+                                                               title="Bạn không có quyền khóa tài khoản">
+                                                                Khóa tài khoản
+                                                            </a>
+                                                        </c:otherwise>
+                                                    </c:choose>
+
                                                 </c:otherwise>
                                             </c:choose>
                                         </div>

@@ -287,20 +287,21 @@ public class CheckoutServlet extends HttpServlet {
             double shippingFee = (feeParam != null && !feeParam.isEmpty())
                     ? Double.parseDouble(feeParam) : 25000;
 
+            String productDiscountParam  = request.getParameter("productDiscount");
+            String shippingDiscountParam = request.getParameter("shippingDiscount");
+            double productDiscount  = (productDiscountParam  != null && !productDiscountParam.isEmpty())
+                    ? Double.parseDouble(productDiscountParam)  : 0;
+            double shippingDiscount = (shippingDiscountParam != null && !shippingDiscountParam.isEmpty())
+                    ? Double.parseDouble(shippingDiscountParam) : 0;
+
             int cartId = cartDAO.getOrCreateCartByUserId(user.getId());
             try {
                 CacheService.cartCache.remove(cartId);
 
-                int orderId = cartDAO.checkout(
-                        cartId,
-                        user.getId(),
-                        shippingAddressId,
-                        recipientName.trim(),
-                        shippingPhone.trim(),
-                        shippingAddress.trim(),
+                int orderId = cartDAO.checkout(cartId, user.getId(), shippingAddressId,
+                        recipientName.trim(), shippingPhone.trim(), shippingAddress.trim(),
                         shippingProvider != null ? shippingProvider : "standard",
-                        shippingFee,
-                        pointsUsed
+                        shippingFee, pointsUsed, productDiscount, shippingDiscount
                 );
 
                 session.removeAttribute("selectedItems");
