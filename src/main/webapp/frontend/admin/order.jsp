@@ -36,6 +36,7 @@
                     <input type="text" id="pendingSearch" class="search-input"
                            placeholder="Tìm kiếm theo mã đơn hoặc tên khách hàng..." class="search-input">
                     <i class="fas fa-magnifying-glass"></i>
+                    <div class="search-suggestions" id="pendingSuggestions"></div>
                 </div>
                 <button class="confirm-all-btn">Xác nhận tất cả</button>
             </div>
@@ -99,6 +100,7 @@
                     <input type="text" id="pickupSearch" class="search-input"
                            placeholder="Tìm kiếm theo mã đơn hoặc tên khách hàng...">
                     <i class="fas fa-magnifying-glass"></i>
+                    <div class="search-suggestions" id="pickupSuggestions"></div>
                 </div>
             </div>
             <div class="table-wrapper">
@@ -144,6 +146,7 @@
                     <input type="text" id="deliverSearch" class="search-input"
                            placeholder="Tìm kiếm theo mã đơn hoặc tên khách hàng...">
                     <i class="fas fa-magnifying-glass"></i>
+                    <div class="search-suggestions" id="deliverSuggestions"></div>
                 </div>
             </div>
             <div class="table-wrapper">
@@ -185,6 +188,7 @@
                     <input type="text" id="deliveredSearch" class="search-input"
                            placeholder="Tìm kiếm theo mã đơn hoặc tên khách hàng...">
                     <i class="fas fa-magnifying-glass"></i>
+                    <div class="search-suggestions" id="deliveredSuggestions"></div>
                 </div>
             </div>
             <div class="table-wrapper">
@@ -259,6 +263,7 @@
                     <input type="text" id="returnSearch" class="search-input"
                            placeholder="Tìm kiếm theo mã đơn hoặc tên khách hàng...">
                     <i class="fas fa-magnifying-glass"></i>
+                    <div class="search-suggestions" id="returnSuggestions"></div>
                 </div>
             </div>
             <div class="table-wrapper">
@@ -431,6 +436,7 @@
                     <input type="text" id="cancelledSearch" class="search-input"
                            placeholder="Tìm kiếm theo mã đơn hoặc tên khách hàng...">
                     <i class="fas fa-magnifying-glass"></i>
+                    <div class="search-suggestions" id="cancelledSuggestions"></div>
                 </div>
             </div>
             <div class="table-wrapper">

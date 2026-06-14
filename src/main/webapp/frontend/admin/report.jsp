@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="vn.edu.hcmuaf.fit.ttltw_nhom6.model.Voucher" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -162,6 +163,50 @@
             </div>
 
 
+            <div class="comics-status-wrapper">
+                <div class="comics-status-box sold-box">
+                    <h3>Truyện đã bán
+                        <span class="comics-count-badge" id="sold-count"></span>
+                    </h3>
+                    <div class="comics-scroll">
+                        <table class="comics-table">
+                            <thead>
+                                <tr>
+                                    <th>Tên truyện</th>
+                                    <th>Đã bán</th>
+                                    <th>Doanh thu</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="sold-comics-body">
+                                <tr><td colspan="3"></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="comics-status-box unsold-box">
+                    <h3>Truyện chưa bán
+                        <span class="comics-count-badge" id="unsold-count">0</span>
+                    </h3>
+                    <div class="comics-scroll">
+                        <table class="comics-table">
+
+                            <thead>
+                                <tr>
+                                    <th>Tên truyện</th>
+                                    <th>Tồn kho</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="unsold-comics-body">
+                                <tr></tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -209,6 +254,8 @@
                     updateFlashSales(data.flashSales);
                     updateVoucherRanking(data.topVouchers);
                     updateVoucherTable(data.allVouchers);
+                    updateComicsSold(data.comicsSold, data.totalSold);
+                    updateComicsUnsold(data.comicsUnsold, data.totalUnsold);
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -456,6 +503,47 @@
                     '<td>' + formatCurrency(v.savedRevenue || 0) + '</td>' +
                     '</tr>';
             }).join('');
+        }
+
+        function updateComicsSold(comicsSold, totalSold) {
+            const tbody = document.getElementById('sold-comics-body');
+            const countBadge = document.getElementById('sold-count');
+
+            if (countBadge) countBadge.textContent = totalSold || 0;
+
+            if (!comicsSold || comicsSold.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3">Không có truyện</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = comicsSold.map(c =>
+                '<tr>' +
+                '<td>' + c.name_comics + '</td>' +
+                '<td>' + formatNumber(c.total_sold) + '</td>' +
+                '<td>' + formatCurrency(c.revenue) + '</td>' +
+                '</tr>'
+            ).join('');
+
+        }
+
+        function updateComicsUnsold(comicsUnsold, totalUnsold) {
+            const tbody = document.getElementById('unsold-comics-body');
+            const countBadge = document.getElementById('unsold-count');
+            if (countBadge) countBadge.textContent = totalUnsold || 0;
+
+            if (!comicsUnsold || comicsUnsold.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="2">Không có truyện</td></tr>';
+                return;
+            }
+
+            tbody.dataset.rows = JSON.stringify(comicsUnsold);
+
+            tbody.innerHTML = comicsUnsold.map(c =>
+                '<tr>' +
+                '<td>' + c.name_comics + '</td>' +
+                '<td>' + formatNumber(c.stock) + '</td>' +
+                '</tr>'
+            ).join('');
         }
 
         document.querySelectorAll('.kpi-card[data-chart]').forEach(card => {
