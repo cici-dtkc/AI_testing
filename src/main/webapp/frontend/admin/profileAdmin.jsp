@@ -23,66 +23,6 @@
                 <h4>Thông tin đăng nhập</h4>
                 <p><strong>Email đăng nhập:</strong> admin@comicstore.com</p>
                 <hr>
-                <h4>Thông tin ngân hàng</h4>
-                <div class="bank-container">
-                    <div class="bank-info" id="bankView">
-                        <button id="btn-edit-bank" class="edit-btn" title="Chỉnh sửa">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                        <p><strong>Ngân hàng:</strong> <span id="bankNameText">Momo</span></p>
-                        <p><strong>Số tài khoản:</strong> <span id="acctMasked">**** **** 1234</span></p>
-                        <p><strong>Chủ tài khoản:</strong> <span id="acctNameText">Nguyễn Ngọc Linh</span></p>
-                        <div id="qrContainerView" style="margin-top: 12px; text-align: center;">
-                            <p><strong>Mã QR thanh toán:</strong></p>
-                            <img src="../../img/qr.jpg" alt="QR Code"
-                                 style="width: 120px; height: 120px; border: 1px dashed #ccc; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                        </div>
-                    </div>
-                    <div class="bank-info-edit hidden" id="bankEdit">
-                        <form id="bankForm">
-                            <label>Ngân hàng
-                                <select name="bankName" id="bankName" required>
-                                    <option value="">-- Chọn ngân hàng --</option>
-                                    <option value="Momo">Momo</option>
-                                    <option value="VNPay">VNPay</option>
-                                    <option value="Momo">Momo</option>
-                                    <option value="BIDV">BIDV</option>
-                                    <option value="Techcombank">Techcombank</option>
-                                    <option value="MB Bank">MB Bank</option>
-                                    <option value="Agribank">Agribank</option>
-                                    <option value="ACB">ACB</option>
-                                    <option value="Sacombank">Sacombank</option>
-                                </select>
-                            </label>
-                            <label>Số tài khoản
-                                <div class="account-field">
-                                    <input name="accountNumber" id="accountNumber" value="12341234" required>
-                                    <i id="toggleEye" class="fa-solid fa-eye"></i>
-                                </div>
-                            </label>
-                            <label>Chủ tài khoản
-                                <input name="accountHolder" id="accountHolder" value="Nguyễn Ngọc Linh" required>
-                            </label>
-                            <label>Mã QR thanh toán
-                                <div class="qr-upload-wrapper" style="margin-top: 8px; text-align: center;">
-                                    <div class="qr-upload-box">
-                                        <img id="qrPreviewImg" src="" alt="QR Preview"
-                                             style="width: 120px; height: 120px; border: 1px dashed #ccc; border-radius: 6px; display: none;">
-                                        <div class="qr-plus-icon">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </div>
-                                    </div>
-                                    <input type="file" id="qrUpload" accept="image/*" hidden>
-                                </div>
-                            </label>
-                            <div class="btn-group">
-                                <button type="submit" class="btn">Lưu</button>
-                                <button type="button" id="btnCancelBank" class="btn btn-secondary">Hủy</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <hr>
                 <h4>Đổi mật khẩu</h4>
                 <form id="changePassForm">
                     <small class="password-hint">

@@ -10,6 +10,7 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.TextUtils;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ComicDAO extends ADao {
     public final Jdbi jdbi;
@@ -21,82 +22,46 @@ public class ComicDAO extends ADao {
     public ComicDAO(Jdbi jdbi) {
         this.jdbi = jdbi;
     }
-
     public List<Comic> searchCandidate(String keyword) {
         String normalized = TextUtils.normalize(keyword.toLowerCase());
         String number = keyword.replaceAll("\\D+", "");
-
-        String sql = """
-                SELECT DISTINCT c.*
-                """ + buildFlashSaleColumns() + """
-                FROM Comics c
-                """ + buildFlashSaleJoin() + """
-                    WHERE c.is_deleted = 0 AND c.is_hidden = 0
-                      AND c.status = 'available'
-                    ORDER BY c.name_comics
-                    LIMIT 500
-                """;
-
-        List<Comic> allComics = new ArrayList<>(
-                jdbi.withHandle(h ->
-                        h.createQuery(sql)
-                                .mapToBean(Comic.class)
-                                .list()
-                )
-        );
-
         String[] words = normalized.split("\\s+");
-        List<String> meaningfulWords = new ArrayList<>();
-        for (String word : words) {
-            if (!word.matches("tap|vol|volume|\\d+")) {
-                meaningfulWords.add(word);
-            }
+        List<String> meaningfulWords = Arrays.stream(words)
+                .filter(w -> !w.matches("tap|vol|volume|\\d+"))
+                .collect(Collectors.toList());
+        if (meaningfulWords.isEmpty() && number.isEmpty()) {
+            return new ArrayList<>();
         }
-
-        int volumeNum = number.isEmpty() ? -1 : Integer.parseInt(number);
-
-        List<Comic> result = new ArrayList<>();
-
-        for (Comic c : allComics) {
-            String name = TextUtils.normalize(c.getNameComics().toLowerCase());
-
-            int matchCount = 0;
-            for (String w : meaningfulWords) {
-                if (name.contains(w)) {
-                    matchCount++;
-                }
-            }
-
-            boolean nameMatch;
-            if (meaningfulWords.isEmpty()) {
-                nameMatch = true;
-            } else if (meaningfulWords.size() == 1) {
-                nameMatch = matchCount >= 1;
-            } else {
-                nameMatch = ((double) matchCount / meaningfulWords.size()) >= 0.5;
-            }
-
-            boolean volumeMatch = c.getVolume() != null && c.getVolume() == volumeNum;
-
-            boolean ok;
-            if (volumeNum != -1 && !meaningfulWords.isEmpty()) {
-                ok = nameMatch && volumeMatch;
-            } else if (volumeNum != -1) {
-                ok = volumeMatch;
-            } else {
-                ok = nameMatch;
-            }
-
-            if (ok) {
-                result.add(c);
-            }
-
-            if (result.size() >= 100) break;
+        StringBuilder sql = new StringBuilder("""
+        SELECT DISTINCT c.*
+        """ + buildFlashSaleColumns() + """
+        FROM Comics c
+        """ + buildFlashSaleJoin() + """
+        WHERE c.is_deleted = 0 AND c.is_hidden = 0
+          AND c.status = 'available'
+    """);
+        List<String> conditions = new ArrayList<>();
+        if (!meaningfulWords.isEmpty()) {
+            List<String> nameConds = meaningfulWords.stream()
+                    .map(w -> "c.name_comics LIKE '%" + w.replace("'", "''") + "%'")
+                    .collect(Collectors.toList());
+            conditions.add("(" + String.join(" OR ", nameConds) + ")");
         }
-
-        return result;
+        if (!number.isEmpty()) {
+            conditions.add("c.volume = " + Integer.parseInt(number));
+        }
+        if (!conditions.isEmpty()) {
+            sql.append(" AND ").append(String.join(
+                    meaningfulWords.isEmpty() || number.isEmpty() ? " AND " : " OR ",
+                    conditions));
+        }
+        sql.append(" ORDER BY c.name_comics LIMIT 100");
+        return jdbi.withHandle(h ->
+                h.createQuery(sql.toString())
+                        .mapToBean(Comic.class)
+                        .list()
+        );
     }
-
     public List<Comic> smartSearch(String keyword) {
 
         List<Comic> candidates = new ArrayList<>(searchCandidate(keyword));
