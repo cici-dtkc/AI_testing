@@ -12,7 +12,6 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.db.JdbiConnector;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.*;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.momo.MoMoUtils;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.vnpay.VNPayUtils;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -207,7 +206,7 @@ public class OrderServlet extends HttpServlet {
 
                 String returnURL = "https://nonpunctual-lissa-tychistic.ngrok-free.dev"
                         + request.getContextPath() + "/vnpay-return";
-                String orderInfo = "Thanh toan don hang - " + recipientName.trim();
+                String orderInfo = "Thanh toan don hang " + user.getId();
                 String paymentUrl = VNPayUtils.createPaymentUrl(
                         user.getId(), totalVnpay, orderInfo, returnURL, ipAddress
                 );

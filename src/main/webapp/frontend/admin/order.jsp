@@ -208,8 +208,8 @@
                     <c:forEach items="${ordersByStatus['Completed']}" var="order">
                         <tr>
                             <td>${order.id}</td>
-                            <td>${order.userName}</td>
-                            <td><fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy"/></td>
+                            <td>${order.recipient_name}</td>
+                            <td>${order.completed_at}</td>
                             <td>${order.formattedAmount}</td>
                             <td>${order.paymentMethodDisplay}</td>
                             <td>

@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 public class VNPayUtils {
     public static  String VNP_TMN_CODE ;
-    public static  String VNP_HASH_SECRET ;
+    public static  String VNP_HASH_SECRET;
     public static final String VNP_URL = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     public static final String VNP_VERSION = "2.1.0";
     public static final String VNP_COMMAND = "pay";
@@ -31,6 +31,10 @@ public class VNPayUtils {
     }
 
     public static String createPaymentUrl(int orderId, long amount, String orderInfo, String returnUrl, String ipAddress) {
+        String cleanOrderInfo = removeAccent(orderInfo);
+        cleanOrderInfo = cleanOrderInfo.replaceAll("[^a-zA-Z0-9 ]", "").trim();
+        if (cleanOrderInfo.isEmpty()) cleanOrderInfo = "Thanh toan don hang";
+        if (cleanOrderInfo.length() > 255) cleanOrderInfo = cleanOrderInfo.substring(0, 255);
         // tao ma giao dich duy nhat
         String txnRef = orderId + "_" + System.currentTimeMillis();
         String createDate = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -40,10 +44,10 @@ public class VNPayUtils {
         params.put("vnp_Command", VNP_COMMAND);
         params.put("vnp_TmnCode", VNP_TMN_CODE);
 //vnpay yeu cau nhan 100
-        params.put("vnp_Amount", String.valueOf(amount * 100));
+        params.put("vnp_Amount", String.valueOf(amount * 100L));
         params.put("vnp_CurrCode", VNP_CURRENCY);
         params.put("vnp_TxnRef", txnRef);
-        params.put("vnp_OrderInfo", orderInfo);
+        params.put("vnp_OrderInfo", cleanOrderInfo);
         params.put("vnp_OrderType", "other");
         params.put("vnp_Locale", VNP_LOCALE);
         params.put("vnp_ReturnUrl", returnUrl);
@@ -142,6 +146,13 @@ public class VNPayUtils {
             return "";
         }
 
+    }
+    public static String removeAccent(String text) {
+        if (text == null) return "";
+        String normalized = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFD);
+        return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+                .replaceAll("[^\\x00-\\x7F]", "")
+                .trim();
     }
 
 }
