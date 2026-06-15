@@ -5,6 +5,7 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.*;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.db.JdbiConnector;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.model.*;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.CurrencyFormatter;
+import vn.edu.hcmuaf.fit.ttltw_nhom6.utils.ghn.GHNConfig;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -442,8 +443,12 @@ public class OrderService {
         Map<String, Object> result = new HashMap<>();
 
         try {
+            Order order = orderDAO.getOrderById(orderId).orElse(null);
+            String ghnOrderCode = GHNConfig.createOrder(order);
+            if (ghnOrderCode == null) {
+                throw new RuntimeException("Không tạo được đơn GHN");
+            }
             boolean success = orderDAO.updateOrderStatusWithPoints(orderId, "Shipping");
-
             if (success) {
                 result.put("success", true);
                 result.put("message", "Đã xác nhận giao cho ĐVVC");
@@ -451,7 +456,6 @@ public class OrderService {
                 result.put("success", false);
                 result.put("message", "Không thể cập nhật trạng thái");
             }
-
         } catch (Exception e) {
             result.put("success", false);
             result.put("error", e.getMessage());
