@@ -810,4 +810,14 @@ public class OrderDAO extends ADao {
     }
 
 
+    public boolean updateTrackingCode(int orderId, String trackingCode) {
+        String sql = """
+                UPDATE orders
+                SET tracking_code = ?
+                WHERE id = ?
+                """;
+        return jdbi.withHandle(handle ->handle.createUpdate(sql).bind(0, trackingCode).bind(1, orderId)
+                        .execute() > 0
+        );
+    }
 }
