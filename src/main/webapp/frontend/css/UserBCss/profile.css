@@ -2046,3 +2046,30 @@ main {
     box-sizing: border-box;
     font-size: 14px;
 }
+/*.form-group input.valid,*/
+/*.address input.valid,*/
+/*.address select.valid {*/
+/*    border: 1.5px solid #22c55e !important;*/
+/*    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.12);*/
+/*}*/
+
+/*.form-group input.invalid,*/
+/*.address input.invalid,*/
+/*.address select.invalid {*/
+/*    border: 1.5px solid #ef4444 !important;*/
+/*    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.12);*/
+/*}*/
+.form-group input.valid {
+    border: 1.5px solid #22c55e !important;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.12);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input.invalid {
+    border: 1.5px solid #ef4444 !important;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.12);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-group input:focus {
+    outline: none;
+}
