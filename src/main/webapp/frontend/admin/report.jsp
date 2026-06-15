@@ -86,7 +86,6 @@
                     <div class="profit-kpi-card amber">
                         <span class="profit-label"><i class="fas fa-box"></i> Tổng giá nhập</span>
                         <span class="profit-value" id="profit-import-cost">0đ</span>
-                        <span class="profit-sub">Theo inventory_transaction</span>
                     </div>
                     <div class="profit-kpi-card teal">
                         <span class="profit-label"><i class="fas fa-percent"></i> Biên lợi nhuận</span>
@@ -279,6 +278,7 @@
                 .then(data => {
                     reportData = data;
                     updateKPICards(data.kpi);
+                    updateProfitKPI(data.profit);
                     updateTopProducts(data.topProducts);
                     updateChart(currentChartType);
                     updateFlashSales(data.flashSales);
@@ -310,6 +310,16 @@
             if (bestEl) {
                 bestEl.textContent = kpi.bestProduct || 'Chưa có dữ liệu';
             }
+        }
+
+        function updateProfitKPI(profit) {
+            if (!profit) return;
+            document.getElementById('profit-gross').textContent       = formatCurrency(profit.grossProfit || 0);
+            document.getElementById('profit-import-cost').textContent = formatCurrency(profit.importCost  || 0);
+
+            const margin = profit.margin || 0;
+            document.getElementById('profit-margin-val').textContent  = margin + '%';
+            document.getElementById('profit-margin-bar').style.width  = Math.min(margin, 100) + '%';
         }
 
         function updateTopProducts(products) {

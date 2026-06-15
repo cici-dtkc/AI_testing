@@ -104,10 +104,11 @@ public class OrderDAO extends ADao {
                         );
                     }
 
-                    handle.createUpdate("INSERT INTO inventory_transaction (comic_id, type, quantity, note, created_at) VALUES (?, 'EXPORT', ?, ?, NOW())")
+                    handle.createUpdate("INSERT INTO inventory_transaction (comic_id, type, quantity, unit_price, note, created_at) VALUES (?, 'EXPORT', ?, ?, ?, NOW())")
                             .bind(0, item.getComicId())
                             .bind(1, item.getQuantity())
-                            .bind(2, "Bán hàng qua đơn hàng #" + orderId)
+                            .bind(2, item.getPriceAtPurchase())
+                            .bind(3, "Bán hàng qua đơn hàng #" + orderId)
                             .execute();
                 }
 
