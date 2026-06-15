@@ -28,7 +28,7 @@ public class SecurityFilter implements Filter {
         httpResponse.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
 
         String csp = "default-src 'self'; " +
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.google.com/ https://www.gstatic.com/; " +
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.google.com/ https://www.gstatic.com/ https://cdn.jsdelivr.net/;" +
                 "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdnjs.cloudflare.com/; " +
                 "font-src 'self' https://fonts.gstatic.com/ https://cdnjs.cloudflare.com/; " +
                 "img-src 'self' data: https:; " +

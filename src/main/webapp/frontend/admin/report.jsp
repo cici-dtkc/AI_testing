@@ -69,6 +69,37 @@
                 <h3 id="chart-title">Biểu đồ Doanh thu</h3>
                 <canvas id="mainChart"></canvas>
             </div>
+
+
+            <div class="profit-stats-wrapper">
+                <div class="section-title-profit">
+                    <i class="fas fa-trending-up"></i> Tổng quan lợi nhuận
+                </div>
+
+                <div class="profit-kpi-row">
+                    <div class="profit-kpi-card green">
+                        <span class="profit-label"><i class="fas fa-coins"></i> Lợi nhuận</span>
+                        <span class="profit-value" id="profit-gross">0đ</span>
+                        <span class="profit-sub">Doanh thu − Giá nhập</span>
+                    </div>
+
+                    <div class="profit-kpi-card amber">
+                        <span class="profit-label"><i class="fas fa-box"></i> Tổng giá nhập</span>
+                        <span class="profit-value" id="profit-import-cost">0đ</span>
+                        <span class="profit-sub">Theo inventory_transaction</span>
+                    </div>
+                    <div class="profit-kpi-card teal">
+                        <span class="profit-label"><i class="fas fa-percent"></i> Biên lợi nhuận</span>
+                        <span class="profit-value" id="profit-margin-val">0%</span>
+                        <div class="profit-margin-bar-wrap">
+                            <div class="profit-margin-bar-bg">
+                                <div class="profit-margin-bar-fill" id="profit-margin-bar" style="width:0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="top-products-wrapper">
                 <div class="top-products">
                     <h3>Top 3 sản phẩm bán chạy</h3>
@@ -90,7 +121,6 @@
                     <canvas id="topProductsChart"></canvas>
                 </div>
             </div>
-
 
             <div class="flashsale-stats-wrapper">
                 <div class="flashsale-ranking">
