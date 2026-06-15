@@ -40,8 +40,8 @@ public class OrderService {
         Map<String, Object> result = new HashMap<>();
 
         try {
-            // Lấy tất cả đơn hàng
-            List<Order> allOrders = orderDAO.getAllOrders();
+//            // Lấy tất cả đơn hàng
+//            List<Order> allOrders = orderDAO.getAllOrders();
 
             // Phân loại theo trạng thái
             Map<String, List<Map<String, Object>>> ordersByStatus = new HashMap<>();

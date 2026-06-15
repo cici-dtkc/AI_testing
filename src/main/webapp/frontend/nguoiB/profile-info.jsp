@@ -476,6 +476,13 @@
 
         document.getElementById("district")
             .addEventListener("change", validateAddress);
+        window.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('ho').dispatchEvent(new Event('input'));
+            document.getElementById('ten').dispatchEvent(new Event('input'));
+            document.getElementById('phone').dispatchEvent(new Event('input'));
+            document.getElementById('email').dispatchEvent(new Event('input'));
+            validateBirthDate();
+        });
     </script>
     </body>
     </html>

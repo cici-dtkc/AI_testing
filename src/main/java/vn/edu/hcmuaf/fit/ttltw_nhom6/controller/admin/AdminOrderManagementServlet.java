@@ -166,7 +166,7 @@ public class AdminOrderManagementServlet extends HttpServlet {
                     orders = orderService.getOrdersWithDetailsByStatus("Shipping");
                     break;
                 case "Completed":
-                    orders = orderService.searchCompletedOrders("");
+                    orders = orderService.searchCompletedOrders("Completed");
                     break;
                 case "Returned":
                     orders = orderService.getAllReturnsWithDetails();
