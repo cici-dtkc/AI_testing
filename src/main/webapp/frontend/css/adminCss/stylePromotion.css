@@ -470,7 +470,16 @@ body {
     outline: none;
     border-color: black;
 }
-
+#notifyPopup .popup-box {
+    animation: popIn 0.2s ease;
+}
+@keyframes popIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+}
+#notifyPopup i.success { color: #22c55e; }
+#notifyPopup i.error   { color: #ef4444; }
+#notifyPopup i.warning { color: #f59e0b; }
 /* Responsive cho popup sửa */
 @media (max-width: 768px) {
     #editPopup .popup-grid,

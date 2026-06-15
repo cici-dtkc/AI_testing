@@ -183,7 +183,7 @@
             </div>
 
             <p class="daban">Đã bán ${totalSell}</p>
-<%--            <p class="available">Có sẳn ${availableComic}</p>--%>
+            <%--            <p class="available">Có sẳn ${availableComic}</p>--%>
 
 
             <div class="line3">
@@ -572,6 +572,7 @@
     </c:otherwise>
     </c:choose>
 </div>
+</div>
 <jsp:include page="/frontend/public/Footer.jsp"/>
 
 <script>
@@ -709,6 +710,7 @@
             html += '</div>';
             container.innerHTML = html;
         }
+
         function formatPrice(price) {
             return new Intl.NumberFormat('vi-VN').format(price);
         }
