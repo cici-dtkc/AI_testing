@@ -69,6 +69,36 @@
                 <h3 id="chart-title">Biểu đồ Doanh thu</h3>
                 <canvas id="mainChart"></canvas>
             </div>
+
+
+            <div class="profit-stats-wrapper">
+                <div class="section-title-profit">
+                    <i class="fas fa-trending-up"></i> Tổng quan lợi nhuận
+                </div>
+
+                <div class="profit-kpi-row">
+                    <div class="profit-kpi-card green">
+                        <span class="profit-label"><i class="fas fa-coins"></i> Lợi nhuận</span>
+                        <span class="profit-value" id="profit-gross">0đ</span>
+                        <span class="profit-sub">Doanh thu − Giá nhập</span>
+                    </div>
+
+                    <div class="profit-kpi-card amber">
+                        <span class="profit-label"><i class="fas fa-box"></i> Tổng giá nhập</span>
+                        <span class="profit-value" id="profit-import-cost">0đ</span>
+                    </div>
+                    <div class="profit-kpi-card teal">
+                        <span class="profit-label"><i class="fas fa-percent"></i> Biên lợi nhuận</span>
+                        <span class="profit-value" id="profit-margin-val">0%</span>
+                        <div class="profit-margin-bar-wrap">
+                            <div class="profit-margin-bar-bg">
+                                <div class="profit-margin-bar-fill" id="profit-margin-bar" style="width:0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="top-products-wrapper">
                 <div class="top-products">
                     <h3>Top 3 sản phẩm bán chạy</h3>
@@ -90,7 +120,6 @@
                     <canvas id="topProductsChart"></canvas>
                 </div>
             </div>
-
 
             <div class="flashsale-stats-wrapper">
                 <div class="flashsale-ranking">
@@ -249,6 +278,7 @@
                 .then(data => {
                     reportData = data;
                     updateKPICards(data.kpi);
+                    updateProfitKPI(data.profit);
                     updateTopProducts(data.topProducts);
                     updateChart(currentChartType);
                     updateFlashSales(data.flashSales);
@@ -280,6 +310,16 @@
             if (bestEl) {
                 bestEl.textContent = kpi.bestProduct || 'Chưa có dữ liệu';
             }
+        }
+
+        function updateProfitKPI(profit) {
+            if (!profit) return;
+            document.getElementById('profit-gross').textContent       = formatCurrency(profit.grossProfit || 0);
+            document.getElementById('profit-import-cost').textContent = formatCurrency(profit.importCost  || 0);
+
+            const margin = profit.margin || 0;
+            document.getElementById('profit-margin-val').textContent  = margin + '%';
+            document.getElementById('profit-margin-bar').style.width  = Math.min(margin, 100) + '%';
         }
 
         function updateTopProducts(products) {

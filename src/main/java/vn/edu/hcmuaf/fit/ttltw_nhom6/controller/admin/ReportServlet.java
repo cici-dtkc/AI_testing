@@ -169,6 +169,8 @@ public class ReportServlet extends HttpServlet {
             result.put("comicsUnsold", comicsUnsold);
             result.put("totalUnsold", comicsUnsold.size());
 
+            result.put("profit", reportDAO.getProfitSummary(startDate, endDate));
+
             String jsonResponse = gson.toJson(result);
 
             response.getWriter().write(jsonResponse);

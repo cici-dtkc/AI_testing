@@ -660,3 +660,71 @@ body {
 .comics-table th {
     white-space: nowrap;
 }
+
+.profit-stats-wrapper {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 20px;
+}
+
+.section-title-profit {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.profit-kpi-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.profit-kpi-card {
+    background: #f7f7f5;
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.profit-label {
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.profit-value {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.profit-kpi-card.green .profit-value { color: #3B6D11; }
+.profit-kpi-card.amber .profit-value { color: #854F0B; }
+.profit-kpi-card.teal  .profit-value { color: #0F6E56; }
+
+.profit-sub {
+    font-size: 11px;
+    color: #999;
+}
+
+.profit-margin-bar-wrap { margin-top: 4px; }
+.profit-margin-bar-bg {
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.profit-margin-bar-fill {
+    height: 100%;
+    background: #3B6D11;
+    border-radius: 3px;
+    transition: width 0.8s ease;
+}

@@ -275,4 +275,48 @@ public class ReportDAO {
                         .list()
         );
     }
+
+    public double getTotalRevenue(LocalDate startDate, LocalDate endDate) {
+        String sql = "SELECT COALESCE(SUM(oi.quantity * oi.price_at_purchase), 0) " +
+                "FROM order_items oi JOIN orders o ON o.id = oi.order_id " +
+                "WHERE o.status = 'Completed' AND DATE(o.order_date) BETWEEN :start AND :end";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("start", startDate)
+                        .bind("end", endDate)
+                        .mapTo(Double.class)
+                        .one()
+        );
+    }
+
+    public double getTotalImportCost(LocalDate startDate, LocalDate endDate) {
+        String sql ="SELECT COALESCE(SUM(oi.quantity * it_avg.avg_import_price), 0) " +
+                "FROM order_items oi JOIN orders o ON o.id = oi.order_id " +
+                "JOIN (SELECT comic_id, SUM(quantity * unit_price) / SUM(quantity) AS avg_import_price " +
+                "    FROM inventory_transaction WHERE type = 'IMPORT' " +
+                "GROUP BY comic_id ) it_avg ON it_avg.comic_id = oi.comic_id " +
+                "WHERE o.status = 'Completed' AND DATE(o.order_date) BETWEEN :start AND :end";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("start", startDate)
+                        .bind("end", endDate)
+                        .mapTo(Double.class)
+                        .one()
+        );
+    }
+
+    public Map<String, Object> getProfitSummary(LocalDate startDate, LocalDate endDate) {
+        double revenue    = getTotalRevenue(startDate, endDate);
+        double importCost = getTotalImportCost(startDate, endDate);
+        double profit     = revenue - importCost;
+        double margin     = revenue > 0 ? Math.round((profit / revenue) * 10000.0) / 100.0 : 0;
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("revenue",     revenue);
+        result.put("importCost",  importCost);
+        result.put("grossProfit", profit);
+        result.put("margin",      margin);
+        return result;
+    }
 }
