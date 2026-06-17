@@ -135,12 +135,12 @@
                         Thanh toán khi nhận hàng (COD)
                     </label><br>
 
-                    <label class="payment-option">
-                        <input type="radio" name="payment" value="momo">
-                        <img src="${pageContext.request.contextPath}/img/momo.png"
-                             alt="MoMo" style="width:28px;vertical-align:middle;margin:0 8px 0 4px;">
-                        Ví Momo
-                    </label><br>
+<%--                    <label class="payment-option">--%>
+<%--                        <input type="radio" name="payment" value="momo">--%>
+<%--                        <img src="${pageContext.request.contextPath}/img/momo.png"--%>
+<%--                             alt="MoMo" style="width:28px;vertical-align:middle;margin:0 8px 0 4px;">--%>
+<%--                        Ví Momo--%>
+<%--                    </label><br>--%>
 
                     <label class="payment-option">
                         <input type="radio" name="payment" value="vnpay">

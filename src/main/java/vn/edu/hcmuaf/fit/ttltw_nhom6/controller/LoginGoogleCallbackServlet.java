@@ -27,7 +27,7 @@ public class LoginGoogleCallbackServlet extends HttpServlet {
 
     private static final String CLIENT_ID = System.getenv("GOOGLE_CLIENT_ID");
     private static final String CLIENT_SECRET = System.getenv("GOOGLE_CLIENT_SECRET");
-    private static final String REDIRECT_URI = "http://localhost:8080/TTLTW_Nhom6/login-google-callback";
+    private static final String REDIRECT_URI = "http://comic-store.id.vn/login-google-callback";
 
     private UserDao userDao;
 

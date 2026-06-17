@@ -64,10 +64,10 @@
                      alt="Google"
                      style="cursor: pointer;">
 
-                <img class="facebook" id="facebookLogin"
-                     src="https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg"
-                     alt="Facebook"
-                     style="cursor: pointer; width: 40px; height: 40px;">
+<%--                <img class="facebook" id="facebookLogin"--%>
+<%--                     src="https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg"--%>
+<%--                     alt="Facebook"--%>
+<%--                     style="cursor: pointer; width: 40px; height: 40px;">--%>
             </div>
 
         </div>

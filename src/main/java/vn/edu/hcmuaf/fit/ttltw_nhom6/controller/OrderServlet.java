@@ -110,7 +110,7 @@ public class OrderServlet extends HttpServlet {
 //                        + request.getContextPath() + "/vnpay-return";
 //                String returnUrl = "https://nonpunctual-lissa-tychistic.ngrok-free.dev"
 //                        + request.getContextPath() + "/vnpay-return";
-                String returnUrl = "http://localhost:8080/TTLTW_Nhom6/vnpay-return";
+                String returnUrl = "http://comic-store.id.vn/vnpay-return";
 
 
                 String payUrl = VNPayUtils.createPaymentUrl(

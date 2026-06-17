@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 public class FacebookLoginServlet extends HttpServlet {
 
     private static final String APP_ID = "4112997315630876";
-    private static final String REDIRECT_URI = "http://localhost:8080/TTLTW_Nhom6/login-facebook-callback";
+    private static final String REDIRECT_URI = "http://comic-store.id.vn/login-facebook-callback";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

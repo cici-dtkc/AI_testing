@@ -119,7 +119,17 @@ public class AddComicServlet extends HttpServlet {
                 response.getWriter().write(gson.toJson(result));
                 return;
             }
-            inventoryTransactionDAO.insertImport(comicId, comic.getStockQuantity(), "");
+            double importPrice = 0;
+            try {
+                String importPriceStr = request.getParameter("price-import");
+                if (importPriceStr != null) {
+                    importPrice = Double.parseDouble(importPriceStr.replace(",", ""));
+                }
+            } catch (NumberFormatException e) {
+                importPrice = 0;
+            }
+
+            inventoryTransactionDAO.insertImport(comicId, comic.getStockQuantity(), importPrice, "");
 
             if (authorId > 0) {
                 comicDAO.linkComicAuthor(comicId, authorId);

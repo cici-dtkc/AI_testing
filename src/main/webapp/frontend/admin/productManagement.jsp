@@ -99,7 +99,7 @@
                                 <input type="number" name="stockQuantity" min="0" value="0" required>
                             </div>
                             <div>
-                                <label>Giá: <span style="color: red;">*</span></label>
+                                <label>Giá bán: <span style="color: red;">*</span></label>
                                 <input type="text" name="price" placeholder="VD: 25,000" required>
                             </div>
                         </div>
@@ -119,6 +119,12 @@
                             <div style="flex: 1">
                                 <label>Tập:</label>
                                 <input type="number" name="volume" min="1" placeholder="VD: 1">
+                            </div>
+                        </div>
+                        <div class="form-group two-columns">
+                            <div>
+                                <label>Giá Nhập: <span style="color: red;">*</span></label>
+                                <input type="text" name="price-import" placeholder="VD: 25,000" required>
                             </div>
                         </div>
                     </div>
