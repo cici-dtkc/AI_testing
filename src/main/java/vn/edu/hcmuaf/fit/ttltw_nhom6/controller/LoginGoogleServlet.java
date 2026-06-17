@@ -17,7 +17,7 @@ public class LoginGoogleServlet extends HttpServlet {
             "948315473646-06reaquo2kblmp51jho7moisuo59rf55.apps.googleusercontent.com";
 
     private static final String REDIRECT_URI =
-            "http://localhost:8080/TTLTW_Nhom6/login-google-callback";
+            "http://comic-store.id.vn/login-google-callback";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

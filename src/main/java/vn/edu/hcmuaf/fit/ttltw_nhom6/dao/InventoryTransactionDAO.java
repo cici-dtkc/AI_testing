@@ -2,6 +2,11 @@ package vn.edu.hcmuaf.fit.ttltw_nhom6.dao;
 
 import org.jdbi.v3.core.Jdbi;
 import vn.edu.hcmuaf.fit.ttltw_nhom6.db.JdbiConnector;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,14 +20,15 @@ public class InventoryTransactionDAO {
     /**
      * Inserts an import record. (Used by AddComicServlet)
      */
-    public boolean insertImport(int comic_id, int quantity, String note) {
-        String sql = "INSERT INTO inventory_transaction(comic_id, type, quantity, note, created_at) " +
-                "VALUES (:comic_id, 'IMPORT', :quantity, :note, NOW());";
+    public boolean insertImport(int comic_id, int quantity, double unitPrice, String note) {
+        String sql = "INSERT INTO inventory_transaction(comic_id, type, quantity, unit_price, note, created_at) " +
+                "VALUES (:comic_id, 'IMPORT', :quantity, :unit_price, :note, NOW());";
 
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("comic_id", comic_id)
                         .bind("quantity", quantity)
+                        .bind("unit_price", unitPrice)
                         .bind("note", note)
                         .execute()) > 0;
     }
@@ -122,9 +128,25 @@ public class InventoryTransactionDAO {
                 "FROM inventory_transaction t " +
                 "JOIN comics c ON t.comic_id = c.id " +
                 "ORDER BY t.created_at DESC;";
-        return jdbi.withHandle(handle ->
+
+        List<Map<String, Object>> rawResult = jdbi.withHandle(handle ->
                 handle.createQuery(sql).mapToMap().list()
         );
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        List<Map<String, Object>> result = new ArrayList<>();
+        for (Map<String, Object> row : rawResult) {
+            Map<String, Object> newRow = new HashMap<>(row);
+            Object createdAt = newRow.get("created_at");
+            if (createdAt instanceof LocalDateTime) {
+                newRow.put("created_at", ((LocalDateTime) createdAt).format(formatter));
+            } else if (createdAt instanceof java.sql.Timestamp) {
+                newRow.put("created_at",
+                        ((java.sql.Timestamp) createdAt).toLocalDateTime().format(formatter));
+            }
+            result.add(newRow);
+        }
+        return result;
     }
 
     /**
