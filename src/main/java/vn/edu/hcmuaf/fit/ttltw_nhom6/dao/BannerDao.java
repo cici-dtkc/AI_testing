@@ -19,7 +19,7 @@ public class BannerDao {
                 SELECT id, image_url AS imageUrl, season,
                        start_date AS startDate, end_date AS endDate,
                        is_active AS isActive, created_at AS createdAt, updated_at AS updatedAt
-                FROM Banners
+                FROM banners
                 WHERE is_active = true
                   AND start_date <= :now
                   AND end_date >= :now

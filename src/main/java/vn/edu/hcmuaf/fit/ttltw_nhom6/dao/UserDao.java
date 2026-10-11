@@ -25,7 +25,7 @@ public class UserDao {
     // Tìm user theo username hoặc email
     public Optional<User> findByUsernameOrEmail(String usernameOrEmail) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM Users WHERE (username = :ue OR email = :ue OR phone = :ue) AND is_deleted = 0")
+                handle.createQuery("SELECT * FROM users WHERE (username = :ue OR email = :ue OR phone = :ue) AND is_deleted = 0")
                         .bind("ue", usernameOrEmail)
                         .mapToBean(User.class)
                         .findOne()
@@ -34,7 +34,7 @@ public class UserDao {
 
     public Optional<User> findByPhone(String phone) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM Users WHERE phone = :phone")
+                handle.createQuery("SELECT * FROM users WHERE phone = :phone")
                         .bind("phone", phone)
                         .mapToBean(User.class)
                         .findOne()
@@ -44,7 +44,7 @@ public class UserDao {
     // Thêm user mới
     public void insert(User user) {
         jdbi.useHandle(handle ->
-                handle.createUpdate("INSERT INTO Users (username, email,phone, password_hash, full_name, role, role_id, created_at) " +
+                handle.createUpdate("INSERT INTO users (username, email,phone, password_hash, full_name, role, role_id, created_at) " +
                                 "VALUES (:username, :email,:phone, :passwordHash, :fullName, 'user', 6, NOW())")
                         .bindBean(user)
                         .execute()
@@ -53,7 +53,7 @@ public class UserDao {
 
     public void insertInactive(User user) {
         jdbi.useHandle(handle ->
-                handle.createUpdate("INSERT INTO Users (username, email, phone, password_hash, full_name, role, role_id, created_at, is_active) " +
+                handle.createUpdate("INSERT INTO users (username, email, phone, password_hash, full_name, role, role_id, created_at, is_active) " +
                                 "VALUES (:username, :email, :phone, :passwordHash, :fullName, 'user', 6, NOW(), 0)")
                         .bindBean(user)
                         .execute()
@@ -77,7 +77,7 @@ public class UserDao {
     //   2 cái này cho đăng kí nó trùng username hay mail nó khỏi error 500
     public Optional<User> findByUsername(String username) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM Users WHERE username = :username")
+                handle.createQuery("SELECT * FROM users WHERE username = :username")
                         .bind("username", username)
                         .mapToBean(User.class)
                         .findOne()
@@ -86,7 +86,7 @@ public class UserDao {
 
     public Optional<User> findByEmail(String email) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM Users WHERE email = :email")
+                handle.createQuery("SELECT * FROM users WHERE email = :email")
                         .bind("email", email)
                         .mapToBean(User.class)
                         .findOne()
@@ -96,7 +96,7 @@ public class UserDao {
     // Update mật khẩu theo email của authen
     public void updatePassword(String email, String newPasswordHash) {
         jdbi.useHandle(handle ->
-                handle.createUpdate("UPDATE Users SET password_hash = :passwordHash WHERE email = :email")
+                handle.createUpdate("UPDATE users SET password_hash = :passwordHash WHERE email = :email")
                         .bind("passwordHash", newPasswordHash)
                         .bind("email", email)
                         .execute()
@@ -511,7 +511,7 @@ public class UserDao {
 
     public int userPoint(int id) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("select points from Users where id = :ue")
+                handle.createQuery("select points from users where id = :ue")
                         .bind("ue", id)
                         .mapTo(Integer.class)
                         .one()

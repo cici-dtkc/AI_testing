@@ -293,7 +293,7 @@ public class OrderDAO extends ADao {
                         .execute();
 
                 // Ghi log giao dịch xu
-                String insertTransactionSql = "INSERT INTO PointTransactions " +
+                String insertTransactionSql = "INSERT INTO pointtransactions " +
                         "(user_id, order_id, points, transaction_type, description, created_at) " +
                         "VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -316,7 +316,7 @@ public class OrderDAO extends ADao {
                             .bind(0, order.getPointUsed())
                             .bind(1, userId)
                             .execute();
-                    String insertTransactionSql = "INSERT INTO PointTransactions " +
+                    String insertTransactionSql = "INSERT INTO pointtransactions " +
                             "(user_id, order_id, points, transaction_type, description, created_at) " +
                             "VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -659,7 +659,7 @@ public class OrderDAO extends ADao {
                         .execute();
 
                 String insertTransactionSql = """
-                INSERT INTO PointTransactions 
+                INSERT INTO pointtransactions 
                 (user_id, order_id, points, transaction_type, description, created_at) 
                 VALUES (?, ?, ?, ?, ?, ?)
             """;
@@ -817,7 +817,7 @@ public class OrderDAO extends ADao {
                 WHERE id = ?
                 """;
         return jdbi.withHandle(handle ->handle.createUpdate(sql).bind(0, trackingCode).bind(1, orderId)
-                        .execute() > 0
+                .execute() > 0
         );
     }
 }

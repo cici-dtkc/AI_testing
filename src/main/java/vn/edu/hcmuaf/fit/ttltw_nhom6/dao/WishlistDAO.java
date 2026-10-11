@@ -21,7 +21,7 @@ public class WishlistDAO {
     // Kiểm tra comic đã có trong wishlist chưa
     public boolean isInWishlist(int userId, int comicId) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT COUNT(*) FROM Wishlist WHERE user_id = :userId AND comic_id = :comicId")
+                handle.createQuery("SELECT COUNT(*) FROM wishlist WHERE user_id = :userId AND comic_id = :comicId")
                         .bind("userId", userId)
                         .bind("comicId", comicId)
                         .mapTo(Integer.class)
@@ -36,7 +36,7 @@ public class WishlistDAO {
         }
 
         return jdbi.withHandle(handle ->
-                handle.createUpdate("INSERT INTO Wishlist (user_id, comic_id, added_at) VALUES (:userId, :comicId, :addedAt)")
+                handle.createUpdate("INSERT INTO wishlist (user_id, comic_id, added_at) VALUES (:userId, :comicId, :addedAt)")
                         .bind("userId", userId)
                         .bind("comicId", comicId)
                         .bind("addedAt", LocalDateTime.now())
@@ -47,7 +47,7 @@ public class WishlistDAO {
     // Xóa comic khỏi wishlist
     public boolean removeFromWishlist(int userId, int comicId) {
         return jdbi.withHandle(handle ->
-                handle.createUpdate("DELETE FROM Wishlist WHERE user_id = :userId AND comic_id = :comicId")
+                handle.createUpdate("DELETE FROM wishlist WHERE user_id = :userId AND comic_id = :comicId")
                         .bind("userId", userId)
                         .bind("comicId", comicId)
                         .execute()
@@ -58,19 +58,19 @@ public class WishlistDAO {
     // Lấy số lượng sản phẩm trong wishlist
     public int getWishlistCount(int userId) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT COUNT(*) FROM Wishlist WHERE user_id = :userId")
+                handle.createQuery("SELECT COUNT(*) FROM wishlist WHERE user_id = :userId")
                         .bind("userId", userId)
                         .mapTo(Integer.class)
                         .one()
         );
     }
 
-    // Lấy danh sách comic đầy đủ trong wishlist (join với bảng Comics)
+    // Lấy danh sách comic đầy đủ trong wishlist (join với bảng comics)
     public List<Comic> getWishlistComics(int userId) {
         return jdbi.withHandle(handle ->
                 handle.createQuery(
-                                "SELECT c.* FROM Comics c " +
-                                        "INNER JOIN Wishlist w ON c.id = w.comic_id " +
+                                "SELECT c.* FROM comics c " +
+                                        "INNER JOIN wishlist w ON c.id = w.comic_id " +
                                         "WHERE w.user_id = :userId AND c.is_deleted = 0 " +
                                         "ORDER BY w.added_at DESC"
                         )
