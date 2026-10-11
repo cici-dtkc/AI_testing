@@ -135,7 +135,7 @@ public class ReportDAO {
             COUNT(DISTINCT o.id)                                    AS total_orders,
             COALESCE(SUM(oi.quantity), 0)                          AS total_items_sold,
             COALESCE(SUM(oi.quantity * oi.price_at_purchase), 0)   AS total_revenue
-        FROM FlashSale fs
+        FROM flashsale fs
         LEFT JOIN order_items oi ON oi.flashsale_id = fs.id
         LEFT JOIN orders o ON o.id = oi.order_id
             AND o.status NOT IN ('Cancelled', 'Returned')

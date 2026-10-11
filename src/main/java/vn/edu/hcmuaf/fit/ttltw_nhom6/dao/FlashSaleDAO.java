@@ -10,7 +10,7 @@ public class FlashSaleDAO extends ADao {
     public FlashSale getActiveFlashSaleEndingSoon() {
         String sql = """
                     SELECT *
-                    FROM FlashSale
+                    FROM flashsale
                     WHERE status = 'active'
                       AND start_time <= NOW()
                       AND end_time >= NOW()
@@ -30,7 +30,7 @@ public class FlashSaleDAO extends ADao {
 
     public int insert(FlashSale flashSale) {
         String sql = """
-                    INSERT INTO FlashSale (name, discount_percent, start_time, end_time, status)
+                    INSERT INTO flashsale (name, discount_percent, start_time, end_time, status)
                     VALUES (:name, :discountPercent, :startTime, :endTime, :status)
                 """;
 
@@ -49,7 +49,7 @@ public class FlashSaleDAO extends ADao {
 
         String sql = """
                     SELECT id, name, discount_percent, start_time, end_time, status, created_at
-                    FROM FlashSale
+                    FROM flashsale
                     WHERE is_deleted = 0
                     ORDER BY created_at ASC
                 """;
@@ -62,10 +62,10 @@ public class FlashSaleDAO extends ADao {
     }
 
     public boolean deleteById(int id) {
-        String sql = "UPDATE FlashSale SET is_deleted = 1 WHERE id = ?";
+        String sql = "UPDATE flashsale SET is_deleted = 1 WHERE id = ?";
 
         return jdbi.withHandle(handle ->
-            handle.createUpdate(sql).bind(0, id).execute() > 0
+                handle.createUpdate(sql).bind(0, id).execute() > 0
         );
     }
 
@@ -73,7 +73,7 @@ public class FlashSaleDAO extends ADao {
 
         updateStatuses();
 
-        String sql = "SELECT * FROM FlashSale WHERE id = ?";
+        String sql = "SELECT * FROM flashsale WHERE id = ?";
         return jdbi.withHandle(handle ->
                 handle.createQuery(sql)
                         .bind(0, id)
@@ -85,7 +85,7 @@ public class FlashSaleDAO extends ADao {
 
     public boolean updateFlashSale(int id, String name, double discountPercent, LocalDateTime startTime, LocalDateTime endTime) {
         String sql = """
-                    UPDATE FlashSale 
+                    UPDATE flashsale 
                     SET name = :name,
                         discount_percent = :discountPercent,
                         start_time = :startTime,
@@ -106,7 +106,7 @@ public class FlashSaleDAO extends ADao {
 
     public void updateStatuses() {
         String sql = """
-                    UPDATE FlashSale
+                    UPDATE flashsale
                     SET status = CASE
                         WHEN NOW() < start_time THEN 'scheduled'
                         WHEN NOW() >= start_time AND NOW() <= end_time THEN 'active'
@@ -132,7 +132,7 @@ public class FlashSaleDAO extends ADao {
 
         String sql = """
                     SELECT *
-                    FROM FlashSale
+                    FROM flashsale
                     WHERE status IN ('active', 'scheduled') 
                     AND is_deleted = 0
                     ORDER BY start_time ASC
@@ -153,7 +153,7 @@ public class FlashSaleDAO extends ADao {
 
         String sql = """
         SELECT *
-        FROM FlashSale
+        FROM flashsale
         WHERE status = :status
         AND is_deleted = 0
         ORDER BY start_time ASC
@@ -181,7 +181,7 @@ public class FlashSaleDAO extends ADao {
             COUNT(DISTINCT o.id)                              AS total_orders,
             COALESCE(SUM(oi.quantity), 0)                    AS total_items_sold,
             COALESCE(SUM(oi.quantity * oi.price_at_purchase), 0) AS total_revenue
-        FROM FlashSale fs
+        FROM flashsale fs
         LEFT JOIN order_items oi ON oi.flashsale_id = fs.id
         LEFT JOIN orders o ON o.id = oi.order_id
             AND o.status NOT IN ('Cancelled', 'Returned')
@@ -252,7 +252,7 @@ public class FlashSaleDAO extends ADao {
         int offset = (page - 1) * pageSize;
         String sql = """
                     SELECT id, name, discount_percent, start_time, end_time, status, created_at
-                    FROM FlashSale
+                    FROM flashsale
                     WHERE is_deleted = 0
                     ORDER BY created_at DESC
                     LIMIT :limit OFFSET :offset
@@ -266,7 +266,7 @@ public class FlashSaleDAO extends ADao {
         );
     }
     public int countFlashSales() {
-        String sql = "SELECT COUNT(*) FROM FlashSale WHERE is_deleted = 0";
+        String sql = "SELECT COUNT(*) FROM flashsale WHERE is_deleted = 0";
         return jdbi.withHandle(handle ->
                 handle.createQuery(sql)
                         .mapTo(Integer.class)

@@ -18,7 +18,7 @@ public class PointTransactionDAO {
      */
     public int createTransaction(PointTransaction transaction) {
         return jdbi.withHandle(handle -> {
-            String sql = "INSERT INTO PointTransactions " +
+            String sql = "INSERT INTO pointtransactions " +
                     "(user_id, order_id, points, transaction_type, description, created_at) " +
                     "VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -41,7 +41,7 @@ public class PointTransactionDAO {
      */
     public List<PointTransaction> getTransactionsByUserId(int userId) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM PointTransactions " +
+                handle.createQuery("SELECT * FROM pointtransactions " +
                                 "WHERE user_id = ? ORDER BY created_at DESC")
                         .bind(0, userId)
                         .mapToBean(PointTransaction.class)
