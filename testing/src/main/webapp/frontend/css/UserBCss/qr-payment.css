@@ -1,0 +1,159 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+.page-wrap {
+    display: flex;
+    gap: 24px;
+    max-width: 860px;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.info-card {
+    background: white;
+    border-radius: 12px;
+    padding: 28px;
+    width: 280px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.momo-logo-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.momo-logo-header img {
+    width: 40px; height: 40px; border-radius: 8px;
+}
+.momo-logo-header span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #a50064;
+}
+.info-label { font-size: 12px; color: #999; margin-bottom: 4px; }
+.info-value { font-size: 14px; color: #333; font-weight: 600; margin-bottom: 16px; }
+.info-value.amount { font-size: 22px; color: #333; }
+.timer-box {
+    background: #fff5fb;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    margin-top: 8px;
+}
+.timer-label { font-size: 12px; color: #a50064; margin-bottom: 6px; }
+.timer-digits {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+.digit-block {
+    background: #a50064;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    min-width: 36px;
+    text-align: center;
+}
+.digit-sep {
+    color: #a50064;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 36px;
+}
+.btn-back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #a50064;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+.btn-back-link:hover { text-decoration: underline; }
+
+.qr-card {
+    background: #ae0070;
+    border-radius: 12px;
+    padding: 28px;
+    flex: 1;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+}
+.qr-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+}
+.qr-card::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -30px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+}
+.qr-title {
+    color: white;
+    font-size: 15px;
+    margin-bottom: 16px;
+    opacity: 0.9;
+}
+.qr-wrap {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+.qr-wrap img {
+    width: 220px;
+    height: 220px;
+    display: block;
+}
+.qr-hint {
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+.btn-confirm {
+    background: white;
+    color: #a50064;
+    border: none;
+    padding: 13px 24px;
+    font-size: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    transition: all .2s;
+    position: relative;
+    z-index: 1;
+}
+.btn-confirm:hover {
+    background: #fff0f8;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+    .page-wrap { flex-direction: column; }
+    .info-card { width: 100%; }
+}

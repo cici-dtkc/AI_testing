@@ -1,0 +1,499 @@
+.contain-main {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.seri {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    width: 100%;
+}
+
+.image img.manga-cover {
+    width: 220px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.contain1 {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.contain-header {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.manga-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.series-detail {
+    font-size: 15px;
+    color: black;
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.series-detail strong {
+    color: #000;
+    min-width: 120px;
+}
+
+.series-detail i {
+    color: #ff4c4c;
+    width: 20px;
+}
+
+.series-info {
+    margin-top: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.status-badge.completed {
+    background: #4caf50;
+    color: white;
+}
+
+.status-badge.ongoing {
+    background: #2196f3;
+    color: white;
+}
+
+.action-panel {
+    display: flex;
+    align-items: flex-start;
+    padding-top: 10px;
+}
+
+.notify-btn {
+    background-color: #ff4c4c;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 180px;
+    justify-content: center;
+}
+
+.notify-btn:hover {
+    background-color: #e63946;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 76, 76, 0.3);
+}
+
+.notify-btn:active {
+    transform: translateY(0);
+}
+
+.notify-btn.subscribed {
+    background: #666;
+}
+
+.series-volumes-container {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #333;
+    font-weight: bold;
+}
+
+.section-title i {
+    color: #ff4c4c;
+}
+
+/* Container chính */
+.item {
+    background-color: transparent;
+    width: 100%;
+    padding: 0;
+}
+
+/* 🔥 Sử dụng GRID thay vì FLEX để layout đẹp hơn */
+.slider-track {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+/* 🔥 COPY TỪNG DÒNG TỪ HOMEPAGE.CSS */
+.product-item {
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 420px;  /* ← GIỐNG HOMEPAGE */
+}
+
+.product-item img {
+    width: 100%;
+    height: 280px;  /* ← GIỐNG HOMEPAGE */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product-item a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.product-name {
+    font-size: 16px;  /* ← GIỐNG HOMEPAGE */
+    color: #333;
+    margin: 10px 0 5px;
+    height: 40px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.2;
+}
+
+.product-price {
+    color: #ff5722;  /* ← GIỐNG HOMEPAGE */
+    font-weight: bold;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.original-price {
+    font-size: 14px;
+    margin: 3px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.original-price s {
+    color: #999;
+}
+
+.discount-badge {
+    background-color: #ff5722;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.sold {
+    margin-top: auto;
+    padding-top: 8px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #666;
+    border-top: 1px solid #f0f0f0;
+}
+
+.sold strong {
+    color: #ff5722;
+    font-weight: 600;
+}
+
+/* ← GIỐNG HOMEPAGE */
+.product-item:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Badge trạng thái kho */
+.stock-badge {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.stock-badge.in-stock {
+    background: #4caf50;
+    color: white;
+}
+
+.stock-badge.low-stock {
+    background: #ff9800;
+    color: white;
+}
+
+.stock-badge.out-of-stock {
+    background: #f44336;
+    color: white;
+}
+
+/* Thông báo không có truyện */
+.no-comics-message {
+    text-align: center;
+    padding: 80px 20px;
+    color: #999;
+}
+
+.no-comics-message i {
+    font-size: 72px;
+    margin-bottom: 20px;
+    color: #ddd;
+}
+
+.no-comics-message p {
+    font-size: 18px;
+    color: #666;
+}
+
+/* Toast notification */
+.toast {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+    z-index: 9999;
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast-success {
+    border-left: 4px solid #4caf50;
+}
+
+.toast-info {
+    border-left: 4px solid #2196f3;
+}
+
+.toast i {
+    font-size: 20px;
+}
+
+.toast-success i {
+    color: #4caf50;
+}
+
+.toast-info i {
+    color: #2196f3;
+}
+
+/* Responsive */
+@media (max-width: 1400px) {
+    .slider-track {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .slider-track {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .seri {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .contain1 {
+        flex-direction: column;
+    }
+
+    .image img.manga-cover {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .slider-track {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-track {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+/* Flash Sale Badge */
+.flash-sale-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: linear-gradient(135deg, #ff3b30 0%, #ff6b6b 100%);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(255, 59, 48, 0.4);
+    animation: flashPulse 2s infinite;
+}
+
+.flash-sale-badge i {
+    margin-right: 3px;
+}
+
+@keyframes flashPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Product item cần position relative để badge absolute hoạt động */
+.product-item {
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 420px;
+    position: relative; /* ← QUAN TRỌNG */
+}
+
+/* Flash Price */
+.product-price.flash {
+    color: #ff3b30 !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+}
+
+.original-price {
+    font-size: 14px;
+    margin: 3px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.original-price s {
+    color: #999;
+}
+
+.discount-badge {
+    background-color: #ff5722;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.discount-badge.flash {
+    background: linear-gradient(135deg, #ff3b30 0%, #ff6b6b 100%);
+    animation: flashPulse 2s infinite;
+}
+
+/* Product item hover effect */
+.product-item:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Sold info */
+.sold {
+    margin-top: auto;
+    padding-top: 8px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #666;
+    border-top: 1px solid #f0f0f0;
+}
+
+.sold strong {
+    color: #ff5722;
+    font-weight: 600;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 40px 0;
+}
+
+.page-btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #333;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.page-btn:hover {
+    background: #f5f5f5;
+}
+
+.page-btn.active {
+    background: #e63946;
+    color: white;
+    border-color: #e63946;
+}

@@ -1,0 +1,92 @@
+.forgot-pd-container {
+  display: none;
+  position: absolute;
+  top: 150px;
+  left: 800px;
+  width: 400px;
+  height: 500px;
+}
+
+
+.forgot-pd-container {
+  margin: 50px auto;
+  padding: 24px;
+  background-color: #f9f9f9;
+}
+
+.forgot-pd-container h2 {
+  text-align: center;
+  margin-top: 40px;
+  color: #ff4c4c;
+}
+
+.email-class,
+.verify-title {
+  margin-bottom: 20px;
+}
+
+.label-with-icon {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+#forgot-password-form {
+  margin-top: 30px;
+}
+
+#forgot-password-form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.new-pass {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.new-pass label {
+  font-weight: bold;
+  color: #333;
+}
+
+.new-pass input.in {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.new-pass input.in:disabled {
+  background-color: #f0f0f0;
+  color: #999;
+  cursor: not-allowed;
+}
+/* Thông báo gửi mã */
+#remind {
+  margin-bottom: 16px;
+  color: #007bff;
+  font-size: 14px;
+}
+
+.forgot-pd-container button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.forgot-pd-container button:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}

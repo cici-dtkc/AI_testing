@@ -1,0 +1,41 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: Arial, sans-serif;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+.popup {
+    background: white;
+    border-radius: 12px;
+    padding: 40px 30px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+}
+.icon { color: #28a745; font-size: 60px; margin-bottom: 16px; }
+h2 { color: #333; font-size: 24px; margin-bottom: 10px; }
+p  { color: #666; font-size: 15px; margin-bottom: 24px; }
+.btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 13px 35px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn:hover { background: #218838; }
+.countdown { color: #999; font-size: 13px; margin-top: 14px; }

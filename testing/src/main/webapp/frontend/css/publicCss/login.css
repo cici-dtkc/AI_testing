@@ -1,0 +1,503 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.navbar {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 12px 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logo MangaToon */
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #e53935;
+}
+
+.logo #logo {
+  height: 100px;
+  margin-right: 8px;
+  margin: -10px;
+}
+
+.menu {
+  display: flex;
+  gap: 16px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.menu a:hover {
+  color: #e53935;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+  background-color: #fff;
+  padding: 10px 20px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 8px 12px;
+  position: relative;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  min-width: 150px;
+  z-index: 100;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 8px 16px;
+  color: #333;
+  white-space: nowrap;
+}
+
+.dropdown-content a:hover {
+  background-color: #f2f2f2;
+}
+
+/* chỗ này cái thể loại bị lệch xuống dưới do có thêm cái div */
+.dropdown {
+  position: relative;
+  top: 9px;
+}
+
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.actions .publish-btn {
+  display: none;
+}
+
+.actions {
+  position: relative;
+  right: 90px;
+}
+
+.actions .search {
+  padding: 5px;
+}
+
+.actions a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.publish-btn,
+.login-btn {
+  display: none;
+}
+.container {
+  margin-top: 20px;
+}
+
+.img-Login {
+  background-image: url("../../../img/imgLogin.png");
+  background-size: cover;
+}
+.img-Login {
+  width: 100vw;
+  height: 86vh;
+}
+
+.container-signup {
+  position: absolute;
+  background-color: white;
+  display: flex;
+  top: 200px;
+  left: 800px;
+  width: 400px;
+  height: 500px;
+  flex-direction: column;
+
+}
+
+.social-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+a.facebook,
+a.google {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 24px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+/* Facebook */
+a.facebook {
+  font-weight: bold;
+  font-size: 24px;
+  background: linear-gradient(to right, #1877f2, #4267B2, #385898, #23345A);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+a.facebook:hover {
+  background-color: #145dbf;
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+a.facebook:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* google */
+a.google {
+  background: linear-gradient(to right, #4285F4, #EA4335, #FBBC05, #34A853);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+a.google:hover {
+  background-color: #0d8ddb;
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+a.google:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+.is-user {
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.title h3 {
+  font-size: 22px;
+  color: #ff4c4c;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 60px;
+}
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  margin-top: -20px;
+  margin-bottom: 25px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.forgot-password {
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.container-signup {
+  align-items: center;
+  justify-content: center;
+}
+
+.sdt_maOTP {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.container-signup p a {
+  text-decoration: none;
+}
+
+.container-signup .title {
+  position: relative;
+  top: -50px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.container-signup .title h3 {
+  font-weight: 400 bold;
+}
+
+.title a {
+  color: #007bff;
+}
+
+
+.sdt_maOTP input {
+  position: relative;
+  top: -40px;
+  width: 350px;
+  height: 50px;
+  font-size: 18px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.sdt_maOTP {
+  gap: 10px;
+}
+
+.btn_guiOTP {
+  width: 100%;
+  height: 50px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 10px;
+
+}
+
+.dktk {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 10px 0;
+}
+
+
+.btn {
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.footer {
+  width: 100vw;
+}
+
+.footer {
+  background: #1b1b1b;
+  color: #f1f1f1;
+  padding: 50px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.7;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 20px;
+  /* Reduced gap for better spacing */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 180px;
+  text-align: left;
+}
+
+.footer-column .logo img {
+  width: 120px;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease, opacity 0.3s;
+}
+
+.footer-column .logo img:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.footer-column h4 {
+  color: #ffcc00;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.footer-column h4 i {
+  margin-right: 8px;
+  color: #ffcc00;
+}
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin: 8px 0;
+}
+
+.footer-column ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+  color: #ffcc00;
+}
+.footer-column p i {
+  margin-right: 8px;
+  color: #ffcc00;
+}
+.social-links {
+  margin-top: 10px;
+}
+
+.social-links a {
+  display: inline-block;
+  font-size: 22px;
+  color: #ccc;
+  margin-right: 15px;
+  transition: color 0.3s, transform 0.2s;
+}
+
+.social-links a:hover {
+  color: #ffcc00;
+  transform: scale(1.2);
+}
+.payment-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.payment-icons img {
+  width: 45px;
+  height: auto;
+  border-radius: 6px;
+  background: #fff;
+  padding: 4px;
+}
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  padding-top: 15px;
+  color: #aaa;
+  font-size: 14px;
+}
+.footer-bottom strong {
+  color: #ffcc00;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .footer-column {
+    flex: 1 1 45%;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-column {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .payment-icons {
+    justify-content: center;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+  }
+}
+

@@ -1,0 +1,185 @@
+.container-register {
+  display: none;
+  background-color: white;
+  position: absolute;
+  top: 200px;
+  left: 800px;
+  width: 400px;
+  height: 500px;
+  padding: 30px 35px;
+}
+
+.glass-card {
+  width: 100%;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-header h2 {
+  color: #ff4c4c;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.form-header p {
+  color: #666;
+  font-size: 14px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.name-register {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+.name-register i {
+  color: #555;
+}
+
+.name-register input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+}
+.email-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.email-container i {
+  color: #555;
+}
+
+.email-container input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+}
+.pw-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.pw-container i {
+  color: #555;
+}
+
+.pw-container input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+}
+
+.cf-pw-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.cf-pw-container i {
+  color: #555;
+}
+
+.cf-pw-container input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+}
+
+.input-container {
+  margin-top: 10px;
+}
+
+.btn-sign-up button {
+  width: 100%;
+  height: 50px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.btn-sign-up button:hover {
+  transform: scale(1.05);
+}
+
+.btn-sign-up button:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.btn-form-footer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.btn-form-footer i {
+  font-size: 24px;
+  color: white;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-form-footer .fa-facebook {
+  background-color: #1877f2;
+}
+
+.btn-form-footer .fa-facebook:hover {
+  background-color: #145dbf;
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.btn-form-footer .fa-twitter {
+  background-color: #1da1f2;
+}
+
+.btn-form-footer .fa-twitter:hover {
+  background-color: #0d8ddb;
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}

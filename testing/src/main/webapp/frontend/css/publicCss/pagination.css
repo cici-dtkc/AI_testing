@@ -1,0 +1,146 @@
+.search-info {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    margin: 15px 0;
+}
+
+.search-info strong {
+    color: #ff6b6b;
+    font-weight: 600;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;;
+    align-items: center;
+    gap: 8px;
+    margin: 40px 0;
+    padding: 20px 10px;
+}
+
+.page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    background-color: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    color: #333;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.page-btn:hover:not(.active):not(.dots) {
+    background-color: #f5f5f5;
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 107, 107, 0.2);
+}
+
+.page-btn.active {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+    border-color: #ff6b6b;
+    color: #fff;
+    cursor: default;
+    transform: none;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.page-btn.active:hover {
+    transform: none;
+}
+
+.page-btn.dots {
+    border: none;
+    background: none;
+    cursor: default;
+    font-weight: 700;
+    color: #999;
+}
+
+.page-btn.dots:hover {
+    transform: none;
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.page-btn i {
+    font-size: 14px;
+}
+
+.page-btn:active:not(.dots) {
+    transform: translateY(0) scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .pagination {
+        gap: 6px;
+        margin: 30px 0;
+    }
+
+    .page-btn {
+        min-width: 36px;
+        height: 36px;
+        padding: 0 10px;
+        font-size: 14px;
+    }
+
+    .search-info {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pagination {
+        gap: 4px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+    }
+
+    .page-btn {
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        font-size: 13px;
+        border-radius: 6px;
+    }
+
+    .search-info {
+        font-size: 13px;
+        margin: 10px 0;
+    }
+
+    .page-btn.dots {
+        min-width: 24px;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .page-btn {
+        background-color: #2a2a2a;
+        border-color: #444;
+        color: #e0e0e0;
+    }
+
+    .page-btn:hover:not(.active):not(.dots) {
+        background-color: #333;
+        border-color: #ff6b6b;
+    }
+
+    .search-info {
+        color: #999;
+    }
+
+    .search-info strong {
+        color: #ff8080;
+    }
+}

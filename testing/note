@@ -1,0 +1,44 @@
+1. session
+bth là lưu thông tin ở trang nào đấy nhưng không làm được bài khó
+mình seẽ lưu ở session cái username và pass ròi lúc nào cần lấy thì lấy về
+và cái session này nó sẽ tồn tại trong suốt cái project và có lấy bắt cứ lúc nào hay xóa nó cũng được
+httpsession session = rq.getSesssion
+session.setAttribute("us"", username)
+bên kia chi ${session.us}
+
+còn cái khác khi lấy thì chỉ cần getAtrribute thôi
+còn trong jsp thì sessionScope.sumAB
+
+
+2.sự khác nhau forward() và sendRedirect()
+Đặc điểm    	            forward()	    sendRedirect()
+Thực hiện	                Nội bộ server	Trình duyệt gửi request mới
+URL trên trình duyệt	    Không đổi	    Bị thay đổi
+Giữ dữ liệu request	        Có	            Không
+
+3.làm cái authen
+-Người dùng nhập email → nhấn nút "Lấy mã xác thực".
+-Server kiểm tra email có tồn tại trong hệ thống.
+-Sinh mã xác thực (OTP) ngẫu nhiên (ví dụ 6 chữ số).
+-Lưu mã OTP vào DB hoặc session kèm thời gian hết hạn (thường 5–10 phút).
+-Gửi email chứa mã OTP đến địa chỉ người dùng.
+-Người dùng nhập mã OTP + mật khẩu mới → gửi form.
+-Server kiểm tra OTP hợp lệ → nếu đúng thì hash mật khẩu mới bằng PasswordUtils.hashPassword() và cập nhật DB.
+
+4. Ajax và json
+ - Khi bạn muốn làm tìm kiếm truyện mà kết quả hiển thị ngay bên dưới ô input, thì phần HTML + CSS chỉ lo phần khung giao diện.
+ Còn việc lấy dữ liệu động (từ server hoặc file JSON) và đổ kết quả vào khung thì phải dùng JavaScript kết hợp với AJAX.
+ - Cách hoạt động tổng quát
+       1.  Người dùng nhập từ khóa vào ô input.
+       2.  JS bắt sự kiện keyup hoặc input.
+       3.  AJAX gửi request lên server (Servlet/JSP hoặc API).
+       4.  Server trả về JSON chứa danh sách truyện phù hợp.
+       5.  JS đọc JSON và render kết quả vào <div id="searchResults">.
+
+Method	            Dùng khi
+.mapToBean(Class)	map vào object (Category)
+.mapTo(Class)	    map vào kiểu đơn (String, int...)
+
+tinyint này voucher.singleUse thì nó lấy isSingleUse
+            voucher.isSingleUse thì nó lấy getIsSingleUse
+theo javabean

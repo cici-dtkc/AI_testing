@@ -1,0 +1,153 @@
+.rating-container {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 100px;
+}
+.rating-left {
+    margin-left: 100px;
+}
+
+.rating-left h3 {
+    margin-bottom: 15px;
+}
+
+.rating-score {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.score-number {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.score-stars {
+    color: #ffa500;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.score-count {
+    color: gray;
+    font-size: 14px;
+}
+
+.rating-bars {
+    width: 280px;
+}
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+
+.bar-row span:first-child {
+    width: 50px;
+}
+
+.bar-row span:last-child {
+    width: 40px;
+    text-align: right;
+}
+
+.bar {
+    flex: 1;
+    height: 6px;
+    background: #eee;
+    margin: 0 10px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    background: #ffa500;
+}
+.comment {
+    background-color: white;
+    margin: 0 100px 0 100px;
+}
+.review-tabs {
+    margin: 15px 10px;
+    background-color: white;
+    padding-top: 15px;
+}
+
+.review-tabs .tab {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #555;
+    margin-right: 10px;
+}
+
+.review-tabs .tab.active {
+    color: #d00;
+    border-bottom: 2px solid #d00;
+}
+.review-item {
+    display: flex;
+    gap: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    background-color: white;
+    margin: 10px 0px 10px 0px;
+}
+
+.review-left {
+    width: 120px;
+    text-align: center;
+}
+
+.avatar {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    border-radius: 50%;
+    background: #ccc;
+    margin: 0 auto 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.review-date {
+    font-size: 14px;
+    color: #888;
+}
+
+.review-right {
+    flex: 1;
+}
+
+.review-stars {
+    color: #ffa500;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.review-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.review-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.action {
+    color: #777;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.action:hover {
+    color: #d00;
+}

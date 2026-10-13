@@ -1,0 +1,1522 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    font-size: 14px;
+}
+
+
+.mainContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-radius: 0px 0px 8px 8px;
+}
+
+.container {
+    flex: 2;
+    min-width: 300px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.totalCost {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    /*max-height: 500px;*/
+    height: fit-content;
+}
+.titleCheckout {
+    background: #007bff;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    width: 1180px;
+    padding: 10px 0;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 8px 8px 0px 0px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.titleCheckout h1 {
+    font-size: 20px;
+    /* Giảm từ 22px */
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* Main */
+main {
+    width: 100%;
+}
+
+/* Address Section */
+.address {
+    max-width: 800px;
+    margin: 5px 0;
+    background: #ffffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 16px;
+    color: #444;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    background: #fdfdfd;
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #d32f2f;
+    box-shadow: 0 0 3px rgba(211, 47, 47, 0.3);
+    outline: none;
+}
+
+.shipping,
+.payment,
+.promotion {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    max-width: 800px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.shipping h2,
+.payment h2,
+.promotion h2 {
+    color: #007bff;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.shipping label,
+.payment label,
+.promotion label {
+    display: block;
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.promotion {
+    max-width: 800px;
+    margin: 15px 0;
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.promos {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.promos input[type="text"] {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    background: #fdfdfd;
+}
+
+.promos input[type="text"]::placeholder {
+    color: #aaa;
+}
+
+.promos input[type="text"]:focus {
+    border-color: #d32f2f;
+    box-shadow: 0 0 3px rgba(211, 47, 47, 0.3);
+    outline: none;
+}
+
+.promos .apply-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.promos .apply-btn:hover {
+    background-color: #0056b3;
+}
+
+.voucher-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 8px;
+    border-bottom: 1px solid #eee;
+    font-family: Arial, sans-serif;
+}
+
+.voucher-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.voucher-title {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.voucher-select {
+    font-size: 13px;
+    color: #2f6ec8;
+    text-decoration: none;
+}
+
+.voucher-select:hover {
+    text-decoration: underline;
+}
+
+.usePoint {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin: 8px 0;
+}
+
+.promotion .usePoint p {
+    font-size: 14px;
+}
+
+.usePoint input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.order-summary {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    font-family: "Segoe UI", Arial, sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 400px;
+    height: auto;
+}
+
+.order-summary h2 {
+    color: #007bff;
+    font-size: 18px;
+    /* Giảm từ 20px */
+    font-weight: 600;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+.order-summary p {
+    display: flex;
+    justify-content: space-between;
+    margin: 6px 0;
+    font-size: 14px;
+    /* Giảm từ 16px */
+    color: #333;
+}
+
+.order-summary strong {
+    color: #ff4c4c;
+}
+
+.order-summary p span {
+    color: #000000;
+    font-weight: 500;
+}
+
+.order-summary p.discount {
+    color: #2ecc71;
+    font-weight: 600;
+}
+
+.order-summary p.total {
+    font-size: 14px;
+    /* Giảm từ 16px */
+    font-weight: 700;
+    color: #d32f2f;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #e0e0e0;
+    justify-content: space-between;
+
+}
+
+.order-summary button {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    /* Giảm từ 16px */
+    font-weight: 600;
+    align-self: flex-end;
+    margin-top: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.order-summary button:hover {
+    background-color: #ff6a6a;
+    transform: translateY(-2px);
+}
+
+.order-summary .item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.order-summary .item img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.order-summary .itemSummary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.order-summary .itemSummary span {
+    font-weight: 500;
+}
+
+.popup-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    transition: opacity 0.3s ease;
+}
+
+.popup-backdrop.active {
+    display: block;
+    opacity: 1;
+}
+
+.voucher-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+.voucher-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    padding: 20px;
+    overflow-y: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+}
+
+.voucher-header-drag {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.voucher-popup h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.close-popup-btn {
+    background: none;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+    color: #555;
+}
+
+.close-popup-btn:hover {
+    color: #000;
+}
+
+.vouchers-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.voucher-card {
+    background: #f0f8f0;
+    border: 1px solid #28a745;
+    border-radius: 8px;
+    padding: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.voucher-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.voucher-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px 12px;
+    background: #f8f9fa;
+    border-top: 1px dashed #ddd;
+}
+
+.voucher-expiry {
+    font-size: 13px;
+    color: #888;
+}
+
+.copy-code-btn {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.copy-code-btn:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+.copy-code-btn:active {
+    transform: translateY(0);
+}
+.qr-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.qr-content {
+    background: #fff;
+    padding: 20px;
+    width: 320px;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+}
+
+.qr-content img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.popupQR {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    z-index: 9999;
+}
+@media (max-width: 600px) {
+    .voucher-container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .voucher-container h2 {
+        font-size: 18px;
+    }
+
+    .voucher-title {
+        font-size: 14px;
+    }
+
+    .voucher-desc {
+        font-size: 12px;
+    }
+
+    .voucher-code {
+        font-size: 13px;
+    }
+
+    .copy-code-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainContainer {
+        padding: 0;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .container {
+        min-width: 100%;
+        padding: 10px;
+    }
+
+    .totalCost {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .address,
+    .shipping,
+    .payment,
+    .promotion {
+        max-width: 100%;
+        margin: 5px 0;
+        padding: 8px 15px;
+    }
+
+    .order-summary {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .titleCheckout {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 8px 0;
+    }
+
+    .titleCheckout h1 {
+        font-size: 16px;
+        /* Giảm từ 18px */
+    }
+
+    .promos {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .promos input[type="text"] {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .promos .apply-btn {
+        width: 100%;
+        border-radius: 5px;
+    }
+}
+.qr-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9998;
+    backdrop-filter: blur(8px);
+}
+
+.qr-backdrop.active {
+    display: block;
+}
+
+.qr-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 90%;
+    max-width: 400px;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.qr-popup.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.qr-content {
+    padding: 24px;
+    text-align: center;
+    position: relative;
+}
+
+.qr-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    background: rgba(0,0,0,0.1);
+    border: none;
+    border-radius: 50%;
+    font-size: 28px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.qr-close-btn:hover {
+    background: #ff5252;
+    color: white;
+}
+
+.qr-content h3 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+.qr-content img {
+    width: 220px;
+    height: 220px;
+    border-radius: 16px;
+    border: 6px solid #f0f0f0;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    margin: 10px auto;
+}
+
+.qr-info {
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 12px;
+    margin: 16px 0;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #444;
+}
+
+.qr-info strong {
+    color: #1976d2;
+}
+
+#orderCode {
+    color: #d32f2f;
+    font-weight: bold;
+}
+
+.qr-copy-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s;
+}
+
+.qr-copy-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+
+.container-qr-popup{
+    --momo-primary: #a50064;
+    --momo-bg: #fff;
+}
+
+.momo-modal {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(2px);
+}
+
+.momo-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+.momo-close:hover { color: var(--momo-primary); }
+
+
+.momo-title {
+    margin: 0 0 16px;
+    font-size: 18px;
+    text-align: center;
+    color: var(--momo-primary);
+}
+
+.momo-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+/* QR */
+.momo-qr {
+    width: 240px;
+    height: 240px;
+    object-fit: cover;
+    /*border: 1px solid var(--momo-border);*/
+    border-radius: 12px;
+    background: #fff;
+    padding: 6px;
+}
+
+/* Thông tin */
+.momo-info {
+    text-align: left;
+    font-size: 15px;
+    line-height: 1.5;
+    /*color: var(--momo-text);*/
+    background: #fafafa;
+    /*border: 1px solid var(--momo-border);*/
+    border-radius: 10px;
+    padding: 12px;
+    width: 100%;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-quantity {
+    color: #666;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.summary-row.total-row {
+    border-top: 2px solid #333;
+    border-bottom: none;
+    margin-top: 10px;
+    padding-top: 15px;
+    font-size: 18px;
+}
+
+#pointsDiscountRow {
+    color: #e74c3c;
+}
+
+.btn-confirm-payment {
+    width: 100%;
+    padding: 12px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-confirm-payment:hover {
+    background: #c0392b;
+}
+
+.usePoint {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.usePoint input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Checkbox địa chỉ mặc định */
+.form-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.form-group label .checkbox-label-text {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    white-space: nowrap;
+}
+
+.default-address-notice {
+    background-color: #e8f5e9;
+    border: 1px solid #4caf50;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideDown 0.3s ease-out;
+}
+
+.default-address-notice i {
+    color: #4caf50;
+    font-size: 18px;
+}
+
+.default-address-notice span {
+    color: #2e7d32;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.form-group label input[type="checkbox"] {
+    margin-right: 8px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #4caf50;
+}
+
+.checkbox-label-text {
+    font-size: 14px;
+    color: #333;
+    user-select: none;
+}
+
+/* Loading indicator */
+.loading-indicator {
+    display: none;
+    color: #666;
+    font-size: 13px;
+    margin-top: 5px;
+    padding: 5px 0;
+}
+
+.loading-indicator i {
+    margin-right: 5px;
+}
+
+.btn-confirm-payment.success {
+    background-color: #27ae60 !important;
+    cursor: default;
+}
+
+.btn-confirm-payment:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.container-qr-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.container-qr-popup .qr-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.momo-modal {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.momo-dialog {
+    position: relative;
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s ease-out;
+    z-index: 3;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+.momo-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.1);
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s;
+    z-index: 4;
+    line-height: 1;
+}
+
+.momo-close:hover {
+    background-color: #ff5252;
+    color: white;
+    transform: rotate(90deg);
+}
+
+.momo-title {
+    text-align: center;
+    color: #d82d8b;
+    margin-bottom: 25px;
+    font-size: 22px;
+    font-weight: 600;
+    padding-right: 30px;
+}
+
+.momo-content {
+    text-align: center;
+}
+
+.momo-qr {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    margin: 0 auto 20px;
+    display: block;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.momo-info {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.momo-info p {
+    margin: 10px 0;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.momo-info strong {
+    color: #d82d8b;
+    font-weight: 600;
+}
+
+/* ✅ NÚT XÁC NHẬN THANH TOÁN */
+.btn-confirm-payment {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #d82d8b 0%, #b02070 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-confirm-payment:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(216, 45, 139, 0.3);
+}
+
+.btn-confirm-payment:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    opacity: 0.6;
+}
+
+.success-backdrop {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .momo-dialog {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .momo-qr {
+        max-width: 240px;
+    }
+
+    .momo-title {
+        font-size: 18px;
+    }
+
+    .momo-info p {
+        font-size: 14px;
+    }
+}
+.vpopup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+}
+.vpopup-header h3 { margin: 0; font-size: 17px; font-weight: 600; }
+.vpopup-header button {
+    background: none; border: none; cursor: pointer;
+    font-size: 18px; color: #888; padding: 4px 8px;
+}
+.vpopup-header button:hover { color: #333; }
+.badge-percent { background: #dcfce7; color: #166534; }
+.badge-fixed { background: #dbeafe; color: #1e40af; }
+.badge-ship { background: #ede9fe; color: #6d28d9; }
+.badge-expired { background: #fee2e2; color: #991b1b; }
+
+.no-voucher-msg { text-align: center; color: #aaa; font-size: 14px; padding: 30px 0; }
+
+/*!* ===== VOUCHER SECTION ===== *!*/
+/*.selected-voucher-info {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    gap: 8px;*/
+/*    background: #fff8e1;*/
+/*    border: 1px dashed #f59e0b;*/
+/*    border-radius: 8px;*/
+/*    padding: 10px 14px;*/
+/*    margin-bottom: 10px;*/
+/*    font-size: 14px;*/
+/*    color: #92400e;*/
+/*}*/
+
+/*.selected-voucher-info .fa-tag {*/
+/*    color: #f59e0b;*/
+/*}*/
+
+/*.selected-voucher-info #removeVoucher {*/
+/*    margin-left: auto;*/
+/*    background: none;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    color: #b45309;*/
+/*    padding: 0 4px;*/
+/*    font-size: 15px;*/
+/*}*/
+
+#openVoucherBtn {
+    width: fit-content;
+    min-width: 220px;
+    padding: 10px 18px;
+    border: 1.5px dashed #ccc;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #555;
+    cursor: pointer;
+    font-size: 14px;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+#openVoucherBtn:hover {
+    border-color: #e74c3c;
+    background: #fff5f5;
+    color: #e74c3c;
+}
+
+#voucherOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#voucherPopup {
+    background: #fff;
+    border-radius: 14px;
+    width: 500px;
+    max-width: 95vw;
+    height: 600px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+}
+
+.vpopup-header h3 { font-size: 16px; font-weight: 600; }
+.vpopup-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+}
+
+/*#voucherList {*/
+/*    flex: 1;*/
+/*    overflow-y: auto;*/
+/*    padding: 16px;*/
+/*}*/
+
+.voucher-item {
+    display: flex;
+    align-items: stretch;
+    background: #fff;
+    border: 1px solid #f0d0d5;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    min-height: 120px;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+}
+
+.voucher-item:hover { box-shadow: 0 4px 16px rgba(255,76,76,0.15); }
+.voucher-item.selected {
+    border-color: #ff4c4c;
+    box-shadow: 0 0 0 2px rgba(255,76,76,0.2);
+}
+.voucher-item.expired { opacity: 0.55; cursor: default; }
+
+.voucher-item-left {
+    min-width: 90px;
+    width: 90px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding:0;
+    color: #fff;
+    background: #ff4c4c;
+    border-radius: 10px 0 0 10px;
+}
+
+.voucher-item-left.type-product { background: #ff4c4c; }
+.voucher-item-left.type-ship    { background: #007bff; }
+
+.voucher-item-left i    { font-size: 22px; opacity: 0.95; }
+.voucher-item-left span {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+.vdiscount { font-size: 18px; font-weight: 700; color: #222; }
+.vcode     { font-size: 15px; color: #777; }
+.vcode span {
+    font-weight: 600; color: #444;
+    background: #f5f5f5;
+    padding: 1px 6px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+}
+.vmeta { display: flex; flex-direction: column; gap: 3px; font-size: 13px; color: #8a8a8a; margin-top: 2px; }
+.vmeta span { display: flex; align-items: center; gap: 5px; line-height: 1.5;
+    white-space: normal;
+flex-wrap: wrap;}
+
+.voucher-item-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 14px;
+    flex-shrink: 0;
+}
+.voucher-item-check input[type=checkbox] {
+    width: 18px; height: 18px;
+    cursor: pointer;
+    accent-color: #ff4c4c;
+}
+
+.uv-badge-expired {
+    font-size: 11px;
+    font-weight: 600;
+    color: #ff4c4c; }
+
+.voucher-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.voucher-details .vcode {
+    font-weight: 700;
+    font-size: 14px;
+    color: #e74c3c;
+    letter-spacing: 0.5px;
+}
+
+.voucher-details .vdesc {
+    font-size: 13px;
+    color: #333;
+    margin: 2px 0;
+}
+
+.voucher-details .vmeta {
+    font-size: 12px;
+    color: #888;
+    margin-top: 3px;
+}
+
+.voucher-details .vmeta span {
+    margin-right: 10px;
+}
+
+.voucher-badge {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.badge-percent { background: #dcfce7; color: #166534; }
+.badge-fixed   { background: #dbeafe; color: #1e40af; }
+.badge-ship    { background: #ede9fe; color: #6d28d9; }
+.badge-expired { background: #fee2e2; color: #991b1b; }
+
+.vpopup-footer {
+    padding: 14px 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.vpopup-footer button {
+    padding: 11px 32px;
+    background: #ff4c4c;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.vpopup-footer button:hover {
+    background: #ff6a6a;
+}
+
+.no-voucher-msg {
+    text-align: center;
+    color: #aaa;
+    font-size: 14px;
+    padding: 30px 0;
+}
+
+#voucherDiscountSpan {
+    color: #e74c3c;
+}
+
+.voucher-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    width: 24px;
+    text-align: center;
+    color: #e74c3c;
+}
+
+.voucher-item-sep {
+    width: 0;
+    flex-shrink: 0;
+    border-left: 2px dashed #e0e0e0;
+    margin: 8px 0;
+    align-self: stretch;
+}
+
+.voucher-item-body {
+    flex: 1;
+    padding: 12px 12px 12px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 6px;
+    min-width: 0;
+}
+
+.voucher-action-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.selected-voucher-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff8e1;
+    border: 1px dashed #f59e0b;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 14px;
+    color: #92400e;
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
+}
+
+#openVoucherBtn {
+    flex-shrink: 0;
+    width: auto;
+    padding: 8px 16px;
+    border: 1.5px dashed #ccc;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #555;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.remove-voucher-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #b45309;
+    font-size: 16px;
+    padding: 0 2px;
+    line-height: 1;
+
+    transition: 0.2s ease;
+}
+
+.remove-voucher-btn:hover {
+    color: #dc2626;
+    transform: scale(1.1);
+}
+
+.voucher-item.scope-mismatch {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.vdiscount-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.vc-single-use-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #7c3aed;
+    background: #ede9fe;
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.vc-single-use-tag i {
+    font-size: 10px;
+}
+
+.vpopup-tabs {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 12px;
+}
+.vpopup-tab {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #888;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+}
+.vpopup-tab.active {
+    color: #e94560;
+    border-bottom-color: #e94560;
+    font-weight: 600;
+}
+.vpopup-tab i {
+    margin-right: 6px;
+}
+
+#voucherListProduct,
+#voucherListShipping {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 5px;
+    max-height: 420px;
+}
+

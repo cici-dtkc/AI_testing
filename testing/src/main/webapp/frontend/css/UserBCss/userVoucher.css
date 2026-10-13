@@ -1,0 +1,342 @@
+.user-voucher-wrapper {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.user-voucher-wrapper h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #333;
+}
+
+.voucher-section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    margin: 20px 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.uv-card {
+    display: flex;
+    align-items: stretch;
+    background: #fff;
+    border: 1px solid #f0d0d5;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(255, 76, 76, 0.07);
+    transition: box-shadow 0.2s;
+}
+
+.uv-card:hover {
+    box-shadow: 0 4px 16px rgba(255, 76, 76, 0.15);
+}
+
+.uv-card-left {
+    color: #fff;
+    min-width: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 12px;
+    position: relative;
+}
+
+.uv-card-left::after {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    background: radial-gradient(circle at left, #fff 6px, transparent 6px) repeat-y;
+    background-size: 20px 18px;
+    z-index: 1;
+}
+
+.uv-card-left i {
+    font-size: 26px;
+    margin-bottom: 6px;
+    opacity: 0.95;
+}
+
+.uv-card-left .uv-type-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+    opacity: 0.92;
+}
+
+.uv-card-product {
+    border-color: #ffd0d0;
+}
+
+.uv-card-product .uv-card-left {
+    background: linear-gradient(135deg, #ff4c4c, #ff7b7b);
+}
+
+.uv-card-product .uv-discount-value {
+    color: #ff4c4c;
+}
+
+.uv-card-product .uv-card-action {
+    border-left: 1px dashed #ffd0d0;
+}
+
+.uv-card-product .uv-btn-urgent {
+    color: #e63946;
+}
+
+.uv-card-product .uv-btn-urgent:hover {
+    background: #e63946;
+    color: #fff;
+}
+
+.uv-card-product .uv-expiry.expired {
+    color: #ff4c4c;
+}
+
+.uv-card-product .uv-badge-expired {
+    color: #ff4c4c;
+}
+
+.uv-card-shipping {
+    border-color: #cce4ff;
+}
+
+.uv-card-shipping .uv-card-left {
+    background: linear-gradient(135deg, #007bff, #4da6ff);
+}
+
+.uv-card-shipping .uv-discount-value {
+    color: #007bff;
+}
+
+.uv-card-shipping .uv-card-action {
+    border-left: 1px dashed #cce4ff;
+}
+
+.uv-card-shipping .uv-btn-urgent {
+    color: #007bff;
+}
+
+.uv-card-shipping .uv-btn-urgent:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+.uv-card-shipping .uv-expiry.expired {
+    color: #007bff;
+}
+
+.uv-card-shipping .uv-badge-expired {
+    color: #007bff;
+}
+
+.uv-card-body {
+    flex: 1;
+    padding: 14px 18px 14px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.uv-discount-value {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.uv-code {
+    font-size: 13px;
+    color: #888;
+}
+
+.uv-code span {
+    font-weight: 600;
+    color: #444;
+    background: #f5f5f5;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+}
+
+.uv-expiry {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.uv-expiry.expired {
+    font-weight: 600;
+}
+
+.uv-card-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 16px;
+    gap: 8px;
+    min-width: 100px;
+}
+
+.uv-btn-copy {
+    background: #ff4c4c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+}
+
+.uv-btn-copy:hover {
+    background: #e03c3c;
+}
+
+.uv-btn-copy.copied {
+    background: #4caf50;
+}
+
+.uv-badge-expired {
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.uv-btn-urgent {
+    background: transparent;
+    border: 2px solid currentColor;
+    border-radius: 6px;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s, color 0.2s;
+}
+
+.uv-expiry.urgent {
+    font-weight: 600;
+    font-size: 12px;
+    color: #e63946;
+}
+
+.uv-card-urgent {
+    border-color: #ff4c4c;
+    box-shadow: 0 2px 8px rgba(255, 76, 76, 0.2);
+}
+
+.uv-later-text {
+    font-size: 13px;
+    color: #007bff;
+    text-align: center;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.uv-start-date {
+    font-size: 10px;
+    color: #bbb;
+    text-align: center;
+}
+
+.uv-badge-valid {
+    font-size: 11px;
+    color: #28a745;
+    font-weight: 600;
+    text-align: center;
+    background: #e8f5e9;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.uv-empty {
+    text-align: center;
+    padding: 50px 20px;
+    color: #bbb;
+}
+
+.uv-empty i {
+    font-size: 50px;
+    margin-bottom: 14px;
+    display: block;
+}
+
+.uv-empty p {
+    font-size: 15px;
+    margin: 0 0 16px 0;
+}
+
+.uv-empty a {
+    display: inline-block;
+    padding: 10px 24px;
+    background: #ff4c4c;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.uv-empty a:hover {
+    background: #e03c3c;
+}
+
+.uv-min-order {
+    font-size: 12px;
+    color: #888;
+    margin-top: 3px;
+}
+
+.uv-apply {
+    font-size: 12px;
+    color: #888;
+}
+
+.uv-apply span {
+    font-weight: 600;
+    color: #555;
+}
+
+.uv-single-use-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #7c3aed;
+    background: #ede9fe;
+    padding: 2px 8px;
+    border-radius: 20px;
+    width: fit-content;
+}
+
+.uv-single-use-tag i {
+    font-size: 10px;
+}
+
+.uv-discount-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
