@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "AI: Run tests",
+            "type": "shell",
+            "command": "${workspaceFolder}\\AI\\.venv\\Scripts\\python.exe",
+            "args": [
+                "-m",
+                "pytest",
+                "-q",
+                "${workspaceFolder}\\AI\\tests"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}\\AI"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

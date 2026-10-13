@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "AI: Run pytest",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pytest",
+            "args": [
+                "-q",
+                "${workspaceFolder}\\AI\\tests"
+            ],
+            "cwd": "${workspaceFolder}\\AI",
+            "envFile": "${workspaceFolder}\\AI\\.env",
+            "justMyCode": true
+        }
+    ]
+}
