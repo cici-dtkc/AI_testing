@@ -3,6 +3,9 @@ AI/.venv/
 AI/.pytest_cache/
 AI/**/__pycache__/
 AI/**/*.pyc
+AI/.env
+AI/.env.*
+!AI/.env.example
 
 # Local IDE and OS files
 .vscode/
