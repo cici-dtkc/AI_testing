@@ -31,5 +31,5 @@ class SharedState(TypedDict, total=False):
 
 
 class Route(BaseModel):
-    next: Literal["executor", "reporter"]
+    next: Literal["executor", "__end__"]
     reason: str
