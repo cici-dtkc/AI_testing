@@ -1,0 +1,12 @@
+# Python environments and generated files
+AI/.venv/
+AI/.pytest_cache/
+AI/**/__pycache__/
+AI/**/*.pyc
+
+# Local IDE and OS files
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
