@@ -10,3 +10,9 @@ AI/**/*.pyc
 *.iml
 .DS_Store
 Thumbs.db
+# Node.js dependencies and generated output
+testing/node_modules/
+testing/out/
+testing/build/
+testing/.gradle/
+testing/target/
