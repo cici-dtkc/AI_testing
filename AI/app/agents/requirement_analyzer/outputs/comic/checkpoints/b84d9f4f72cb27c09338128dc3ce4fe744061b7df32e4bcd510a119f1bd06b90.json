@@ -1,0 +1,110 @@
+{
+  "summary": "Phân tích các yêu cầu chức năng cho module M14 - Quản lý sản phẩm (Comic) bao gồm các Use Case từ UC-25 đến UC-29.",
+  "rules": [
+    {
+      "rule_id": "BR-M14-01",
+      "statement": "Chỉ Admin có quyền quản lý sản phẩm mới được thêm truyện.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Admin đã đăng nhập và có quyền phù hợp."
+      ],
+      "conditions": [
+        "Admin thực hiện thêm truyện"
+      ],
+      "action": "Kiểm tra quyền",
+      "outcome": "Cho phép hoặc từ chối thêm truyện",
+      "source_refs": [
+        {
+          "block_id": "B0118",
+          "quote": "BR1. Chỉ Admin có quyền quản lý sản phẩm mới được thêm truyện."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-M14-02",
+      "statement": "Xóa truyện không được làm sai lệch dữ liệu đơn hàng hiện có.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Truyện cần xóa tồn tại."
+      ],
+      "conditions": [
+        "Truyện đang nằm trong đơn hàng hoặc giỏ hàng của người dùng khác"
+      ],
+      "action": "Kiểm tra trạng thái sử dụng",
+      "outcome": "Cảnh báo hoặc chặn việc xóa",
+      "source_refs": [
+        {
+          "block_id": "B0122",
+          "quote": "BR1. Xóa truyện không được làm sai lệch dữ liệu đơn hàng hiện có."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-M14-03",
+      "statement": "Truyện bị ẩn không hiển thị ở danh sách, tìm kiếm và gợi ý phía khách hàng.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Truyện tồn tại."
+      ],
+      "conditions": [
+        "Trạng thái truyện là ẩn"
+      ],
+      "action": "Hiển thị phía khách hàng",
+      "outcome": "Truyện không xuất hiện",
+      "source_refs": [
+        {
+          "block_id": "B0124",
+          "quote": "BR1. Truyện bị ẩn không hiển thị ở danh sách, tìm kiếm và gợi ý phía khách hàng."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-UC25-01",
+      "title": "Thêm truyện thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "BR-M14-01"
+      ],
+      "given": "Admin đã đăng nhập và có quyền phù hợp",
+      "when": "Admin nhập thông tin hợp lệ và nhấn Lưu",
+      "then": "Truyện mới được lưu và hiển thị trong bảng danh sách",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC25-02",
+      "title": "Thêm truyện thất bại do ảnh không hợp lệ",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "BR-M14-01"
+      ],
+      "given": "Admin đang ở trang thêm truyện",
+      "when": "Admin tải lên tệp ảnh sai định dạng hoặc quá dung lượng",
+      "then": "Hệ thống từ chối lưu và thông báo",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC27-01",
+      "title": "Xóa truyện đang nằm trong đơn hàng",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "BR-M14-02"
+      ],
+      "given": "Truyện đang nằm trong đơn hàng của người dùng khác",
+      "when": "Admin nhấn xóa truyện",
+      "then": "Hệ thống cảnh báo hoặc chặn việc xóa",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": []
+}

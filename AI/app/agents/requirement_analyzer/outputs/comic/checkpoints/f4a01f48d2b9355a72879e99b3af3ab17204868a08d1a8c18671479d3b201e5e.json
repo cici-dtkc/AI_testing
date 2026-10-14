@@ -1,0 +1,119 @@
+{
+  "summary": "Phân tích các yêu cầu chức năng, business rules và use case cho module M03 (Flash Sale / Khuyến mãi giờ vàng) dựa trên tài liệu SRS-COMIC.",
+  "rules": [
+    {
+      "rule_id": "RULE-M03-BR1",
+      "statement": "Chỉ được mua với giá Flash Sale trong đúng khung giờ của chương trình.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Có ít nhất một chương trình Flash Sale được cấu hình."
+      ],
+      "conditions": [
+        "Trong đúng khung giờ của chương trình Flash Sale"
+      ],
+      "action": "Mua sản phẩm",
+      "outcome": "Áp dụng giá Flash Sale",
+      "source_refs": [
+        {
+          "block_id": "B0050",
+          "quote": "Business Rules | BR1. Chỉ được mua với giá Flash Sale trong đúng khung giờ của chương trình."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M03-BR2",
+      "statement": "Số lượng mua giá Flash Sale không vượt quá số lượng còn lại.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Có ít nhất một chương trình Flash Sale được cấu hình."
+      ],
+      "conditions": [
+        "Số lượng mua vượt quá số lượng Flash Sale còn lại"
+      ],
+      "action": "Thêm sản phẩm Flash Sale vào giỏ hàng",
+      "outcome": "Hệ thống chặn thao tác thêm vào giỏ và hiển thị thông báo.",
+      "source_refs": [
+        {
+          "block_id": "B0050",
+          "quote": "Business Rules | BR1. Chỉ được mua với giá Flash Sale trong đúng khung giờ của chương trình.\nBR2. Số lượng mua giá Flash Sale không vượt quá số lượng còn lại."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-M03-01",
+      "title": "Xem danh sách Flash Sale thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M03-BR1"
+      ],
+      "given": "Có ít nhất một chương trình Flash Sale được cấu hình.",
+      "when": "Người dùng mở trang Flash Sale.",
+      "then": "Hệ thống hiển thị các khung giờ và trạng thái ('Đang bán' hoặc 'Sắp diễn ra'), thời gian đếm ngược của chương trình đang diễn ra, và từng sản phẩm với giá gốc, giá sau giảm, mức giảm, số lượng đã bán và số lượng còn lại.",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M03-02",
+      "title": "Thêm sản phẩm Flash Sale vào giỏ hàng thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M03-BR1",
+        "RULE-M03-BR2"
+      ],
+      "given": "Người dùng đang ở trang Flash Sale và sản phẩm còn số lượng Flash Sale.",
+      "when": "Người dùng nhấn 'Thêm vào giỏ' trên một sản phẩm.",
+      "then": "Hệ thống kiểm tra số lượng Flash Sale còn lại và thêm sản phẩm vào giỏ với giá Flash Sale.",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M03-03",
+      "title": "Chương trình Flash Sale đã kết thúc",
+      "type": "STATE",
+      "rule_ids": [
+        "RULE-M03-BR1"
+      ],
+      "given": "Chương trình Flash Sale đang diễn ra.",
+      "when": "Thời gian đếm ngược về 0.",
+      "then": "Hệ thống ẩn hoặc vô hiệu hóa mức giá Flash Sale và áp dụng lại giá gốc.",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M03-04",
+      "title": "Vượt số lượng Flash Sale còn lại khi thêm vào giỏ hàng",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M03-BR2"
+      ],
+      "given": "Sản phẩm Flash Sale có giới hạn số lượng còn lại.",
+      "when": "Số lượng yêu cầu lớn hơn số lượng Flash Sale còn lại (kể cả khi chỉ còn 1 sản phẩm).",
+      "then": "Hệ thống chặn thao tác thêm vào giỏ và hiển thị thông báo.",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-M03-01",
+      "type": "AMBIGUITY",
+      "description": "Nội dung Exception Flow EF2 nêu 'hiển thị thông báo' nhưng không đặc tả cụ thể nội dung thông báo lỗi là gì.",
+      "question": "Nội dung thông báo cụ thể khi vượt quá số lượng Flash Sale còn lại là gì?",
+      "source_refs": [
+        {
+          "block_id": "B0050",
+          "quote": "8.3.2  EF2 - Vượt số lượng Flash Sale còn lại:\nTại bước 4, số lượng yêu cầu lớn hơn số lượng Flash Sale còn lại (kể cả khi chỉ còn 1 sản phẩm).\nHệ thống chặn thao tác thêm vào giỏ và hiển thị thông báo."
+        }
+      ],
+      "blocks_scenarios": [
+        "SC-M03-04"
+      ]
+    }
+  ]
+}

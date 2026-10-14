@@ -1,0 +1,124 @@
+{
+  "summary": "Phân tích yêu cầu chức năng cho module M15 bao gồm quản lý danh mục (UC-30) và quản lý series (UC-31) dành cho Admin.",
+  "rules": [
+    {
+      "rule_id": "RULE-M15-01",
+      "statement": "Tên danh mục phải là duy nhất.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Admin đã đăng nhập và có quyền phù hợp"
+      ],
+      "conditions": [
+        "Tên danh mục đã tồn tại"
+      ],
+      "action": "Admin nhấn 'Lưu'",
+      "outcome": "Hệ thống từ chối lưu và thông báo",
+      "source_refs": [
+        {
+          "block_id": "B0130",
+          "quote": "BR1. Tên danh mục là duy nhất."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M15-02",
+      "statement": "Không được xóa danh mục đang có truyện sử dụng.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Admin đã đăng nhập và có quyền phù hợp"
+      ],
+      "conditions": [
+        "Danh mục đang được truyện sử dụng"
+      ],
+      "action": "Admin chọn xóa và xác nhận",
+      "outcome": "Hệ thống ngăn hoặc cảnh báo và không xóa",
+      "source_refs": [
+        {
+          "block_id": "B0130",
+          "quote": "BR2. Không xóa danh mục đang có truyện sử dụng."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M15-03",
+      "statement": "Series xóa phải được xử lý không làm sai lệch dữ liệu truyện liên quan.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Admin đã đăng nhập và có quyền phù hợp"
+      ],
+      "conditions": [
+        "Admin chọn xóa series"
+      ],
+      "action": "Admin xác nhận xóa",
+      "outcome": "Hệ thống xóa series và xử lý không làm sai lệch dữ liệu truyện liên quan",
+      "source_refs": [
+        {
+          "block_id": "B0132",
+          "quote": "BR1. Series xóa phải được xử lý không làm sai lệch dữ liệu truyện liên quan."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-UC30-01",
+      "title": "Thêm danh mục thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M15-01"
+      ],
+      "given": "Admin đã đăng nhập và mở trang Quản lý thể loại",
+      "when": "Admin nhấn 'Thêm thể loại', nhập thông tin hợp lệ và nhấn 'Lưu'",
+      "then": "Hệ thống lưu danh mục và cập nhật danh sách",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC30-02",
+      "title": "Thêm danh mục trùng tên",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M15-01"
+      ],
+      "given": "Admin đã đăng nhập và mở trang Quản lý thể loại",
+      "when": "Admin nhập tên danh mục đã tồn tại và nhấn 'Lưu'",
+      "then": "Hệ thống từ chối lưu và thông báo",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC30-03",
+      "title": "Xóa danh mục đang được sử dụng",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M15-02"
+      ],
+      "given": "Admin đã đăng nhập và mở trang Quản lý thể loại",
+      "when": "Admin chọn xóa danh mục đang được truyện sử dụng và xác nhận",
+      "then": "Hệ thống ngăn hoặc cảnh báo và không xóa",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-M15-01",
+      "type": "AMBIGUITY",
+      "description": "Quy tắc 'không làm sai lệch dữ liệu truyện liên quan' tại UC-31 không định nghĩa rõ hành vi hệ thống khi xóa series.",
+      "question": "Hệ thống sẽ thực hiện hành động gì cụ thể (ví dụ: chặn xóa, chuyển series về null, hay xóa các truyện liên quan) khi xóa series?",
+      "source_refs": [
+        {
+          "block_id": "B0132",
+          "quote": "BR1. Series xóa phải được xử lý không làm sai lệch dữ liệu truyện liên quan."
+        }
+      ],
+      "blocks_scenarios": []
+    }
+  ]
+}

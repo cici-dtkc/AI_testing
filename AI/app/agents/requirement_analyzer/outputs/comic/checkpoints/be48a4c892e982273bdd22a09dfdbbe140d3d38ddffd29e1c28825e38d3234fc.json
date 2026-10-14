@@ -1,0 +1,127 @@
+{
+  "summary": "Tài liệu đặc tả yêu cầu phần mềm (SRS) cho Website bán truyện tranh online, bao gồm 21 module nghiệp vụ, các yêu cầu phi chức năng (hiệu năng, bảo mật, khả năng sử dụng, độ tin cậy, tương thích, bảo trì) và các ràng buộc dự án. Tài liệu này đóng vai trò là cơ sở để xây dựng Test Plan và Test Case.",
+  "rules": [
+    {
+      "rule_id": "RULE-PERF-01",
+      "statement": "Thời gian phản hồi cho các thao tác tra cứu thông thường không vượt quá 3 giây trong điều kiện tải bình thường.",
+      "category": "NON_FUNCTIONAL",
+      "actors": [
+        "Customer"
+      ],
+      "preconditions": [
+        "Hệ thống đang ở điều kiện tải bình thường"
+      ],
+      "conditions": [
+        "Thực hiện thao tác tra cứu (xem danh sách, tìm kiếm, xem chi tiết truyện)"
+      ],
+      "action": "Hệ thống xử lý yêu cầu",
+      "outcome": "Thời gian phản hồi <= 3 giây",
+      "source_refs": [
+        {
+          "block_id": "B0169",
+          "quote": "NFR-PERF-01: Thời gian phản hồi cho các thao tác tra cứu thông thường (xem danh sách, tìm kiếm, xem chi tiết truyện) không vượt quá 3 giây trong điều kiện tải bình thường."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-SEC-01",
+      "statement": "Mật khẩu người dùng phải được lưu trữ dưới dạng đã mã hóa (hash).",
+      "category": "NON_FUNCTIONAL",
+      "actors": [
+        "System"
+      ],
+      "preconditions": [
+        "Người dùng thực hiện đăng ký hoặc cập nhật mật khẩu"
+      ],
+      "conditions": [
+        "Hệ thống lưu trữ mật khẩu"
+      ],
+      "action": "Mã hóa mật khẩu",
+      "outcome": "Mật khẩu được lưu dưới dạng hash, không lưu plaintext",
+      "source_refs": [
+        {
+          "block_id": "B0174",
+          "quote": "NFR-SEC-01: Mật khẩu người dùng phải được lưu trữ dưới dạng đã mã hóa (hash), không lưu plaintext."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-INV-01",
+      "statement": "Logic kiểm tra tồn kho khi thêm giỏ hàng tuân theo quy tắc stockQuantity < quantity sẽ bị chặn.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Customer"
+      ],
+      "preconditions": [
+        "Người dùng thực hiện thêm sản phẩm vào giỏ hàng"
+      ],
+      "conditions": [
+        "Số lượng yêu cầu (quantity) > Số lượng tồn kho (stockQuantity)"
+      ],
+      "action": "Hệ thống kiểm tra tồn kho",
+      "outcome": "Thao tác thêm vào giỏ hàng bị chặn",
+      "source_refs": [
+        {
+          "block_id": "B0202",
+          "quote": "Giả định rằng logic kiểm tra tồn kho khi thêm giỏ hàng tuân theo quy tắc stockQuantity < quantity sẽ bị chặn, như ghi nhận trong tài liệu khảo sát."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SCENARIO-PERF-01",
+      "title": "Kiểm tra thời gian phản hồi tra cứu",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-PERF-01"
+      ],
+      "given": "Người dùng đang ở trang chủ",
+      "when": "Người dùng thực hiện tìm kiếm truyện",
+      "then": "Hệ thống trả về kết quả trong vòng 3 giây",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SCENARIO-INV-01",
+      "title": "Thêm sản phẩm vượt quá tồn kho",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-INV-01"
+      ],
+      "given": "Sản phẩm có số lượng tồn kho là 5",
+      "when": "Người dùng thêm 6 sản phẩm vào giỏ hàng",
+      "then": null,
+      "expected_status": "UNKNOWN"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-001",
+      "type": "AMBIGUITY",
+      "description": "Quy tắc gợi ý sản phẩm (Recommendation) dựa trên wishlist theo thể loại chưa được xác định chi tiết.",
+      "question": "Quy tắc chi tiết cho chức năng gợi ý sản phẩm là gì và cần xác nhận với ai?",
+      "source_refs": [
+        {
+          "block_id": "B0203",
+          "quote": "Giả định rằng quy tắc gợi ý sản phẩm (Recommendation) dựa trên wishlist theo thể loại; quy tắc chi tiết cần được xác nhận thêm với đội phát triển trước khi hoàn thiện test case."
+        }
+      ],
+      "blocks_scenarios": []
+    },
+    {
+      "issue_id": "ISSUE-002",
+      "type": "MISSING_INFORMATION",
+      "description": "Scenario thêm sản phẩm vượt quá tồn kho chưa có kết quả mong đợi cụ thể.",
+      "question": "Hệ thống sẽ hiển thị thông báo lỗi gì khi thao tác thêm vào giỏ hàng bị chặn do vượt quá tồn kho?",
+      "source_refs": [
+        {
+          "block_id": "B0202",
+          "quote": "Giả định rằng logic kiểm tra tồn kho khi thêm giỏ hàng tuân theo quy tắc stockQuantity < quantity sẽ bị chặn, như ghi nhận trong tài liệu khảo sát."
+        }
+      ],
+      "blocks_scenarios": [
+        "SCENARIO-INV-01"
+      ]
+    }
+  ]
+}

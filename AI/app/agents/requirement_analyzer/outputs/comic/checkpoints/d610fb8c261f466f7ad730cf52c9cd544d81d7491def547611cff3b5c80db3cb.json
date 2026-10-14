@@ -1,0 +1,24 @@
+{
+  "summary": "Phân tích module M21 (Hồ sơ quản trị viên) dựa trên các block được chỉ định. Module này được xác định là nằm ngoài phạm vi yêu cầu chức năng và kiểm thử do chưa được cài đặt chức năng trong mã nguồn.",
+  "rules": [],
+  "scenarios": [],
+  "issues": [
+    {
+      "issue_id": "ISSUE-M21-001",
+      "type": "NOT_TESTABLE",
+      "description": "Module M21 (Hồ sơ quản trị viên) được ghi nhận là chỉ tồn tại giao diện nhưng chưa có chức năng thực tế trong mã nguồn.",
+      "question": "Vì module M21 không thuộc phạm vi kiểm thử, liệu có cần loại bỏ hoàn toàn các tham chiếu đến module này trong tài liệu đặc tả để tránh gây hiểu lầm cho đội ngũ kiểm thử không?",
+      "source_refs": [
+        {
+          "block_id": "B0165",
+          "quote": "Ghi chú: menu/giao diện của module này tồn tại trên hệ thống nhưng CHƯA được gắn chức năng thật trong code (chỉ mang tính hiển thị)."
+        },
+        {
+          "block_id": "B0166",
+          "quote": "Module này KHÔNG thuộc phạm vi đặc tả yêu cầu chức năng và KHÔNG thuộc phạm vi kiểm thử của SRS này."
+        }
+      ],
+      "blocks_scenarios": []
+    }
+  ]
+}

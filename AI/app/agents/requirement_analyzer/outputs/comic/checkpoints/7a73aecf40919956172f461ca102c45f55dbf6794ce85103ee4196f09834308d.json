@@ -1,0 +1,102 @@
+{
+  "summary": "Phân tích yêu cầu chức năng cho module M03 - Flash Sale, tập trung vào Use Case UC-8: Xem danh sách Flash Sale và các quy tắc nghiệp vụ liên quan đến việc hiển thị, mua hàng và xử lý tồn kho Flash Sale.",
+  "rules": [
+    {
+      "rule_id": "BR1",
+      "statement": "Chỉ được mua với giá Flash Sale trong đúng khung giờ của chương trình.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Chương trình Flash Sale đang diễn ra"
+      ],
+      "conditions": [
+        "Thời gian hiện tại nằm trong khung giờ của chương trình"
+      ],
+      "action": "Áp dụng giá Flash Sale",
+      "outcome": "Người dùng mua sản phẩm với giá Flash Sale",
+      "source_refs": [
+        {
+          "block_id": "B0050",
+          "quote": "BR1. Chỉ được mua với giá Flash Sale trong đúng khung giờ của chương trình."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR2",
+      "statement": "Số lượng mua giá Flash Sale không vượt quá số lượng còn lại.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Sản phẩm thuộc chương trình Flash Sale"
+      ],
+      "conditions": [
+        "Số lượng yêu cầu > Số lượng Flash Sale còn lại"
+      ],
+      "action": "Hệ thống chặn thao tác thêm vào giỏ",
+      "outcome": "Hiển thị thông báo lỗi",
+      "source_refs": [
+        {
+          "block_id": "B0050",
+          "quote": "BR2. Số lượng mua giá Flash Sale không vượt quá số lượng còn lại."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-UC8-01",
+      "title": "Xem danh sách Flash Sale thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "BR1"
+      ],
+      "given": "Có ít nhất một chương trình Flash Sale được cấu hình",
+      "when": "Người dùng nhấn 'Xem thêm' ở mục Flash Sale trên trang chủ hoặc biểu tượng Flash Sale",
+      "then": "Trang Flash Sale hiển thị đúng khung giờ, trạng thái, sản phẩm, giá và số lượng còn lại",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC8-02",
+      "title": "Thêm sản phẩm Flash Sale vào giỏ hàng thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "BR1"
+      ],
+      "given": "Người dùng đang ở trang Flash Sale và chương trình đang diễn ra",
+      "when": "Người dùng nhấn 'Thêm vào giỏ' trên một sản phẩm",
+      "then": "Hệ thống kiểm tra số lượng Flash Sale còn lại và thêm sản phẩm vào giỏ với giá Flash Sale",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC8-03",
+      "title": "Chặn thêm vào giỏ khi vượt quá số lượng còn lại",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "BR2"
+      ],
+      "given": "Sản phẩm Flash Sale còn lại số lượng nhất định",
+      "when": "Người dùng yêu cầu số lượng lớn hơn số lượng còn lại",
+      "then": "Hệ thống chặn thao tác thêm vào giỏ và hiển thị thông báo",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC8-04",
+      "title": "Xử lý khi chương trình Flash Sale kết thúc",
+      "type": "STATE",
+      "rule_ids": [
+        "BR1"
+      ],
+      "given": "Chương trình Flash Sale đang diễn ra",
+      "when": "Thời gian đếm ngược về 0",
+      "then": "Hệ thống ẩn hoặc vô hiệu hóa mức giá Flash Sale và áp dụng lại giá gốc",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": []
+}

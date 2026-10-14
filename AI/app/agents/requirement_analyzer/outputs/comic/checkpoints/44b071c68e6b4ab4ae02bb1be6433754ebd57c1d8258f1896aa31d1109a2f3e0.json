@@ -1,0 +1,176 @@
+{
+  "summary": "Phân tích yêu cầu chức năng cho module M10 (Đánh giá & Đổi trả) bao gồm hai Use Case: UC-17 (Đánh giá sản phẩm) và UC-18 (Yêu cầu đổi/trả hàng).",
+  "rules": [
+    {
+      "rule_id": "RULE-M10-01",
+      "statement": "Khách hàng có thể đánh giá sản phẩm (số sao và bình luận) cho đơn hàng đã hoàn thành.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Khách hàng đã đăng nhập",
+        "Đơn hàng ở trạng thái hoàn thành và chưa được đánh giá"
+      ],
+      "conditions": [
+        "Khách hàng nhấn 'Đánh giá' ở đơn hàng thuộc tab Hoàn thành"
+      ],
+      "action": "Hệ thống lưu đánh giá và cập nhật số sao trung bình của sản phẩm",
+      "outcome": "Đánh giá được hiển thị ở trang chi tiết truyện và nút 'Đánh giá' không còn khả dụng",
+      "source_refs": [
+        {
+          "block_id": "B0093",
+          "quote": "Cho phép khách hàng đánh giá số sao và bình luận (có thể kèm ảnh) cho sản phẩm thuộc đơn hàng đã hoàn thành"
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M10-02",
+      "statement": "Mỗi sản phẩm của đơn hàng chỉ được đánh giá một lần.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Sản phẩm đã có đánh giá từ đơn hàng đó"
+      ],
+      "action": "Hệ thống chặn việc đánh giá lại",
+      "outcome": "Nút 'Đánh giá' không còn khả dụng",
+      "source_refs": [
+        {
+          "block_id": "B0093",
+          "quote": "BR1. Mỗi sản phẩm của đơn hàng chỉ được đánh giá một lần."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M10-03",
+      "statement": "Khách hàng có thể gửi yêu cầu trả hàng kèm lý do và hình ảnh minh chứng khi sản phẩm gặp lỗi.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Khách hàng đã đăng nhập",
+        "Đơn hàng đang ở trạng thái cho phép trả hàng"
+      ],
+      "conditions": [
+        "Khách hàng nhấn 'Trả hàng' ở đơn thuộc tab Chờ giao hàng",
+        "Khách hàng nhập lý do và đính kèm minh chứng"
+      ],
+      "action": "Hệ thống lưu yêu cầu và chuyển đơn sang tab Trả hàng/Hoàn tiền",
+      "outcome": "Yêu cầu trả hàng được tạo với trạng thái 'Đang xem xét'",
+      "source_refs": [
+        {
+          "block_id": "B0095",
+          "quote": "Cho phép khách hàng gửi yêu cầu trả hàng kèm lý do và hình ảnh minh chứng khi sản phẩm gặp lỗi"
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M10-04",
+      "statement": "Admin xem xét yêu cầu đổi/trả và cập nhật trạng thái.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Yêu cầu trả hàng đã được tạo"
+      ],
+      "conditions": [
+        "Admin xem xét yêu cầu"
+      ],
+      "action": "Admin cập nhật trạng thái 'Đã hoàn tiền' hoặc 'Đã từ chối' kèm lý do",
+      "outcome": "Trạng thái yêu cầu được cập nhật",
+      "source_refs": [
+        {
+          "block_id": "B0095",
+          "quote": "BR1. Admin xem xét yêu cầu và cập nhật trạng thái 'Đã hoàn tiền' hoặc 'Đã từ chối' kèm lý do."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SCN-UC17-01",
+      "title": "Đánh giá sản phẩm thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M10-01"
+      ],
+      "given": "Khách hàng đã đăng nhập và có đơn hàng hoàn thành chưa đánh giá",
+      "when": "Khách hàng nhấn 'Đánh giá', chọn số sao, nhập bình luận và nhấn 'Gửi nhận xét'",
+      "then": "Đánh giá được lưu, số sao trung bình sản phẩm cập nhật, nút 'Đánh giá' ẩn",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SCN-UC17-02",
+      "title": "Đánh giá sản phẩm thất bại do thiếu số sao",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M10-01"
+      ],
+      "given": "Khách hàng đang ở popup đánh giá",
+      "when": "Khách hàng nhấn 'Gửi nhận xét' mà chưa chọn số sao",
+      "then": "Hệ thống hiển thị lỗi và không lưu đánh giá",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SCN-UC18-01",
+      "title": "Gửi yêu cầu trả hàng thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M10-03"
+      ],
+      "given": "Khách hàng có đơn hàng ở tab Chờ giao hàng",
+      "when": "Khách hàng nhấn 'Trả hàng', nhập lý do, đính kèm ảnh và nhấn 'Gửi yêu cầu'",
+      "then": "Yêu cầu được tạo với trạng thái 'Đang xem xét', đơn chuyển sang tab Trả hàng/Hoàn tiền",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SCN-UC18-02",
+      "title": "Gửi yêu cầu trả hàng thất bại do tệp minh chứng không hợp lệ",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M10-03"
+      ],
+      "given": "Khách hàng đang ở popup yêu cầu trả hàng",
+      "when": "Khách hàng đính kèm tệp sai định dạng hoặc quá dung lượng",
+      "then": "Hệ thống từ chối tệp và thông báo lỗi",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-M10-01",
+      "type": "AMBIGUITY",
+      "description": "Định nghĩa 'Đơn hàng đang ở trạng thái cho phép trả hàng' trong UC-18 không rõ ràng.",
+      "question": "Trạng thái cụ thể nào của đơn hàng được coi là 'cho phép trả hàng'? Có phải chỉ bao gồm trạng thái 'Chờ giao hàng' như mô tả trong Trigger không?",
+      "source_refs": [
+        {
+          "block_id": "B0095",
+          "quote": "Đơn hàng đang ở trạng thái cho phép trả hàng."
+        }
+      ],
+      "blocks_scenarios": [
+        "SCN-UC18-01"
+      ]
+    },
+    {
+      "issue_id": "ISSUE-M10-02",
+      "type": "MISSING_INFORMATION",
+      "description": "Thiếu thông số kỹ thuật cho tệp minh chứng trong UC-18.",
+      "question": "Định dạng tệp nào được chấp nhận và giới hạn dung lượng tối đa là bao nhiêu?",
+      "source_refs": [
+        {
+          "block_id": "B0095",
+          "quote": "tệp đính kèm sai định dạng hoặc quá dung lượng"
+        }
+      ],
+      "blocks_scenarios": [
+        "SCN-UC18-02"
+      ]
+    }
+  ]
+}

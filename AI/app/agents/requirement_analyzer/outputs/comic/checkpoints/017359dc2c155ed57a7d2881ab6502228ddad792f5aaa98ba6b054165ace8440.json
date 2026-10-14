@@ -1,0 +1,127 @@
+{
+  "summary": "Phân tích các yêu cầu chức năng cho module M01 (Xác thực & Tài khoản) bao gồm các Use Case: Đăng ký (UC-1), Đăng nhập (UC-2), Khôi phục mật khẩu (UC-3) và Đăng xuất (UC-4).",
+  "rules": [
+    {
+      "rule_id": "BR-UC1-01",
+      "statement": "Mật khẩu đăng ký phải có tối thiểu 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai"
+      ],
+      "preconditions": [
+        "Người dùng đang thực hiện đăng ký"
+      ],
+      "conditions": [
+        "Mật khẩu không thỏa mãn độ dài hoặc thành phần ký tự"
+      ],
+      "action": "Hệ thống kiểm tra mật khẩu",
+      "outcome": "Thông báo lỗi và yêu cầu nhập lại",
+      "source_refs": [
+        {
+          "block_id": "B0032",
+          "quote": "BR1. Mật khẩu gồm tối thiểu 8 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-UC1-02",
+      "statement": "Email đăng ký phải là duy nhất trong hệ thống.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai"
+      ],
+      "preconditions": [
+        "Người dùng nhập email đăng ký"
+      ],
+      "conditions": [
+        "Email đã tồn tại trong hệ thống"
+      ],
+      "action": "Hệ thống kiểm tra email",
+      "outcome": "Thông báo email đã tồn tại và không tạo tài khoản",
+      "source_refs": [
+        {
+          "block_id": "B0032",
+          "quote": "BR3. Email là duy nhất trong hệ thống."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-UC2-01",
+      "statement": "Hệ thống chặn các yêu cầu POST từ cùng một IP nếu vượt quá 10 yêu cầu trong 60 giây.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Người dùng thực hiện thao tác đăng nhập/đăng ký/xác thực"
+      ],
+      "conditions": [
+        "Cùng một IP gửi quá 10 yêu cầu POST trong 60 giây"
+      ],
+      "action": "Hệ thống kiểm tra tần suất yêu cầu",
+      "outcome": "Chặn thao tác và hiển thị thông báo lỗi",
+      "source_refs": [
+        {
+          "block_id": "B0034",
+          "quote": "BR1. Cùng một IP gửi quá 10 yêu cầu POST đến trang đăng nhập/đăng ký/xác thực trong 60 giây sẽ bị chặn."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-UC1-01",
+      "title": "Đăng ký tài khoản thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "BR-UC1-01",
+        "BR-UC1-02"
+      ],
+      "given": "Khách vãng lai truy cập trang đăng ký",
+      "when": "Nhập thông tin hợp lệ và xác thực OTP thành công",
+      "then": "Tài khoản được kích hoạt và chuyển về trang đăng nhập",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC2-01",
+      "title": "Đăng nhập thất bại do sai thông tin",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "BR-UC2-01"
+      ],
+      "given": "Người dùng tại trang đăng nhập",
+      "when": "Nhập sai tên đăng nhập hoặc mật khẩu",
+      "then": "Hệ thống hiển thị thông báo lỗi và tăng bộ đếm đăng nhập sai",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-UC1-01",
+      "type": "AMBIGUITY",
+      "description": "Định nghĩa về 'ký tự đặc biệt' trong quy tắc mật khẩu không được liệt kê cụ thể.",
+      "question": "Những ký tự nào được coi là ký tự đặc biệt hợp lệ trong hệ thống?",
+      "source_refs": [
+        {
+          "block_id": "B0032",
+          "quote": "BR1. Mật khẩu gồm tối thiểu 8 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt."
+        }
+      ],
+      "blocks_scenarios": []
+    },
+    {
+      "issue_id": "ISSUE-UC2-01",
+      "type": "MISSING_INFORMATION",
+      "description": "Ngưỡng số lần đăng nhập sai liên tiếp để khóa tài khoản không được định nghĩa rõ ràng.",
+      "question": "Số lần đăng nhập sai liên tiếp tối đa cho phép là bao nhiêu trước khi tài khoản bị khóa?",
+      "source_refs": [
+        {
+          "block_id": "B0034",
+          "quote": "Hệ thống giới hạn số lần đăng nhập sai liên tiếp"
+        }
+      ],
+      "blocks_scenarios": []
+    }
+  ]
+}

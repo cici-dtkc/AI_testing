@@ -1,0 +1,5 @@
+REQ-COUPON-01: Coupon hết hạn phải bị từ chối khi thanh toán.
+
+REQ-COUPON-02: Coupon chỉ được áp dụng khi giá trị giỏ hàng từ 500.000 VND.
+
+REQ-COUPON-03: Coupon hợp lệ giảm 10% giá trị giỏ hàng, tối đa 100.000 VND.

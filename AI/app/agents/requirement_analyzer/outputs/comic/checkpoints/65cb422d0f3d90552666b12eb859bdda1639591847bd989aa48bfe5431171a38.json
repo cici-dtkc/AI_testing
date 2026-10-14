@@ -1,0 +1,165 @@
+{
+  "summary": "Phân tích yêu cầu chức năng cho module M05 - Danh sách yêu thích (Wishlist), bao gồm các quy tắc thêm, xóa, kiểm tra trùng lặp và yêu cầu xác thực người dùng.",
+  "rules": [
+    {
+      "rule_id": "RULE-M05-01",
+      "statement": "Hệ thống phải cho phép người dùng đã đăng nhập thêm sản phẩm vào wishlist từ trang chi tiết truyện.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Người dùng (Customer)"
+      ],
+      "preconditions": [
+        "Người dùng đã đăng nhập"
+      ],
+      "conditions": [
+        "Người dùng đang ở trang chi tiết truyện"
+      ],
+      "action": "Thêm sản phẩm vào wishlist",
+      "outcome": "Sản phẩm được lưu vào wishlist",
+      "source_refs": [
+        {
+          "block_id": "B0059",
+          "quote": "FR-M05-01: Hệ thống phải cho phép người dùng đã đăng nhập thêm sản phẩm vào wishlist từ trang chi tiết truyện."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M05-02",
+      "statement": "Hệ thống phải ngăn việc thêm trùng lặp một sản phẩm đã có sẵn trong wishlist.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Người dùng (Customer)"
+      ],
+      "preconditions": [
+        "Người dùng đã đăng nhập",
+        "Sản phẩm đã tồn tại trong wishlist"
+      ],
+      "conditions": [
+        "Người dùng thực hiện thêm sản phẩm đó vào wishlist"
+      ],
+      "action": "Kiểm tra trùng lặp",
+      "outcome": "Hệ thống ngăn chặn hành động thêm",
+      "source_refs": [
+        {
+          "block_id": "B0060",
+          "quote": "FR-M05-02: Hệ thống phải ngăn việc thêm trùng lặp một sản phẩm đã có sẵn trong wishlist."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M05-03",
+      "statement": "Hệ thống phải cho phép xóa sản phẩm khỏi wishlist.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Người dùng (Customer)"
+      ],
+      "preconditions": [
+        "Người dùng đã đăng nhập",
+        "Sản phẩm đã có trong wishlist"
+      ],
+      "conditions": [
+        "Người dùng thực hiện xóa sản phẩm"
+      ],
+      "action": "Xóa sản phẩm khỏi wishlist",
+      "outcome": "Sản phẩm bị loại bỏ khỏi wishlist",
+      "source_refs": [
+        {
+          "block_id": "B0061",
+          "quote": "FR-M05-03: Hệ thống phải cho phép xóa sản phẩm khỏi wishlist."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M05-04",
+      "statement": "Hệ thống phải yêu cầu đăng nhập khi người dùng truy cập chức năng wishlist; phải xử lý rõ ràng trường hợp truy cập khi chưa đăng nhập.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Người dùng (Customer)"
+      ],
+      "preconditions": [
+        "Người dùng chưa đăng nhập"
+      ],
+      "conditions": [
+        "Người dùng truy cập chức năng wishlist"
+      ],
+      "action": "Yêu cầu đăng nhập",
+      "outcome": "Hệ thống xử lý rõ ràng trường hợp chưa đăng nhập",
+      "source_refs": [
+        {
+          "block_id": "B0062",
+          "quote": "FR-M05-04: Hệ thống phải yêu cầu đăng nhập khi người dùng truy cập chức năng wishlist; phải xử lý rõ ràng trường hợp truy cập khi chưa đăng nhập."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SCN-M05-01",
+      "title": "Thêm sản phẩm vào wishlist thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M05-01"
+      ],
+      "given": "Người dùng đã đăng nhập và đang ở trang chi tiết truyện",
+      "when": "Người dùng chọn thêm sản phẩm vào wishlist",
+      "then": "Sản phẩm được thêm vào wishlist",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SCN-M05-02",
+      "title": "Thêm sản phẩm đã có trong wishlist",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M05-02"
+      ],
+      "given": "Người dùng đã đăng nhập và sản phẩm đã có trong wishlist",
+      "when": "Người dùng chọn thêm sản phẩm đó vào wishlist",
+      "then": null,
+      "expected_status": "UNKNOWN"
+    },
+    {
+      "scenario_id": "SCN-M05-03",
+      "title": "Truy cập wishlist khi chưa đăng nhập",
+      "type": "AUTHORIZATION",
+      "rule_ids": [
+        "RULE-M05-04"
+      ],
+      "given": "Người dùng chưa đăng nhập",
+      "when": "Người dùng truy cập chức năng wishlist",
+      "then": null,
+      "expected_status": "UNKNOWN"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-M05-001",
+      "type": "AMBIGUITY",
+      "description": "Yêu cầu FR-M05-04 nêu 'xử lý rõ ràng trường hợp truy cập khi chưa đăng nhập' nhưng không định nghĩa cụ thể hành vi xử lý (ví dụ: chuyển hướng đến trang đăng nhập hay hiển thị thông báo).",
+      "question": "Hành vi cụ thể khi người dùng chưa đăng nhập truy cập wishlist là gì?",
+      "source_refs": [
+        {
+          "block_id": "B0062",
+          "quote": "phải xử lý rõ ràng trường hợp truy cập khi chưa đăng nhập."
+        }
+      ],
+      "blocks_scenarios": [
+        "SCN-M05-03"
+      ]
+    },
+    {
+      "issue_id": "ISSUE-M05-002",
+      "type": "MISSING_INFORMATION",
+      "description": "Yêu cầu FR-M05-02 yêu cầu ngăn chặn trùng lặp nhưng không mô tả thông báo hoặc phản hồi hệ thống khi người dùng thực hiện hành động này.",
+      "question": "Hệ thống sẽ hiển thị thông báo gì hoặc có hành động gì khi người dùng cố gắng thêm sản phẩm đã có trong wishlist?",
+      "source_refs": [
+        {
+          "block_id": "B0060",
+          "quote": "Hệ thống phải ngăn việc thêm trùng lặp một sản phẩm đã có sẵn trong wishlist."
+        }
+      ],
+      "blocks_scenarios": [
+        "SCN-M05-02"
+      ]
+    }
+  ]
+}

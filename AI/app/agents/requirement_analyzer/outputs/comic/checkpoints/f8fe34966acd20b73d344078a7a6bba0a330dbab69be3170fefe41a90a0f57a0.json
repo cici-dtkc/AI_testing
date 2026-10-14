@@ -1,0 +1,147 @@
+{
+  "summary": "Phân tích yêu cầu chức năng cho module M16 - Quản lý tồn kho (Inventory) dựa trên Use Case UC-32.",
+  "rules": [
+    {
+      "rule_id": "BR1",
+      "statement": "Tồn kho không được âm.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Admin đã đăng nhập và có quyền phù hợp"
+      ],
+      "conditions": [
+        "Số lượng tồn kho kết quả là số âm"
+      ],
+      "action": "Hệ thống từ chối và hiển thị thông báo",
+      "outcome": "Quay lại bước nhập số lượng",
+      "source_refs": [
+        {
+          "block_id": "B0136",
+          "quote": "BR1. Tồn kho không được âm."
+        },
+        {
+          "block_id": "B0136",
+          "quote": "32.3.1  EF1 - Nhập số lượng âm:\nTại bước 5, số lượng tồn kho kết quả là số âm.\nHệ thống từ chối và hiển thị thông báo.\nQuay lại bước 3."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR2",
+      "statement": "Tồn kho bằng 0 thì sản phẩm không thể mua được.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin",
+        "Customer"
+      ],
+      "preconditions": [
+        "Sản phẩm có tồn kho bằng 0 hoặc thấp"
+      ],
+      "conditions": [
+        "Sản phẩm có tồn kho bằng 0 hoặc thấp"
+      ],
+      "action": "Hệ thống hiển thị cảnh báo hết hàng và vô hiệu hóa việc mua sản phẩm ở phía khách hàng",
+      "outcome": "Sản phẩm không thể mua được",
+      "source_refs": [
+        {
+          "block_id": "B0136",
+          "quote": "BR2. Tồn kho bằng 0 thì sản phẩm không thể mua được."
+        },
+        {
+          "block_id": "B0136",
+          "quote": "32.2.1  AF1 - Cảnh báo hết hàng:\nTại bước 2, sản phẩm có tồn kho bằng 0 hoặc thấp.\nHệ thống hiển thị cảnh báo hết hàng và vô hiệu hóa việc mua sản phẩm ở phía khách hàng."
+        }
+      ]
+    },
+    {
+      "rule_id": "FR-M16-VAL",
+      "statement": "Giá trị nhập số lượng tồn kho phải là số hợp lệ.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Admin đang cập nhật số lượng tồn kho"
+      ],
+      "conditions": [
+        "Giá trị nhập không phải số hợp lệ"
+      ],
+      "action": "Hệ thống từ chối và hiển thị lỗi",
+      "outcome": "Quay lại bước nhập số lượng",
+      "source_refs": [
+        {
+          "block_id": "B0136",
+          "quote": "32.3.2  EF2 - Giá trị không phải số:\nTại bước 5, giá trị nhập không phải số hợp lệ.\nHệ thống từ chối và hiển thị lỗi.\nQuay lại bước 3."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-UC32-01",
+      "title": "Cập nhật tồn kho thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "BR1"
+      ],
+      "given": "Admin đã đăng nhập và mở trang quản lý tồn kho",
+      "when": "Admin chọn sản phẩm, nhập số lượng hợp lệ và nhấn Lưu",
+      "then": "Hệ thống cập nhật tồn kho và hiển thị kết quả",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC32-02",
+      "title": "Nhập số lượng tồn kho âm",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "BR1"
+      ],
+      "given": "Admin đang ở trang cập nhật tồn kho",
+      "when": "Admin nhập số lượng khiến tồn kho kết quả là số âm",
+      "then": "Hệ thống từ chối, hiển thị thông báo và quay lại bước nhập",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC32-03",
+      "title": "Nhập giá trị không phải số",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "FR-M16-VAL"
+      ],
+      "given": "Admin đang ở trang cập nhật tồn kho",
+      "when": "Admin nhập giá trị không phải số hợp lệ",
+      "then": "Hệ thống từ chối, hiển thị lỗi và quay lại bước nhập",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC32-04",
+      "title": "Cảnh báo hết hàng khi tồn kho bằng 0",
+      "type": "BOUNDARY",
+      "rule_ids": [
+        "BR2"
+      ],
+      "given": "Sản phẩm có tồn kho bằng 0",
+      "when": "Hệ thống hiển thị danh sách sản phẩm",
+      "then": "Hệ thống hiển thị cảnh báo hết hàng và vô hiệu hóa mua hàng",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-M16-01",
+      "type": "AMBIGUITY",
+      "description": "Định nghĩa 'thấp' trong 'sản phẩm có tồn kho bằng 0 hoặc thấp' không được định lượng cụ thể.",
+      "question": "Ngưỡng tồn kho bao nhiêu được coi là 'thấp' để kích hoạt cảnh báo hết hàng?",
+      "source_refs": [
+        {
+          "block_id": "B0136",
+          "quote": "Tại bước 2, sản phẩm có tồn kho bằng 0 hoặc thấp."
+        }
+      ],
+      "blocks_scenarios": [
+        "SC-UC32-04"
+      ]
+    }
+  ]
+}

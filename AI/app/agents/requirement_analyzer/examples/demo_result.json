@@ -1,0 +1,172 @@
+{
+  "provider": "DEMO_FIXTURE",
+  "model": "none",
+  "created_at": "2026-10-05T03:28:27.783130+00:00",
+  "prompt_version": "1.0",
+  "review_status": "REVIEW_REQUIRED",
+  "source_document": {
+    "document_id": "SRS-ECOMMERCE",
+    "version": "1.0",
+    "sha256": "c063a41085d146a67c37c9bff604eeff78839c38743458c724185a79b8e0721a",
+    "blocks": [
+      {
+        "block_id": "B0001",
+        "location": "paragraph:1",
+        "text": "REQ-COUPON-01: Coupon hết hạn phải bị từ chối khi thanh toán."
+      },
+      {
+        "block_id": "B0002",
+        "location": "paragraph:2",
+        "text": "REQ-COUPON-02: Coupon chỉ được áp dụng khi giá trị giỏ hàng từ 500.000 VND."
+      },
+      {
+        "block_id": "B0003",
+        "location": "paragraph:3",
+        "text": "REQ-COUPON-03: Coupon hợp lệ giảm 10% giá trị giỏ hàng, tối đa 100.000 VND."
+      }
+    ]
+  },
+  "analysis": {
+    "summary": "Fixture minh họa coupon, không phải kết quả Gemini.",
+    "rules": [
+      {
+        "rule_id": "R1",
+        "statement": "Coupon hết hạn phải bị từ chối khi thanh toán.",
+        "category": "BUSINESS_RULE",
+        "actors": [],
+        "preconditions": [],
+        "conditions": [
+          "Coupon hết hạn"
+        ],
+        "action": "Áp dụng coupon",
+        "outcome": "Từ chối coupon",
+        "source_refs": [
+          {
+            "block_id": "B0001",
+            "quote": "REQ-COUPON-01: Coupon hết hạn phải bị từ chối khi thanh toán."
+          }
+        ]
+      },
+      {
+        "rule_id": "R2",
+        "statement": "Coupon chỉ được áp dụng khi giá trị giỏ hàng từ 500.000 VND.",
+        "category": "BUSINESS_RULE",
+        "actors": [],
+        "preconditions": [],
+        "conditions": [
+          "Giỏ từ 500.000 VND"
+        ],
+        "action": "Áp dụng coupon",
+        "outcome": "Chỉ áp dụng khi đạt ngưỡng",
+        "source_refs": [
+          {
+            "block_id": "B0002",
+            "quote": "REQ-COUPON-02: Coupon chỉ được áp dụng khi giá trị giỏ hàng từ 500.000 VND."
+          }
+        ]
+      },
+      {
+        "rule_id": "R3",
+        "statement": "Coupon hợp lệ giảm 10% giá trị giỏ hàng, tối đa 100.000 VND.",
+        "category": "BUSINESS_RULE",
+        "actors": [],
+        "preconditions": [],
+        "conditions": [
+          "Coupon hợp lệ"
+        ],
+        "action": "Áp dụng coupon",
+        "outcome": "Giảm 10% và tối đa 100.000 VND",
+        "source_refs": [
+          {
+            "block_id": "B0003",
+            "quote": "REQ-COUPON-03: Coupon hợp lệ giảm 10% giá trị giỏ hàng, tối đa 100.000 VND."
+          }
+        ]
+      }
+    ],
+    "scenarios": [
+      {
+        "scenario_id": "SC1",
+        "title": "Coupon hết hạn",
+        "type": "NEGATIVE",
+        "rule_ids": [
+          "R1"
+        ],
+        "given": "Coupon đã hết hạn",
+        "when": "Áp dụng coupon",
+        "then": "Từ chối áp dụng",
+        "expected_status": "SUPPORTED"
+      },
+      {
+        "scenario_id": "SC2",
+        "title": "Giỏ đúng 500.000 VND",
+        "type": "BOUNDARY",
+        "rule_ids": [
+          "R2"
+        ],
+        "given": "Giỏ hàng đúng 500.000 VND và các điều kiện khác hợp lệ",
+        "when": "Áp dụng coupon",
+        "then": "Đạt điều kiện ngưỡng giỏ hàng",
+        "expected_status": "SUPPORTED"
+      },
+      {
+        "scenario_id": "SC3",
+        "title": "Coupon chạm trần giảm",
+        "type": "POSITIVE",
+        "rule_ids": [
+          "R3"
+        ],
+        "given": "Coupon hợp lệ và giá trị giỏ 1.500.000 VND",
+        "when": "Áp dụng coupon",
+        "then": "Giảm tối đa 100.000 VND",
+        "expected_status": "SUPPORTED"
+      },
+      {
+        "scenario_id": "SC4",
+        "title": "Đúng thời điểm hết hạn",
+        "type": "BOUNDARY",
+        "rule_ids": [
+          "R1"
+        ],
+        "given": "Thời điểm áp dụng bằng thời điểm hết hạn",
+        "when": "Áp dụng coupon",
+        "then": null,
+        "expected_status": "UNKNOWN"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "type": "MISSING_INFORMATION",
+        "description": "Chưa quy định dấu bằng tại biên thời gian và múi giờ",
+        "question": "Tại đúng thời điểm hết hạn có từ chối không, và dùng múi giờ nào?",
+        "source_refs": [
+          {
+            "block_id": "B0001",
+            "quote": "REQ-COUPON-01: Coupon hết hạn phải bị từ chối khi thanh toán."
+          }
+        ],
+        "blocks_scenarios": [
+          "SC4"
+        ]
+      },
+      {
+        "issue_id": "I2",
+        "type": "MISSING_INFORMATION",
+        "description": "Chưa định nghĩa giá trị giỏ hàng dùng cho ngưỡng và giảm giá",
+        "question": "Giá trị giỏ hàng có bao gồm thuế, phí vận chuyển và giảm giá khác không?",
+        "source_refs": [
+          {
+            "block_id": "B0002",
+            "quote": "REQ-COUPON-02: Coupon chỉ được áp dụng khi giá trị giỏ hàng từ 500.000 VND."
+          }
+        ],
+        "blocks_scenarios": [
+          "SC2",
+          "SC3"
+        ]
+      }
+    ]
+  },
+  "validation_warnings": []
+}
