@@ -1,0 +1,239 @@
+{
+  "summary": "Phân tích đặc tả yêu cầu phần mềm (SRS) của hệ thống Website bán truyện tranh online, bao gồm các yêu cầu phi chức năng, ràng buộc dự án, giả định và ma trận tổng hợp các module.",
+  "rules": [
+    {
+      "rule_id": "RULE-PERF-01",
+      "statement": "Thời gian phản hồi cho các thao tác tra cứu thông thường (xem danh sách, tìm kiếm, xem chi tiết truyện) không vượt quá 3 giây trong điều kiện tải bình thường.",
+      "category": "NON_FUNCTIONAL",
+      "actors": [
+        "Customer"
+      ],
+      "preconditions": [
+        "Hệ thống ở điều kiện tải bình thường"
+      ],
+      "conditions": [
+        "Thực hiện thao tác tra cứu thông thường (xem danh sách, tìm kiếm, xem chi tiết truyện)"
+      ],
+      "action": "Hệ thống xử lý và phản hồi",
+      "outcome": "Thời gian phản hồi không vượt quá 3 giây",
+      "source_refs": [
+        {
+          "block_id": "B0169",
+          "quote": "NFR-PERF-01: Thời gian phản hồi cho các thao tác tra cứu thông thường (xem danh sách, tìm kiếm, xem chi tiết truyện) không vượt quá 3 giây trong điều kiện tải bình thường."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-SEC-01",
+      "statement": "Mật khẩu người dùng phải được lưu trữ dưới dạng đã mã hóa (hash), không lưu plaintext.",
+      "category": "NON_FUNCTIONAL",
+      "actors": [
+        "Customer",
+        "Admin"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Lưu trữ mật khẩu người dùng"
+      ],
+      "action": "Hệ thống thực hiện lưu mật khẩu",
+      "outcome": "Mật khẩu được lưu trữ dưới dạng đã mã hóa (hash), không lưu plaintext",
+      "source_refs": [
+        {
+          "block_id": "B0174",
+          "quote": "NFR-SEC-01: Mật khẩu người dùng phải được lưu trữ dưới dạng đã mã hóa (hash), không lưu plaintext."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-SEC-02",
+      "statement": "Hệ thống phải xác thực chữ ký/dữ liệu callback từ cổng thanh toán VNPay để chống giả mạo giao dịch thanh toán.",
+      "category": "NON_FUNCTIONAL",
+      "actors": [
+        "VNPay"
+      ],
+      "preconditions": [
+        "Có dữ liệu callback từ cổng thanh toán VNPay"
+      ],
+      "conditions": [
+        "Hệ thống nhận callback giao dịch thanh toán"
+      ],
+      "action": "Hệ thống tiến hành xác thực chữ ký/dữ liệu",
+      "outcome": "Chống giả mạo giao dịch thanh toán",
+      "source_refs": [
+        {
+          "block_id": "B0175",
+          "quote": "NFR-SEC-02: Hệ thống phải xác thực chữ ký/dữ liệu callback từ cổng thanh toán VNPay để chống giả mạo giao dịch thanh toán."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-SEC-03",
+      "statement": "Hệ thống phải áp dụng cơ chế phân quyền (authorization) nghiêm ngặt: chỉ Admin có quyền phù hợp mới được truy cập các chức năng quản trị; người dùng không có quyền phải bị chặn hoặc chuyển hướng.",
+      "category": "NON_FUNCTIONAL",
+      "actors": [
+        "Admin",
+        "Customer"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Người dùng truy cập các chức năng quản trị"
+      ],
+      "action": "Hệ thống kiểm tra quyền",
+      "outcome": "Chỉ Admin có quyền phù hợp mới được truy cập, người dùng không có quyền bị chặn hoặc chuyển hướng",
+      "source_refs": [
+        {
+          "block_id": "B0176",
+          "quote": "NFR-SEC-03: Hệ thống phải áp dụng cơ chế phân quyền (authorization) nghiêm ngặt: chỉ Admin có quyền phù hợp mới được truy cập các chức năng quản trị (sản phẩm, đơn hàng, người dùng, phân quyền); người dùng không có quyền phải bị chặn hoặc chuyển hướng."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-SEC-06",
+      "statement": "Các mã OTP (đăng ký, quên mật khẩu) phải có thời hạn sử dụng và không được tái sử dụng sau khi hết hạn hoặc đã sử dụng.",
+      "category": "NON_FUNCTIONAL",
+      "actors": [
+        "Customer"
+      ],
+      "preconditions": [
+        "Mã OTP đã được tạo cho đăng ký hoặc quên mật khẩu"
+      ],
+      "conditions": [
+        "Mã OTP đã hết hạn hoặc đã được sử dụng"
+      ],
+      "action": "Hệ thống kiểm tra tính hợp lệ khi sử dụng lại mã OTP",
+      "outcome": "Mã OTP không được phép tái sử dụng",
+      "source_refs": [
+        {
+          "block_id": "B0179",
+          "quote": "NFR-SEC-06: Các mã OTP (đăng ký, quên mật khẩu) phải có thời hạn sử dụng và không được tái sử dụng sau khi hết hạn hoặc đã sử dụng."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-REL-03",
+      "statement": "Hệ thống phải đảm bảo trạng thái đơn hàng không bị thay đổi sai quy trình (ví dụ không cho chuyển từ 'Đã hủy' sang 'Hoàn thành').",
+      "category": "NON_FUNCTIONAL",
+      "actors": [
+        "Admin",
+        "Customer"
+      ],
+      "preconditions": [
+        "Đơn hàng đang ở một trạng thái cụ thể"
+      ],
+      "conditions": [
+        "Thực hiện chuyển đổi trạng thái đơn hàng sai quy trình"
+      ],
+      "action": "Hệ thống kiểm tra quy trình trạng thái đơn hàng",
+      "outcome": "Chặn việc thay đổi trạng thái sai quy trình",
+      "source_refs": [
+        {
+          "block_id": "B0187",
+          "quote": "NFR-REL-03: Hệ thống phải đảm bảo trạng thái đơn hàng không bị thay đổi sai quy trình (ví dụ không cho chuyển từ 'Đã hủy' sang 'Hoàn thành')."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-PERF-01",
+      "title": "Kiểm tra thời gian tra cứu thông thường",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-PERF-01"
+      ],
+      "given": "Hệ thống hoạt động ở điều kiện tải bình thường",
+      "when": "Người dùng thực hiện thao tác tìm kiếm hoặc xem danh sách truyện tranh",
+      "then": "Hệ thống phản hồi kết quả trong thời gian không vượt quá 3 giây",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-SEC-01",
+      "title": "Kiểm tra lưu trữ mật khẩu người dùng",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-SEC-01"
+      ],
+      "given": "Người dùng thực hiện đăng ký tài khoản mới với mật khẩu",
+      "when": "Hệ thống lưu thông tin tài khoản vào cơ sở dữ liệu",
+      "then": "Mật khẩu được lưu dưới dạng đã mã hóa (hash) chứ không phải plaintext",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-SEC-02",
+      "title": "Chặn truy cập chức năng quản trị với tài khoản không có quyền",
+      "type": "AUTHORIZATION",
+      "rule_ids": [
+        "RULE-SEC-03"
+      ],
+      "given": "Người dùng đăng nhập bằng tài khoản Customer thông thường",
+      "when": "Người dùng cố gắng truy cập vào đường dẫn quản trị của Admin",
+      "then": "Hệ thống chặn hoặc chuyển hướng người dùng",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-SEC-03",
+      "title": "Sử dụng lại mã OTP đã hết hạn hoặc đã dùng",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-SEC-06"
+      ],
+      "given": "Mã OTP đã hết hạn thời hạn sử dụng hoặc đã được sử dụng trước đó",
+      "when": "Người dùng nhập lại mã OTP đó để xác thực",
+      "then": "Hệ thống từ chối và không cho phép tái sử dụng mã OTP",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-REL-01",
+      "title": "Thay đổi trạng thái đơn hàng sai quy trình",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-REL-03"
+      ],
+      "given": "Đang có một đơn hàng ở trạng thái 'Đã hủy'",
+      "when": "Thực hiện thao tác chuyển trạng thái đơn hàng sang 'Hoàn thành'",
+      "then": "Hệ thống từ chối thay đổi trạng thái",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-01",
+      "type": "AMBIGUITY",
+      "description": "Thuật ngữ 'thời gian hợp lý' trong yêu cầu xuất báo cáo Excel không có tiêu chí đo lường cụ thể.",
+      "question": "Chính xác bao nhiêu giây được coi là thời gian hợp lý cho chức năng xuất báo cáo Excel?",
+      "source_refs": [
+        {
+          "block_id": "B0171",
+          "quote": "NFR-PERF-03: Chức năng xuất báo cáo Excel phải hoàn tất trong thời gian hợp lý và không làm treo giao diện quản trị."
+        }
+      ],
+      "blocks_scenarios": []
+    },
+    {
+      "issue_id": "ISSUE-02",
+      "type": "AMBIGUITY",
+      "description": "Giới hạn số lần đăng nhập sai liên tiếp không được quy định rõ con số cụ thể.",
+      "question": "Hệ thống cho phép tối đa bao nhiêu lần đăng nhập sai liên tiếp trước khi khóa tài khoản hoặc yêu cầu xác thực bổ sung?",
+      "source_refs": [
+        {
+          "block_id": "B0178",
+          "quote": "NFR-SEC-05: Hệ thống phải giới hạn số lần đăng nhập sai liên tiếp để giảm thiểu rủi ro tấn công dò mật khẩu."
+        }
+      ],
+      "blocks_scenarios": []
+    },
+    {
+      "issue_id": "ISSUE-03",
+      "type": "NOT_TESTABLE",
+      "description": "Quy tắc gợi ý sản phẩm dựa trên wishlist theo thể loại chỉ là giả định và chưa được xác nhận chính thức.",
+      "question": "Quy tắc chi tiết của tính năng gợi ý sản phẩm dựa trên wishlist theo thể loại là gì và đã được đội phát triển chốt chưa?",
+      "source_refs": [
+        {
+          "block_id": "B0203",
+          "quote": "Giả định rằng quy tắc gợi ý sản phẩm (Recommendation) dựa trên wishlist theo thể loại; quy tắc chi tiết cần được xác nhận thêm với đội phát triển trước khi hoàn thiện test case."
+        }
+      ],
+      "blocks_scenarios": []
+    }
+  ]
+}

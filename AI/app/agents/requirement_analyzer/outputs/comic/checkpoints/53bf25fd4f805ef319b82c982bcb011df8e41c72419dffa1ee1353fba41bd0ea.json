@@ -1,0 +1,99 @@
+{
+  "summary": "Phân tích yêu cầu cho module M20 (Thống kê & Xuất Excel) bao gồm hai Use Case: UC-40 (Xem thống kê) và UC-41 (Xuất báo cáo Excel).",
+  "rules": [
+    {
+      "rule_id": "BR-M20-01",
+      "statement": "Lợi nhuận bằng doanh thu trừ giá nhập.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [],
+      "conditions": [],
+      "action": "Tính toán lợi nhuận",
+      "outcome": "Lợi nhuận = Doanh thu - Giá nhập",
+      "source_refs": [
+        {
+          "block_id": "B0160",
+          "quote": "BR1. Lợi nhuận bằng doanh thu trừ giá nhập."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-M20-02",
+      "statement": "Biên lợi nhuận (%) bằng lợi nhuận chia doanh thu.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [],
+      "conditions": [],
+      "action": "Tính toán biên lợi nhuận",
+      "outcome": "Biên lợi nhuận (%) = Lợi nhuận / Doanh thu",
+      "source_refs": [
+        {
+          "block_id": "B0160",
+          "quote": "BR2. Biên lợi nhuận (%) bằng lợi nhuận chia doanh thu."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-M20-03",
+      "statement": "File xuất ra phải mở được bằng Excel.",
+      "category": "NON_FUNCTIONAL",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [],
+      "conditions": [],
+      "action": "Tạo file báo cáo",
+      "outcome": "File Excel hợp lệ",
+      "source_refs": [
+        {
+          "block_id": "B0162",
+          "quote": "BR1. File xuất ra phải mở được bằng Excel."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-UC40-01",
+      "title": "Xem thống kê thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "BR-M20-01",
+        "BR-M20-02"
+      ],
+      "given": "Admin đã đăng nhập và có quyền phù hợp",
+      "when": "Admin mở trang Thống kê và chọn khoảng thời gian hợp lệ",
+      "then": "Hệ thống hiển thị doanh thu, số đơn, giá trị đơn trung bình, sản phẩm bán chạy, lợi nhuận, biên lợi nhuận, Top 5 Flash Sale/voucher và danh sách truyện bán/chưa bán",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC40-02",
+      "title": "Khoảng thời gian không hợp lệ",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "BR-M20-01"
+      ],
+      "given": "Admin đang ở trang Thống kê",
+      "when": "Admin chọn khoảng thời gian có ngày kết thúc trước ngày bắt đầu",
+      "then": "Hệ thống từ chối và cảnh báo, quay lại bước chọn thời gian",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC41-01",
+      "title": "Xuất báo cáo Excel thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "BR-M20-03"
+      ],
+      "given": "Admin đã chọn khoảng thời gian hợp lệ",
+      "when": "Admin nhấn nút Xuất Excel",
+      "then": "File Excel được tải về máy",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": []
+}

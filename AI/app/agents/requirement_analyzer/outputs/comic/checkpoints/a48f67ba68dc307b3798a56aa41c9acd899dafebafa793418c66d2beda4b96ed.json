@@ -1,0 +1,115 @@
+{
+  "summary": "Phân tích yêu cầu chức năng cho module M04 - Giỏ hàng (Cart) bao gồm các Use Case UC-9 (Thêm sản phẩm vào giỏ hàng) và UC-10 (Cập nhật và xóa sản phẩm trong giỏ hàng).",
+  "rules": [
+    {
+      "rule_id": "RULE-M04-001",
+      "statement": "Số lượng sản phẩm thêm vào giỏ hàng tối thiểu là 1 và không được vượt quá số lượng tồn kho.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Truyện đang hiển thị và còn hàng"
+      ],
+      "conditions": [
+        "Số lượng yêu cầu > 0",
+        "Số lượng yêu cầu <= tồn kho"
+      ],
+      "action": "Thêm sản phẩm vào giỏ hàng",
+      "outcome": "Sản phẩm được thêm vào giỏ với đúng số lượng và cập nhật biểu tượng giỏ hàng",
+      "source_refs": [
+        {
+          "block_id": "B0054",
+          "quote": "BR1. Số lượng thêm vào giỏ tối thiểu là 1 và không vượt tồn kho."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M04-002",
+      "statement": "Hệ thống chặn thao tác thêm vào giỏ hàng nếu số lượng yêu cầu lớn hơn tồn kho.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Truyện đang hiển thị và còn hàng"
+      ],
+      "conditions": [
+        "stockQuantity < quantity"
+      ],
+      "action": "Người dùng nhấn 'Thêm vào giỏ hàng'",
+      "outcome": "Hệ thống chặn thao tác và hiển thị thông báo vượt quá số lượng tồn kho",
+      "source_refs": [
+        {
+          "block_id": "B0054",
+          "quote": "9.3.1  EF1 - Vượt quá tồn kho:\nTại bước 2, số lượng yêu cầu lớn hơn tồn kho (stockQuantity < quantity).\nHệ thống chặn thao tác và hiển thị thông báo vượt quá số lượng tồn kho."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M04-003",
+      "statement": "Thành tiền của sản phẩm trong giỏ hàng được tính bằng số lượng nhân đơn giá.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Giỏ hàng có ít nhất một sản phẩm"
+      ],
+      "conditions": [
+        "Người dùng thay đổi số lượng sản phẩm"
+      ],
+      "action": "Hệ thống cập nhật thành tiền",
+      "outcome": "Thành tiền bằng số lượng nhân đơn giá",
+      "source_refs": [
+        {
+          "block_id": "B0056",
+          "quote": "BR1. Thành tiền bằng số lượng nhân đơn giá."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-UC9-001",
+      "title": "Thêm sản phẩm thành công vào giỏ hàng",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M04-001"
+      ],
+      "given": "Người dùng đang ở trang chi tiết truyện còn hàng",
+      "when": "Người dùng chọn số lượng hợp lệ và nhấn 'Thêm vào giỏ hàng'",
+      "then": "Sản phẩm được thêm vào giỏ, thông báo hiển thị và số lượng trên biểu tượng giỏ hàng được cập nhật",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC9-002",
+      "title": "Thêm sản phẩm vượt quá tồn kho",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M04-002"
+      ],
+      "given": "Người dùng đang ở trang chi tiết truyện",
+      "when": "Người dùng nhập số lượng yêu cầu lớn hơn tồn kho và nhấn 'Thêm vào giỏ hàng'",
+      "then": "Hệ thống chặn thao tác và hiển thị thông báo lỗi",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-M04-001",
+      "type": "AMBIGUITY",
+      "description": "Quy tắc hợp nhất giỏ hàng của khách vãng lai khi đăng nhập chưa được xác định cụ thể.",
+      "question": "Quy tắc hợp nhất giỏ hàng (merge) cụ thể là gì (ví dụ: cộng dồn số lượng, ghi đè, hay ưu tiên giỏ hàng đã đăng nhập)?",
+      "source_refs": [
+        {
+          "block_id": "B0054",
+          "quote": "BR2. Quy tắc hợp nhất giỏ hàng của khách vãng lai cần được nhóm phát triển xác nhận."
+        }
+      ],
+      "blocks_scenarios": []
+    }
+  ]
+}

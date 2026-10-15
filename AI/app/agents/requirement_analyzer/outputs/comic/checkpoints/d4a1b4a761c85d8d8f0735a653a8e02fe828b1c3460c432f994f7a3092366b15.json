@@ -1,0 +1,313 @@
+{
+  "summary": "Phân tích yêu cầu chức năng, quy tắc nghiệp vụ, use case và các luồng (Basic, Alternative, Exception) của module M01 - Xác thực & Tài khoản (Authentication) từ tài liệu SRS, bao gồm UC-1 (Đăng ký tài khoản), UC-2 (Đăng nhập), UC-3 (Khôi phục mật khẩu) và UC-4 (Đăng xuất).",
+  "rules": [
+    {
+      "rule_id": "RULE-UC1-BR1",
+      "statement": "Mật khẩu gồm tối thiểu 8 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Người dùng nhập mật khẩu mới hoặc mật khẩu đăng ký"
+      ],
+      "action": "Hệ thống kiểm tra định dạng mật khẩu",
+      "outcome": "Mật khẩu phải đáp ứng độ dài tối thiểu 8 ký tự và chứa đủ chữ hoa, chữ thường, số, ký tự đặc biệt",
+      "source_refs": [
+        {
+          "block_id": "B0032",
+          "quote": "BR1. Mật khẩu gồm tối thiểu 8 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-UC1-BR2",
+      "statement": "Tên đăng nhập không chứa ký tự '@' và khoảng trắng.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Khách vãng lai nhập tên đăng nhập"
+      ],
+      "action": "Hệ thống kiểm tra định dạng tên đăng nhập",
+      "outcome": "Tên đăng nhập không được chứa ký tự '@' và khoảng trắng",
+      "source_refs": [
+        {
+          "block_id": "B0032",
+          "quote": "BR2. Tên đăng nhập không chứa ký tự '@' và khoảng trắng."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-UC1-BR3",
+      "statement": "Email là duy nhất trong hệ thống.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Khách vãng lai đăng ký bằng email mới"
+      ],
+      "action": "Hệ thống kiểm tra tính duy nhất của email",
+      "outcome": "Email chưa từng tồn tại trong hệ thống mới được phép đăng ký",
+      "source_refs": [
+        {
+          "block_id": "B0032",
+          "quote": "BR3. Email là duy nhất trong hệ thống."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-UC1-BR4",
+      "statement": "Mã OTP có thời hạn và chỉ dùng được một lần.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Hệ thống gửi email (phụ)"
+      ],
+      "preconditions": [
+        "Mã OTP đã được gửi về email"
+      ],
+      "conditions": [
+        "Khách vãng lai nhập mã OTP"
+      ],
+      "action": "Hệ thống xác thực mã OTP",
+      "outcome": "Mã OTP chỉ hợp lệ khi còn thời hạn và chưa từng được sử dụng trước đó",
+      "source_refs": [
+        {
+          "block_id": "B0032",
+          "quote": "BR4. Mã OTP có thời hạn và chỉ dùng được một lần."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-UC2-BR1",
+      "statement": "Cùng một IP gửi quá 10 yêu cầu POST đến trang đăng nhập/đăng ký/xác thực trong 60 giây sẽ bị chặn.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Cùng một IP gửi quá 10 yêu cầu POST đến trang đăng nhập/đăng ký/xác thực trong khoảng thời gian 60 giây"
+      ],
+      "action": "Hệ thống phát hiện vượt ngưỡng yêu cầu từ IP",
+      "outcome": "Hệ thống chặn thao tác và hiển thị thông báo lỗi",
+      "source_refs": [
+        {
+          "block_id": "B0034",
+          "quote": "BR1. Cùng một IP gửi quá 10 yêu cầu POST đến trang đăng nhập/đăng ký/xác thực trong 60 giây sẽ bị chặn."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-UC2-BR2",
+      "statement": "Tài khoản bị khóa không thể đăng nhập.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Tài khoản người dùng đang ở trạng thái bị khóa"
+      ],
+      "conditions": [
+        "Người dùng thực hiện đăng nhập"
+      ],
+      "action": "Hệ thống kiểm tra trạng thái tài khoản",
+      "outcome": "Hệ thống từ chối đăng nhập và hiển thị thông báo",
+      "source_refs": [
+        {
+          "block_id": "B0034",
+          "quote": "BR2. Tài khoản bị khóa không thể đăng nhập."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-UC2-BR3",
+      "statement": "Phiên đăng nhập được duy trì cho đến khi người dùng đăng xuất hoặc phiên hết hạn.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Người dùng đã đăng nhập thành công"
+      ],
+      "conditions": [
+        "Người dùng chưa đăng xuất và phiên làm việc chưa hết hạn"
+      ],
+      "action": "Hệ thống duy trì phiên",
+      "outcome": "Phiên đăng nhập tiếp tục được duy trì",
+      "source_refs": [
+        {
+          "block_id": "B0034",
+          "quote": "BR3. Phiên đăng nhập được duy trì cho đến khi người dùng đăng xuất hoặc phiên hết hạn."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-UC3-BR1",
+      "statement": "Mã OTP có thời hạn và không được tái sử dụng sau khi đã dùng hoặc hết hạn.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng",
+        "Hệ thống gửi email (phụ)"
+      ],
+      "preconditions": [
+        "Mã OTP khôi phục mật khẩu đã được gửi"
+      ],
+      "conditions": [
+        "Người dùng nhập mã OTP để khôi phục mật khẩu"
+      ],
+      "action": "Hệ thống kiểm tra mã OTP",
+      "outcome": "Mã OTP đã dùng hoặc hết hạn không được tái sử dụng",
+      "source_refs": [
+        {
+          "block_id": "B0036",
+          "quote": "BR1. Mã OTP có thời hạn và không được tái sử dụng sau khi đã dùng hoặc hết hạn."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-UC3-BR2",
+      "statement": "Mật khẩu mới tuân theo quy tắc định dạng mật khẩu như khi đăng ký.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Người dùng đang ở bước tạo mật khẩu mới"
+      ],
+      "conditions": [
+        "Người dùng nhập mật khẩu mới"
+      ],
+      "action": "Hệ thống kiểm tra định dạng mật khẩu mới",
+      "outcome": "Mật khẩu mới phải tuân theo quy tắc định dạng mật khẩu như khi đăng ký",
+      "source_refs": [
+        {
+          "block_id": "B0036",
+          "quote": "BR2. Mật khẩu mới tuân theo quy tắc định dạng mật khẩu như khi đăng ký."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-UC4-BR1",
+      "statement": "Sau khi đăng xuất, người dùng không thể truy cập các chức năng yêu cầu đăng nhập.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Người dùng đã thực hiện đăng xuất thành công"
+      ],
+      "conditions": [
+        "Người dùng truy cập các chức năng yêu cầu đăng nhập"
+      ],
+      "action": "Hệ thống kiểm tra phiên đăng nhập",
+      "outcome": "Hệ thống chặn truy cập",
+      "source_refs": [
+        {
+          "block_id": "B0038",
+          "quote": "BR1. Sau khi đăng xuất, người dùng không thể truy cập các chức năng yêu cầu đăng nhập."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-UC1-01",
+      "title": "Đăng ký tài khoản thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-UC1-BR1",
+        "RULE-UC1-BR2",
+        "RULE-UC1-BR3",
+        "RULE-UC1-BR4"
+      ],
+      "given": "Khách vãng lai chưa đăng nhập và truy cập trang đăng ký",
+      "when": "Khách vãng lai nhập tên đăng nhập, email chưa tồn tại, mật khẩu hợp lệ, xác nhận khớp, nhấn 'Đăng ký' và nhập đúng mã OTP",
+      "then": "Hệ thống kích hoạt tài khoản, hiển thị thông báo thành công và chuyển về trang đăng nhập",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC1-02",
+      "title": "Đăng ký thất bại do email đã tồn tại",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-UC1-BR3"
+      ],
+      "given": "Email đã được đăng ký trong hệ thống",
+      "when": "Khách vãng lai nhập email đã tồn tại để đăng ký tài khoản",
+      "then": "Hệ thống hiển thị thông báo email đã tồn tại và không tạo tài khoản",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC2-01",
+      "title": "Đăng nhập thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-UC2-BR3"
+      ],
+      "given": "Người dùng đã có tài khoản được kích hoạt và không bị khóa",
+      "when": "Người dùng nhập email/tên đăng nhập, mật khẩu đúng, xác minh CAPTCHA thành công và nhấn 'Đăng nhập'",
+      "then": "Hệ thống tạo phiên đăng nhập và chuyển người dùng về trang chủ",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC2-02",
+      "title": "Đăng nhập thất bại do tài khoản bị khóa",
+      "type": "AUTHORIZATION",
+      "rule_ids": [
+        "RULE-UC2-BR2"
+      ],
+      "given": "Tài khoản người dùng đang ở trạng thái bị khóa",
+      "when": "Người dùng thực hiện đăng nhập",
+      "then": "Hệ thống từ chối đăng nhập và hiển thị thông báo",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC2-03",
+      "title": "Bị chặn do gửi quá nhiều yêu cầu từ cùng một IP",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-UC2-BR1"
+      ],
+      "given": "Cùng một IP thực hiện gửi yêu cầu",
+      "when": "IP đó gửi quá 10 yêu cầu POST đến trang đăng nhập/đăng ký/xác thực trong 60 giây",
+      "then": "Hệ thống chặn thao tác và hiển thị thông báo lỗi",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC3-01",
+      "title": "Khôi phục mật khẩu thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-UC3-BR1",
+        "RULE-UC3-BR2"
+      ],
+      "given": "Email nhập vào đã được đăng ký trong hệ thống",
+      "when": "Người dùng yêu cầu lấy mã xác thực, nhập đúng mã OTP gồm 6 chữ số, sau đó nhập mật khẩu mới hợp lệ và xác nhận",
+      "then": "Mật khẩu mới được lưu dưới dạng đã mã hóa và hệ thống hiển thị thông báo thay đổi mật khẩu thành công",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC4-01",
+      "title": "Đăng xuất thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-UC4-BR1"
+      ],
+      "given": "Người dùng đang đăng nhập",
+      "when": "Người dùng nhấn biểu tượng người dùng trên thanh header và chọn 'Đăng xuất'",
+      "then": "Phiên đăng nhập bị hủy và người dùng được chuyển về trang đăng nhập",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": []
+}

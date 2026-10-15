@@ -1,0 +1,187 @@
+{
+  "summary": "Phân tích các yêu cầu chức năng cho module M06 (Thanh toán & Đặt hàng) bao gồm các Use Case UC-11 (Thanh toán và tạo đơn hàng), UC-12 (Mua ngay) và UC-13 (Xem lịch sử đơn hàng và mua lại).",
+  "rules": [
+    {
+      "rule_id": "RULE-M06-001",
+      "statement": "Khách hàng phải đăng nhập trước khi thực hiện thanh toán và tạo đơn hàng.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Khách hàng đã đăng nhập"
+      ],
+      "conditions": [
+        "Khách hàng nhấn nút thanh toán tại trang giỏ hàng"
+      ],
+      "action": "Hệ thống hiển thị trang Checkout",
+      "outcome": "Cho phép khách hàng tiếp tục quy trình đặt hàng",
+      "source_refs": [
+        {
+          "block_id": "B0066",
+          "quote": "Pre-Condition(s) | Khách hàng đã đăng nhập."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M06-002",
+      "statement": "Hệ thống phải kiểm tra địa chỉ giao hàng và tồn kho sản phẩm trước khi tạo đơn hàng.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Khách hàng đã nhấn 'Đặt hàng'"
+      ],
+      "conditions": [
+        "Thông tin địa chỉ giao hàng đầy đủ",
+        "Sản phẩm còn đủ tồn kho"
+      ],
+      "action": "Hệ thống tạo đơn hàng",
+      "outcome": "Đơn hàng được tạo ở trạng thái 'Chờ xác nhận' và tồn kho được cập nhật",
+      "source_refs": [
+        {
+          "block_id": "B0066",
+          "quote": "11.1.7. Hệ thống kiểm tra địa chỉ giao hàng và tồn kho của từng sản phẩm."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M06-003",
+      "statement": "Địa chỉ giao hàng là bắt buộc để tạo đơn hàng.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Khách hàng đang ở trang Checkout"
+      ],
+      "conditions": [
+        "Thông tin địa chỉ giao hàng (shippingAddress) còn thiếu"
+      ],
+      "action": "Hệ thống chặn việc tạo đơn",
+      "outcome": "Hiển thị thông báo yêu cầu bổ sung địa chỉ",
+      "source_refs": [
+        {
+          "block_id": "B0066",
+          "quote": "BR1. Địa chỉ giao hàng là bắt buộc để tạo đơn."
+        },
+        {
+          "block_id": "B0066",
+          "quote": "11.3.1  EF1 - Thiếu địa chỉ giao hàng"
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M06-004",
+      "statement": "Mua ngay không thêm sản phẩm vào giỏ hàng.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Khách hàng nhấn 'Mua ngay' tại trang chi tiết truyện"
+      ],
+      "conditions": [
+        "Sản phẩm còn tồn kho"
+      ],
+      "action": "Hệ thống chuyển đến trang Checkout",
+      "outcome": "Trang Checkout chỉ chứa đúng sản phẩm và số lượng đã chọn, giỏ hàng hiện tại không bị thay đổi",
+      "source_refs": [
+        {
+          "block_id": "B0068",
+          "quote": "BR1. Mua ngay không thêm sản phẩm vào giỏ hàng."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M06-005",
+      "statement": "Khách hàng chỉ xem được đơn hàng của chính mình.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Khách hàng đã đăng nhập"
+      ],
+      "conditions": [
+        "Khách hàng mở 'Đơn hàng của tôi'"
+      ],
+      "action": "Hệ thống hiển thị danh sách đơn hàng",
+      "outcome": "Chỉ hiển thị đơn hàng thuộc sở hữu của khách hàng đó",
+      "source_refs": [
+        {
+          "block_id": "B0070",
+          "quote": "BR1. Khách hàng chỉ xem được đơn hàng của chính mình."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SCN-M06-001",
+      "title": "Thanh toán thành công với phương thức COD",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M06-001",
+        "RULE-M06-002"
+      ],
+      "given": "Khách hàng đã đăng nhập và có sản phẩm trong giỏ hàng",
+      "when": "Khách hàng chọn phương thức thanh toán COD và nhấn Đặt hàng",
+      "then": "Đơn hàng được tạo với trạng thái 'Chờ xác nhận' và hiển thị trang 'Đặt hàng thành công'",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SCN-M06-002",
+      "title": "Thanh toán thất bại do thiếu địa chỉ giao hàng",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M06-003"
+      ],
+      "given": "Khách hàng đang ở trang Checkout",
+      "when": "Khách hàng nhấn Đặt hàng mà không cung cấp địa chỉ giao hàng",
+      "then": "Hệ thống chặn tạo đơn và hiển thị thông báo yêu cầu bổ sung địa chỉ",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SCN-M06-003",
+      "title": "Mua ngay sản phẩm hết hàng",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M06-004"
+      ],
+      "given": "Sản phẩm đã hết hàng",
+      "when": "Khách hàng nhấn 'Mua ngay'",
+      "then": "Hệ thống không chuyển trang và hiển thị thông báo hết hàng",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-M06-001",
+      "type": "AMBIGUITY",
+      "description": "Quy tắc '1 điểm thưởng tương đương 1 đồng' (BR2) không nêu rõ giới hạn sử dụng điểm thưởng trên tổng giá trị đơn hàng.",
+      "question": "Có giới hạn tối đa số điểm thưởng được sử dụng cho một đơn hàng không?",
+      "source_refs": [
+        {
+          "block_id": "B0066",
+          "quote": "BR2. 1 điểm thưởng tương đương 1 đồng."
+        }
+      ],
+      "blocks_scenarios": []
+    },
+    {
+      "issue_id": "ISSUE-M06-002",
+      "type": "AMBIGUITY",
+      "description": "Quy tắc 'Giá Flash Sale được dùng khi sản phẩm thuộc chương trình đang diễn ra' (BR3) không nêu rõ cách xử lý khi sản phẩm hết hạn Flash Sale trong quá trình thanh toán.",
+      "question": "Hệ thống sẽ xử lý như thế nào nếu chương trình Flash Sale kết thúc trong khi khách hàng đang ở trang Checkout?",
+      "source_refs": [
+        {
+          "block_id": "B0066",
+          "quote": "BR3. Giá Flash Sale được dùng khi sản phẩm thuộc chương trình đang diễn ra."
+        }
+      ],
+      "blocks_scenarios": []
+    }
+  ]
+}

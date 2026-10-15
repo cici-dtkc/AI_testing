@@ -1,0 +1,292 @@
+{
+  "summary": "Phân tích các yêu cầu chức năng và quy tắc nghiệp vụ cho module M01 - Xác thực & Tài khoản (Authentication) bao gồm các Use Case UC-1, UC-2, UC-3, và UC-4.",
+  "rules": [
+    {
+      "rule_id": "R-M01-001",
+      "statement": "Mật khẩu gồm tối thiểu 8 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai"
+      ],
+      "preconditions": [
+        "Người dùng truy cập được trang đăng ký."
+      ],
+      "conditions": [
+        "Người dùng nhập mật khẩu"
+      ],
+      "action": "Hệ thống kiểm tra độ mạnh mật khẩu",
+      "outcome": "Mật khẩu phải thỏa mãn tối thiểu 8 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt",
+      "source_refs": [
+        {
+          "block_id": "B0032",
+          "quote": "Business Rules | BR1. Mật khẩu gồm tối thiểu 8 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt."
+        }
+      ]
+    },
+    {
+      "rule_id": "R-M01-002",
+      "statement": "Tên đăng nhập không chứa ký tự '@' và khoảng trắng.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai"
+      ],
+      "preconditions": [
+        "Người dùng truy cập được trang đăng ký."
+      ],
+      "conditions": [
+        "Người dùng nhập tên đăng nhập"
+      ],
+      "action": "Hệ thống kiểm tra định dạng tên đăng nhập",
+      "outcome": "Tên đăng nhập không được chứa ký tự '@' và khoảng trắng",
+      "source_refs": [
+        {
+          "block_id": "B0032",
+          "quote": "BR2. Tên đăng nhập không chứa ký tự '@' và khoảng trắng."
+        }
+      ]
+    },
+    {
+      "rule_id": "R-M01-003",
+      "statement": "Email là duy nhất trong hệ thống.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai"
+      ],
+      "preconditions": [
+        "Người dùng truy cập được trang đăng ký."
+      ],
+      "conditions": [
+        "Người dùng nhập email đăng ký"
+      ],
+      "action": "Hệ thống kiểm tra tính duy nhất của email",
+      "outcome": "Email chưa tồn tại trong hệ thống",
+      "source_refs": [
+        {
+          "block_id": "B0032",
+          "quote": "BR3. Email là duy nhất trong hệ thống."
+        }
+      ]
+    },
+    {
+      "rule_id": "R-M01-004",
+      "statement": "Mã OTP có thời hạn và chỉ dùng được một lần.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Hệ thống gửi email (phụ)"
+      ],
+      "preconditions": [
+        "Hệ thống đã tạo và gửi mã OTP về email"
+      ],
+      "conditions": [
+        "Người dùng nhập mã OTP"
+      ],
+      "action": "Hệ thống kiểm tra tính hợp lệ và thời hạn của mã OTP",
+      "outcome": "Mã OTP có thời hạn và chỉ dùng được một lần",
+      "source_refs": [
+        {
+          "block_id": "B0032",
+          "quote": "BR4. Mã OTP có thời hạn và chỉ dùng được một lần."
+        }
+      ]
+    },
+    {
+      "rule_id": "R-M01-005",
+      "statement": "Cùng một IP gửi quá 10 yêu cầu POST đến trang đăng nhập/đăng ký/xác thực trong 60 giây sẽ bị chặn.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Hệ thống ghi nhận các yêu cầu HTTP POST từ client"
+      ],
+      "conditions": [
+        "Cùng một IP gửi quá 10 yêu cầu POST đến trang đăng nhập/đăng ký/xác thực trong 60 giây"
+      ],
+      "action": "Hệ thống chặn thao tác từ IP đó",
+      "outcome": "Hệ thống chặn thao tác và hiển thị thông báo lỗi",
+      "source_refs": [
+        {
+          "block_id": "B0034",
+          "quote": "Business Rules | BR1. Cùng một IP gửi quá 10 yêu cầu POST đến trang đăng nhập/đăng ký/xác thực trong 60 giây sẽ bị chặn."
+        }
+      ]
+    },
+    {
+      "rule_id": "R-M01-006",
+      "statement": "Tài khoản bị khóa không thể đăng nhập.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Tài khoản của người dùng đã bị khóa"
+      ],
+      "conditions": [
+        "Người dùng thực hiện đăng nhập"
+      ],
+      "action": "Hệ thống kiểm tra trạng thái tài khoản",
+      "outcome": "Hệ thống từ chối đăng nhập và hiển thị thông báo",
+      "source_refs": [
+        {
+          "block_id": "B0034",
+          "quote": "BR2. Tài khoản bị khóa không thể đăng nhập."
+        }
+      ]
+    },
+    {
+      "rule_id": "R-M01-007",
+      "statement": "Phiên đăng nhập được duy trì cho đến khi người dùng đăng xuất hoặc phiên hết hạn.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Người dùng đã đăng nhập thành công"
+      ],
+      "conditions": [
+        "Người dùng chưa đăng xuất và phiên chưa hết hạn"
+      ],
+      "action": "Hệ thống duy trì phiên đăng nhập",
+      "outcome": "Phiên đăng nhập được duy trì",
+      "source_refs": [
+        {
+          "block_id": "B0034",
+          "quote": "BR3. Phiên đăng nhập được duy trì cho đến khi người dùng đăng xuất hoặc phiên hết hạn."
+        }
+      ]
+    },
+    {
+      "rule_id": "R-M01-008",
+      "statement": "Sau khi đăng xuất, người dùng không thể truy cập các chức năng yêu cầu đăng nhập.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Người dùng đã hoàn tất thao tác đăng xuất"
+      ],
+      "conditions": [
+        "Người dùng cố gắng truy cập các chức năng yêu cầu đăng nhập"
+      ],
+      "action": "Hệ thống kiểm tra quyền truy cập",
+      "outcome": "Người dùng không thể truy cập các chức năng yêu cầu đăng nhập",
+      "source_refs": [
+        {
+          "block_id": "B0038",
+          "quote": "Business Rules | BR1. Sau khi đăng xuất, người dùng không thể truy cập các chức năng yêu cầu đăng nhập."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-M01-001",
+      "title": "Đăng ký tài khoản thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "R-M01-001",
+        "R-M01-002",
+        "R-M01-003",
+        "R-M01-004"
+      ],
+      "given": "Khách vãng lai chưa đăng nhập và mở form đăng ký",
+      "when": "Khách vãng lai nhập tên đăng nhập, email hợp lệ chưa tồn tại, mật khẩu mạnh thỏa mãn quy tắc và xác nhận mật khẩu khớp, sau đó nhập đúng mã OTP nhận được",
+      "then": "Tài khoản mới được tạo và kích hoạt, hệ thống hiển thị thông báo thành công và chuyển về trang đăng nhập",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M01-002",
+      "title": "Đăng ký thất bại do email đã tồn tại",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "R-M01-003"
+      ],
+      "given": "Khách vãng lai mở form đăng ký với một email đã có sẵn trong hệ thống",
+      "when": "Khách vãng lai nhập thông tin và nhấn Đăng ký",
+      "then": "Hệ thống hiển thị thông báo email đã tồn tại và không tạo tài khoản",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M01-003",
+      "title": "Đăng nhập thành công bằng tài khoản và mật khẩu",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "R-M01-007"
+      ],
+      "given": "Người dùng đã có tài khoản được kích hoạt, không bị khóa và đang ở cửa sổ đăng nhập",
+      "when": "Người dùng nhập email/tên đăng nhập, mật khẩu đúng, xác minh CAPTCHA thành công và nhấn Đăng nhập",
+      "then": "Hệ thống tạo phiên đăng nhập và chuyển người dùng về trang chủ",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M01-004",
+      "title": "Đăng nhập thất bại do tài khoản bị khóa",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "R-M01-006"
+      ],
+      "given": "Người dùng có tài khoản đã bị khóa",
+      "when": "Người dùng thực hiện đăng nhập",
+      "then": "Hệ thống từ chối đăng nhập và hiển thị thông báo",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M01-005",
+      "title": "Khôi phục mật khẩu thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "R-M01-004"
+      ],
+      "given": "Người dùng có email đã đăng ký và mở trang quên mật khẩu",
+      "when": "Người dùng nhập email, nhập mã OTP hợp lệ, nhập mật khẩu mới hợp lệ cùng xác nhận mật khẩu và hoàn tất",
+      "then": "Mật khẩu mới được lưu dưới dạng đã mã hóa và hệ thống hiển thị thông báo thay đổi mật khẩu thành công",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M01-006",
+      "title": "Đăng xuất thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "R-M01-008"
+      ],
+      "given": "Người dùng đang đăng nhập vào hệ thống",
+      "when": "Người dùng nhấn biểu tượng người dùng trên header và chọn Đăng xuất",
+      "then": "Phiên đăng nhập bị hủy và người dùng được chuyển về trang đăng nhập",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISS-M01-001",
+      "type": "AMBIGUITY",
+      "description": "Thời hạn cụ thể của mã OTP không được quy định rõ bằng con số thời gian (ví dụ: số phút).",
+      "question": "Mã OTP có thời hạn chính xác là bao lâu tính bằng phút?",
+      "source_refs": [
+        {
+          "block_id": "B0032",
+          "quote": "1.1.5. Hệ thống tạo mã OTP có thời hạn và gửi về email đã đăng ký."
+        }
+      ],
+      "blocks_scenarios": [
+        "SC-M01-001"
+      ]
+    },
+    {
+      "issue_id": "ISS-M01-002",
+      "type": "AMBIGUITY",
+      "description": "Ngưỡng giới hạn số lần đăng nhập sai liên tiếp trước khi khóa tài khoản không được định nghĩa rõ con số cụ thể trong văn bản.",
+      "question": "Giới hạn số lần đăng nhập sai liên tiếp cho phép là bao nhiêu lần?",
+      "source_refs": [
+        {
+          "block_id": "B0034",
+          "quote": "Description | Cho phép người dùng đăng nhập bằng email/tên đăng nhập và mật khẩu, hoặc bằng tài khoản Google. Hệ thống giới hạn số lần đăng nhập sai liên tiếp (Truy vết: FR-M01-05 đến FR-M01-07)."
+        }
+      ],
+      "blocks_scenarios": [
+        "SC-M01-004"
+      ]
+    }
+  ]
+}

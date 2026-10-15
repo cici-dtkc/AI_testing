@@ -1,0 +1,112 @@
+{
+  "summary": "Phân tích yêu cầu chức năng cho module M07 - Cổng thanh toán trực tuyến (VNPay) dựa trên tài liệu SRS-COMIC.",
+  "rules": [
+    {
+      "rule_id": "BR1",
+      "statement": "Callback từ VNPay phải được xác thực chữ ký trước khi xử lý.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Hệ thống"
+      ],
+      "preconditions": [
+        "VNPay gửi kết quả (callback) về hệ thống"
+      ],
+      "conditions": [
+        "Dữ liệu callback nhận được"
+      ],
+      "action": "Xác thực chữ ký/dữ liệu callback",
+      "outcome": "Nếu hợp lệ, cập nhật trạng thái đơn hàng; nếu không hợp lệ, từ chối callback.",
+      "source_refs": [
+        {
+          "block_id": "B0074",
+          "quote": "BR1. Callback từ VNPay phải được xác thực chữ ký trước khi xử lý."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR2",
+      "statement": "Khi kiểm thử có thể dùng mô phỏng (mock) thay cho sandbox VNPay do từng không ổn định.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Người kiểm thử"
+      ],
+      "preconditions": [
+        "Thực hiện kiểm thử module M07"
+      ],
+      "conditions": [
+        "Môi trường sandbox VNPay không ổn định"
+      ],
+      "action": "Sử dụng mô phỏng (mock) luồng thanh toán",
+      "outcome": "Thay thế việc gọi API thật của VNPay.",
+      "source_refs": [
+        {
+          "block_id": "B0074",
+          "quote": "BR2. Khi kiểm thử có thể dùng mô phỏng (mock) thay cho sandbox VNPay do từng không ổn định."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-UC14-01",
+      "title": "Thanh toán thành công qua VNPay",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "BR1"
+      ],
+      "given": "Khách hàng đã đăng nhập và checkout hợp lệ",
+      "when": "Khách hàng chọn VNPay, nhấn 'Đặt hàng', hoàn tất thanh toán trên VNPay và hệ thống nhận callback hợp lệ",
+      "then": "Đơn hàng được cập nhật trạng thái đã thanh toán và hiển thị trang 'Đặt hàng thành công'",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC14-02",
+      "title": "Khách hàng hủy thanh toán",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "BR1"
+      ],
+      "given": "Khách hàng đang ở cổng thanh toán VNPay",
+      "when": "Khách hàng thực hiện hủy thanh toán",
+      "then": "Hệ thống không tạo đơn hoặc chuyển đơn sang trạng thái lỗi và thông báo",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC14-03",
+      "title": "Thanh toán thất bại từ VNPay",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "BR1"
+      ],
+      "given": "Khách hàng đã thực hiện thanh toán",
+      "when": "VNPay trả kết quả thất bại về hệ thống",
+      "then": "Hệ thống không ghi nhận thanh toán và hiển thị thông báo",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC14-04",
+      "title": "Callback không hợp lệ",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "BR1"
+      ],
+      "given": "Hệ thống nhận được callback từ VNPay",
+      "when": "Chữ ký hoặc dữ liệu callback không hợp lệ",
+      "then": "Hệ thống từ chối callback và không cập nhật trạng thái đơn",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC14-05",
+      "title": "Hết thời gian chờ thanh toán",
+      "type": "BOUNDARY",
+      "rule_ids": [
+        "BR1"
+      ],
+      "given": "Khách hàng đang ở cổng thanh toán VNPay",
+      "when": "Quá thời gian chờ thanh toán",
+      "then": "Hệ thống xử lý như thanh toán thất bại và không làm mất dữ liệu giỏ hàng",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": []
+}

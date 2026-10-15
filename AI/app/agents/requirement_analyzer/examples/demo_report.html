@@ -1,0 +1,137 @@
+<!doctype html><html lang="vi"><meta charset="utf-8"><title>Requirement Analysis</title><style>body{font:16px system-ui;max-width:1000px;margin:40px auto;padding:0 20px;color:#17243a}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f2f6fa;padding:16px;border-radius:8px}h2{margin-top:32px}</style><h1>Requirement Analyzer</h1><p>Provider: DEMO_FIXTURE | Model: none | REVIEW_REQUIRED</p><p>Fixture minh họa coupon, không phải kết quả Gemini.</p><h2>Business rules (3)</h2><pre>{
+  &quot;rule_id&quot;: &quot;R1&quot;,
+  &quot;statement&quot;: &quot;Coupon hết hạn phải bị từ chối khi thanh toán.&quot;,
+  &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+  &quot;actors&quot;: [],
+  &quot;preconditions&quot;: [],
+  &quot;conditions&quot;: [
+    &quot;Coupon hết hạn&quot;
+  ],
+  &quot;action&quot;: &quot;Áp dụng coupon&quot;,
+  &quot;outcome&quot;: &quot;Từ chối coupon&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0001&quot;,
+      &quot;quote&quot;: &quot;REQ-COUPON-01: Coupon hết hạn phải bị từ chối khi thanh toán.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;R2&quot;,
+  &quot;statement&quot;: &quot;Coupon chỉ được áp dụng khi giá trị giỏ hàng từ 500.000 VND.&quot;,
+  &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+  &quot;actors&quot;: [],
+  &quot;preconditions&quot;: [],
+  &quot;conditions&quot;: [
+    &quot;Giỏ từ 500.000 VND&quot;
+  ],
+  &quot;action&quot;: &quot;Áp dụng coupon&quot;,
+  &quot;outcome&quot;: &quot;Chỉ áp dụng khi đạt ngưỡng&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0002&quot;,
+      &quot;quote&quot;: &quot;REQ-COUPON-02: Coupon chỉ được áp dụng khi giá trị giỏ hàng từ 500.000 VND.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;R3&quot;,
+  &quot;statement&quot;: &quot;Coupon hợp lệ giảm 10% giá trị giỏ hàng, tối đa 100.000 VND.&quot;,
+  &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+  &quot;actors&quot;: [],
+  &quot;preconditions&quot;: [],
+  &quot;conditions&quot;: [
+    &quot;Coupon hợp lệ&quot;
+  ],
+  &quot;action&quot;: &quot;Áp dụng coupon&quot;,
+  &quot;outcome&quot;: &quot;Giảm 10% và tối đa 100.000 VND&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0003&quot;,
+      &quot;quote&quot;: &quot;REQ-COUPON-03: Coupon hợp lệ giảm 10% giá trị giỏ hàng, tối đa 100.000 VND.&quot;
+    }
+  ]
+}</pre><h2>Test scenarios (4)</h2><pre>{
+  &quot;scenario_id&quot;: &quot;SC1&quot;,
+  &quot;title&quot;: &quot;Coupon hết hạn&quot;,
+  &quot;type&quot;: &quot;NEGATIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;R1&quot;
+  ],
+  &quot;given&quot;: &quot;Coupon đã hết hạn&quot;,
+  &quot;when&quot;: &quot;Áp dụng coupon&quot;,
+  &quot;then&quot;: &quot;Từ chối áp dụng&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;SC2&quot;,
+  &quot;title&quot;: &quot;Giỏ đúng 500.000 VND&quot;,
+  &quot;type&quot;: &quot;BOUNDARY&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;R2&quot;
+  ],
+  &quot;given&quot;: &quot;Giỏ hàng đúng 500.000 VND và các điều kiện khác hợp lệ&quot;,
+  &quot;when&quot;: &quot;Áp dụng coupon&quot;,
+  &quot;then&quot;: &quot;Đạt điều kiện ngưỡng giỏ hàng&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;SC3&quot;,
+  &quot;title&quot;: &quot;Coupon chạm trần giảm&quot;,
+  &quot;type&quot;: &quot;POSITIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;R3&quot;
+  ],
+  &quot;given&quot;: &quot;Coupon hợp lệ và giá trị giỏ 1.500.000 VND&quot;,
+  &quot;when&quot;: &quot;Áp dụng coupon&quot;,
+  &quot;then&quot;: &quot;Giảm tối đa 100.000 VND&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;SC4&quot;,
+  &quot;title&quot;: &quot;Đúng thời điểm hết hạn&quot;,
+  &quot;type&quot;: &quot;BOUNDARY&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;R1&quot;
+  ],
+  &quot;given&quot;: &quot;Thời điểm áp dụng bằng thời điểm hết hạn&quot;,
+  &quot;when&quot;: &quot;Áp dụng coupon&quot;,
+  &quot;then&quot;: null,
+  &quot;expected_status&quot;: &quot;UNKNOWN&quot;
+}</pre><h2>Issues cần xác nhận (2)</h2><pre>{
+  &quot;issue_id&quot;: &quot;I1&quot;,
+  &quot;type&quot;: &quot;MISSING_INFORMATION&quot;,
+  &quot;description&quot;: &quot;Chưa quy định dấu bằng tại biên thời gian và múi giờ&quot;,
+  &quot;question&quot;: &quot;Tại đúng thời điểm hết hạn có từ chối không, và dùng múi giờ nào?&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0001&quot;,
+      &quot;quote&quot;: &quot;REQ-COUPON-01: Coupon hết hạn phải bị từ chối khi thanh toán.&quot;
+    }
+  ],
+  &quot;blocks_scenarios&quot;: [
+    &quot;SC4&quot;
+  ]
+}</pre><pre>{
+  &quot;issue_id&quot;: &quot;I2&quot;,
+  &quot;type&quot;: &quot;MISSING_INFORMATION&quot;,
+  &quot;description&quot;: &quot;Chưa định nghĩa giá trị giỏ hàng dùng cho ngưỡng và giảm giá&quot;,
+  &quot;question&quot;: &quot;Giá trị giỏ hàng có bao gồm thuế, phí vận chuyển và giảm giá khác không?&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0002&quot;,
+      &quot;quote&quot;: &quot;REQ-COUPON-02: Coupon chỉ được áp dụng khi giá trị giỏ hàng từ 500.000 VND.&quot;
+    }
+  ],
+  &quot;blocks_scenarios&quot;: [
+    &quot;SC2&quot;,
+    &quot;SC3&quot;
+  ]
+}</pre><h2>Source blocks</h2><pre>{
+  &quot;block_id&quot;: &quot;B0001&quot;,
+  &quot;location&quot;: &quot;paragraph:1&quot;,
+  &quot;text&quot;: &quot;REQ-COUPON-01: Coupon hết hạn phải bị từ chối khi thanh toán.&quot;
+}</pre><pre>{
+  &quot;block_id&quot;: &quot;B0002&quot;,
+  &quot;location&quot;: &quot;paragraph:2&quot;,
+  &quot;text&quot;: &quot;REQ-COUPON-02: Coupon chỉ được áp dụng khi giá trị giỏ hàng từ 500.000 VND.&quot;
+}</pre><pre>{
+  &quot;block_id&quot;: &quot;B0003&quot;,
+  &quot;location&quot;: &quot;paragraph:3&quot;,
+  &quot;text&quot;: &quot;REQ-COUPON-03: Coupon hợp lệ giảm 10% giá trị giỏ hàng, tối đa 100.000 VND.&quot;
+}</pre><h2>Validation</h2><p>Schema và liên kết hợp lệ. Ý nghĩa nghiệp vụ vẫn cần review.</p><p>Không có.</p></html>

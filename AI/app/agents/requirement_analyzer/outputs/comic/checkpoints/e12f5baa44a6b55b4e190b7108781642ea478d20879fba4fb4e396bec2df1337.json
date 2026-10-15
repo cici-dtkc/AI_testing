@@ -1,0 +1,141 @@
+{
+  "summary": "Phân tích các yêu cầu chức năng cho module M02 (Sản phẩm/Truyện tranh) bao gồm các Use Case tìm kiếm, lọc và xem chi tiết truyện.",
+  "rules": [
+    {
+      "rule_id": "RULE-M02-001",
+      "statement": "Hệ thống tìm kiếm truyện theo tên, tác giả, thể loại hoặc nhà xuất bản, loại trừ các truyện đã bị Admin ẩn.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Người dùng truy cập được website"
+      ],
+      "conditions": [
+        "Người dùng nhập từ khóa vào thanh tìm kiếm",
+        "Người dùng xác nhận tìm kiếm"
+      ],
+      "action": "Hệ thống tìm kiếm trong tên truyện, tác giả, thể loại và nhà xuất bản",
+      "outcome": "Hiển thị danh sách truyện khớp từ khóa kèm số lượng kết quả, thêm từ khóa vào lịch sử tìm kiếm",
+      "source_refs": [
+        {
+          "block_id": "B0042",
+          "quote": "Cho phép người dùng tìm truyện theo tên truyện, tác giả, thể loại hoặc nhà xuất bản; hệ thống gợi ý từ khóa và lưu lịch sử tìm kiếm"
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M02-002",
+      "statement": "Mỗi trang kết quả tìm kiếm hoặc danh sách lọc hiển thị tối đa 12 truyện.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Số lượng kết quả vượt quá một trang"
+      ],
+      "action": "Phân trang kết quả",
+      "outcome": "Hiển thị tối đa 12 truyện mỗi trang",
+      "source_refs": [
+        {
+          "block_id": "B0042",
+          "quote": "BR1. Mỗi trang hiển thị tối đa 12 truyện."
+        },
+        {
+          "block_id": "B0044",
+          "quote": "BR2. Mỗi trang hiển thị tối đa 12 truyện và có phân trang khi vượt quá."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M02-003",
+      "statement": "Truyện bị ẩn không được hiển thị ở phía người dùng.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Truyện có trạng thái bị ẩn"
+      ],
+      "action": "Hệ thống lọc dữ liệu",
+      "outcome": "Truyện không xuất hiện trong kết quả tìm kiếm hoặc danh sách lọc",
+      "source_refs": [
+        {
+          "block_id": "B0042",
+          "quote": "BR2. Truyện bị ẩn không được hiển thị ở phía người dùng."
+        },
+        {
+          "block_id": "B0044",
+          "quote": "BR1. Truyện bị ẩn không được hiển thị."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M02-004",
+      "statement": "Khi số lượng tồn kho bằng 0, nút 'Thêm vào giỏ' chuyển thành 'Hết hàng' và bị vô hiệu hóa.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Truyện tồn tại"
+      ],
+      "conditions": [
+        "Số lượng tồn kho bằng 0"
+      ],
+      "action": "Cập nhật trạng thái nút thêm vào giỏ",
+      "outcome": "Nút chuyển thành 'Hết hàng' và bị vô hiệu hóa",
+      "source_refs": [
+        {
+          "block_id": "B0046",
+          "quote": "BR1. Khi số lượng tồn kho bằng 0, nút 'Thêm vào giỏ' chuyển thành 'Hết hàng' và bị vô hiệu hóa."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SCN-M02-001",
+      "title": "Tìm kiếm truyện thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M02-001"
+      ],
+      "given": "Người dùng truy cập website",
+      "when": "Người dùng nhập từ khóa hợp lệ và nhấn tìm kiếm",
+      "then": "Danh sách truyện khớp từ khóa được hiển thị kèm số lượng kết quả",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SCN-M02-002",
+      "title": "Tìm kiếm không có kết quả",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M02-001"
+      ],
+      "given": "Người dùng truy cập website",
+      "when": "Người dùng nhập từ khóa không có truyện nào khớp",
+      "then": "Hệ thống hiển thị danh sách trống kèm thông báo không có kết quả",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SCN-M02-003",
+      "title": "Xem chi tiết truyện hết hàng",
+      "type": "STATE",
+      "rule_ids": [
+        "RULE-M02-004"
+      ],
+      "given": "Truyện có số lượng tồn kho bằng 0",
+      "when": "Người dùng truy cập trang chi tiết truyện",
+      "then": "Nút 'Thêm vào giỏ' hiển thị là 'Hết hàng' và bị vô hiệu hóa",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": []
+}

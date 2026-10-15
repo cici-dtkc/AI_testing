@@ -1,0 +1,183 @@
+{
+  "summary": "Phân tích yêu cầu chức năng cho module M08 - Vận chuyển (Shipping - GHN), bao gồm việc tích hợp API GHN để tính phí vận chuyển, hiển thị phí, xử lý lỗi địa chỉ và API, cũng như tạo vận đơn sau khi đặt hàng.",
+  "rules": [
+    {
+      "rule_id": "RULE-M08-01",
+      "statement": "Hệ thống gọi API GHN để tính phí vận chuyển dựa trên địa chỉ giao hàng do người dùng nhập.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Customer"
+      ],
+      "preconditions": [
+        "Người dùng đã nhập địa chỉ giao hàng"
+      ],
+      "conditions": [
+        "Địa chỉ giao hàng hợp lệ"
+      ],
+      "action": "Gọi API GHN",
+      "outcome": "Tính phí vận chuyển",
+      "source_refs": [
+        {
+          "block_id": "B0078",
+          "quote": "FR-M08-01: Hệ thống phải gọi API GHN để tính phí vận chuyển dựa trên địa chỉ giao hàng người dùng nhập."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M08-02",
+      "statement": "Hệ thống hiển thị phí vận chuyển đã tính cho người dùng trước khi đặt hàng.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Customer"
+      ],
+      "preconditions": [
+        "Phí vận chuyển đã được tính từ API GHN"
+      ],
+      "conditions": [
+        "Người dùng đang ở bước trước khi đặt hàng"
+      ],
+      "action": "Hiển thị phí vận chuyển",
+      "outcome": "Người dùng thấy phí vận chuyển",
+      "source_refs": [
+        {
+          "block_id": "B0079",
+          "quote": "FR-M08-02: Hệ thống phải hiển thị phí vận chuyển đã tính cho người dùng trước khi đặt hàng."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M08-03",
+      "statement": "Hệ thống xử lý và thông báo khi địa chỉ không hợp lệ hoặc thiếu thông tin quận/huyện.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Customer"
+      ],
+      "preconditions": [
+        "Người dùng nhập địa chỉ giao hàng"
+      ],
+      "conditions": [
+        "Địa chỉ không hợp lệ hoặc thiếu thông tin quận/huyện"
+      ],
+      "action": "Xử lý và thông báo lỗi",
+      "outcome": "Người dùng nhận được thông báo lỗi",
+      "source_refs": [
+        {
+          "block_id": "B0080",
+          "quote": "FR-M08-03: Hệ thống phải xử lý và thông báo phù hợp khi địa chỉ không hợp lệ hoặc thiếu thông tin quận/huyện."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M08-04",
+      "statement": "Hệ thống xử lý và thông báo khi API GHN lỗi hoặc timeout, không chặn quy trình đặt hàng nếu có phương án dự phòng.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Customer"
+      ],
+      "preconditions": [
+        "Hệ thống gọi API GHN"
+      ],
+      "conditions": [
+        "API GHN gặp lỗi hoặc timeout"
+      ],
+      "action": "Thông báo lỗi và cho phép tiếp tục nếu có phương án dự phòng",
+      "outcome": "Quy trình đặt hàng không bị chặn hoàn toàn",
+      "source_refs": [
+        {
+          "block_id": "B0081",
+          "quote": "FR-M08-04: Hệ thống phải xử lý và thông báo phù hợp khi API GHN gặp lỗi hoặc timeout, không được chặn hoàn toàn quy trình đặt hàng nếu có phương án dự phòng."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M08-05",
+      "statement": "Hệ thống tạo vận đơn GHN sau khi đơn hàng được đặt thành công.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Customer"
+      ],
+      "preconditions": [
+        "Đơn hàng đã được đặt thành công"
+      ],
+      "conditions": [
+        "Đơn hàng hợp lệ"
+      ],
+      "action": "Tạo vận đơn GHN",
+      "outcome": "Vận đơn được tạo",
+      "source_refs": [
+        {
+          "block_id": "B0082",
+          "quote": "FR-M08-05: Hệ thống phải tạo vận đơn GHN sau khi đơn hàng được đặt thành công."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-M08-01",
+      "title": "Tính phí vận chuyển thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M08-01",
+        "RULE-M08-02"
+      ],
+      "given": "Người dùng nhập địa chỉ giao hàng hợp lệ",
+      "when": "Hệ thống gọi API GHN",
+      "then": "Phí vận chuyển được hiển thị cho người dùng",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M08-02",
+      "title": "Địa chỉ không hợp lệ",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M08-03"
+      ],
+      "given": "Người dùng nhập địa chỉ thiếu thông tin quận/huyện",
+      "when": "Hệ thống kiểm tra địa chỉ",
+      "then": "Hệ thống thông báo lỗi cho người dùng",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M08-03",
+      "title": "API GHN lỗi hoặc timeout",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M08-04"
+      ],
+      "given": "API GHN không phản hồi hoặc trả về lỗi",
+      "when": "Hệ thống gọi API GHN",
+      "then": "Hệ thống thông báo lỗi và không chặn quy trình đặt hàng (nếu có phương án dự phòng)",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M08-04",
+      "title": "Tạo vận đơn sau khi đặt hàng thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M08-05"
+      ],
+      "given": "Đơn hàng đã được đặt thành công",
+      "when": "Hệ thống xử lý sau đặt hàng",
+      "then": "Vận đơn GHN được tạo",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-M08-01",
+      "type": "AMBIGUITY",
+      "description": "Yêu cầu FR-M08-04 đề cập đến 'phương án dự phòng' nhưng không định nghĩa phương án dự phòng đó là gì.",
+      "question": "Phương án dự phòng cho việc tính phí vận chuyển khi API GHN lỗi là gì?",
+      "source_refs": [
+        {
+          "block_id": "B0081",
+          "quote": "không được chặn hoàn toàn quy trình đặt hàng nếu có phương án dự phòng."
+        }
+      ],
+      "blocks_scenarios": [
+        "SC-M08-03"
+      ]
+    }
+  ]
+}

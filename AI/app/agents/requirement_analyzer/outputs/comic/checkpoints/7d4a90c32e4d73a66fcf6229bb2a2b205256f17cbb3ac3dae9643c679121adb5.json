@@ -1,0 +1,153 @@
+{
+  "summary": "Phân tích các yêu cầu chức năng cho module M11 (Hồ sơ cá nhân & Điểm thưởng) bao gồm các Use Case UC-19, UC-20, UC-21 và UC-22.",
+  "rules": [
+    {
+      "rule_id": "BR-M11-01",
+      "statement": "Số điện thoại gồm 10 số và bắt đầu bằng 03, 05, 07, 08 hoặc 09.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Số điện thoại được nhập"
+      ],
+      "action": "Kiểm tra định dạng số điện thoại",
+      "outcome": "Hợp lệ nếu gồm 10 số và bắt đầu bằng 03, 05, 07, 08 hoặc 09",
+      "source_refs": [
+        {
+          "block_id": "B0099",
+          "quote": "BR1. Số điện thoại gồm 10 số và bắt đầu bằng 03, 05, 07, 08 hoặc 09."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-M11-02",
+      "statement": "Không lưu khi còn trường bắt buộc bị bỏ trống.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Trường bắt buộc bị bỏ trống"
+      ],
+      "action": "Hệ thống thực hiện lưu thông tin",
+      "outcome": "Từ chối lưu và hiển thị lỗi",
+      "source_refs": [
+        {
+          "block_id": "B0099",
+          "quote": "BR2. Không lưu khi còn trường bắt buộc bị bỏ trống."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-M11-03",
+      "statement": "Chỉ có một địa chỉ mặc định tại một thời điểm.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Thiết lập địa chỉ mặc định"
+      ],
+      "action": "Cập nhật địa chỉ mặc định",
+      "outcome": "Chỉ một địa chỉ được đánh dấu là mặc định",
+      "source_refs": [
+        {
+          "block_id": "B0101",
+          "quote": "BR1. Chỉ có một địa chỉ mặc định tại một thời điểm."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-M11-04",
+      "statement": "1 điểm tương đương 1 đồng.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Quy đổi điểm thưởng"
+      ],
+      "action": "Tính toán giá trị điểm",
+      "outcome": "1 điểm = 1 đồng",
+      "source_refs": [
+        {
+          "block_id": "B0103",
+          "quote": "BR1. 1 điểm tương đương 1 đồng."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-UC19-01",
+      "title": "Cập nhật thông tin cá nhân thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "BR-M11-01",
+        "BR-M11-02"
+      ],
+      "given": "Khách hàng đã đăng nhập và mở trang Thông tin tài khoản",
+      "when": "Khách hàng chỉnh sửa thông tin hợp lệ và nhấn Lưu thay đổi",
+      "then": "Hệ thống lưu thông tin và hiển thị thông báo thành công",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC19-02",
+      "title": "Cập nhật thông tin với dữ liệu không hợp lệ",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "BR-M11-01",
+        "BR-M11-02"
+      ],
+      "given": "Khách hàng đang ở trang chỉnh sửa thông tin",
+      "when": "Khách hàng nhập số điện thoại sai định dạng hoặc bỏ trống trường bắt buộc",
+      "then": "Hệ thống hiển thị lỗi tại ô tương ứng và không lưu",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC21-01",
+      "title": "Xem lịch sử điểm thưởng khi chưa có giao dịch",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "BR-M11-04"
+      ],
+      "given": "Khách hàng đã đăng nhập",
+      "when": "Khách hàng chọn mục C-Point và chưa phát sinh giao dịch",
+      "then": "Hệ thống hiển thị lịch sử trống kèm thông báo",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-M11-01",
+      "type": "AMBIGUITY",
+      "description": "Định dạng tệp avatar và giới hạn dung lượng không được định nghĩa cụ thể.",
+      "question": "Định dạng tệp (ví dụ: jpg, png) và giới hạn dung lượng (ví dụ: 2MB) cụ thể là bao nhiêu?",
+      "source_refs": [
+        {
+          "block_id": "B0099",
+          "quote": "19.3.2  EF2 - Tệp avatar không hợp lệ:\nTại bước 5, avatar sai định dạng hoặc vượt dung lượng cho phép."
+        }
+      ],
+      "blocks_scenarios": []
+    },
+    {
+      "issue_id": "ISSUE-M11-02",
+      "type": "AMBIGUITY",
+      "description": "Quy tắc định dạng mật khẩu mới không được nêu rõ.",
+      "question": "Quy tắc định dạng mật khẩu (độ dài, ký tự đặc biệt, chữ hoa/thường) là gì?",
+      "source_refs": [
+        {
+          "block_id": "B0105",
+          "quote": "BR1. Mật khẩu mới tuân theo quy tắc định dạng mật khẩu của hệ thống."
+        }
+      ],
+      "blocks_scenarios": []
+    }
+  ]
+}

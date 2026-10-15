@@ -1,0 +1,132 @@
+{
+  "summary": "Phân tích các yêu cầu chức năng cho module M17 - Quản lý đơn hàng, bao gồm các Use Case UC-33 (Xem và duyệt đơn hàng), UC-34 (Cập nhật trạng thái đơn hàng) và UC-35 (Hủy đơn hàng).",
+  "rules": [
+    {
+      "rule_id": "BR-M17-01",
+      "statement": "Chỉ đơn ở trạng thái 'Chờ xác nhận' mới được xác nhận.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Admin đã đăng nhập và có quyền phù hợp"
+      ],
+      "conditions": [
+        "Đơn hàng ở trạng thái 'Chờ xác nhận'"
+      ],
+      "action": "Admin nhấn 'Xác nhận'",
+      "outcome": "Đơn hàng chuyển sang trạng thái 'Chờ lấy hàng'",
+      "source_refs": [
+        {
+          "block_id": "B0140",
+          "quote": "BR1. Chỉ đơn ở trạng thái 'Chờ xác nhận' mới được xác nhận."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-M17-02",
+      "statement": "Quy trình trạng thái đơn hàng: Chờ xác nhận, Chờ lấy hàng, Đang giao, Đã giao.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Đơn hàng tồn tại"
+      ],
+      "conditions": [
+        "Trạng thái mới hợp lệ theo quy trình"
+      ],
+      "action": "Admin cập nhật trạng thái đơn hàng",
+      "outcome": "Trạng thái đơn được cập nhật và chuyển sang tab tương ứng",
+      "source_refs": [
+        {
+          "block_id": "B0142",
+          "quote": "BR1. Quy trình: Chờ xác nhận, Chờ lấy hàng, Đang giao, Đã giao."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-M17-03",
+      "statement": "Đơn đã hủy không thể chuyển sang trạng thái khác.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Đơn hàng tồn tại"
+      ],
+      "conditions": [
+        "Đơn hàng đang ở trạng thái 'Đã hủy'"
+      ],
+      "action": "Admin thực hiện cập nhật trạng thái",
+      "outcome": "Hệ thống từ chối cập nhật",
+      "source_refs": [
+        {
+          "block_id": "B0142",
+          "quote": "BR2. Đơn đã hủy không thể chuyển sang trạng thái khác."
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-M17-04",
+      "statement": "Chỉ đơn chưa được giao mới được hủy.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Admin đã đăng nhập và có quyền phù hợp"
+      ],
+      "conditions": [
+        "Đơn hàng chưa giao và chưa hoàn thành"
+      ],
+      "action": "Admin chọn hủy đơn hàng",
+      "outcome": "Đơn chuyển sang tab 'Đã hủy', hoàn tồn kho, hoàn tiền/điểm nếu đã thanh toán",
+      "source_refs": [
+        {
+          "block_id": "B0144",
+          "quote": "BR1. Chỉ đơn chưa được giao mới được hủy."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-UC33-01",
+      "title": "Xác nhận đơn hàng thành công",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "BR-M17-01"
+      ],
+      "given": "Admin đã đăng nhập, đơn hàng đang ở trạng thái 'Chờ xác nhận'",
+      "when": "Admin chọn đơn hàng và nhấn 'Xác nhận'",
+      "then": "Đơn hàng chuyển sang 'Chờ lấy hàng' và khách hàng nhận thông báo",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC34-01",
+      "title": "Cập nhật trạng thái đơn hàng sai quy trình",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "BR-M17-02"
+      ],
+      "given": "Đơn hàng đang ở trạng thái 'Đã hủy'",
+      "when": "Admin cố gắng chuyển sang trạng thái 'Hoàn thành'",
+      "then": "Hệ thống từ chối và hiển thị thông báo lỗi",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC35-01",
+      "title": "Hủy đơn hàng đã giao",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "BR-M17-04"
+      ],
+      "given": "Đơn hàng đã ở trạng thái 'Đã giao'",
+      "when": "Admin chọn hủy đơn hàng",
+      "then": "Hệ thống từ chối hủy và thông báo",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": []
+}

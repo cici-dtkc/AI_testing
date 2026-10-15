@@ -1,0 +1,176 @@
+{
+  "summary": "Phân tích yêu cầu chức năng cho module M12 - Thông báo (Notification) dựa trên tài liệu đặc tả UC-23.",
+  "rules": [
+    {
+      "rule_id": "RULE-M12-01",
+      "statement": "Hệ thống phải ghi nhận sự kiện thông báo khi đơn hàng đổi trạng thái, có flash sale hoặc voucher mới.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Hệ thống"
+      ],
+      "preconditions": [
+        "Khách hàng đã đăng nhập"
+      ],
+      "conditions": [
+        "Đơn hàng đổi trạng thái",
+        "Có flash sale",
+        "Có voucher mới"
+      ],
+      "action": "Ghi nhận sự kiện",
+      "outcome": "Thông báo được tạo",
+      "source_refs": [
+        {
+          "block_id": "B0109",
+          "quote": "23.1.1. Hệ thống ghi nhận sự kiện (đơn đổi trạng thái, flash sale hoặc voucher mới)."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M12-02",
+      "statement": "Hệ thống phải gửi thông báo qua FCM cho khách hàng.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Hệ thống",
+        "Firebase Cloud Messaging"
+      ],
+      "preconditions": [
+        "FCM token của thiết bị đã được lưu"
+      ],
+      "conditions": [
+        "Sự kiện thông báo được ghi nhận"
+      ],
+      "action": "Gửi push notification",
+      "outcome": "Thông báo được gửi tới thiết bị",
+      "source_refs": [
+        {
+          "block_id": "B0109",
+          "quote": "23.1.2. Hệ thống tạo thông báo và gửi push qua FCM."
+        },
+        {
+          "block_id": "B0109",
+          "quote": "BR1. FCM token của thiết bị được lưu để gửi push."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M12-03",
+      "statement": "Hệ thống phải hiển thị dropdown thông báo mới nhất và số lượng chưa đọc khi khách hàng nhấn biểu tượng thông báo.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Khách hàng",
+        "Hệ thống"
+      ],
+      "preconditions": [
+        "Khách hàng đã đăng nhập"
+      ],
+      "conditions": [
+        "Khách hàng nhấn biểu tượng thông báo"
+      ],
+      "action": "Hiển thị dropdown thông báo",
+      "outcome": "Dropdown thông báo mới nhất và số lượng chưa đọc được hiển thị",
+      "source_refs": [
+        {
+          "block_id": "B0109",
+          "quote": "23.1.3. Khách hàng nhấn biểu tượng thông báo.\n23.1.4. Hệ thống hiển thị dropdown thông báo mới nhất và số lượng chưa đọc."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M12-04",
+      "statement": "Hệ thống phải cho phép khách hàng đánh dấu thông báo đã đọc hoặc chưa đọc.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Khách hàng",
+        "Hệ thống"
+      ],
+      "preconditions": [
+        "Khách hàng đã đăng nhập"
+      ],
+      "conditions": [
+        "Khách hàng chọn đánh dấu đã đọc/chưa đọc hoặc 'Đánh dấu tất cả đã đọc'"
+      ],
+      "action": "Cập nhật trạng thái thông báo",
+      "outcome": "Trạng thái thông báo và số lượng trên biểu tượng được cập nhật",
+      "source_refs": [
+        {
+          "block_id": "B0109",
+          "quote": "23.2.1  AF1 - Đánh dấu đã đọc:\nTại bước 5, khách hàng chọn đánh dấu đã đọc/chưa đọc hoặc 'Đánh dấu tất cả đã đọc'.\nHệ thống cập nhật trạng thái và số lượng trên biểu tượng."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M12-05",
+      "statement": "Nếu gửi push thất bại do FCM lỗi hoặc thiếu token, hệ thống vẫn phải lưu thông báo trong ứng dụng.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Hệ thống"
+      ],
+      "preconditions": [
+        "Sự kiện thông báo được ghi nhận"
+      ],
+      "conditions": [
+        "FCM lỗi hoặc không có token hợp lệ"
+      ],
+      "action": "Lưu thông báo trong ứng dụng",
+      "outcome": "Thông báo được lưu trữ cục bộ",
+      "source_refs": [
+        {
+          "block_id": "B0109",
+          "quote": "23.3.1  EF1 - Gửi push thất bại:\nTại bước 2, FCM lỗi hoặc không có token hợp lệ.\nHệ thống vẫn lưu thông báo trong ứng dụng."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-M12-01",
+      "title": "Nhận thông báo thành công qua FCM",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M12-01",
+        "RULE-M12-02"
+      ],
+      "given": "Khách hàng đã đăng nhập và có FCM token hợp lệ",
+      "when": "Đơn hàng đổi trạng thái",
+      "then": "Thông báo được gửi qua FCM và lưu trong ứng dụng",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M12-02",
+      "title": "Xem thông báo trong ứng dụng",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M12-03"
+      ],
+      "given": "Khách hàng đã đăng nhập và có thông báo mới",
+      "when": "Khách hàng nhấn biểu tượng thông báo",
+      "then": "Dropdown hiển thị thông báo mới nhất và số lượng chưa đọc",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M12-03",
+      "title": "Đánh dấu thông báo đã đọc",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M12-04"
+      ],
+      "given": "Khách hàng đang ở mục Thông báo",
+      "when": "Khách hàng chọn 'Đánh dấu tất cả đã đọc'",
+      "then": "Trạng thái thông báo được cập nhật và số lượng trên biểu tượng thay đổi",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-M12-04",
+      "title": "Gửi push thất bại do lỗi FCM",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M12-05"
+      ],
+      "given": "Khách hàng đã đăng nhập",
+      "when": "Hệ thống phát sinh thông báo nhưng FCM lỗi",
+      "then": "Thông báo vẫn được lưu trong ứng dụng",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,148 @@
+{
+  "summary": "Phân tích các yêu cầu chức năng và quy tắc nghiệp vụ cho module M18 (Quản lý người dùng & Phân quyền) bao gồm các Use Case UC-36, UC-37 và UC-38.",
+  "rules": [
+    {
+      "rule_id": "RULE-M18-01",
+      "statement": "Hệ thống phải chặn hoặc chuyển hướng người dùng không có quyền khi truy cập trang quản trị.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Khách hàng",
+        "Khách vãng lai",
+        "Admin"
+      ],
+      "preconditions": [
+        "Trang quản trị yêu cầu quyền truy cập."
+      ],
+      "conditions": [
+        "Người dùng không có quyền truy cập trang hoặc chức năng quản trị."
+      ],
+      "action": "Hệ thống kiểm tra quyền truy cập.",
+      "outcome": "Hệ thống chặn hoặc chuyển hướng và hiển thị thông báo không có quyền.",
+      "source_refs": [
+        {
+          "block_id": "B0148",
+          "quote": "Hệ thống chặn hoặc chuyển hướng tài khoản không có quyền khi truy cập trang quản trị, kể cả truy cập trực tiếp bằng URL (Truy vết: FR-M18-01)."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M18-02",
+      "statement": "Quyền ghi đè riêng lẻ được ưu tiên hơn quyền mặc định theo vai trò.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Admin"
+      ],
+      "preconditions": [
+        "Admin có quyền cao nhất về phân quyền."
+      ],
+      "conditions": [
+        "Người dùng được gán vai trò và có quyền ghi đè riêng lẻ."
+      ],
+      "action": "Hệ thống áp dụng quyền cho người dùng.",
+      "outcome": "Quyền ghi đè riêng lẻ có ưu tiên cao hơn quyền theo vai trò.",
+      "source_refs": [
+        {
+          "block_id": "B0148",
+          "quote": "BR1. Quyền ghi đè riêng lẻ được ưu tiên hơn quyền mặc định theo vai trò."
+        },
+        {
+          "block_id": "B0150",
+          "quote": "BR2. Quyền ghi đè riêng lẻ có ưu tiên cao hơn quyền theo vai trò."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M18-03",
+      "statement": "Kiểm tra quyền thực hiện ở phía máy chủ.",
+      "category": "NON_FUNCTIONAL",
+      "actors": [
+        "Hệ thống"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Người dùng thực hiện truy cập trang hoặc chức năng quản trị."
+      ],
+      "action": "Hệ thống kiểm tra quyền.",
+      "outcome": "Kiểm tra quyền thực hiện ở phía máy chủ.",
+      "source_refs": [
+        {
+          "block_id": "B0148",
+          "quote": "BR2. Kiểm tra quyền thực hiện ở phía máy chủ."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M18-04",
+      "statement": "Tài khoản có thể bị khóa nếu đăng nhập sai 5 lần hoặc hủy 5 đơn trong 1 giờ.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Hệ thống"
+      ],
+      "preconditions": [],
+      "conditions": [
+        "Người dùng đăng nhập sai liên tiếp 5 lần hoặc hủy 5 đơn trong 1 giờ."
+      ],
+      "action": "Hệ thống xử lý tài khoản.",
+      "outcome": "Có thể khóa tài khoản.",
+      "source_refs": [
+        {
+          "block_id": "B0152",
+          "quote": "BR1. Có thể khóa tài khoản đăng nhập sai liên tiếp 5 lần hoặc hủy 5 đơn trong 1 giờ."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SC-UC36-01",
+      "title": "Truy cập trang quản trị khi chưa đăng nhập",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M18-01"
+      ],
+      "given": "Người dùng chưa đăng nhập",
+      "when": "Người dùng truy cập trang quản trị",
+      "then": "Hệ thống chuyển hướng đến trang đăng nhập",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC36-02",
+      "title": "Truy cập trang quản trị khi không đủ quyền",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M18-01"
+      ],
+      "given": "Người dùng đã đăng nhập nhưng không có quyền",
+      "when": "Người dùng truy cập trang quản trị",
+      "then": "Hệ thống chặn hoặc chuyển hướng và hiển thị thông báo không có quyền",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SC-UC38-01",
+      "title": "Khóa tài khoản người dùng",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M18-04"
+      ],
+      "given": "Admin đang ở trang Quản lý người dùng",
+      "when": "Admin chọn khóa tài khoản và xác nhận",
+      "then": "Trạng thái tài khoản được cập nhật thành bị khóa",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-M18-01",
+      "type": "AMBIGUITY",
+      "description": "Quy tắc BR1 trong UC-38 sử dụng từ 'Có thể' gây mơ hồ về hành vi hệ thống.",
+      "question": "Hệ thống sẽ tự động khóa tài khoản hay đây là tùy chọn của Admin? Nếu là tự động, ngưỡng thời gian và điều kiện cụ thể là gì?",
+      "source_refs": [
+        {
+          "block_id": "B0152",
+          "quote": "BR1. Có thể khóa tài khoản đăng nhập sai liên tiếp 5 lần hoặc hủy 5 đơn trong 1 giờ."
+        }
+      ],
+      "blocks_scenarios": []
+    }
+  ]
+}

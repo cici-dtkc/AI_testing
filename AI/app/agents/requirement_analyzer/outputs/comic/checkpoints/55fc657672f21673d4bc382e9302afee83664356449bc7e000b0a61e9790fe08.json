@@ -1,0 +1,103 @@
+{
+  "summary": "Phân tích yêu cầu cho module M13 - Gợi ý sản phẩm (Recommendation) dựa trên tài liệu SRS, tập trung vào Use Case UC-24.",
+  "rules": [
+    {
+      "rule_id": "RULE-M13-01",
+      "statement": "Hệ thống không được gợi ý các sản phẩm đã hết hàng hoặc đã bị ẩn.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Khách vãng lai",
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Hệ thống có dữ liệu truyện"
+      ],
+      "conditions": [
+        "Sản phẩm thuộc danh sách gợi ý bị hết hàng hoặc bị ẩn"
+      ],
+      "action": "Hệ thống loại bỏ các sản phẩm đó khỏi danh sách gợi ý",
+      "outcome": "Mục gợi ý hiển thị sản phẩm hợp lệ hoặc hiển thị trống/ẩn mục gợi ý",
+      "source_refs": [
+        {
+          "block_id": "B0113",
+          "quote": "BR1. Không gợi ý sản phẩm hết hàng hoặc đã bị ẩn."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-M13-02",
+      "statement": "Hệ thống gợi ý sản phẩm dựa trên wishlist của người dùng hoặc truyện bán chạy nếu không có wishlist.",
+      "category": "FUNCTIONAL",
+      "actors": [
+        "Khách hàng"
+      ],
+      "preconditions": [
+        "Hệ thống có dữ liệu truyện"
+      ],
+      "conditions": [
+        "Người dùng đã đăng nhập và có wishlist"
+      ],
+      "action": "Hệ thống gợi ý tập tiếp theo hoặc truyện cùng thể loại với truyện trong wishlist",
+      "outcome": "Hiển thị mục 'Gợi ý cho bạn' tại trang chủ",
+      "source_refs": [
+        {
+          "block_id": "B0113",
+          "quote": "24.1.2. Hệ thống xác định người dùng đã đăng nhập và có wishlist.\n24.1.3. Hệ thống gợi ý tập tiếp theo hoặc truyện cùng thể loại với truyện trong wishlist."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SCN-UC24-01",
+      "title": "Xem gợi ý sản phẩm thành công cho người dùng có wishlist",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M13-02"
+      ],
+      "given": "Người dùng đã đăng nhập và có wishlist",
+      "when": "Người dùng mở trang chủ",
+      "then": "Hệ thống hiển thị mục 'Gợi ý cho bạn' với các truyện cùng thể loại hoặc tập tiếp theo",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SCN-UC24-02",
+      "title": "Xem gợi ý sản phẩm cho khách vãng lai hoặc người dùng không có wishlist",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-M13-02"
+      ],
+      "given": "Người dùng chưa đăng nhập hoặc chưa có wishlist",
+      "when": "Người dùng mở trang chủ",
+      "then": "Hệ thống hiển thị mục 'Gợi ý cho bạn' với các truyện có lượt bán cao nhất",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SCN-UC24-03",
+      "title": "Xử lý khi không còn sản phẩm phù hợp để gợi ý",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-M13-01"
+      ],
+      "given": "Các truyện gợi ý đều hết hàng hoặc bị ẩn",
+      "when": "Hệ thống thực hiện gợi ý sản phẩm",
+      "then": "Hệ thống loại bỏ các truyện đó và hiển thị mục trống hoặc ẩn mục gợi ý",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-M13-01",
+      "type": "AMBIGUITY",
+      "description": "Quy tắc gợi ý chi tiết chưa được xác định rõ ràng.",
+      "question": "Các tiêu chí cụ thể để xác định 'tập tiếp theo' hoặc 'truyện cùng thể loại' là gì? Làm thế nào để xác định 'lượt bán cao nhất' (theo thời gian nào, phạm vi nào)?",
+      "source_refs": [
+        {
+          "block_id": "B0113",
+          "quote": "BR2. Quy tắc gợi ý chi tiết cần được nhóm phát triển xác nhận."
+        }
+      ],
+      "blocks_scenarios": []
+    }
+  ]
+}

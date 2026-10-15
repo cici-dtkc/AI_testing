@@ -1,0 +1,125 @@
+{
+  "summary": "Tài liệu đặc tả yêu cầu phần mềm (SRS) cho dự án Website bán truyện tranh online, bao gồm 21 module nghiệp vụ, các yêu cầu phi chức năng (hiệu năng, bảo mật, khả dụng, tin cậy, tương thích, bảo trì) và các ràng buộc dự án. Module M21 được loại khỏi phạm vi kiểm thử.",
+  "rules": [
+    {
+      "rule_id": "RULE-PERF-01",
+      "statement": "Thời gian phản hồi cho các thao tác tra cứu thông thường không vượt quá 3 giây trong điều kiện tải bình thường.",
+      "category": "NON_FUNCTIONAL",
+      "actors": [
+        "Customer"
+      ],
+      "preconditions": [
+        "Hệ thống đang ở điều kiện tải bình thường"
+      ],
+      "conditions": [
+        "Thực hiện thao tác tra cứu (xem danh sách, tìm kiếm, xem chi tiết truyện)"
+      ],
+      "action": "Hệ thống xử lý yêu cầu",
+      "outcome": "Thời gian phản hồi <= 3 giây",
+      "source_refs": [
+        {
+          "block_id": "B0169",
+          "quote": "NFR-PERF-01: Thời gian phản hồi cho các thao tác tra cứu thông thường (xem danh sách, tìm kiếm, xem chi tiết truyện) không vượt quá 3 giây trong điều kiện tải bình thường."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-SEC-01",
+      "statement": "Mật khẩu người dùng phải được lưu trữ dưới dạng đã mã hóa (hash).",
+      "category": "NON_FUNCTIONAL",
+      "actors": [
+        "System"
+      ],
+      "preconditions": [
+        "Người dùng thực hiện đăng ký hoặc cập nhật mật khẩu"
+      ],
+      "conditions": [
+        "Dữ liệu mật khẩu được lưu vào cơ sở dữ liệu"
+      ],
+      "action": "Hệ thống thực hiện lưu trữ",
+      "outcome": "Mật khẩu được lưu dưới dạng hash, không lưu plaintext",
+      "source_refs": [
+        {
+          "block_id": "B0174",
+          "quote": "NFR-SEC-01: Mật khẩu người dùng phải được lưu trữ dưới dạng đã mã hóa (hash), không lưu plaintext."
+        }
+      ]
+    },
+    {
+      "rule_id": "RULE-INV-01",
+      "statement": "Hệ thống phải chặn việc thêm vào giỏ hàng nếu số lượng yêu cầu vượt quá tồn kho.",
+      "category": "BUSINESS_RULE",
+      "actors": [
+        "Customer"
+      ],
+      "preconditions": [
+        "Sản phẩm có tồn kho"
+      ],
+      "conditions": [
+        "Số lượng yêu cầu > số lượng tồn kho"
+      ],
+      "action": "Người dùng thêm sản phẩm vào giỏ hàng",
+      "outcome": "Hệ thống chặn thao tác",
+      "source_refs": [
+        {
+          "block_id": "B0202",
+          "quote": "Giả định rằng logic kiểm tra tồn kho khi thêm giỏ hàng tuân theo quy tắc stockQuantity < quantity sẽ bị chặn, như ghi nhận trong tài liệu khảo sát."
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "SCENARIO-PERF-01",
+      "title": "Kiểm tra thời gian phản hồi tra cứu",
+      "type": "POSITIVE",
+      "rule_ids": [
+        "RULE-PERF-01"
+      ],
+      "given": "Người dùng đang ở trang chủ",
+      "when": "Người dùng thực hiện tìm kiếm truyện",
+      "then": "Kết quả hiển thị trong vòng 3 giây",
+      "expected_status": "SUPPORTED"
+    },
+    {
+      "scenario_id": "SCENARIO-INV-01",
+      "title": "Thêm sản phẩm vượt quá tồn kho vào giỏ hàng",
+      "type": "NEGATIVE",
+      "rule_ids": [
+        "RULE-INV-01"
+      ],
+      "given": "Sản phẩm có tồn kho là 5",
+      "when": "Người dùng thêm 6 sản phẩm vào giỏ hàng",
+      "then": "Hệ thống hiển thị thông báo lỗi và không thêm vào giỏ hàng",
+      "expected_status": "SUPPORTED"
+    }
+  ],
+  "issues": [
+    {
+      "issue_id": "ISSUE-REC-01",
+      "type": "MISSING_INFORMATION",
+      "description": "Quy tắc gợi ý sản phẩm (Recommendation) chưa được xác định chi tiết.",
+      "question": "Quy tắc chi tiết cho chức năng gợi ý sản phẩm là gì để có thể xây dựng test case?",
+      "source_refs": [
+        {
+          "block_id": "B0203",
+          "quote": "Giả định rằng quy tắc gợi ý sản phẩm (Recommendation) dựa trên wishlist theo thể loại; quy tắc chi tiết cần được xác nhận thêm với đội phát triển trước khi hoàn thiện test case."
+        }
+      ],
+      "blocks_scenarios": []
+    },
+    {
+      "issue_id": "ISSUE-PERF-02",
+      "type": "AMBIGUITY",
+      "description": "Thời gian phản hồi cho trang Dashboard và Thống kê không được định lượng cụ thể.",
+      "question": "Thế nào là 'thời gian chấp nhận được' cho NFR-PERF-02?",
+      "source_refs": [
+        {
+          "block_id": "B0170",
+          "quote": "NFR-PERF-02: Trang Dashboard và Thống kê phải tải và hiển thị số liệu trong thời gian chấp nhận được kể cả khi khoảng thời gian truy vấn lớn (theo năm) hoặc khi dữ liệu đơn hàng nhiều."
+        }
+      ],
+      "blocks_scenarios": []
+    }
+  ]
+}
