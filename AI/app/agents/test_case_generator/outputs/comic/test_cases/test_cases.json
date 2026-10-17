@@ -1,0 +1,1410 @@
+{
+  "provider": "GEMINI",
+  "model": "gemini-flash-latest",
+  "created_at": "2026-10-17T03:28:01.723568+00:00",
+  "prompt_version": "1.0",
+  "test_suite": {
+    "summary": "Bộ Test Case hoàn chỉnh bao phủ toàn bộ các kịch bản kiểm thử (Scenarios) và quy tắc nghiệp vụ (Rules) từ tài liệu phân tích hệ thống Website bán truyện tranh online.",
+    "test_cases": [
+      {
+        "test_case_id": "TC-01",
+        "title": "Kiểm tra thời gian phản hồi khi tra cứu và tìm kiếm truyện",
+        "type": "NON_FUNCTIONAL",
+        "priority": "Cao",
+        "preconditions": [
+          "Hệ thống đang hoạt động ở điều kiện tải bình thường",
+          "Có dữ liệu truyện trong hệ thống"
+        ],
+        "given": "Người dùng đang truy cập trang chủ của website",
+        "steps": [
+          "Nhập từ khóa tìm kiếm truyện tranh vào thanh tìm kiếm",
+          "Nhấn Enter hoặc biểu tượng tìm kiếm",
+          "Ghi nhận thời gian hệ thống phản hồi và hiển thị danh sách kết quả"
+        ],
+        "expected_result": "Danh sách kết quả tra cứu được hiển thị trong vòng 3 giây, tuân thủ yêu cầu hiệu năng.",
+        "trace_scenario_ids": [
+          "C001-SCENARIO-PERF-01"
+        ],
+        "trace_rule_ids": [
+          "C001-RULE-PERF-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-02",
+        "title": "Thêm sản phẩm vào giỏ hàng với số lượng vượt quá tồn kho",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Sản phẩm truyện đang hiển thị và còn tồn kho là 5 cuốn",
+          "Người dùng đang ở trang chi tiết sản phẩm"
+        ],
+        "given": "Sản phẩm có tồn kho là 5",
+        "steps": [
+          "Tại ô nhập số lượng, nhập giá trị 6",
+          "Nhấn nút 'Thêm vào giỏ hàng'"
+        ],
+        "expected_result": "Hệ thống chặn thao tác, không thêm sản phẩm vào giỏ hàng và hiển thị thông báo lỗi vượt quá số lượng tồn kho.",
+        "trace_scenario_ids": [
+          "C001-SCENARIO-INV-01",
+          "C005-SC-UC9-002"
+        ],
+        "trace_rule_ids": [
+          "C001-RULE-INV-01",
+          "C005-RULE-M04-002"
+        ]
+      },
+      {
+        "test_case_id": "TC-03",
+        "title": "Đăng ký tài khoản mới thành công bằng email và mật khẩu hợp lệ",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Người dùng chưa đăng nhập và truy cập trang đăng ký",
+          "Email sử dụng chưa từng được đăng ký trong hệ thống"
+        ],
+        "given": "Khách vãng lai truy cập trang đăng ký tài khoản",
+        "steps": [
+          "Nhập tên đăng nhập hợp lệ (không chứa '@' và khoảng trắng)",
+          "Nhập email chưa tồn tại trong hệ thống",
+          "Nhập mật khẩu thỏa mãn BR1 (tối thiểu 8 ký tự, có chữ hoa, thường, số, ký tự đặc biệt) và xác nhận mật khẩu khớp",
+          "Nhấn nút 'Đăng ký'",
+          "Nhận mã OTP gửi về email và nhập mã OTP vào form xác thực",
+          "Nhấn nút xác nhận kích hoạt tài khoản"
+        ],
+        "expected_result": "Tài khoản được kích hoạt thành công, hệ thống hiển thị thông báo thành công và chuyển hướng về trang đăng nhập.",
+        "trace_scenario_ids": [
+          "C002-SC-UC1-01"
+        ],
+        "trace_rule_ids": [
+          "C002-BR-UC1-01",
+          "C002-BR-UC1-02"
+        ]
+      },
+      {
+        "test_case_id": "TC-04",
+        "title": "Đăng nhập thất bại do nhập sai tên đăng nhập hoặc mật khẩu",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Tài khoản đã tồn tại và đã được kích hoạt"
+        ],
+        "given": "Người dùng đang ở cửa sổ đăng nhập",
+        "steps": [
+          "Nhập tên đăng nhập đúng và mật khẩu sai (hoặc ngược lại)",
+          "Hoàn tất xác minh CAPTCHA",
+          "Nhấn nút 'Đăng nhập'"
+        ],
+        "expected_result": "Hệ thống từ chối đăng nhập, hiển thị thông báo sai thông tin, không tạo phiên làm việc và tăng bộ đếm đăng nhập sai.",
+        "trace_scenario_ids": [
+          "C002-SC-UC2-01"
+        ],
+        "trace_rule_ids": [
+          "C002-BR-UC2-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-05",
+        "title": "Tìm kiếm truyện thành công theo từ khóa hợp lệ",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Người dùng truy cập vào website",
+          "Hệ thống có truyện phù hợp từ khóa đang ở trạng thái hiển thị"
+        ],
+        "given": "Người dùng truy cập website và đứng tại thanh tìm kiếm",
+        "steps": [
+          "Nhập từ khóa tìm kiếm (tên truyện, tác giả, thể loại hoặc NXB)",
+          "Nhấn Enter hoặc biểu tượng tìm kiếm"
+        ],
+        "expected_result": "Hệ thống hiển thị danh sách truyện khớp từ khóa kèm tổng số lượng kết quả, loại trừ các truyện bị Admin ẩn; từ khóa được lưu vào lịch sử tìm kiếm.",
+        "trace_scenario_ids": [
+          "C003-SCN-M02-001"
+        ],
+        "trace_rule_ids": [
+          "C003-RULE-M02-001"
+        ]
+      },
+      {
+        "test_case_id": "TC-06",
+        "title": "Tìm kiếm truyện không có kết quả phù hợp",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Người dùng truy cập vào website"
+        ],
+        "given": "Người dùng truy cập website",
+        "steps": [
+          "Nhập từ khóa không tồn tại trong hệ thống (ví dụ: 'xyzabcdef123')",
+          "Nhấn Enter hoặc biểu tượng tìm kiếm"
+        ],
+        "expected_result": "Hệ thống hiển thị danh sách trống kèm thông báo không có kết quả phù hợp.",
+        "trace_scenario_ids": [
+          "C003-SCN-M02-002"
+        ],
+        "trace_rule_ids": [
+          "C003-RULE-M02-001"
+        ]
+      },
+      {
+        "test_case_id": "TC-07",
+        "title": "Kiểm tra hiển thị nút Thêm vào giỏ khi truyện có tồn kho bằng 0",
+        "type": "STATE",
+        "priority": "Cao",
+        "preconditions": [
+          "Truyện tồn tại, đang ở trạng thái hiển thị nhưng có số lượng tồn kho bằng 0"
+        ],
+        "given": "Truyện có số lượng tồn kho bằng 0",
+        "steps": [
+          "Người dùng điều hướng vào trang chi tiết truyện này",
+          "Kiểm tra trạng thái hiển thị của nút mua hàng"
+        ],
+        "expected_result": "Nút 'Thêm vào giỏ' chuyển thành trạng thái hiển thị 'Hết hàng' và bị vô hiệu hóa (disabled), không cho phép nhấn.",
+        "trace_scenario_ids": [
+          "C003-SCN-M02-003"
+        ],
+        "trace_rule_ids": [
+          "C003-RULE-M02-004"
+        ]
+      },
+      {
+        "test_case_id": "TC-08",
+        "title": "Xem danh sách chương trình Flash Sale đang và sắp diễn ra",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Có ít nhất một chương trình Flash Sale đã được cấu hình trong hệ thống"
+        ],
+        "given": "Người dùng truy cập trang chủ",
+        "steps": [
+          "Nhấn 'Xem thêm' tại mục Flash Sale trên trang chủ hoặc nhấn vào biểu tượng Flash Sale"
+        ],
+        "expected_result": "Trang Flash Sale hiển thị danh sách các khung giờ kèm trạng thái ('Đang bán' hoặc 'Sắp diễn ra'), đồng hồ đếm ngược, danh sách sản phẩm cùng giá gốc, giá giảm và số lượng còn lại.",
+        "trace_scenario_ids": [
+          "C004-SC-UC8-01"
+        ],
+        "trace_rule_ids": [
+          "C004-BR1"
+        ]
+      },
+      {
+        "test_case_id": "TC-09",
+        "title": "Thêm sản phẩm Flash Sale vào giỏ hàng trong khung giờ hợp lệ",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Chương trình Flash Sale đang trong khung giờ diễn ra",
+          "Sản phẩm Flash Sale còn số lượng bán"
+        ],
+        "given": "Người dùng đang ở trang Flash Sale và chương trình đang diễn ra",
+        "steps": [
+          "Chọn một sản phẩm Flash Sale còn hàng",
+          "Nhấn 'Thêm vào giỏ'"
+        ],
+        "expected_result": "Hệ thống kiểm tra số lượng Flash Sale còn lại và thêm thành công sản phẩm vào giỏ hàng với mức giá Flash Sale.",
+        "trace_scenario_ids": [
+          "C004-SC-UC8-02"
+        ],
+        "trace_rule_ids": [
+          "C004-BR1"
+        ]
+      },
+      {
+        "test_case_id": "TC-10",
+        "title": "Chặn thêm sản phẩm Flash Sale vào giỏ khi yêu cầu vượt số lượng còn lại",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Chương trình Flash Sale đang diễn ra",
+          "Sản phẩm Flash Sale chỉ còn lại số lượng là N (ví dụ: N=1)"
+        ],
+        "given": "Sản phẩm Flash Sale còn lại số lượng nhất định",
+        "steps": [
+          "Người dùng chọn số lượng mua N + 1",
+          "Nhấn 'Thêm vào giỏ'"
+        ],
+        "expected_result": "Hệ thống chặn thao tác thêm vào giỏ và hiển thị thông báo lỗi vượt quá số lượng Flash Sale còn lại.",
+        "trace_scenario_ids": [
+          "C004-SC-UC8-03"
+        ],
+        "trace_rule_ids": [
+          "C004-BR2"
+        ]
+      },
+      {
+        "test_case_id": "TC-11",
+        "title": "Xử lý khi thời gian chương trình Flash Sale kết thúc",
+        "type": "STATE",
+        "priority": "Cao",
+        "preconditions": [
+          "Người dùng đang ở trang chi tiết sản phẩm hoặc trang Flash Sale khi thời gian sắp hết"
+        ],
+        "given": "Chương trình Flash Sale đang diễn ra và đồng hồ đếm ngược chuyển về 0",
+        "steps": [
+          "Chờ đồng hồ đếm ngược của chương trình kết thúc (về 0)",
+          "Quan sát giá bán hiển thị của sản phẩm hoặc thực hiện thêm vào giỏ"
+        ],
+        "expected_result": "Hệ thống tự động ẩn/vô hiệu hóa mức giá Flash Sale và quay về áp dụng mức giá bán gốc của sản phẩm.",
+        "trace_scenario_ids": [
+          "C004-SC-UC8-04"
+        ],
+        "trace_rule_ids": [
+          "C004-BR1"
+        ]
+      },
+      {
+        "test_case_id": "TC-12",
+        "title": "Thêm sản phẩm vào giỏ hàng thành công với số lượng hợp lệ",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Sản phẩm đang hiển thị và còn tồn kho lớn hơn 0"
+        ],
+        "given": "Người dùng đang ở trang chi tiết truyện còn hàng",
+        "steps": [
+          "Chọn số lượng sản phẩm là 1 (hoặc nhỏ hơn/bằng tồn kho)",
+          "Nhấn nút 'Thêm vào giỏ hàng'"
+        ],
+        "expected_result": "Sản phẩm được thêm vào giỏ hàng với đúng số lượng đã chọn, hiển thị thông báo thành công và số lượng trên biểu tượng giỏ hàng tăng tương ứng.",
+        "trace_scenario_ids": [
+          "C005-SC-UC9-001"
+        ],
+        "trace_rule_ids": [
+          "C005-RULE-M04-001"
+        ]
+      },
+      {
+        "test_case_id": "TC-13",
+        "title": "Thêm sản phẩm vào Wishlist thành công khi đã đăng nhập",
+        "type": "POSITIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Người dùng đã đăng nhập tài khoản Khách hàng",
+          "Sản phẩm chưa từng có trong wishlist của tài khoản"
+        ],
+        "given": "Người dùng đã đăng nhập và đang ở trang chi tiết truyện",
+        "steps": [
+          "Nhấn vào biểu tượng/nút 'Thêm vào yêu thích' (Wishlist)"
+        ],
+        "expected_result": "Sản phẩm được lưu thành công vào wishlist của người dùng.",
+        "trace_scenario_ids": [
+          "C006-SCN-M05-01"
+        ],
+        "trace_rule_ids": [
+          "C006-RULE-M05-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-14",
+        "title": "Ngăn chặn thêm trùng lặp sản phẩm đã có trong Wishlist",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Người dùng đã đăng nhập",
+          "Sản phẩm đã tồn tại trong wishlist của người dùng"
+        ],
+        "given": "Người dùng đã đăng nhập và sản phẩm đã có trong wishlist",
+        "steps": [
+          "Truy cập vào trang chi tiết sản phẩm đã có trong wishlist",
+          "Thực hiện thao tác thêm sản phẩm đó vào wishlist một lần nữa"
+        ],
+        "expected_result": "Hệ thống ngăn chặn hành động thêm trùng lặp và giữ nguyên danh sách wishlist hiện có.",
+        "trace_scenario_ids": [
+          "C006-SCN-M05-02"
+        ],
+        "trace_rule_ids": [
+          "C006-RULE-M05-02"
+        ]
+      },
+      {
+        "test_case_id": "TC-15",
+        "title": "Kiểm tra quyền truy cập tính năng Wishlist khi chưa đăng nhập",
+        "type": "AUTHORIZATION",
+        "priority": "Cao",
+        "preconditions": [
+          "Người dùng chưa thực hiện đăng nhập vào hệ thống"
+        ],
+        "given": "Người dùng là khách vãng lai (chưa đăng nhập)",
+        "steps": [
+          "Nhấn vào nút Wishlist trên trang chi tiết hoặc thanh điều hướng"
+        ],
+        "expected_result": "Hệ thống yêu cầu đăng nhập (hiển thị thông báo hoặc chuyển hướng người dùng tới trang đăng nhập), không cho phép truy cập trực tiếp wishlist.",
+        "trace_scenario_ids": [
+          "C006-SCN-M05-03"
+        ],
+        "trace_rule_ids": [
+          "C006-RULE-M05-04"
+        ]
+      },
+      {
+        "test_case_id": "TC-16",
+        "title": "Tạo đơn hàng thành công với phương thức thanh toán COD",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Khách hàng đã đăng nhập",
+          "Giỏ hàng có ít nhất một sản phẩm hợp lệ và còn đủ tồn kho",
+          "Đã có thông tin địa chỉ nhận hàng đầy đủ"
+        ],
+        "given": "Khách hàng đã đăng nhập và có sản phẩm trong giỏ hàng",
+        "steps": [
+          "Nhấn 'Thanh toán' tại trang giỏ hàng",
+          "Chọn địa chỉ giao hàng hợp lệ",
+          "Chọn phương thức 'Thanh toán khi nhận hàng (COD)'",
+          "Kiểm tra tổng tiền hiển thị và nhấn 'Đặt hàng'"
+        ],
+        "expected_result": "Đơn hàng được tạo thành công ở trạng thái 'Chờ xác nhận', tồn kho sản phẩm được cập nhật trừ đi, hiển thị màn hình 'Đặt hàng thành công'.",
+        "trace_scenario_ids": [
+          "C007-SCN-M06-001"
+        ],
+        "trace_rule_ids": [
+          "C007-RULE-M06-001",
+          "C007-RULE-M06-002"
+        ]
+      },
+      {
+        "test_case_id": "TC-17",
+        "title": "Đặt hàng thất bại do không cung cấp địa chỉ giao hàng",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Khách hàng đã đăng nhập và đang ở trang Checkout",
+          "Chưa chọn hoặc để trống thông tin địa chỉ giao hàng"
+        ],
+        "given": "Khách hàng đang ở trang Checkout mà thiếu thông tin địa chỉ",
+        "steps": [
+          "Để trống địa chỉ nhận hàng",
+          "Nhấn nút 'Đặt hàng'"
+        ],
+        "expected_result": "Hệ thống chặn tạo đơn hàng và hiển thị thông báo lỗi yêu cầu bổ sung thông tin địa chỉ giao hàng.",
+        "trace_scenario_ids": [
+          "C007-SCN-M06-002"
+        ],
+        "trace_rule_ids": [
+          "C007-RULE-M06-003"
+        ]
+      },
+      {
+        "test_case_id": "TC-18",
+        "title": "Nhấn Mua ngay sản phẩm khi đã hết hàng",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Khách hàng đã đăng nhập",
+          "Sản phẩm có tồn kho bằng 0"
+        ],
+        "given": "Sản phẩm đã hết hàng",
+        "steps": [
+          "Truy cập trang chi tiết sản phẩm hết hàng",
+          "Cố gắng thực hiện hành động 'Mua ngay'"
+        ],
+        "expected_result": "Hệ thống không chuyển sang trang Checkout và hiển thị thông báo sản phẩm đã hết hàng.",
+        "trace_scenario_ids": [
+          "C007-SCN-M06-003"
+        ],
+        "trace_rule_ids": [
+          "C007-RULE-M06-004"
+        ]
+      },
+      {
+        "test_case_id": "TC-19",
+        "title": "Thanh toán trực tuyến thành công qua cổng thanh toán VNPay",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Khách hàng đã đăng nhập và thông tin checkout hợp lệ",
+          "Sản phẩm còn đủ tồn kho"
+        ],
+        "given": "Khách hàng đã đăng nhập và checkout hợp lệ",
+        "steps": [
+          "Tại trang Checkout, chọn phương thức thanh toán VNPay",
+          "Nhấn 'Đặt hàng'",
+          "Hệ thống chuyển hướng sang cổng thanh toán VNPay",
+          "Thực hiện giao dịch thanh toán thành công trên VNPay",
+          "VNPay gửi dữ liệu callback hợp lệ về hệ thống"
+        ],
+        "expected_result": "Hệ thống xác thực chữ ký callback thành công, cập nhật trạng thái đơn hàng thành đã thanh toán và hiển thị trang 'Đặt hàng thành công'.",
+        "trace_scenario_ids": [
+          "C008-SC-UC14-01"
+        ],
+        "trace_rule_ids": [
+          "C008-BR1"
+        ]
+      },
+      {
+        "test_case_id": "TC-20",
+        "title": "Xử lý khi khách hàng hủy thanh toán tại cổng VNPay",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Khách hàng đã được chuyển hướng sang cổng thanh toán VNPay"
+        ],
+        "given": "Khách hàng đang ở giao diện thanh toán VNPay",
+        "steps": [
+          "Nhấn nút 'Hủy giao dịch' hoặc quay lại trang web của cửa hàng"
+        ],
+        "expected_result": "Hệ thống không ghi nhận thanh toán thành công, không tạo đơn hoặc chuyển trạng thái lỗi và hiển thị thông báo hủy thanh toán cho khách hàng.",
+        "trace_scenario_ids": [
+          "C008-SC-UC14-02"
+        ],
+        "trace_rule_ids": [
+          "C008-BR1"
+        ]
+      },
+      {
+        "test_case_id": "TC-21",
+        "title": "Xử lý kết quả giao dịch thanh toán thất bại từ VNPay",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Khách hàng thực hiện thanh toán trên cổng VNPay nhưng giao dịch không thành công (thẻ lỗi/không đủ tiền)"
+        ],
+        "given": "Khách hàng đã thực hiện giao dịch thanh toán trên VNPay",
+        "steps": [
+          "Cổng VNPay gửi callback báo trạng thái giao dịch thất bại về hệ thống"
+        ],
+        "expected_result": "Hệ thống không ghi nhận thanh toán và hiển thị thông báo thanh toán thất bại.",
+        "trace_scenario_ids": [
+          "C008-SC-UC14-03"
+        ],
+        "trace_rule_ids": [
+          "C008-BR1"
+        ]
+      },
+      {
+        "test_case_id": "TC-22",
+        "title": "Từ chối callback VNPay khi chữ ký hoặc dữ liệu không hợp lệ",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Giao dịch được gửi callback về endpoint hệ thống"
+        ],
+        "given": "Hệ thống nhận callback từ VNPay",
+        "steps": [
+          "Mô phỏng/gửi callback chứa chữ ký sai hoặc dữ liệu giao dịch bị thay đổi"
+        ],
+        "expected_result": "Hệ thống từ chối xử lý callback, không cập nhật trạng thái đơn hàng và bảo vệ an toàn giao dịch.",
+        "trace_scenario_ids": [
+          "C008-SC-UC14-04"
+        ],
+        "trace_rule_ids": [
+          "C008-BR1"
+        ]
+      },
+      {
+        "test_case_id": "TC-23",
+        "title": "Xử lý khi hết thời gian chờ thanh toán (Timeout) trên VNPay",
+        "type": "BOUNDARY",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Khách hàng được chuyển hướng sang VNPay nhưng không thao tác"
+        ],
+        "given": "Khách hàng đang ở cổng VNPay và vượt quá thời gian cho phép thanh toán",
+        "steps": [
+          "Để phiên thanh toán quá hạn (timeout)",
+          "Quay lại website cửa hàng"
+        ],
+        "expected_result": "Hệ thống ghi nhận là thanh toán thất bại, thông báo hết hạn thanh toán và không làm mất dữ liệu giỏ hàng của khách hàng.",
+        "trace_scenario_ids": [
+          "C008-SC-UC14-05"
+        ],
+        "trace_rule_ids": [
+          "C008-BR1"
+        ]
+      },
+      {
+        "test_case_id": "TC-24",
+        "title": "Tính và hiển thị phí vận chuyển tự động qua API GHN",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Khách hàng đã đăng nhập và đang ở trang Checkout"
+        ],
+        "given": "Người dùng nhập địa chỉ giao hàng hợp lệ",
+        "steps": [
+          "Nhập đầy đủ thông tin Tỉnh/Thành, Quận/Huyện, Phường/Xã hợp lệ",
+          "Hệ thống gọi API GHN để tính cước phí"
+        ],
+        "expected_result": "Hệ thống tính thành công và hiển thị rõ ràng phí vận chuyển GHN cho người dùng trước khi đặt hàng.",
+        "trace_scenario_ids": [
+          "C009-SC-M08-01"
+        ],
+        "trace_rule_ids": [
+          "C009-RULE-M08-01",
+          "C009-RULE-M08-02"
+        ]
+      },
+      {
+        "test_case_id": "TC-25",
+        "title": "Báo lỗi khi địa chỉ giao hàng thiếu thông tin Quận/Huyện",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Người dùng đang ở bước nhập địa chỉ nhận hàng tại Checkout"
+        ],
+        "given": "Người dùng nhập địa chỉ thiếu thông tin quận/huyện",
+        "steps": [
+          "Nhập Tỉnh/Thành nhưng để trống Quận/Huyện",
+          "Thực hiện xác nhận địa chỉ"
+        ],
+        "expected_result": "Hệ thống xử lý và thông báo lỗi yêu cầu cung cấp đầy đủ thông tin Quận/Huyện, không gọi API sai định dạng.",
+        "trace_scenario_ids": [
+          "C009-SC-M08-02"
+        ],
+        "trace_rule_ids": [
+          "C009-RULE-M08-03"
+        ]
+      },
+      {
+        "test_case_id": "TC-26",
+        "title": "Xử lý ngoại lệ khi API GHN bị timeout hoặc phản hồi lỗi",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Người dùng nhập địa chỉ hợp lệ tại trang Checkout"
+        ],
+        "given": "API bên thứ ba GHN không phản hồi hoặc trả về lỗi",
+        "steps": [
+          "Hệ thống gửi yêu cầu tính phí sang API GHN",
+          "API GHN timeout hoặc phản hồi mã lỗi"
+        ],
+        "expected_result": "Hệ thống thông báo lỗi phù hợp, kích hoạt phương án dự phòng (nếu có) và không chặn mất luồng đặt hàng hay làm mất giỏ hàng.",
+        "trace_scenario_ids": [
+          "C009-SC-M08-03"
+        ],
+        "trace_rule_ids": [
+          "C009-RULE-M08-04"
+        ]
+      },
+      {
+        "test_case_id": "TC-27",
+        "title": "Tạo vận đơn GHN tự động sau khi đặt hàng thành công",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Đơn hàng được đặt thành công"
+        ],
+        "given": "Đơn hàng đã được đặt thành công trong hệ thống",
+        "steps": [
+          "Hệ thống tiếp nhận thông tin đơn hàng hợp lệ vừa tạo",
+          "Thực hiện gọi API tạo vận đơn sang hệ thống GHN"
+        ],
+        "expected_result": "Vận đơn GHN được tạo thành công gắn với mã đơn hàng tương ứng.",
+        "trace_scenario_ids": [
+          "C009-SC-M08-04"
+        ],
+        "trace_rule_ids": [
+          "C009-RULE-M08-05"
+        ]
+      },
+      {
+        "test_case_id": "TC-28",
+        "title": "Áp dụng voucher giảm giá hợp lệ tại trang Checkout",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Khách hàng đã đăng nhập và đang ở trang Checkout",
+          "Voucher còn hạn dùng, còn số lượt và đơn hàng đạt giá trị tối thiểu (min_order_amount)"
+        ],
+        "given": "Khách hàng đã đăng nhập và đang ở trang Checkout",
+        "steps": [
+          "Chọn một voucher hợp lệ trong danh sách voucher đã lưu hoặc nhập mã voucher",
+          "Nhấn nút 'Áp dụng'"
+        ],
+        "expected_result": "Voucher được áp dụng thành công, mức giảm giá được trừ vào tổng tiền đơn hàng chính xác.",
+        "trace_scenario_ids": [
+          "C010-SCENARIO-UC15-001"
+        ],
+        "trace_rule_ids": [
+          "C010-RULE-M09-001"
+        ]
+      },
+      {
+        "test_case_id": "TC-29",
+        "title": "Áp dụng mã voucher không tồn tại trong hệ thống",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Khách hàng đang ở trang Checkout"
+        ],
+        "given": "Khách hàng đang ở trang Checkout",
+        "steps": [
+          "Nhập mã voucher giả định không tồn tại (ví dụ: 'KHONGTONTAI999')",
+          "Nhấn nút 'Áp dụng'"
+        ],
+        "expected_result": "Hệ thống từ chối áp dụng và hiển thị thông báo lỗi mã voucher không tồn tại.",
+        "trace_scenario_ids": [
+          "C010-SCENARIO-UC15-002"
+        ],
+        "trace_rule_ids": [
+          "C010-RULE-M09-001"
+        ]
+      },
+      {
+        "test_case_id": "TC-30",
+        "title": "Admin thêm voucher khuyến mãi mới thành công",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Admin đã đăng nhập và có quyền quản lý voucher"
+        ],
+        "given": "Admin đang ở trang quản lý voucher",
+        "steps": [
+          "Nhấn 'Thêm voucher'",
+          "Nhập đầy đủ thông tin hợp lệ (mã voucher, hạn dùng, giá trị giảm, min_order_amount, số lượt)",
+          "Nhấn nút 'Lưu'"
+        ],
+        "expected_result": "Voucher mới được tạo thành công và xuất hiện trong danh sách quản lý voucher của Admin.",
+        "trace_scenario_ids": [
+          "C010-SCENARIO-UC16-001"
+        ],
+        "trace_rule_ids": [
+          "C010-RULE-M09-003"
+        ]
+      },
+      {
+        "test_case_id": "TC-31",
+        "title": "Khách hàng đánh giá sản phẩm thành công cho đơn hàng hoàn thành",
+        "type": "POSITIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Khách hàng đã đăng nhập",
+          "Đơn hàng ở trạng thái 'Hoàn thành' và sản phẩm chưa được đánh giá"
+        ],
+        "given": "Khách hàng đã đăng nhập và có đơn hàng hoàn thành chưa đánh giá",
+        "steps": [
+          "Tại tab 'Hoàn thành', nhấn nút 'Đánh giá'",
+          "Chọn số sao (1 đến 5 sao)",
+          "Nhập nội dung bình luận (có thể kèm ảnh)",
+          "Nhấn nút 'Gửi nhận xét'"
+        ],
+        "expected_result": "Đánh giá được lưu thành công, số sao trung bình của sản phẩm được cập nhật, đánh giá hiển thị ở trang chi tiết truyện và nút 'Đánh giá' của đơn hàng bị vô hiệu hóa.",
+        "trace_scenario_ids": [
+          "C011-SCN-UC17-01"
+        ],
+        "trace_rule_ids": [
+          "C011-RULE-M10-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-32",
+        "title": "Gửi đánh giá sản phẩm thất bại do chưa chọn số sao",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Khách hàng đang ở popup đánh giá sản phẩm"
+        ],
+        "given": "Khách hàng chưa chọn số sao đánh giá",
+        "steps": [
+          "Để trống không chọn số sao",
+          "Nhập nội dung bình luận",
+          "Nhấn 'Gửi nhận xét'"
+        ],
+        "expected_result": "Hệ thống từ chối lưu, hiển thị thông báo lỗi yêu cầu chọn số sao đánh giá.",
+        "trace_scenario_ids": [
+          "C011-SCN-UC17-02"
+        ],
+        "trace_rule_ids": [
+          "C011-RULE-M10-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-33",
+        "title": "Gửi yêu cầu đổi/trả hàng thành công",
+        "type": "POSITIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Khách hàng đã đăng nhập",
+          "Đơn hàng đang ở trạng thái cho phép trả hàng"
+        ],
+        "given": "Khách hàng có đơn hàng đủ điều kiện trả hàng",
+        "steps": [
+          "Nhấn nút 'Trả hàng'",
+          "Nhập lý do trả hàng chi tiết",
+          "Đính kèm tệp hình ảnh minh chứng hợp lệ",
+          "Nhấn 'Gửi yêu cầu'"
+        ],
+        "expected_result": "Yêu cầu trả hàng được tạo với trạng thái 'Đang xem xét' và đơn hàng được chuyển sang tab Trả hàng/Hoàn tiền.",
+        "trace_scenario_ids": [
+          "C011-SCN-UC18-01"
+        ],
+        "trace_rule_ids": [
+          "C011-RULE-M10-03"
+        ]
+      },
+      {
+        "test_case_id": "TC-34",
+        "title": "Gửi yêu cầu trả hàng thất bại do tệp minh chứng sai định dạng hoặc quá dung lượng",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Khách hàng đang ở popup yêu cầu trả hàng"
+        ],
+        "given": "Khách hàng nhập lý do hợp lệ nhưng tải lên file đính kèm không đúng quy định",
+        "steps": [
+          "Chọn đính kèm tệp sai định dạng (ví dụ: .exe) hoặc file vượt dung lượng cho phép",
+          "Nhấn 'Gửi yêu cầu'"
+        ],
+        "expected_result": "Hệ thống từ chối tệp tải lên, hiển thị thông báo lỗi và không gửi yêu cầu.",
+        "trace_scenario_ids": [
+          "C011-SCN-UC18-02"
+        ],
+        "trace_rule_ids": [
+          "C011-RULE-M10-03"
+        ]
+      },
+      {
+        "test_case_id": "TC-35",
+        "title": "Cập nhật thông tin cá nhân thành công với dữ liệu hợp lệ",
+        "type": "POSITIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Khách hàng đã đăng nhập và mở mục Thông tin tài khoản"
+        ],
+        "given": "Khách hàng đang ở trang chỉnh sửa thông tin cá nhân",
+        "steps": [
+          "Cập nhật họ tên hợp lệ",
+          "Nhập số điện thoại gồm 10 chữ số bắt đầu bằng 03, 05, 07, 08 hoặc 09",
+          "Nhấn nút 'Lưu thay đổi'"
+        ],
+        "expected_result": "Thông tin cá nhân được lưu thành công và hiển thị đồng bộ trên giao diện.",
+        "trace_scenario_ids": [
+          "C012-SC-UC19-01"
+        ],
+        "trace_rule_ids": [
+          "C012-BR-M11-01",
+          "C012-BR-M11-02"
+        ]
+      },
+      {
+        "test_case_id": "TC-36",
+        "title": "Cập nhật thông tin cá nhân thất bại khi số điện thoại sai định dạng",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Khách hàng đang ở trang chỉnh sửa thông tin tài khoản"
+        ],
+        "given": "Khách hàng nhập số điện thoại không đúng đầu số hoặc không đủ 10 chữ số",
+        "steps": [
+          "Nhập số điện thoại không hợp lệ (ví dụ: '012345678' hoặc bắt đầu bằng 02)",
+          "Nhấn 'Lưu thay đổi'"
+        ],
+        "expected_result": "Hệ thống từ chối lưu, hiển thị thông báo lỗi tại trường số điện thoại.",
+        "trace_scenario_ids": [
+          "C012-SC-UC19-02"
+        ],
+        "trace_rule_ids": [
+          "C012-BR-M11-01",
+          "C012-BR-M11-02"
+        ]
+      },
+      {
+        "test_case_id": "TC-37",
+        "title": "Xem lịch sử điểm thưởng (C-Point) khi chưa phát sinh giao dịch",
+        "type": "NEGATIVE",
+        "priority": "Thấp",
+        "preconditions": [
+          "Khách hàng đã đăng nhập tài khoản mới chưa có giao dịch điểm nào"
+        ],
+        "given": "Khách hàng truy cập vào mục ưu đãi C-Point",
+        "steps": [
+          "Mở tab Lịch sử giao dịch điểm thưởng"
+        ],
+        "expected_result": "Hệ thống hiển thị tổng số điểm hiện có là 0 và danh sách lịch sử trống kèm thông báo phù hợp.",
+        "trace_scenario_ids": [
+          "C012-SC-UC21-01"
+        ],
+        "trace_rule_ids": [
+          "C012-BR-M11-04"
+        ]
+      },
+      {
+        "test_case_id": "TC-38",
+        "title": "Nhận thông báo Push Notification qua FCM khi đơn hàng thay đổi trạng thái",
+        "type": "POSITIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Khách hàng đã đăng nhập",
+          "FCM token của thiết bị đã được đăng ký và lưu trữ hợp lệ"
+        ],
+        "given": "Hệ thống phát sinh sự kiện đơn hàng đổi trạng thái",
+        "steps": [
+          "Admin thay đổi trạng thái đơn hàng của khách",
+          "Hệ thống tạo thông báo và gửi push qua Firebase Cloud Messaging"
+        ],
+        "expected_result": "Thiết bị nhận được thông báo push và thông báo được lưu trong mục Thông báo của ứng dụng.",
+        "trace_scenario_ids": [
+          "C013-SC-M12-01"
+        ],
+        "trace_rule_ids": [
+          "C013-RULE-M12-01",
+          "C013-RULE-M12-02"
+        ]
+      },
+      {
+        "test_case_id": "TC-39",
+        "title": "Hiển thị danh sách thông báo mới và số lượng chưa đọc",
+        "type": "POSITIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Khách hàng đã đăng nhập và có thông báo chưa đọc"
+        ],
+        "given": "Khách hàng đang ở bất kỳ trang nào trên website",
+        "steps": [
+          "Nhấn vào biểu tượng thông báo hình quả chuông trên header"
+        ],
+        "expected_result": "Dropdown hiển thị danh sách các thông báo mới nhất kèm số lượng thông báo chưa đọc chính xác.",
+        "trace_scenario_ids": [
+          "C013-SC-M12-02"
+        ],
+        "trace_rule_ids": [
+          "C013-RULE-M12-03"
+        ]
+      },
+      {
+        "test_case_id": "TC-40",
+        "title": "Đánh dấu tất cả thông báo là đã đọc thành công",
+        "type": "POSITIVE",
+        "priority": "Thấp",
+        "preconditions": [
+          "Khách hàng có thông báo chưa đọc trong hòm thư thông báo"
+        ],
+        "given": "Khách hàng đang mở giao diện mục Thông báo",
+        "steps": [
+          "Nhấn nút 'Đánh dấu tất cả đã đọc'"
+        ],
+        "expected_result": "Tất cả thông báo được chuyển sang trạng thái đã đọc và số đếm thông báo chưa đọc trên biểu tượng chuông về 0.",
+        "trace_scenario_ids": [
+          "C013-SC-M12-03"
+        ],
+        "trace_rule_ids": [
+          "C013-RULE-M12-04"
+        ]
+      },
+      {
+        "test_case_id": "TC-41",
+        "title": "Lưu thông báo nội bộ ứng dụng khi gửi FCM push thất bại",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Khách hàng đã đăng nhập nhưng thiết bị mất kết nối FCM hoặc không có token"
+        ],
+        "given": "Sự kiện thông báo được tạo nhưng kết nối tới FCM bị lỗi",
+        "steps": [
+          "Hệ thống thực hiện gửi push qua FCM thất bại"
+        ],
+        "expected_result": "Hệ thống vẫn ghi nhận và lưu thông báo vào cơ sở dữ liệu nội bộ để hiển thị trong ứng dụng khi khách hàng truy cập.",
+        "trace_scenario_ids": [
+          "C013-SC-M12-04"
+        ],
+        "trace_rule_ids": [
+          "C013-RULE-M12-05"
+        ]
+      },
+      {
+        "test_case_id": "TC-42",
+        "title": "Hiển thị mục Gợi ý cho bạn dựa trên Wishlist của người dùng",
+        "type": "POSITIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Người dùng đã đăng nhập và đã có ít nhất một truyện trong Wishlist"
+        ],
+        "given": "Người dùng đã đăng nhập và có wishlist",
+        "steps": [
+          "Điều hướng tới trang chủ của website"
+        ],
+        "expected_result": "Mục 'Gợi ý cho bạn' hiển thị các truyện là tập tiếp theo hoặc cùng thể loại với các truyện trong Wishlist của người dùng.",
+        "trace_scenario_ids": [
+          "C014-SCN-UC24-01"
+        ],
+        "trace_rule_ids": [
+          "C014-RULE-M13-02"
+        ]
+      },
+      {
+        "test_case_id": "TC-43",
+        "title": "Hiển thị mục Gợi ý theo truyện bán chạy nhất cho khách chưa có Wishlist",
+        "type": "POSITIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Người dùng chưa đăng nhập hoặc tài khoản chưa có truyện nào trong Wishlist"
+        ],
+        "given": "Người dùng truy cập trang chủ mà không có dữ liệu Wishlist",
+        "steps": [
+          "Mở trang chủ website"
+        ],
+        "expected_result": "Mục 'Gợi ý cho bạn' hiển thị danh sách các truyện có lượt bán cao nhất trong hệ thống.",
+        "trace_scenario_ids": [
+          "C014-SCN-UC24-02"
+        ],
+        "trace_rule_ids": [
+          "C014-RULE-M13-02"
+        ]
+      },
+      {
+        "test_case_id": "TC-44",
+        "title": "Loại bỏ truyện hết hàng hoặc bị ẩn khỏi danh sách gợi ý",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Các sản phẩm thỏa điều kiện gợi ý đều đã hết hàng hoặc đang ở trạng thái bị Admin ẩn"
+        ],
+        "given": "Các truyện dự kiến gợi ý không còn hàng hoặc bị ẩn",
+        "steps": [
+          "Hệ thống tổng hợp danh sách gợi ý và tải trang chủ"
+        ],
+        "expected_result": "Hệ thống loại bỏ hoàn toàn các truyện hết hàng/bị ẩn khỏi mục gợi ý; hiển thị danh sách trống hợp lệ hoặc ẩn khối gợi ý.",
+        "trace_scenario_ids": [
+          "C014-SCN-UC24-03"
+        ],
+        "trace_rule_ids": [
+          "C014-RULE-M13-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-45",
+        "title": "Admin thêm truyện tranh mới thành công",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Admin đã đăng nhập và có quyền quản lý sản phẩm"
+        ],
+        "given": "Admin đang ở trang Quản lý sản phẩm",
+        "steps": [
+          "Nhấn 'Thêm truyện'",
+          "Nhập đầy đủ các thông tin bắt buộc (tên truyện, tác giả, thể loại, NXB, giá)",
+          "Tải lên tệp ảnh minh họa đúng định dạng và kích thước",
+          "Nhấn nút 'Lưu'"
+        ],
+        "expected_result": "Truyện mới được lưu thành công vào cơ sở dữ liệu và hiển thị trên bảng danh sách truyện của trang quản trị.",
+        "trace_scenario_ids": [
+          "C015-SC-UC25-01"
+        ],
+        "trace_rule_ids": [
+          "C015-BR-M14-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-46",
+        "title": "Admin thêm truyện thất bại do tệp ảnh không đúng định dạng",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Admin đang ở form thêm truyện mới"
+        ],
+        "given": "Admin nhập thông tin hợp lệ nhưng đính kèm file ảnh không hợp lệ",
+        "steps": [
+          "Chọn tải lên tệp ảnh sai định dạng hoặc vượt quá dung lượng cho phép",
+          "Nhấn 'Lưu'"
+        ],
+        "expected_result": "Hệ thống từ chối lưu, hiển thị thông báo lỗi ảnh không hợp lệ và giữ lại thông tin form nhập.",
+        "trace_scenario_ids": [
+          "C015-SC-UC25-02"
+        ],
+        "trace_rule_ids": [
+          "C015-BR-M14-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-47",
+        "title": "Chặn Admin xóa truyện tranh đang có trong đơn hàng hoặc giỏ hàng",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Admin đã đăng nhập",
+          "Truyện định xóa đang nằm trong đơn hàng đã tạo hoặc giỏ hàng của khách hàng"
+        ],
+        "given": "Truyện cần xóa đang có liên kết dữ liệu trong đơn hàng/giỏ hàng",
+        "steps": [
+          "Tại dòng truyện cần xóa, nhấn biểu tượng thùng rác",
+          "Nhấn xác nhận xóa"
+        ],
+        "expected_result": "Hệ thống cảnh báo hoặc chặn xóa truyện để tránh làm sai lệch dữ liệu đơn hàng hiện có.",
+        "trace_scenario_ids": [
+          "C015-SC-UC27-01"
+        ],
+        "trace_rule_ids": [
+          "C015-BR-M14-02"
+        ]
+      },
+      {
+        "test_case_id": "TC-48",
+        "title": "Admin thêm danh mục thể loại mới thành công",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Admin có quyền quản lý danh mục và mở trang Quản lý thể loại"
+        ],
+        "given": "Tên thể loại định thêm chưa từng tồn tại trên hệ thống",
+        "steps": [
+          "Nhấn 'Thêm thể loại'",
+          "Nhập tên thể loại mới",
+          "Nhấn 'Lưu'"
+        ],
+        "expected_result": "Danh mục thể loại mới được lưu thành công và cập nhật lên danh sách thể loại.",
+        "trace_scenario_ids": [
+          "C016-SC-UC30-01"
+        ],
+        "trace_rule_ids": [
+          "C016-RULE-M15-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-49",
+        "title": "Admin thêm danh mục thể loại trùng tên đã tồn tại",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Đã có một thể loại mang tên 'Hành động' trong hệ thống"
+        ],
+        "given": "Admin đang ở form thêm thể loại",
+        "steps": [
+          "Nhập tên thể loại trùng với tên đã có ('Hành động')",
+          "Nhấn 'Lưu'"
+        ],
+        "expected_result": "Hệ thống từ chối lưu và hiển thị thông báo lỗi tên danh mục đã tồn tại.",
+        "trace_scenario_ids": [
+          "C016-SC-UC30-02"
+        ],
+        "trace_rule_ids": [
+          "C016-RULE-M15-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-50",
+        "title": "Chặn Admin xóa danh mục đang có truyện sử dụng",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Thể loại định xóa đang được gắn cho ít nhất một cuốn truyện trong hệ thống"
+        ],
+        "given": "Danh mục thể loại đang được truyện sử dụng",
+        "steps": [
+          "Nhấn nút xóa danh mục thể loại này",
+          "Xác nhận xóa trong popup"
+        ],
+        "expected_result": "Hệ thống ngăn chặn xóa và hiển thị cảnh báo danh mục đang có truyện sử dụng không thể xóa.",
+        "trace_scenario_ids": [
+          "C016-SC-UC30-03"
+        ],
+        "trace_rule_ids": [
+          "C016-RULE-M15-02"
+        ]
+      },
+      {
+        "test_case_id": "TC-51",
+        "title": "Admin cập nhật số lượng tồn kho sản phẩm thành công",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Admin đã đăng nhập và mở trang Quản lý tồn kho"
+        ],
+        "given": "Sản phẩm đang hiển thị trong danh sách tồn kho",
+        "steps": [
+          "Chọn sản phẩm cần cập nhật",
+          "Nhập số lượng nhập thêm hoặc điều chỉnh là số nguyên dương hợp lệ (ví dụ: 50)",
+          "Nhấn nút 'Lưu'"
+        ],
+        "expected_result": "Số lượng tồn kho của sản phẩm được cập nhật chính xác trên hệ thống.",
+        "trace_scenario_ids": [
+          "C017-SC-UC32-01"
+        ],
+        "trace_rule_ids": [
+          "C017-BR1"
+        ]
+      },
+      {
+        "test_case_id": "TC-52",
+        "title": "Admin nhập số lượng khiến tồn kho bị âm",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Admin đang ở giao diện điều chỉnh tồn kho sản phẩm"
+        ],
+        "given": "Admin nhập số lượng điều chỉnh khiến tồn kho kết quả nhỏ hơn 0",
+        "steps": [
+          "Nhập giá trị làm tồn kho trở thành số âm (ví dụ: -10)",
+          "Nhấn 'Lưu'"
+        ],
+        "expected_result": "Hệ thống từ chối cập nhật, hiển thị thông báo tồn kho không được âm và giữ nguyên số lượng cũ.",
+        "trace_scenario_ids": [
+          "C017-SC-UC32-02"
+        ],
+        "trace_rule_ids": [
+          "C017-BR1"
+        ]
+      },
+      {
+        "test_case_id": "TC-53",
+        "title": "Admin nhập giá trị tồn kho không phải ký tự số",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Admin đang ở ô nhập số lượng tồn kho"
+        ],
+        "given": "Admin nhập dữ liệu dạng chuỗi chữ",
+        "steps": [
+          "Nhập các ký tự chữ hoặc ký tự đặc biệt (ví dụ: 'abc#@')",
+          "Nhấn 'Lưu'"
+        ],
+        "expected_result": "Hệ thống từ chối, hiển thị lỗi yêu cầu giá trị nhập phải là số hợp lệ.",
+        "trace_scenario_ids": [
+          "C017-SC-UC32-03"
+        ],
+        "trace_rule_ids": [
+          "C017-FR-M16-VAL"
+        ]
+      },
+      {
+        "test_case_id": "TC-54",
+        "title": "Cảnh báo hết hàng và vô hiệu hóa mua hàng khi tồn kho bằng 0",
+        "type": "BOUNDARY",
+        "priority": "Cao",
+        "preconditions": [
+          "Sản phẩm có số lượng tồn kho bằng 0 trong quản lý kho"
+        ],
+        "given": "Tồn kho sản phẩm bằng 0",
+        "steps": [
+          "Admin kiểm tra hiển thị sản phẩm tại trang quản lý kho",
+          "Khách hàng truy cập trang mua hàng của sản phẩm đó"
+        ],
+        "expected_result": "Hệ thống hiển thị cảnh báo hết hàng và vô hiệu hóa nút mua của sản phẩm ở phía khách hàng.",
+        "trace_scenario_ids": [
+          "C017-SC-UC32-04"
+        ],
+        "trace_rule_ids": [
+          "C017-BR2"
+        ]
+      },
+      {
+        "test_case_id": "TC-55",
+        "title": "Admin duyệt xác nhận đơn hàng ở trạng thái Chờ xác nhận",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Admin đã đăng nhập",
+          "Đơn hàng đang ở tab và trạng thái 'Chờ xác nhận'"
+        ],
+        "given": "Đơn hàng đang ở trạng thái 'Chờ xác nhận'",
+        "steps": [
+          "Mở tab 'Chờ xác nhận'",
+          "Nhấn 'Xem chi tiết' một đơn hàng",
+          "Nhấn nút 'Xác nhận'"
+        ],
+        "expected_result": "Đơn hàng chuyển thành công sang trạng thái 'Chờ lấy hàng' và gửi thông báo cập nhật cho khách hàng.",
+        "trace_scenario_ids": [
+          "C018-SC-UC33-01"
+        ],
+        "trace_rule_ids": [
+          "C018-BR-M17-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-56",
+        "title": "Chặn Admin cập nhật trạng thái đơn hàng sai quy trình",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Đơn hàng đang ở trạng thái 'Đã hủy'"
+        ],
+        "given": "Đơn hàng đã bị hủy",
+        "steps": [
+          "Admin cố gắng chuyển trạng thái đơn hàng từ 'Đã hủy' sang 'Hoàn thành' hoặc 'Đang giao'"
+        ],
+        "expected_result": "Hệ thống từ chối cập nhật và hiển thị thông báo lỗi chuyển trạng thái không hợp lệ.",
+        "trace_scenario_ids": [
+          "C018-SC-UC34-01"
+        ],
+        "trace_rule_ids": [
+          "C018-BR-M17-02"
+        ]
+      },
+      {
+        "test_case_id": "TC-57",
+        "title": "Chặn Admin hủy đơn hàng khi đơn đã ở trạng thái Đã giao",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Đơn hàng đã được giao thành công (trạng thái 'Đã giao' hoặc 'Hoàn thành')"
+        ],
+        "given": "Đơn hàng đã được giao",
+        "steps": [
+          "Admin chọn hành động Hủy đối với đơn hàng này"
+        ],
+        "expected_result": "Hệ thống từ chối cho phép hủy và hiển thị thông báo chỉ đơn chưa được giao mới được phép hủy.",
+        "trace_scenario_ids": [
+          "C018-SC-UC35-01"
+        ],
+        "trace_rule_ids": [
+          "C018-BR-M17-04"
+        ]
+      },
+      {
+        "test_case_id": "TC-58",
+        "title": "Chặn truy cập trang quản trị khi người dùng chưa đăng nhập",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Người dùng chưa đăng nhập bất kỳ tài khoản nào"
+        ],
+        "given": "Người dùng chưa xác thực danh tính",
+        "steps": [
+          "Truy cập trực tiếp URL của trang quản trị (ví dụ: '/admin/dashboard')"
+        ],
+        "expected_result": "Hệ thống chặn truy cập và tự động chuyển hướng người dùng về trang đăng nhập.",
+        "trace_scenario_ids": [
+          "C019-SC-UC36-01"
+        ],
+        "trace_rule_ids": [
+          "C019-RULE-M18-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-59",
+        "title": "Chặn tài khoản người dùng thông thường truy cập trang quản trị",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Người dùng đã đăng nhập với vai trò Khách hàng (Customer) không có quyền Admin"
+        ],
+        "given": "Tài khoản không đủ quyền truy cập quản trị",
+        "steps": [
+          "Nhập đường dẫn trực tiếp tới trang chức năng quản trị (ví dụ: '/admin/orders')"
+        ],
+        "expected_result": "Hệ thống chặn truy cập hoặc chuyển hướng và hiển thị thông báo không có quyền truy cập.",
+        "trace_scenario_ids": [
+          "C019-SC-UC36-02"
+        ],
+        "trace_rule_ids": [
+          "C019-RULE-M18-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-60",
+        "title": "Admin thực hiện khóa tài khoản người dùng thành công",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Admin có quyền quản lý người dùng và đang ở trang Quản lý người dùng"
+        ],
+        "given": "Tài khoản người dùng đang hoạt động bình thường",
+        "steps": [
+          "Chọn một tài khoản người dùng trong danh sách",
+          "Chọn hành động 'Khóa tài khoản'",
+          "Xác nhận khóa"
+        ],
+        "expected_result": "Trạng thái tài khoản chuyển thành 'Bị khóa'; tài khoản này không thể đăng nhập vào hệ thống sau đó.",
+        "trace_scenario_ids": [
+          "C019-SC-UC38-01"
+        ],
+        "trace_rule_ids": [
+          "C019-RULE-M18-04"
+        ]
+      },
+      {
+        "test_case_id": "TC-61",
+        "title": "Admin xem Dashboard tổng quan theo bộ lọc thời gian Hôm nay",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Admin đã đăng nhập và mở trang Dashboard Tổng quan"
+        ],
+        "given": "Admin đang ở trang Dashboard Tổng quan",
+        "steps": [
+          "Tại bộ lọc thời gian, chọn 'Hôm nay'"
+        ],
+        "expected_result": "Dashboard cập nhật hiển thị chính xác các chỉ số số đơn, doanh thu, khách hàng mới và biểu đồ doanh thu theo các giờ trong ngày hôm nay.",
+        "trace_scenario_ids": [
+          "C020-SCN-M19-01"
+        ],
+        "trace_rule_ids": [
+          "C020-RULE-M19-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-62",
+        "title": "Báo lỗi khi tùy chỉnh khoảng thời gian có ngày kết thúc trước ngày bắt đầu trên Dashboard",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Admin đang ở bộ lọc thời gian tùy chỉnh của Dashboard"
+        ],
+        "given": "Admin chọn khoảng thời gian không hợp lệ",
+        "steps": [
+          "Chọn khoảng thời gian 'Tùy chỉnh'",
+          "Nhập ngày kết thúc nhỏ hơn (trước) ngày bắt đầu",
+          "Xác nhận áp dụng"
+        ],
+        "expected_result": "Hệ thống từ chối hoặc cảnh báo lỗi thời gian không hợp lệ và giữ nguyên số liệu thống kê cũ.",
+        "trace_scenario_ids": [
+          "C020-SCN-M19-02"
+        ],
+        "trace_rule_ids": [
+          "C020-RULE-M19-03"
+        ]
+      },
+      {
+        "test_case_id": "TC-63",
+        "title": "Admin xem báo cáo thống kê doanh thu và lợi nhuận chi tiết",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "preconditions": [
+          "Admin đã đăng nhập và mở trang Thống kê"
+        ],
+        "given": "Admin chọn khoảng thời gian thống kê hợp lệ",
+        "steps": [
+          "Chọn khoảng thời gian (ví dụ: Tháng này)",
+          "Xem các bảng số liệu thống kê"
+        ],
+        "expected_result": "Hệ thống hiển thị chính xác doanh thu, số đơn, giá trị đơn trung bình, lợi nhuận (Doanh thu - Giá nhập), biên lợi nhuận (Lợi nhuận / Doanh thu), Top 5 Flash Sale/Voucher và danh sách truyện bán/chưa bán.",
+        "trace_scenario_ids": [
+          "C021-SC-UC40-01"
+        ],
+        "trace_rule_ids": [
+          "C021-BR-M20-01",
+          "C021-BR-M20-02"
+        ]
+      },
+      {
+        "test_case_id": "TC-64",
+        "title": "Báo lỗi tại trang Thống kê khi khoảng thời gian không hợp lệ",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Admin đang ở trang Thống kê"
+        ],
+        "given": "Admin nhập khoảng thời gian sai logic",
+        "steps": [
+          "Chọn ngày kết thúc trước ngày bắt đầu"
+        ],
+        "expected_result": "Hệ thống cảnh báo lỗi khoảng thời gian không hợp lệ và yêu cầu chọn lại.",
+        "trace_scenario_ids": [
+          "C021-SC-UC40-02"
+        ],
+        "trace_rule_ids": [
+          "C021-BR-M20-01"
+        ]
+      },
+      {
+        "test_case_id": "TC-65",
+        "title": "Admin xuất báo cáo thống kê ra file Excel thành công",
+        "type": "POSITIVE",
+        "priority": "Thông thường",
+        "preconditions": [
+          "Admin đã chọn khoảng thời gian hợp lệ tại trang Thống kê"
+        ],
+        "given": "Dữ liệu thống kê đã được hiển thị trên màn hình",
+        "steps": [
+          "Nhấn nút 'Xuất Excel'"
+        ],
+        "expected_result": "Trình duyệt tự động tải xuống file Excel (.xlsx) hợp lệ chứa đầy đủ thông tin header và dữ liệu báo cáo theo đúng kỳ đã chọn, mở được bằng phần mềm Excel mà không làm treo giao diện.",
+        "trace_scenario_ids": [
+          "C021-SC-UC41-01"
+        ],
+        "trace_rule_ids": [
+          "C021-BR-M20-03"
+        ]
+      }
+    ]
+  },
+  "validation_warnings": []
+}
