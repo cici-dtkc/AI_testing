@@ -1,17 +1,5 @@
 from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
-
-def gemini_schema(model: type[BaseModel]) -> dict:
-    schema=model.model_json_schema()
-    def remove_additional_properties(value):
-        if isinstance(value,dict):
-            value.pop('additionalProperties',None)
-            for child in value.values():remove_additional_properties(child)
-        elif isinstance(value,list):
-            for child in value:remove_additional_properties(child)
-    remove_additional_properties(schema)
-    return schema
-
 class StrictModel(BaseModel):
     model_config = ConfigDict(extra='forbid')
 class Block(StrictModel):
