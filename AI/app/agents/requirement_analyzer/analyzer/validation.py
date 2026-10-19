@@ -9,7 +9,7 @@ def validate(analysis:Analysis,document:Document)->list[str]:
     for obj in [*analysis.rules,*analysis.issues]:
         for ref in obj.source_refs:
             if ref.block_id not in blocks:raise ValueError(f'Nguồn không tồn tại: {ref.block_id}')
-            if ref.quote not in blocks[ref.block_id]:raise ValueError(f'Quote không nguyên văn tại {ref.block_id}: {ref.quote[:160]!r}')
+            if ref.quote not in blocks[ref.block_id]:raise ValueError(f'Quote không nguyên văn tại {ref.block_id}')
     for issue in analysis.issues:
         if not set(issue.blocks_scenarios)<=scenario_ids:raise ValueError('Issue tham chiếu scenario không tồn tại.')
     for s in analysis.scenarios:
