@@ -5,6 +5,12 @@ import json
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
+@dataclass
+class OrchestratorConfig:
+    base_url: str = "http://localhost:8080/TTLTW_Nhom6"
+    max_workers: int = 2
+    execution_timeout: int = 300
+    retry_timeout: int = 300
 
 @dataclass
 class Config:
