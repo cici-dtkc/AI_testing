@@ -5,10 +5,10 @@ from .models import ExecutionState, ExecutionResult, OrchestratorReport
 from .scheduler import build_execution_plan
 from .state_manager import StateManager
 from .retry_handler import RetryHandler
-from AI.app.agents.risk_prioritization.config.config import OrchestratorConfig
-from AI.app.agents.risk_prioritization.evidence_store.metadata import MetadataIndex
-from AI.app.agents.risk_prioritization.executors.playwright.playwright_executor import PlaywrightExecutor
-from AI.app.agents.risk_prioritization.reporting.report import generate_html_report
+from ..config.config import OrchestratorConfig
+from ..evidence_store.metadata import MetadataIndex
+from ..executors.playwright.playwright_executor import PlaywrightExecutor
+from ..reporting.report import generate_html_report
 
 
 def _get_executor(suggested_runner: str):

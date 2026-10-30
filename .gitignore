@@ -6,6 +6,7 @@ AI/**/*.pyc
 AI/.env
 AI/.env.*
 !AI/.env.example
+AI/outputs
 
 # Supervisor pipeline run artifacts (per-run data, not source)
 AI/app/storage/runs/

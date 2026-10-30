@@ -6,10 +6,9 @@ import json
 import os
 from pathlib import Path
 
-# from ..data.models import PrioritizationResult
-from AI.app.agents.risk_prioritization.data.models import PrioritizationResult
-from AI.app.agents.risk_prioritization.evidence_store.api import get_evidence
-from AI.app.agents.risk_prioritization.orchestrator.models import ExecutionState, OrchestratorReport
+from ..data.models import PrioritizationResult
+from ..evidence_store.api import get_evidence
+from ..orchestrator.models import ExecutionState, OrchestratorReport
 
 
 def write_outputs(result: PrioritizationResult, out_dir: str | Path) -> dict[str, str]:

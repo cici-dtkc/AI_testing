@@ -2,8 +2,8 @@ from datetime import datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from AI.app.agents.risk_prioritization.evidence_store.api import store_evidence
-from AI.app.agents.risk_prioritization.orchestrator.models import ExecutionResult
+from ...evidence_store.api import store_evidence
+from ...orchestrator.models import ExecutionResult
 from .newman_runner import run_collection
 
 class ApiExecutor:

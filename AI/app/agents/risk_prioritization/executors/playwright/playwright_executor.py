@@ -1,11 +1,12 @@
 from datetime import datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
+import re
 
 from playwright.sync_api import sync_playwright
 
-from AI.app.agents.risk_prioritization.evidence_store.api import store_evidence
-from AI.app.agents.risk_prioritization.orchestrator.models import ExecutionResult
+from ...evidence_store.api import store_evidence
+from ...orchestrator.models import ExecutionResult
 from .config import BROWSER_TYPE, HEADLESS, VIEWPORT, TIMEOUT_NAVIGATION
 from .step_parser import parse_step
 from .assertions import verify_expected
@@ -20,7 +21,7 @@ def _store(run_id: str, tc_id: str, attempt: int, artifact_type: str, path: str 
 
 class PlaywrightExecutor:
     def execute_test_case(self, tc: dict, run_id: str, attempt: int) -> ExecutionResult:
-        tc_id = tc.get("id", "unknown")
+        tc_id = tc.get("test_case_id", tc.get("id", "unknown"))
         start_time = datetime.now()
         evidence_uris = []
         state = "PASSED"
@@ -39,9 +40,26 @@ class PlaywrightExecutor:
                     start_tracing(context, str(trace_path))
 
                     try:
-                        test_steps = tc.get("test_steps", [])
+                        # Get steps from either 'steps' or 'test_steps' field
+                        test_steps = tc.get("steps", tc.get("test_steps", []))
                         if isinstance(test_steps, str):
                             test_steps = [s.strip() for s in test_steps.split("\n") if s.strip()]
+
+                        # Prepend navigation step if not present
+                        if test_steps and not any(re.search(r'(mở|truy cập|goto)', test_steps[0], re.IGNORECASE) for _ in [None]):
+                            # Infer page from module or use home page
+                            module = tc.get("module", "")
+                            if "TimKiem" in module or "tìm kiếm" in str(tc.get("title", "")).lower():
+                                test_steps.insert(0, "Mở /")
+                            elif "DangNhap" in module or "đăng nhập" in str(tc.get("title", "")).lower():
+                                test_steps.insert(0, "Mở /login")
+                            elif "DangKy" in module or "đăng ký" in str(tc.get("title", "")).lower():
+                                test_steps.insert(0, "Mở /register")
+                            elif "GioHang" in module or "giỏ hàng" in str(tc.get("title", "")).lower():
+                                test_steps.insert(0, "Mở /cart")
+                            else:
+                                # Default to home page
+                                test_steps.insert(0, "Mở /")
 
                         for step in test_steps:
                             parse_step(step, page)

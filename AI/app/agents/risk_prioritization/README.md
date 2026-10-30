@@ -8,9 +8,7 @@ End-to-end test prioritization, scheduling, and execution system. Prioritizes te
 
 ```bash
 # Python dependencies
-cd AI_testing/AI/app/agents/risk_prioritization
-python3 -m venv .venv
-source .venv/bin/activate
+cd AI/app/agents/risk_prioritization
 pip install -r requirements.txt
 pip install -r executors/requirements.txt
 playwright install
@@ -20,57 +18,54 @@ npm install -g newman newman-reporter-html
 
 # Start test target (Java web app)
 cd testing
-./gradlew run
-# Verify at http://localhost:8080
+./gradlew appRun  # or deploy WAR to Tomcat
+# Verify at http://localhost:8080/TTLTW_Nhom6
 ```
 
 If venv unavailable: `sudo apt install python3-venv`
 
 ### End-to-End Workflow
 
-**Step 1: Generate test cases** (via test_case_generator agent - see parent directory)
+**Step 1: Generate test cases** (via test_case_generator agent)
 
 **Step 2: Prioritize by risk**
 
 ```bash
-python -m AI.app.agents.risk_prioritization.main \
-  --test-cases AI/app/agents/test_case_generator/outputs/comic/test_cases/test_cases.json \
-  --analysis AI/app/agents/test_case_generator/outputs/comic/analysis.json \
-  --signals-dir AI/app/agents/risk_prioritization/examples \
-  --out AI/app/agents/risk_prioritization/outputs
+cd AI
+python -m app.agents.risk_prioritization.main \
+  --test-cases app/agents/test_case_generator/outputs/comic/test_cases/test_cases.json \
+  --analysis app/agents/requirement_analyzer/outputs/comic/analysis.json \
+  --signals-dir app/agents/risk_prioritization/examples \
+  --out app/agents/risk_prioritization/outputs
 ```
 
-Output: `prioritized_tests.json` with execution order, priority (P1-P4), dependencies.
+Output: `outputs/prioritized_tests.json` with execution order, priority (P1-P4), dependencies.
 
 **Step 3: Execute tests**
 
-```python
-from AI.app.agents.risk_prioritization.orchestrator.orchestrator import run_orchestrator
-
-report = run_orchestrator(
-    prioritized_tests_path="outputs/prioritized_tests.json",
-    max_workers=2
-)
-
-print(f"Completed: {report.state_counts}")
-print(f"Report: outputs/execution_report_{report.run_id}.html")
+```bash
+cd AI
+python -m app.agents.risk_prioritization.run_execution
 ```
 
-View HTML report with embedded failure screenshots and evidence links.
+View HTML report: `outputs/execution_report_{run_id}.html` with embedded failure screenshots and evidence links.
 
 ## How It Works
 
 ### Risk Scoring
 
-Deterministic formula: **Score = R × C × H × D × S**
+Deterministic formula: **S = wR·R + wC·C + wH·H + wD·D**
 
-- **R** (Requirements): complexity from SRS analysis, critical module boost
-- **C** (Code Churn): recent changes in affected modules
-- **H** (Defect History): past failures in related areas
-- **D** (Dependency Count): prerequisites increase risk
-- **S** (Severity): mapped from test case impact level
+- **R** (Requirements): SRS priority + critical module boost (+1.0) + test type boost (NEGATIVE +0.2, BOUNDARY +0.15)
+- **C** (Code Churn): git change frequency + structural complexity (preconditions × 0.05 + steps × 0.03)
+- **H** (Defect History): past failures in related modules (exponential decay)
+- **D** (Dependency): prerequisite count normalized across all TCs
 
-Priority thresholds: P1 (S≥70), P2 (≥40), P3 (≥15), P4 (rest). Dependencies promoted to dependent's priority.
+**Weights:** R=0.35, C=0.25, H=0.25, D=0.15 (sum to 1.0)
+
+**Priority thresholds:** P1 (S100≥75), P2 (≥55), P3 (≥35), P4 (rest). S100 = 25×(S-1) scales [1,5]→[0,100].
+
+Dependencies promoted to dependent's priority.
 
 ### Execution Flow
 
