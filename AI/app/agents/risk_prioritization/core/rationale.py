@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 import re
 
-from AI.app.agents.risk_prioritization.data.models import ScoredTC
+from ..data.models import ScoredTC
 
 ID_RE = re.compile(r"\b(?:TC-\d+|C\d{3}-[A-Z0-9-]+|UC-\d+|M\d{2}|DEF-[\w-]+|B\d{4})\b")
 

@@ -5,9 +5,9 @@ from datetime import datetime, timezone
 
 from ..data import dependency as dep
 from . import scoring, rationale
-from AI.app.agents.risk_prioritization.config.config import Config
-from AI.app.agents.risk_prioritization.data.mapping import AnalysisIndex, build_context
-from AI.app.agents.risk_prioritization.data.models import PrioritizationResult, RiskSignals, ScoredTC
+from ..config.config import Config
+from ..data.mapping import AnalysisIndex, build_context
+from ..data.models import PrioritizationResult, RiskSignals, ScoredTC
 from .signals import input_hash
 from .validation import GuardrailError, validate
 

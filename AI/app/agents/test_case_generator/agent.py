@@ -11,7 +11,7 @@ def run_test_case_generator(llm, state: dict) -> dict:
     output_folder = Path(state.get("output_path", "outputs/comic/test_cases"))
     
     # Lấy API key và model từ môi trường hoặc state
-    key = os.getenv("GEMINI_API_KEY", "")
+    key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY", "")
     model = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
     
     # Chạy pipeline sinh test case
