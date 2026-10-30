@@ -5,7 +5,7 @@ import re
 from collections import Counter
 from dataclasses import dataclass, field
 
-from AI.app.agents.risk_prioritization.config.config import Config
+from ..config.config import Config
 
 _PRIORITY_RE = re.compile(r"Priority\s*\|\s*([^\n]+)")
 _MODULE_IN_ID = re.compile(r"-M(\d{2})(?:-|$)")

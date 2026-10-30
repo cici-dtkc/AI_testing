@@ -28,6 +28,14 @@ class SharedState(TypedDict, total=False):
     retry_count: Annotated[int, operator.add]
     next_agent: str
     trace: Annotated[list, operator.add]
+    # --- pipeline inputs / supervisor coordination ---
+    srs_path: str
+    document_id: str
+    version: str
+    analysis_path: str
+    output_path: str
+    run_id: str
+    run_dir: str
 
 
 class Route(BaseModel):

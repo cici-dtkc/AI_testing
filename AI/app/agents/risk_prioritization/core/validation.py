@@ -1,8 +1,8 @@
 """Guardrails: any violation -> GuardrailError (no partial result)."""
 from __future__ import annotations
 
-from AI.app.agents.risk_prioritization.config.config import Config
-from AI.app.agents.risk_prioritization.data.models import PrioritizationResult
+from ..config.config import Config
+from ..data.models import PrioritizationResult
 from .scoring import to_priority
 
 

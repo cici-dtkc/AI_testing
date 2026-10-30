@@ -1,0 +1,929 @@
+{
+  "summary": "18 module — Phân vùng tương đương (EP): 6; Bảng quyết định: 4; Chuyển đổi trạng thái: 4; Kiểm thử theo use case: 3; Phân tích giá trị biên (BVA): 1",
+  "modules": [
+    {
+      "module": "TimKiem",
+      "rule_ids": [
+        "C001-RULE-PERF-01",
+        "C003-RULE-M02-001",
+        "C003-RULE-M02-002"
+      ],
+      "scenario_ids": [
+        "C001-SCENARIO-PERF-01",
+        "C003-SCN-M02-001",
+        "C003-SCN-M02-002"
+      ],
+      "techniques": [
+        {
+          "technique": "DECISION_TABLE",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "2 điều kiện, 3 kết quả và 2 cụm và/hoặc trong cùng module → kết quả phụ thuộc tổ hợp điều kiện; bảng quyết định giúp loại tổ hợp dư thừa (5.Kiemthuhopden: Decision Table).",
+          "obligations": [
+            "Liệt kê đủ cause (điều kiện) và effect (kết quả) trước khi sinh case.",
+            "Mỗi rule (cột) khả thi có ít nhất 1 test case; rule không khả thi phải ghi rõ lý do loại.",
+            "Ưu tiên rút gọn bảng: các tổ hợp cho cùng kết quả có thể dùng chung test case."
+          ],
+          "estimated_cases": 4
+        },
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: phân vùng tương đương cho từng trường dữ liệu để không bỏ sót lớp hợp lệ/không hợp lệ khi kỹ thuật chính chỉ tập trung vào biên hoặc tổ hợp.",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 6
+        },
+        {
+          "technique": "BOUNDARY_VALUE_ANALYSIS",
+          "variant": "TWO_VALUE",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: 2 ràng buộc số/độ dài nằm trong module — kỹ thuật chính không kiểm tra sát biên nên cần BVA bổ sung.",
+          "obligations": [
+            "Ràng buộc [−∞, 3] giây: kiểm tra các giá trị 3, 4.",
+            "Ràng buộc [−∞, 12]: kiểm tra các giá trị 12, 13.",
+            "Với mỗi biến, các biến còn lại giữ giá trị danh nghĩa (nom)."
+          ],
+          "estimated_cases": 9
+        },
+        {
+          "technique": "NON_FUNCTIONAL_METRIC",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: module còn 1 rule phi chức năng cần case đo ngưỡng riêng, không gộp vào case nghiệp vụ.",
+          "obligations": [
+            "Nêu rõ ngưỡng cam kết và cách đo (công cụ, thời điểm, tải).",
+            "Test case phải ghi giá trị đo được và kết luận Đạt/Không đạt."
+          ],
+          "estimated_cases": 1
+        }
+      ],
+      "numeric_ranges": [
+        {
+          "label": "Thời gian phản hồi cho các thao tác tra cứu thông thường không vượt quá 3 giây trong điều",
+          "min": null,
+          "max": 3,
+          "unit": "giây",
+          "rule_ids": [
+            "C001-RULE-PERF-01"
+          ],
+          "boundary_points": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "Mỗi trang kết quả tìm kiếm hoặc danh sách lọc hiển thị tối đa 12 truyện. Phân trang",
+          "min": null,
+          "max": 12,
+          "unit": "",
+          "rule_ids": [
+            "C003-RULE-M02-002"
+          ],
+          "boundary_points": [
+            12,
+            13
+          ]
+        }
+      ],
+      "story": "3 rule / 3 scenario. Kỹ thuật chính: Bảng quyết định. 2 ràng buộc biên. tối đa 2 điều kiện/rule. Bổ trợ: Phân vùng tương đương (EP), Phân tích giá trị biên (BVA), Kiểm thử phi chức năng theo ngưỡng.",
+      "warnings": []
+    },
+    {
+      "module": "TaiKhoanPhanQuyen",
+      "rule_ids": [
+        "C001-RULE-SEC-01",
+        "C002-BR-UC1-01",
+        "C002-BR-UC1-02",
+        "C002-BR-UC2-01",
+        "C007-RULE-M06-001",
+        "C007-RULE-M06-005",
+        "C011-RULE-M10-03",
+        "C015-BR-M14-01",
+        "C016-RULE-M15-01",
+        "C016-RULE-M15-02",
+        "C016-RULE-M15-03",
+        "C017-BR1",
+        "C018-BR-M17-01",
+        "C018-BR-M17-04",
+        "C019-RULE-M18-01",
+        "C019-RULE-M18-04"
+      ],
+      "scenario_ids": [
+        "C002-SC-UC1-01",
+        "C002-SC-UC2-01",
+        "C007-SCN-M06-001",
+        "C011-SCN-UC18-01",
+        "C011-SCN-UC18-02",
+        "C015-SC-UC25-01",
+        "C015-SC-UC25-02",
+        "C016-SC-UC30-01",
+        "C016-SC-UC30-02",
+        "C016-SC-UC30-03",
+        "C017-SC-UC32-01",
+        "C017-SC-UC32-02",
+        "C018-SC-UC33-01",
+        "C018-SC-UC35-01",
+        "C019-SC-UC36-01",
+        "C019-SC-UC36-02",
+        "C019-SC-UC38-01"
+      ],
+      "techniques": [
+        {
+          "technique": "DECISION_TABLE",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "2 điều kiện, 16 kết quả và 3 cụm và/hoặc trong cùng module → kết quả phụ thuộc tổ hợp điều kiện; bảng quyết định giúp loại tổ hợp dư thừa (5.Kiemthuhopden: Decision Table).",
+          "obligations": [
+            "Liệt kê đủ cause (điều kiện) và effect (kết quả) trước khi sinh case.",
+            "Mỗi rule (cột) khả thi có ít nhất 1 test case; rule không khả thi phải ghi rõ lý do loại.",
+            "Ưu tiên rút gọn bảng: các tổ hợp cho cùng kết quả có thể dùng chung test case."
+          ],
+          "estimated_cases": 4
+        },
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: phân vùng tương đương cho từng trường dữ liệu để không bỏ sót lớp hợp lệ/không hợp lệ khi kỹ thuật chính chỉ tập trung vào biên hoặc tổ hợp.",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 30
+        },
+        {
+          "technique": "BOUNDARY_VALUE_ANALYSIS",
+          "variant": "THREE_VALUE",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: 1 ràng buộc số/độ dài nằm trong module — kỹ thuật chính không kiểm tra sát biên nên cần BVA bổ sung.",
+          "obligations": [
+            "Ràng buộc [8, +∞] ký tự: kiểm tra các giá trị 7, 8, 9.",
+            "Với mỗi biến, các biến còn lại giữ giá trị danh nghĩa (nom)."
+          ],
+          "estimated_cases": 7
+        },
+        {
+          "technique": "NON_FUNCTIONAL_METRIC",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: module còn 1 rule phi chức năng cần case đo ngưỡng riêng, không gộp vào case nghiệp vụ.",
+          "obligations": [
+            "Nêu rõ ngưỡng cam kết và cách đo (công cụ, thời điểm, tải).",
+            "Test case phải ghi giá trị đo được và kết luận Đạt/Không đạt."
+          ],
+          "estimated_cases": 1
+        }
+      ],
+      "numeric_ranges": [
+        {
+          "label": "Mật khẩu đăng ký phải có tối thiểu 8 ký tự, bao gồm chữ",
+          "min": 8,
+          "max": null,
+          "unit": "ký tự",
+          "rule_ids": [
+            "C002-BR-UC1-01"
+          ],
+          "boundary_points": [
+            7,
+            8,
+            9
+          ]
+        }
+      ],
+      "story": "16 rule / 17 scenario. Kỹ thuật chính: Bảng quyết định. 1 ràng buộc biên. tối đa 2 điều kiện/rule. Bổ trợ: Phân vùng tương đương (EP), Phân tích giá trị biên (BVA), Kiểm thử phi chức năng theo ngưỡng.",
+      "warnings": []
+    },
+    {
+      "module": "QuanLyTonKho",
+      "rule_ids": [
+        "C001-RULE-INV-01",
+        "C003-RULE-M02-004",
+        "C005-RULE-M04-001",
+        "C005-RULE-M04-002",
+        "C007-RULE-M06-002",
+        "C007-RULE-M06-004",
+        "C017-BR2",
+        "C017-FR-M16-VAL"
+      ],
+      "scenario_ids": [
+        "C001-SCENARIO-INV-01",
+        "C003-SCN-M02-003",
+        "C005-SC-UC9-001",
+        "C005-SC-UC9-002",
+        "C007-SCN-M06-003",
+        "C017-SC-UC32-03",
+        "C017-SC-UC32-04"
+      ],
+      "techniques": [
+        {
+          "technique": "STATE_TRANSITION",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "1 scenario kiểu STATE → hành vi phụ thuộc trạng thái hiện tại, phải phủ chuyển đổi hợp lệ và chuyển đổi bị chặn (5.Kiemthuhopden: State Transition).",
+          "obligations": [
+            "Liệt kê trạng thái hữu hạn, sự kiện kích hoạt và chuyển đổi hợp lệ (T1..Tn).",
+            "Mỗi chuyển đổi hợp lệ có test case; mỗi chuyển đổi không hợp lệ quan trọng có test case riêng.",
+            "Kiểm tra precondition/postcondition của từng trạng thái, không chỉ thông báo lỗi."
+          ],
+          "estimated_cases": 10
+        },
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: phân vùng tương đương cho từng trường dữ liệu để không bỏ sót lớp hợp lệ/không hợp lệ khi kỹ thuật chính chỉ tập trung vào biên hoặc tổ hợp.",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 16
+        },
+        {
+          "technique": "BOUNDARY_VALUE_ANALYSIS",
+          "variant": "THREE_VALUE",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: 1 ràng buộc số/độ dài nằm trong module — kỹ thuật chính không kiểm tra sát biên nên cần BVA bổ sung.",
+          "obligations": [
+            "Ràng buộc [1, +∞]: kiểm tra các giá trị 0, 1, 2.",
+            "Với mỗi biến, các biến còn lại giữ giá trị danh nghĩa (nom)."
+          ],
+          "estimated_cases": 7
+        },
+        {
+          "technique": "USE_CASE",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: có luồng tương tác nhiều bước, cần thêm case end-to-end cho luồng chính và luồng ngoại lệ.",
+          "obligations": [
+            "Luồng chính (basic flow) có 1 test case end-to-end (F1).",
+            "Mỗi luồng ngoại lệ/thay thế (F2..Fn) có test case riêng với dữ liệu gây ra nhánh đó.",
+            "Kiểm tra precondition trước luồng và postcondition sau luồng."
+          ],
+          "estimated_cases": 5
+        }
+      ],
+      "numeric_ranges": [
+        {
+          "label": "Số lượng sản phẩm thêm vào giỏ hàng tối thiểu là 1 và không được vượt",
+          "min": 1,
+          "max": null,
+          "unit": "",
+          "rule_ids": [
+            "C005-RULE-M04-001"
+          ],
+          "boundary_points": [
+            0,
+            1,
+            2
+          ]
+        }
+      ],
+      "story": "8 rule / 7 scenario. Kỹ thuật chính: Chuyển đổi trạng thái. 1 ràng buộc biên. tối đa 2 điều kiện/rule. Bổ trợ: Phân vùng tương đương (EP), Phân tích giá trị biên (BVA), Kiểm thử theo use case.",
+      "warnings": []
+    },
+    {
+      "module": "QuanLyWebsite",
+      "rule_ids": [
+        "C003-RULE-M02-003",
+        "C012-BR-M11-01",
+        "C012-BR-M11-02",
+        "C012-BR-M11-03",
+        "C019-RULE-M18-02",
+        "C019-RULE-M18-03",
+        "C020-RULE-M19-03",
+        "C021-BR-M20-03"
+      ],
+      "scenario_ids": [
+        "C012-SC-UC19-01",
+        "C012-SC-UC19-02",
+        "C020-SCN-M19-02",
+        "C021-SC-UC41-01"
+      ],
+      "techniques": [
+        {
+          "technique": "DECISION_TABLE",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "2 điều kiện, 8 kết quả và 3 cụm và/hoặc trong cùng module → kết quả phụ thuộc tổ hợp điều kiện; bảng quyết định giúp loại tổ hợp dư thừa (5.Kiemthuhopden: Decision Table).",
+          "obligations": [
+            "Liệt kê đủ cause (điều kiện) và effect (kết quả) trước khi sinh case.",
+            "Mỗi rule (cột) khả thi có ít nhất 1 test case; rule không khả thi phải ghi rõ lý do loại.",
+            "Ưu tiên rút gọn bảng: các tổ hợp cho cùng kết quả có thể dùng chung test case."
+          ],
+          "estimated_cases": 4
+        },
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: phân vùng tương đương cho từng trường dữ liệu để không bỏ sót lớp hợp lệ/không hợp lệ khi kỹ thuật chính chỉ tập trung vào biên hoặc tổ hợp.",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 16
+        },
+        {
+          "technique": "NON_FUNCTIONAL_METRIC",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: module còn 2 rule phi chức năng cần case đo ngưỡng riêng, không gộp vào case nghiệp vụ.",
+          "obligations": [
+            "Nêu rõ ngưỡng cam kết và cách đo (công cụ, thời điểm, tải).",
+            "Test case phải ghi giá trị đo được và kết luận Đạt/Không đạt."
+          ],
+          "estimated_cases": 2
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "8 rule / 4 scenario. Kỹ thuật chính: Bảng quyết định. tối đa 2 điều kiện/rule. Bổ trợ: Phân vùng tương đương (EP), Kiểm thử phi chức năng theo ngưỡng.",
+      "warnings": []
+    },
+    {
+      "module": "FlashSale",
+      "rule_ids": [
+        "C004-BR1",
+        "C004-BR2",
+        "C013-RULE-M12-01"
+      ],
+      "scenario_ids": [
+        "C004-SC-UC8-01",
+        "C004-SC-UC8-02",
+        "C004-SC-UC8-03",
+        "C004-SC-UC8-04",
+        "C013-SC-M12-01"
+      ],
+      "techniques": [
+        {
+          "technique": "STATE_TRANSITION",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "1 scenario kiểu STATE → hành vi phụ thuộc trạng thái hiện tại, phải phủ chuyển đổi hợp lệ và chuyển đổi bị chặn (5.Kiemthuhopden: State Transition).",
+          "obligations": [
+            "Liệt kê trạng thái hữu hạn, sự kiện kích hoạt và chuyển đổi hợp lệ (T1..Tn).",
+            "Mỗi chuyển đổi hợp lệ có test case; mỗi chuyển đổi không hợp lệ quan trọng có test case riêng.",
+            "Kiểm tra precondition/postcondition của từng trạng thái, không chỉ thông báo lỗi."
+          ],
+          "estimated_cases": 4
+        },
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: phân vùng tương đương cho từng trường dữ liệu để không bỏ sót lớp hợp lệ/không hợp lệ khi kỹ thuật chính chỉ tập trung vào biên hoặc tổ hợp.",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 6
+        },
+        {
+          "technique": "USE_CASE",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: có luồng tương tác nhiều bước, cần thêm case end-to-end cho luồng chính và luồng ngoại lệ.",
+          "obligations": [
+            "Luồng chính (basic flow) có 1 test case end-to-end (F1).",
+            "Mỗi luồng ngoại lệ/thay thế (F2..Fn) có test case riêng với dữ liệu gây ra nhánh đó.",
+            "Kiểm tra precondition trước luồng và postcondition sau luồng."
+          ],
+          "estimated_cases": 4
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "3 rule / 5 scenario. Kỹ thuật chính: Chuyển đổi trạng thái. tối đa 3 điều kiện/rule. Bổ trợ: Phân vùng tương đương (EP), Kiểm thử theo use case.",
+      "warnings": []
+    },
+    {
+      "module": "GioHang",
+      "rule_ids": [
+        "C005-RULE-M04-003"
+      ],
+      "scenario_ids": [],
+      "techniques": [
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_NORMAL",
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "Không có tín hiệu đặc thù hơn — chưa có biên số, tổ hợp điều kiện hay vòng đời trạng thái rõ ràng; chia lớp hợp lệ/không hợp lệ là mức tối thiểu (5.Kiemthuhopden: EP).",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần."
+          ],
+          "estimated_cases": 2
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "1 rule / 0 scenario. Kỹ thuật chính: Phân vùng tương đương (EP) (WEAK_NORMAL).",
+      "warnings": []
+    },
+    {
+      "module": "Wishlist",
+      "rule_ids": [
+        "C006-RULE-M05-01",
+        "C006-RULE-M05-02",
+        "C006-RULE-M05-03",
+        "C006-RULE-M05-04",
+        "C014-RULE-M13-02"
+      ],
+      "scenario_ids": [
+        "C006-SCN-M05-01",
+        "C006-SCN-M05-02",
+        "C006-SCN-M05-03",
+        "C014-SCN-UC24-01",
+        "C014-SCN-UC24-02"
+      ],
+      "techniques": [
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "Không có tín hiệu đặc thù hơn — có tín hiệu kiểm tra/báo lỗi đầu vào nên cần cả lớp không hợp lệ (5.Kiemthuhopden: EP).",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 10
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "5 rule / 5 scenario. Kỹ thuật chính: Phân vùng tương đương (EP) (WEAK_ROBUST).",
+      "warnings": []
+    },
+    {
+      "module": "DatHang",
+      "rule_ids": [
+        "C007-RULE-M06-003",
+        "C018-BR-M17-03"
+      ],
+      "scenario_ids": [
+        "C007-SCN-M06-002"
+      ],
+      "techniques": [
+        {
+          "technique": "STATE_TRANSITION",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "3 tín hiệu trạng thái ở 1/2 rule → hành vi phụ thuộc trạng thái hiện tại, phải phủ chuyển đổi hợp lệ và chuyển đổi bị chặn (5.Kiemthuhopden: State Transition).",
+          "obligations": [
+            "Liệt kê trạng thái hữu hạn, sự kiện kích hoạt và chuyển đổi hợp lệ (T1..Tn).",
+            "Mỗi chuyển đổi hợp lệ có test case; mỗi chuyển đổi không hợp lệ quan trọng có test case riêng.",
+            "Kiểm tra precondition/postcondition của từng trạng thái, không chỉ thông báo lỗi."
+          ],
+          "estimated_cases": 5
+        },
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: phân vùng tương đương cho từng trường dữ liệu để không bỏ sót lớp hợp lệ/không hợp lệ khi kỹ thuật chính chỉ tập trung vào biên hoặc tổ hợp.",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 4
+        },
+        {
+          "technique": "USE_CASE",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: có luồng tương tác nhiều bước, cần thêm case end-to-end cho luồng chính và luồng ngoại lệ.",
+          "obligations": [
+            "Luồng chính (basic flow) có 1 test case end-to-end (F1).",
+            "Mỗi luồng ngoại lệ/thay thế (F2..Fn) có test case riêng với dữ liệu gây ra nhánh đó.",
+            "Kiểm tra precondition trước luồng và postcondition sau luồng."
+          ],
+          "estimated_cases": 4
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "2 rule / 1 scenario. Kỹ thuật chính: Chuyển đổi trạng thái. Bổ trợ: Phân vùng tương đương (EP), Kiểm thử theo use case.",
+      "warnings": []
+    },
+    {
+      "module": "ThanhToan",
+      "rule_ids": [
+        "C008-BR1",
+        "C008-BR2"
+      ],
+      "scenario_ids": [
+        "C008-SC-UC14-01",
+        "C008-SC-UC14-02",
+        "C008-SC-UC14-03",
+        "C008-SC-UC14-04",
+        "C008-SC-UC14-05"
+      ],
+      "techniques": [
+        {
+          "technique": "USE_CASE",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "Module mô tả 5 bước/luồng tương tác với 5 scenario → kiểm thử theo use case, phủ luồng chính và luồng ngoại lệ (5.Kiemthuhopden: Use case testing).",
+          "obligations": [
+            "Luồng chính (basic flow) có 1 test case end-to-end (F1).",
+            "Mỗi luồng ngoại lệ/thay thế (F2..Fn) có test case riêng với dữ liệu gây ra nhánh đó.",
+            "Kiểm tra precondition trước luồng và postcondition sau luồng."
+          ],
+          "estimated_cases": 6
+        },
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: phân vùng tương đương cho từng trường dữ liệu để không bỏ sót lớp hợp lệ/không hợp lệ khi kỹ thuật chính chỉ tập trung vào biên hoặc tổ hợp.",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 4
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "2 rule / 5 scenario. Kỹ thuật chính: Kiểm thử theo use case. Bổ trợ: Phân vùng tương đương (EP).",
+      "warnings": []
+    },
+    {
+      "module": "VanChuyen",
+      "rule_ids": [
+        "C009-RULE-M08-01",
+        "C009-RULE-M08-02",
+        "C009-RULE-M08-04",
+        "C009-RULE-M08-05"
+      ],
+      "scenario_ids": [
+        "C009-SC-M08-01",
+        "C009-SC-M08-03",
+        "C009-SC-M08-04"
+      ],
+      "techniques": [
+        {
+          "technique": "USE_CASE",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "Module mô tả 2 bước/luồng tương tác với 3 scenario → kiểm thử theo use case, phủ luồng chính và luồng ngoại lệ (5.Kiemthuhopden: Use case testing).",
+          "obligations": [
+            "Luồng chính (basic flow) có 1 test case end-to-end (F1).",
+            "Mỗi luồng ngoại lệ/thay thế (F2..Fn) có test case riêng với dữ liệu gây ra nhánh đó.",
+            "Kiểm tra precondition trước luồng và postcondition sau luồng."
+          ],
+          "estimated_cases": 3
+        },
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: phân vùng tương đương cho từng trường dữ liệu để không bỏ sót lớp hợp lệ/không hợp lệ khi kỹ thuật chính chỉ tập trung vào biên hoặc tổ hợp.",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 8
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "4 rule / 3 scenario. Kỹ thuật chính: Kiểm thử theo use case. Bổ trợ: Phân vùng tương đương (EP).",
+      "warnings": []
+    },
+    {
+      "module": "ThongBao",
+      "rule_ids": [
+        "C009-RULE-M08-03",
+        "C013-RULE-M12-02",
+        "C013-RULE-M12-03",
+        "C013-RULE-M12-04",
+        "C013-RULE-M12-05"
+      ],
+      "scenario_ids": [
+        "C009-SC-M08-02",
+        "C013-SC-M12-02",
+        "C013-SC-M12-03",
+        "C013-SC-M12-04"
+      ],
+      "techniques": [
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "Không có tín hiệu đặc thù hơn — có tín hiệu kiểm tra/báo lỗi đầu vào nên cần cả lớp không hợp lệ (5.Kiemthuhopden: EP).",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 10
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "5 rule / 4 scenario. Kỹ thuật chính: Phân vùng tương đương (EP) (WEAK_ROBUST).",
+      "warnings": []
+    },
+    {
+      "module": "GiamGia",
+      "rule_ids": [
+        "C010-RULE-M09-001",
+        "C010-RULE-M09-002",
+        "C010-RULE-M09-003"
+      ],
+      "scenario_ids": [
+        "C010-SCENARIO-UC15-001",
+        "C010-SCENARIO-UC15-002",
+        "C010-SCENARIO-UC16-001"
+      ],
+      "techniques": [
+        {
+          "technique": "USE_CASE",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "Module mô tả 2 bước/luồng tương tác với 3 scenario → kiểm thử theo use case, phủ luồng chính và luồng ngoại lệ (5.Kiemthuhopden: Use case testing).",
+          "obligations": [
+            "Luồng chính (basic flow) có 1 test case end-to-end (F1).",
+            "Mỗi luồng ngoại lệ/thay thế (F2..Fn) có test case riêng với dữ liệu gây ra nhánh đó.",
+            "Kiểm tra precondition trước luồng và postcondition sau luồng."
+          ],
+          "estimated_cases": 3
+        },
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: phân vùng tương đương cho từng trường dữ liệu để không bỏ sót lớp hợp lệ/không hợp lệ khi kỹ thuật chính chỉ tập trung vào biên hoặc tổ hợp.",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 6
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "3 rule / 3 scenario. Kỹ thuật chính: Kiểm thử theo use case. Bổ trợ: Phân vùng tương đương (EP).",
+      "warnings": []
+    },
+    {
+      "module": "DanhGiaDoiTra",
+      "rule_ids": [
+        "C011-RULE-M10-01",
+        "C011-RULE-M10-02",
+        "C011-RULE-M10-04",
+        "C020-RULE-M19-02"
+      ],
+      "scenario_ids": [
+        "C011-SCN-UC17-01",
+        "C011-SCN-UC17-02"
+      ],
+      "techniques": [
+        {
+          "technique": "BOUNDARY_VALUE_ANALYSIS",
+          "variant": "TWO_VALUE",
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "Tìm thấy 1 ràng buộc số/độ dài có biên xác định → lỗi tập trung ở sát biên, dùng BVA biến thể TWO_VALUE (5.Kiemthuhopden: BVA).",
+          "obligations": [
+            "Ràng buộc [−∞, 10]: kiểm tra các giá trị 10, 11.",
+            "Với mỗi biến, các biến còn lại giữ giá trị danh nghĩa (nom)."
+          ],
+          "estimated_cases": 5
+        },
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: phân vùng tương đương cho từng trường dữ liệu để không bỏ sót lớp hợp lệ/không hợp lệ khi kỹ thuật chính chỉ tập trung vào biên hoặc tổ hợp.",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 8
+        }
+      ],
+      "numeric_ranges": [
+        {
+          "label": "xếp hạng sản phẩm bán chạy và đánh giá cao chỉ hiển thị tối đa 10 mục. Giới hạn số",
+          "min": null,
+          "max": 10,
+          "unit": "",
+          "rule_ids": [
+            "C020-RULE-M19-02"
+          ],
+          "boundary_points": [
+            10,
+            11
+          ]
+        }
+      ],
+      "story": "4 rule / 2 scenario. Kỹ thuật chính: Phân tích giá trị biên (BVA) (TWO_VALUE). 1 ràng buộc biên. Bổ trợ: Phân vùng tương đương (EP).",
+      "warnings": []
+    },
+    {
+      "module": "HoSoKhachHang",
+      "rule_ids": [
+        "C012-BR-M11-04"
+      ],
+      "scenario_ids": [
+        "C012-SC-UC21-01"
+      ],
+      "techniques": [
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "Không có tín hiệu đặc thù hơn — có tín hiệu kiểm tra/báo lỗi đầu vào nên cần cả lớp không hợp lệ (5.Kiemthuhopden: EP).",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 2
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "1 rule / 1 scenario. Kỹ thuật chính: Phân vùng tương đương (EP) (WEAK_ROBUST).",
+      "warnings": []
+    },
+    {
+      "module": "GoiYSanPham",
+      "rule_ids": [
+        "C014-RULE-M13-01",
+        "C015-BR-M14-03"
+      ],
+      "scenario_ids": [
+        "C014-SCN-UC24-03"
+      ],
+      "techniques": [
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "Không có tín hiệu đặc thù hơn — có tín hiệu kiểm tra/báo lỗi đầu vào nên cần cả lớp không hợp lệ (5.Kiemthuhopden: EP).",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 4
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "2 rule / 1 scenario. Kỹ thuật chính: Phân vùng tương đương (EP) (WEAK_ROBUST).",
+      "warnings": []
+    },
+    {
+      "module": "QuanLyTruyen",
+      "rule_ids": [
+        "C015-BR-M14-02"
+      ],
+      "scenario_ids": [
+        "C015-SC-UC27-01"
+      ],
+      "techniques": [
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "Không có tín hiệu đặc thù hơn — có tín hiệu kiểm tra/báo lỗi đầu vào nên cần cả lớp không hợp lệ (5.Kiemthuhopden: EP).",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 2
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "1 rule / 1 scenario. Kỹ thuật chính: Phân vùng tương đương (EP) (WEAK_ROBUST).",
+      "warnings": []
+    },
+    {
+      "module": "QuanLyDonHang",
+      "rule_ids": [
+        "C018-BR-M17-02"
+      ],
+      "scenario_ids": [
+        "C018-SC-UC34-01"
+      ],
+      "techniques": [
+        {
+          "technique": "STATE_TRANSITION",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "6 tín hiệu trạng thái ở 1/1 rule → hành vi phụ thuộc trạng thái hiện tại, phải phủ chuyển đổi hợp lệ và chuyển đổi bị chặn (5.Kiemthuhopden: State Transition).",
+          "obligations": [
+            "Liệt kê trạng thái hữu hạn, sự kiện kích hoạt và chuyển đổi hợp lệ (T1..Tn).",
+            "Mỗi chuyển đổi hợp lệ có test case; mỗi chuyển đổi không hợp lệ quan trọng có test case riêng.",
+            "Kiểm tra precondition/postcondition của từng trạng thái, không chỉ thông báo lỗi."
+          ],
+          "estimated_cases": 7
+        },
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: phân vùng tương đương cho từng trường dữ liệu để không bỏ sót lớp hợp lệ/không hợp lệ khi kỹ thuật chính chỉ tập trung vào biên hoặc tổ hợp.",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 2
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "1 rule / 1 scenario. Kỹ thuật chính: Chuyển đổi trạng thái. Bổ trợ: Phân vùng tương đương (EP).",
+      "warnings": []
+    },
+    {
+      "module": "BaoCaoThongKe",
+      "rule_ids": [
+        "C020-RULE-M19-01",
+        "C021-BR-M20-01",
+        "C021-BR-M20-02"
+      ],
+      "scenario_ids": [
+        "C020-SCN-M19-01",
+        "C021-SC-UC40-01",
+        "C021-SC-UC40-02"
+      ],
+      "techniques": [
+        {
+          "technique": "DECISION_TABLE",
+          "variant": null,
+          "family": "BLACK_BOX",
+          "role": "PRIMARY",
+          "rationale": "2 điều kiện, 3 kết quả và 2 cụm và/hoặc trong cùng module → kết quả phụ thuộc tổ hợp điều kiện; bảng quyết định giúp loại tổ hợp dư thừa (5.Kiemthuhopden: Decision Table).",
+          "obligations": [
+            "Liệt kê đủ cause (điều kiện) và effect (kết quả) trước khi sinh case.",
+            "Mỗi rule (cột) khả thi có ít nhất 1 test case; rule không khả thi phải ghi rõ lý do loại.",
+            "Ưu tiên rút gọn bảng: các tổ hợp cho cùng kết quả có thể dùng chung test case."
+          ],
+          "estimated_cases": 4
+        },
+        {
+          "technique": "EQUIVALENCE_PARTITIONING",
+          "variant": "WEAK_ROBUST",
+          "family": "BLACK_BOX",
+          "role": "SUPPORTING",
+          "rationale": "Bổ trợ: phân vùng tương đương cho từng trường dữ liệu để không bỏ sót lớp hợp lệ/không hợp lệ khi kỹ thuật chính chỉ tập trung vào biên hoặc tổ hợp.",
+          "obligations": [
+            "Mỗi lớp hợp lệ (V) xuất hiện ít nhất 1 lần.",
+            "Mỗi lớp không hợp lệ (X) nằm trong một test case riêng, các biến khác giữ giá trị hợp lệ.",
+            "Không trộn 2 giá trị không hợp lệ trong cùng một test case (single-fault assumption)."
+          ],
+          "estimated_cases": 6
+        }
+      ],
+      "numeric_ranges": [],
+      "story": "3 rule / 3 scenario. Kỹ thuật chính: Bảng quyết định. tối đa 2 điều kiện/rule. Bổ trợ: Phân vùng tương đương (EP).",
+      "warnings": []
+    }
+  ],
+  "white_box": []
+}
