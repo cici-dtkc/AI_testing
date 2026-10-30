@@ -1,0 +1,1021 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><title>Scope Comparison v3</title><style>body{font:15px Arial,sans-serif;margin:28px;color:#17243a}table{border-collapse:collapse;width:100%;margin:16px 0}td,th{border:1px solid #ccc;padding:8px;text-align:left;vertical-align:top;overflow-wrap:anywhere}th{background:#edf3f9}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f6f9;padding:12px}h2{margin-top:32px}</style></head><body><h1>Requirement Analyzer v3 đối chiếu Test Plan</h1><p>REVIEW_REQUIRED · Method: conservative</p><p>Baseline lọc: bảng 2.1. Nội dung rule/scenario giữ nguyên từ SRS. Số TC ước tính không phải quota. MAPPED không chứng minh coverage đầy đủ hoặc test đã PASS.</p><h2>Trước và sau</h2><pre>{
+  &quot;before&quot;: {
+    &quot;rules&quot;: 72,
+    &quot;scenarios&quot;: 66,
+    &quot;issues&quot;: 31
+  },
+  &quot;after&quot;: {
+    &quot;rules&quot;: 15,
+    &quot;scenarios&quot;: 13,
+    &quot;issues&quot;: 4
+  },
+  &quot;decisions&quot;: {
+    &quot;REVIEW_REQUIRED&quot;: 14,
+    &quot;IN_SCOPE&quot;: 27,
+    &quot;OUT_OF_SCOPE&quot;: 97
+  },
+  &quot;estimated_test_cases&quot;: 82
+}</pre><h2>Xung đột Test Plan cần xác nhận</h2><pre>{
+  &quot;code&quot;: &quot;BROAD_SCOPE_VS_TABLE&quot;,
+  &quot;description&quot;: &quot;Mục 2.1 đã thu hẹp nhưng các đoạn khác còn nhắc M01–M20. Lọc theo 2.1; phạm vi rộng hơn cần reviewer xác nhận.&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0050&quot;,
+      &quot;quote&quot;: &quot;Độ phủ yêu cầu chức năng (Requirement Coverage) đạt 100% đối với các FR trong phạm vi (từ M01 đến M20).&quot;
+    },
+    {
+      &quot;block_id&quot;: &quot;TP-B0064&quot;,
+      &quot;quote&quot;: &quot;Mục | Nội dung\nMục tiêu kiểm thử (Test Objective)  | Đảm bảo các chức năng M01–M20 hoạt động đúng theo SRS (điều hướng, nhập liệu, xử lý nghiệp vụ, truy xuất dữ liệu). \nKỹ thuật (Technique)  | Thiết kế test case theo Use Case với dữ liệu hợp lệ/không hợp lệ, kiểm tra business rule (giới hạn Flash Sale, điều kiện Voucher, trừ kho tự động). Dùng Postman kiểm thử API module M07 (kết quả thanh toán VNPay thành công/thất bại) và M12 (thông báo FCM). \nTiêu chí hoàn thành (Completion Criteria) | 100% các Test Case chức năng đã lập được thực thi.\n100% các lỗi nghiêm trọng (Blocker/Critical/Major) phát hiện được đã được khắc phục và đóng (Closed).\nLưu ý đặc biệt (Special Considerations)  | Phụ thuộc tính ổn định của Sandbox VNPay và project thử nghiệm FCM (mục 1.6, 1.7). Cần chuẩn bị bộ dữ liệu test đủ trường hợp biên (voucher hết hạn/hết lượt, giỏ hàng đạt/chưa đạt ngưỡng tối thiểu).&quot;
+    },
+    {
+      &quot;block_id&quot;: &quot;TP-B0068&quot;,
+      &quot;quote&quot;: &quot;Mục | Nội dung\nMục tiêu kiểm thử (Test Objective)  | Giao diện Customer và Admin hiển thị đúng, nhất quán, responsive trên các trình duyệt/thiết bị phổ biến (NFR-05); thông báo lỗi/thành công rõ ràng (ví dụ trùng email, hết hàng, voucher không hợp lệ); quy trình mua sắm tối giản thao tác (NFR-USA-01); Dashboard/báo cáo ở Admin dễ đọc (NFR-USA-03). \nKỹ thuật (Technique)  | Kiểm tra bố cục, luồng điều hướng theo từng màn hình chính (danh mục, chi tiết, giỏ hàng, checkout, hồ sơ, Admin). Kiểm tra responsive trên 4 trình duyệt (Chrome, Firefox, Edge, Safari) ở 3 nhóm kích thước (desktop, tablet, mobile). Kiểm tra trạng thái đặc biệt: không có dữ liệu tìm kiếm, biểu đồ/Top 10 trống hoặc chưa đủ dữ liệu. Các luồng UI ổn định (đăng nhập, mua hàng) được tự động hóa bằng Playwright để phục vụ hồi quy (mục 3.1.6). \nTiêu chí hoàn thành (Completion Criteria) | Toàn bộ màn hình/luồng trong M01–M20 được thực thi tối thiểu 1 lần; không còn lỗi UI mức Critical/High; giao diện hoạt động đúng trên toàn bộ trình duyệt/thiết bị đã định. \nLưu ý đặc biệt (Special Considerations)  | M21 (Hồ sơ Admin) ngoài phạm vi. Cần chuẩn bị dữ liệu cho các trạng thái biên (danh mục trống, dưới 10 sản phẩm, nhiều trang). Cần môi trường Safari (macOS/iOS) để kiểm thử.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;code&quot;: &quot;DEFECT_TOOL_MISMATCH&quot;,
+  &quot;description&quot;: &quot;Có tham chiếu Excel và Jira/DMS cho quản lý lỗi; cần xác nhận công cụ chính thức.&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;STT | Loại | Mã yêu cầu | Tên hạng mục / Module | Outline mô tả | Số TC (ước tính) | Ghi chú\n1 | FR | FR-M02 | M02 – Sản phẩm / Truyện tranh (Product) (Customer) | Tìm kiếm, lọc truyện tranh. | 10 | \n2 | FR | FR-M03 | M03 – Flash Sale / Khuyến mãi giờ vàng (Customer) | Xem danh sách Flash Sale. | 6 | \n3 | FR | FR-M04 | M04 – Giỏ hàng (Cart) (Customer) | Thêm/xóa/sửa số lượng sản phẩm, tính tổng tiền tạm tính. | 10 | \n4 | FR | FR-M09 | M09 – Mã giảm giá (Voucher/Coupon) (Customer) | Chọn voucher, kiểm tra điều kiện áp dụng. | 14 | \n5 | FR | FR-M13 | M13 – Gợi ý sản phẩm (Recommendation) (Customer) | Gợi ý sản phẩm liên quan, truyện tranh theo yêu thích ở trang chủ. | 11 | \n6 | FR | FR-M19 | M19 – [Admin] Dashboard tổng quan (Admin) | Thống kê nhanh doanh thu, đơn hàng, sản phẩm bán chạy. | 8 | \n7 | NFR | NFR-03 | Mã hóa mật khẩu và dữ liệu nhạy cảm | Mật khẩu hash Bcrypt. | 5 | Bảo mật (Security)\n8 | NFR | NFR-04 | Phòng chống lỗ hổng bảo mật Web | Chống OWASP Top 10 (SQL Injection). | 8 | Bảo mật (Security)\n9 | NFR | NFR-05 | Tương thích đa thiết bị và trình duyệt | Giao diện Responsive chuẩn trên Chrome, Edge. | 6 | Khả dụng / Trải nghiệm người dùng (Usability)\n10 | PR | PR-01 | Lịch trình bàn giao kế hoạch kiểm thử | Hoàn thành và phê duyệt Test Plan đúng tiến độ mốc dự án. | 2 | Ràng buộc dự án (Constraints)\n11 | PR | PR-02 | Quy trình quản lý Defect | 100% Bug phải được ghi nhận trên Excel và gắn nhãn theo mức độ. | 2 | Ràng buộc dự án (Constraints)&quot;
+    },
+    {
+      &quot;block_id&quot;: &quot;TP-B0088&quot;,
+      &quot;quote&quot;: &quot;STT | Nhóm tiêu chí | Tiêu chí cụ thể\n1 | Độ phủ yêu cầu  | 100% FR trong phạm vi (M01–M20) có ít nhất 1 test case; các NFR/PR trong mục 2.1 đều được gán test case. \n2 | Thực thi  | 100% test case ưu tiên cao/luồng cốt lõi được thực thi; tối thiểu 95% tổng số test case được duyệt. \n3 | Tỷ lệ Pass  | System Test ≥ 95%; UAT ≥ 98%. \n4 | Lỗi (Defect)  | 0 lỗi Blocker/Fatal; 0 lỗi Critical; ≤ 3 lỗi Major còn mở (có giải pháp tạm và được các bên đồng ý); lỗi Minor/Cosmetic còn lại được ghi nhận kèm kế hoạch khắc phục. \n5 | Quy trình lỗi  | 100% lỗi được ghi nhận trên Jira/DMS và gắn mức độ nghiêm trọng (PR-02); không có lỗi ở trạng thái \&quot;Fixed\&quot; chưa được retest. \n6 | Nghiệp vụ end-to-end  | Cả 3 chu kỳ nghiệp vụ (Mua hàng – Giao hàng – Thanh toán; Flash Sale &amp; Kho; Đổi trả &amp; Hoàn tiền) chạy thông suốt, dữ liệu đồng bộ giữa Customer và Admin. \n7 | Tích hợp bên thứ ba  | Luồng VNPay (kết quả thành công/thất bại) và FCM (thông báo) đạt trên Sandbox hoặc mock; xử lý timeout/retry đúng (NFR-08). \n8 | Toàn vẹn dữ liệu  | Không sai lệch tồn kho/Flash Sale/voucher khi đặt hàng đồng thời. \n9 | Hiệu năng  | Đạt NFR-01, NFR-02 trên môi trường đã thống nhất.  \n10 | Bảo mật | Đạt các tiêu chí của mục 3.1.5. \n11 | Hồi quy | Đạt các tiêu chí của mục 3.1.6. \n12 | Sản phẩm bàn giao  | Toàn bộ sản phẩm ở mục 5 đã được bàn giao và được người review/phê duyệt xác nhận; Test Report được ký duyệt.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;code&quot;: &quot;BROWSER_SCOPE_MISMATCH&quot;,
+  &quot;description&quot;: &quot;Bảng nêu Chrome/Edge nhưng môi trường còn Firefox/Safari. Không tự mở rộng phạm vi NFR-05.&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0031&quot;,
+      &quot;quote&quot;: &quot;Giả định (Assumptions): Kiểm thử được thực hiện trên các trình duyệt phổ biến ở phiên bản mới nhất (Chrome, Edge) và các thiết bị di động chuẩn.&quot;
+    },
+    {
+      &quot;block_id&quot;: &quot;TP-B0068&quot;,
+      &quot;quote&quot;: &quot;Mục | Nội dung\nMục tiêu kiểm thử (Test Objective)  | Giao diện Customer và Admin hiển thị đúng, nhất quán, responsive trên các trình duyệt/thiết bị phổ biến (NFR-05); thông báo lỗi/thành công rõ ràng (ví dụ trùng email, hết hàng, voucher không hợp lệ); quy trình mua sắm tối giản thao tác (NFR-USA-01); Dashboard/báo cáo ở Admin dễ đọc (NFR-USA-03). \nKỹ thuật (Technique)  | Kiểm tra bố cục, luồng điều hướng theo từng màn hình chính (danh mục, chi tiết, giỏ hàng, checkout, hồ sơ, Admin). Kiểm tra responsive trên 4 trình duyệt (Chrome, Firefox, Edge, Safari) ở 3 nhóm kích thước (desktop, tablet, mobile). Kiểm tra trạng thái đặc biệt: không có dữ liệu tìm kiếm, biểu đồ/Top 10 trống hoặc chưa đủ dữ liệu. Các luồng UI ổn định (đăng nhập, mua hàng) được tự động hóa bằng Playwright để phục vụ hồi quy (mục 3.1.6). \nTiêu chí hoàn thành (Completion Criteria) | Toàn bộ màn hình/luồng trong M01–M20 được thực thi tối thiểu 1 lần; không còn lỗi UI mức Critical/High; giao diện hoạt động đúng trên toàn bộ trình duyệt/thiết bị đã định. \nLưu ý đặc biệt (Special Considerations)  | M21 (Hồ sơ Admin) ngoài phạm vi. Cần chuẩn bị dữ liệu cho các trạng thái biên (danh mục trống, dưới 10 sản phẩm, nhiều trang). Cần môi trường Safari (macOS/iOS) để kiểm thử.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;code&quot;: &quot;APPROVAL_NOT_EVIDENCED&quot;,
+  &quot;description&quot;: &quot;Trang phê duyệt còn placeholder; không suy ra Test Plan đã được ký duyệt.&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0008&quot;,
+      &quot;quote&quot;: &quot;Vai trò | Họ tên | Ngày\nNgười soạn thảo (Originator) | &lt;Tên&gt; | &lt;Ngày&gt;\nNgười review (Reviewer) | &lt;Tên&gt; | &lt;Ngày&gt;\nNgười phê duyệt (Approval) | &lt;Tên&gt; | &lt;Ngày&gt;&quot;
+    }
+  ]
+}</pre><h2>Ma trận đối chiếu</h2><table><tr><th>Mã</th><th>Outline</th><th>TC ước tính</th><th>Rule trực tiếp + phụ thuộc</th><th>Scenario</th><th>Chờ review</th><th>Trạng thái</th></tr><tr><td>FR-M02</td><td>Tìm kiếm, lọc truyện tranh.</td><td>10</td><td>3 + 0</td><td>2</td><td>2</td><td>MAPPED_NEEDS_REVIEW</td></tr><tr><td>FR-M03</td><td>Xem danh sách Flash Sale.</td><td>6</td><td>0 + 1</td><td>2</td><td>4</td><td>MAPPED_NEEDS_REVIEW</td></tr><tr><td>FR-M04</td><td>Thêm/xóa/sửa số lượng sản phẩm, tính tổng tiền tạm tính.</td><td>10</td><td>3 + 0</td><td>2</td><td>0</td><td>MAPPED_NEEDS_REVIEW</td></tr><tr><td>FR-M09</td><td>Chọn voucher, kiểm tra điều kiện áp dụng.</td><td>14</td><td>3 + 0</td><td>3</td><td>0</td><td>MAPPED_NEEDS_REVIEW</td></tr><tr><td>FR-M13</td><td>Gợi ý sản phẩm liên quan, truyện tranh theo yêu thích ở trang chủ.</td><td>11</td><td>2 + 0</td><td>3</td><td>0</td><td>MAPPED_NEEDS_REVIEW</td></tr><tr><td>FR-M19</td><td>Thống kê nhanh doanh thu, đơn hàng, sản phẩm bán chạy.</td><td>8</td><td>2 + 0</td><td>1</td><td>2</td><td>MAPPED_NEEDS_REVIEW</td></tr><tr><td>NFR-03</td><td>Mật khẩu hash Bcrypt.</td><td>5</td><td>1 + 0</td><td>0</td><td>6</td><td>GAP_NEEDS_DESIGN</td></tr><tr><td>NFR-04</td><td>Chống OWASP Top 10 (SQL Injection).</td><td>8</td><td>0 + 0</td><td>0</td><td>6</td><td>GAP_NEEDS_DESIGN</td></tr><tr><td>NFR-05</td><td>Giao diện Responsive chuẩn trên Chrome, Edge.</td><td>6</td><td>0 + 0</td><td>0</td><td>6</td><td>GAP_NEEDS_DESIGN</td></tr><tr><td>PR-01</td><td>Hoàn thành và phê duyệt Test Plan đúng tiến độ mốc dự án.</td><td>2</td><td>0 + 0</td><td>0</td><td>0</td><td>PROCESS_CHECKLIST</td></tr><tr><td>PR-02</td><td>100% Bug phải được ghi nhận trên Excel và gắn nhãn theo mức độ.</td><td>2</td><td>0 + 0</td><td>0</td><td>0</td><td>PROCESS_CHECKLIST</td></tr></table><h2>Toàn bộ quyết định giữ loại review</h2><table><tr><th>Loại</th><th>ID</th><th>Quyết định</th><th>Hạng mục plan</th><th>Lý do</th></tr><tr><td>rule</td><td>C001-RULE-PERF-01</td><td>REVIEW_REQUIRED</td><td>TP-NFR-03, TP-NFR-04, TP-NFR-05</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>rule</td><td>C001-RULE-SEC-01</td><td>IN_SCOPE</td><td>TP-NFR-03</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C001-RULE-INV-01</td><td>REVIEW_REQUIRED</td><td>TP-NFR-03, TP-NFR-04, TP-NFR-05</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>rule</td><td>C002-BR-UC1-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C002-BR-UC1-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C002-BR-UC2-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C003-RULE-M02-001</td><td>IN_SCOPE</td><td>TP-FR-M02</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C003-RULE-M02-002</td><td>IN_SCOPE</td><td>TP-FR-M02</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C003-RULE-M02-003</td><td>IN_SCOPE</td><td>TP-FR-M02</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C003-RULE-M02-004</td><td>REVIEW_REQUIRED</td><td>TP-FR-M02</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>rule</td><td>C004-BR1</td><td>REVIEW_REQUIRED</td><td>TP-FR-M03</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>rule</td><td>C004-BR2</td><td>REVIEW_REQUIRED</td><td>TP-FR-M03</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>rule</td><td>C005-RULE-M04-001</td><td>IN_SCOPE</td><td>TP-FR-M04</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C005-RULE-M04-002</td><td>IN_SCOPE</td><td>TP-FR-M04</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C005-RULE-M04-003</td><td>IN_SCOPE</td><td>TP-FR-M04</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C006-RULE-M05-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C006-RULE-M05-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C006-RULE-M05-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C006-RULE-M05-04</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C007-RULE-M06-001</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C007-RULE-M06-002</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C007-RULE-M06-003</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C007-RULE-M06-004</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C007-RULE-M06-005</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C008-BR1</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C008-BR2</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C009-RULE-M08-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C009-RULE-M08-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C009-RULE-M08-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C009-RULE-M08-04</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C009-RULE-M08-05</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C010-RULE-M09-001</td><td>IN_SCOPE</td><td>TP-FR-M09</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C010-RULE-M09-002</td><td>IN_SCOPE</td><td>TP-FR-M09</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C010-RULE-M09-003</td><td>IN_SCOPE</td><td>TP-FR-M09</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C011-RULE-M10-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C011-RULE-M10-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C011-RULE-M10-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C011-RULE-M10-04</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C012-BR-M11-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C012-BR-M11-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C012-BR-M11-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C012-BR-M11-04</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C013-RULE-M12-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C013-RULE-M12-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C013-RULE-M12-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C013-RULE-M12-04</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C013-RULE-M12-05</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C014-RULE-M13-01</td><td>IN_SCOPE</td><td>TP-FR-M13</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C014-RULE-M13-02</td><td>IN_SCOPE</td><td>TP-FR-M13</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C015-BR-M14-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C015-BR-M14-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C015-BR-M14-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C016-RULE-M15-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C016-RULE-M15-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C016-RULE-M15-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C017-BR1</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C017-BR2</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C017-FR-M16-VAL</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C018-BR-M17-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C018-BR-M17-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C018-BR-M17-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C018-BR-M17-04</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C019-RULE-M18-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C019-RULE-M18-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C019-RULE-M18-03</td><td>REVIEW_REQUIRED</td><td>TP-NFR-03, TP-NFR-04, TP-NFR-05</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>rule</td><td>C019-RULE-M18-04</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C020-RULE-M19-01</td><td>IN_SCOPE</td><td>TP-FR-M19</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C020-RULE-M19-02</td><td>IN_SCOPE</td><td>TP-FR-M19</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>rule</td><td>C020-RULE-M19-03</td><td>REVIEW_REQUIRED</td><td>TP-FR-M19</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>rule</td><td>C021-BR-M20-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C021-BR-M20-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>rule</td><td>C021-BR-M20-03</td><td>REVIEW_REQUIRED</td><td>TP-NFR-03, TP-NFR-04, TP-NFR-05</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>scenario</td><td>C001-SCENARIO-PERF-01</td><td>REVIEW_REQUIRED</td><td>TP-NFR-03, TP-NFR-04, TP-NFR-05</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>scenario</td><td>C001-SCENARIO-INV-01</td><td>REVIEW_REQUIRED</td><td>TP-NFR-03, TP-NFR-04, TP-NFR-05</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>scenario</td><td>C002-SC-UC1-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C002-SC-UC2-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C003-SCN-M02-001</td><td>IN_SCOPE</td><td>TP-FR-M02</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>scenario</td><td>C003-SCN-M02-002</td><td>IN_SCOPE</td><td>TP-FR-M02</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>scenario</td><td>C003-SCN-M02-003</td><td>REVIEW_REQUIRED</td><td>TP-FR-M02</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>scenario</td><td>C004-SC-UC8-01</td><td>IN_SCOPE</td><td>TP-FR-M03</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>scenario</td><td>C004-SC-UC8-02</td><td>REVIEW_REQUIRED</td><td>TP-FR-M03</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>scenario</td><td>C004-SC-UC8-03</td><td>REVIEW_REQUIRED</td><td>TP-FR-M03</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>scenario</td><td>C004-SC-UC8-04</td><td>IN_SCOPE</td><td>TP-FR-M03</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>scenario</td><td>C005-SC-UC9-001</td><td>IN_SCOPE</td><td>TP-FR-M04</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>scenario</td><td>C005-SC-UC9-002</td><td>IN_SCOPE</td><td>TP-FR-M04</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>scenario</td><td>C006-SCN-M05-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C006-SCN-M05-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C006-SCN-M05-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C007-SCN-M06-001</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C007-SCN-M06-002</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C007-SCN-M06-003</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C008-SC-UC14-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C008-SC-UC14-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C008-SC-UC14-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C008-SC-UC14-04</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C008-SC-UC14-05</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C009-SC-M08-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C009-SC-M08-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C009-SC-M08-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C009-SC-M08-04</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C010-SCENARIO-UC15-001</td><td>IN_SCOPE</td><td>TP-FR-M09</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>scenario</td><td>C010-SCENARIO-UC15-002</td><td>IN_SCOPE</td><td>TP-FR-M09</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>scenario</td><td>C010-SCENARIO-UC16-001</td><td>IN_SCOPE</td><td>TP-FR-M09</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>scenario</td><td>C011-SCN-UC17-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C011-SCN-UC17-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C011-SCN-UC18-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C011-SCN-UC18-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C012-SC-UC19-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C012-SC-UC19-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C012-SC-UC21-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C013-SC-M12-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C013-SC-M12-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C013-SC-M12-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C013-SC-M12-04</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C014-SCN-UC24-01</td><td>IN_SCOPE</td><td>TP-FR-M13</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>scenario</td><td>C014-SCN-UC24-02</td><td>IN_SCOPE</td><td>TP-FR-M13</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>scenario</td><td>C014-SCN-UC24-03</td><td>IN_SCOPE</td><td>TP-FR-M13</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>scenario</td><td>C015-SC-UC25-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C015-SC-UC25-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C015-SC-UC27-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C016-SC-UC30-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C016-SC-UC30-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C016-SC-UC30-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C017-SC-UC32-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C017-SC-UC32-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C017-SC-UC32-03</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C017-SC-UC32-04</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C018-SC-UC33-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C018-SC-UC34-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C018-SC-UC35-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C019-SC-UC36-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C019-SC-UC36-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C019-SC-UC38-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C020-SCN-M19-01</td><td>IN_SCOPE</td><td>TP-FR-M19</td><td>Mục tiêu khớp nội dung outline 2.1 và module/khía cạnh tương ứng; cần review nghiệp vụ.</td></tr><tr><td>scenario</td><td>C020-SCN-M19-02</td><td>REVIEW_REQUIRED</td><td>TP-FR-M19</td><td>Cùng module/khía cạnh nhưng chưa đủ căn cứ khớp outline; không tự loại nhánh kiểm thử hoặc giữ cả module.</td></tr><tr><td>scenario</td><td>C021-SC-UC40-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C021-SC-UC40-02</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr><tr><td>scenario</td><td>C021-SC-UC41-01</td><td>OUT_OF_SCOPE</td><td></td><td>Module nguồn không thuộc danh mục FR ở baseline 2.1; có thể cần giữ làm context/phụ thuộc khi review.</td></tr></table><h2>Rule giữ làm phụ thuộc</h2><pre>&quot;C004-BR1&quot;</pre><h2>Rules trong bộ rút gọn</h2><pre>{
+  &quot;rule_id&quot;: &quot;C001-RULE-SEC-01&quot;,
+  &quot;statement&quot;: &quot;Mật khẩu người dùng phải được lưu trữ dưới dạng đã mã hóa (hash).&quot;,
+  &quot;category&quot;: &quot;NON_FUNCTIONAL&quot;,
+  &quot;actors&quot;: [
+    &quot;System&quot;
+  ],
+  &quot;preconditions&quot;: [
+    &quot;Người dùng thực hiện đăng ký hoặc cập nhật mật khẩu&quot;
+  ],
+  &quot;conditions&quot;: [
+    &quot;Dữ liệu mật khẩu được lưu vào cơ sở dữ liệu&quot;
+  ],
+  &quot;action&quot;: &quot;Hệ thống thực hiện lưu trữ&quot;,
+  &quot;outcome&quot;: &quot;Mật khẩu được lưu dưới dạng hash, không lưu plaintext&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0174&quot;,
+      &quot;quote&quot;: &quot;NFR-SEC-01: Mật khẩu người dùng phải được lưu trữ dưới dạng đã mã hóa (hash), không lưu plaintext.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C003-RULE-M02-001&quot;,
+  &quot;statement&quot;: &quot;Hệ thống tìm kiếm truyện theo tên, tác giả, thể loại hoặc nhà xuất bản, loại trừ các truyện đã bị Admin ẩn.&quot;,
+  &quot;category&quot;: &quot;FUNCTIONAL&quot;,
+  &quot;actors&quot;: [
+    &quot;Khách vãng lai&quot;,
+    &quot;Khách hàng&quot;
+  ],
+  &quot;preconditions&quot;: [
+    &quot;Người dùng truy cập được website&quot;
+  ],
+  &quot;conditions&quot;: [
+    &quot;Người dùng nhập từ khóa vào thanh tìm kiếm&quot;,
+    &quot;Người dùng xác nhận tìm kiếm&quot;
+  ],
+  &quot;action&quot;: &quot;Hệ thống tìm kiếm trong tên truyện, tác giả, thể loại và nhà xuất bản&quot;,
+  &quot;outcome&quot;: &quot;Hiển thị danh sách truyện khớp từ khóa kèm số lượng kết quả, thêm từ khóa vào lịch sử tìm kiếm&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0042&quot;,
+      &quot;quote&quot;: &quot;Cho phép người dùng tìm truyện theo tên truyện, tác giả, thể loại hoặc nhà xuất bản; hệ thống gợi ý từ khóa và lưu lịch sử tìm kiếm&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C003-RULE-M02-002&quot;,
+  &quot;statement&quot;: &quot;Mỗi trang kết quả tìm kiếm hoặc danh sách lọc hiển thị tối đa 12 truyện.&quot;,
+  &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+  &quot;actors&quot;: [
+    &quot;Khách vãng lai&quot;,
+    &quot;Khách hàng&quot;
+  ],
+  &quot;preconditions&quot;: [],
+  &quot;conditions&quot;: [
+    &quot;Số lượng kết quả vượt quá một trang&quot;
+  ],
+  &quot;action&quot;: &quot;Phân trang kết quả&quot;,
+  &quot;outcome&quot;: &quot;Hiển thị tối đa 12 truyện mỗi trang&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0042&quot;,
+      &quot;quote&quot;: &quot;BR1. Mỗi trang hiển thị tối đa 12 truyện.&quot;
+    },
+    {
+      &quot;block_id&quot;: &quot;B0044&quot;,
+      &quot;quote&quot;: &quot;BR2. Mỗi trang hiển thị tối đa 12 truyện và có phân trang khi vượt quá.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C003-RULE-M02-003&quot;,
+  &quot;statement&quot;: &quot;Truyện bị ẩn không được hiển thị ở phía người dùng.&quot;,
+  &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+  &quot;actors&quot;: [
+    &quot;Khách vãng lai&quot;,
+    &quot;Khách hàng&quot;
+  ],
+  &quot;preconditions&quot;: [],
+  &quot;conditions&quot;: [
+    &quot;Truyện có trạng thái bị ẩn&quot;
+  ],
+  &quot;action&quot;: &quot;Hệ thống lọc dữ liệu&quot;,
+  &quot;outcome&quot;: &quot;Truyện không xuất hiện trong kết quả tìm kiếm hoặc danh sách lọc&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0042&quot;,
+      &quot;quote&quot;: &quot;BR2. Truyện bị ẩn không được hiển thị ở phía người dùng.&quot;
+    },
+    {
+      &quot;block_id&quot;: &quot;B0044&quot;,
+      &quot;quote&quot;: &quot;BR1. Truyện bị ẩn không được hiển thị.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C004-BR1&quot;,
+  &quot;statement&quot;: &quot;Chỉ được mua với giá Flash Sale trong đúng khung giờ của chương trình.&quot;,
+  &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+  &quot;actors&quot;: [
+    &quot;Khách vãng lai&quot;,
+    &quot;Khách hàng&quot;
+  ],
+  &quot;preconditions&quot;: [
+    &quot;Chương trình Flash Sale đang diễn ra&quot;
+  ],
+  &quot;conditions&quot;: [
+    &quot;Thời gian hiện tại nằm trong khung giờ của chương trình&quot;
+  ],
+  &quot;action&quot;: &quot;Áp dụng giá Flash Sale&quot;,
+  &quot;outcome&quot;: &quot;Người dùng mua sản phẩm với giá Flash Sale&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0050&quot;,
+      &quot;quote&quot;: &quot;BR1. Chỉ được mua với giá Flash Sale trong đúng khung giờ của chương trình.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C005-RULE-M04-001&quot;,
+  &quot;statement&quot;: &quot;Số lượng sản phẩm thêm vào giỏ hàng tối thiểu là 1 và không được vượt quá số lượng tồn kho.&quot;,
+  &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+  &quot;actors&quot;: [
+    &quot;Khách vãng lai&quot;,
+    &quot;Khách hàng&quot;
+  ],
+  &quot;preconditions&quot;: [
+    &quot;Truyện đang hiển thị và còn hàng&quot;
+  ],
+  &quot;conditions&quot;: [
+    &quot;Số lượng yêu cầu &gt; 0&quot;,
+    &quot;Số lượng yêu cầu &lt;= tồn kho&quot;
+  ],
+  &quot;action&quot;: &quot;Thêm sản phẩm vào giỏ hàng&quot;,
+  &quot;outcome&quot;: &quot;Sản phẩm được thêm vào giỏ với đúng số lượng và cập nhật biểu tượng giỏ hàng&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0054&quot;,
+      &quot;quote&quot;: &quot;BR1. Số lượng thêm vào giỏ tối thiểu là 1 và không vượt tồn kho.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C005-RULE-M04-002&quot;,
+  &quot;statement&quot;: &quot;Hệ thống chặn thao tác thêm vào giỏ hàng nếu số lượng yêu cầu lớn hơn tồn kho.&quot;,
+  &quot;category&quot;: &quot;FUNCTIONAL&quot;,
+  &quot;actors&quot;: [
+    &quot;Khách vãng lai&quot;,
+    &quot;Khách hàng&quot;
+  ],
+  &quot;preconditions&quot;: [
+    &quot;Truyện đang hiển thị và còn hàng&quot;
+  ],
+  &quot;conditions&quot;: [
+    &quot;stockQuantity &lt; quantity&quot;
+  ],
+  &quot;action&quot;: &quot;Người dùng nhấn &#x27;Thêm vào giỏ hàng&#x27;&quot;,
+  &quot;outcome&quot;: &quot;Hệ thống chặn thao tác và hiển thị thông báo vượt quá số lượng tồn kho&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0054&quot;,
+      &quot;quote&quot;: &quot;9.3.1  EF1 - Vượt quá tồn kho:\nTại bước 2, số lượng yêu cầu lớn hơn tồn kho (stockQuantity &lt; quantity).\nHệ thống chặn thao tác và hiển thị thông báo vượt quá số lượng tồn kho.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C005-RULE-M04-003&quot;,
+  &quot;statement&quot;: &quot;Thành tiền của sản phẩm trong giỏ hàng được tính bằng số lượng nhân đơn giá.&quot;,
+  &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+  &quot;actors&quot;: [
+    &quot;Khách hàng&quot;
+  ],
+  &quot;preconditions&quot;: [
+    &quot;Giỏ hàng có ít nhất một sản phẩm&quot;
+  ],
+  &quot;conditions&quot;: [
+    &quot;Người dùng thay đổi số lượng sản phẩm&quot;
+  ],
+  &quot;action&quot;: &quot;Hệ thống cập nhật thành tiền&quot;,
+  &quot;outcome&quot;: &quot;Thành tiền bằng số lượng nhân đơn giá&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0056&quot;,
+      &quot;quote&quot;: &quot;BR1. Thành tiền bằng số lượng nhân đơn giá.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C010-RULE-M09-001&quot;,
+  &quot;statement&quot;: &quot;Hệ thống kiểm tra điều kiện voucher bao gồm hạn dùng, đơn tối thiểu, số lượt còn lại và loại dùng một lần khi khách hàng áp dụng voucher.&quot;,
+  &quot;category&quot;: &quot;FUNCTIONAL&quot;,
+  &quot;actors&quot;: [
+    &quot;Khách hàng&quot;
+  ],
+  &quot;preconditions&quot;: [
+    &quot;Khách hàng đã đăng nhập&quot;,
+    &quot;Đơn hàng đang ở trang Checkout&quot;
+  ],
+  &quot;conditions&quot;: [
+    &quot;Khách hàng chọn hoặc nhập mã voucher&quot;
+  ],
+  &quot;action&quot;: &quot;Hệ thống kiểm tra hạn dùng (endDate), đơn tối thiểu (min_order_amount), số lượt còn lại và loại dùng một lần&quot;,
+  &quot;outcome&quot;: &quot;Áp dụng giảm giá và cập nhật tổng tiền nếu hợp lệ, hoặc hiển thị thông báo lỗi nếu không hợp lệ&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0087&quot;,
+      &quot;quote&quot;: &quot;15.1.3. Hệ thống kiểm tra hạn dùng (endDate), đơn tối thiểu (min_order_amount), số lượt còn lại và loại dùng một lần.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C010-RULE-M09-002&quot;,
+  &quot;statement&quot;: &quot;Voucher hết hạn hoặc hết lượt sử dụng phải được ẩn khỏi ví voucher của khách hàng.&quot;,
+  &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+  &quot;actors&quot;: [
+    &quot;Khách hàng&quot;
+  ],
+  &quot;preconditions&quot;: [],
+  &quot;conditions&quot;: [
+    &quot;Voucher hết hạn hoặc hết lượt&quot;
+  ],
+  &quot;action&quot;: &quot;Ẩn voucher&quot;,
+  &quot;outcome&quot;: &quot;Voucher không hiển thị trong ví voucher&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0087&quot;,
+      &quot;quote&quot;: &quot;BR1. Voucher hết hạn hoặc hết lượt được ẩn khỏi ví voucher.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C010-RULE-M09-003&quot;,
+  &quot;statement&quot;: &quot;Admin có quyền thêm, sửa, xóa, tìm kiếm và sắp xếp voucher.&quot;,
+  &quot;category&quot;: &quot;FUNCTIONAL&quot;,
+  &quot;actors&quot;: [
+    &quot;Admin&quot;
+  ],
+  &quot;preconditions&quot;: [
+    &quot;Admin đã đăng nhập và có quyền quản lý voucher&quot;
+  ],
+  &quot;conditions&quot;: [
+    &quot;Admin mở trang quản lý voucher&quot;
+  ],
+  &quot;action&quot;: &quot;Thực hiện các thao tác quản lý voucher&quot;,
+  &quot;outcome&quot;: &quot;Dữ liệu voucher được cập nhật và hiển thị đúng trong danh sách&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0089&quot;,
+      &quot;quote&quot;: &quot;Description | Cho phép Admin thêm, sửa, xóa, tìm kiếm và sắp xếp voucher (Truy vết: FR-M09-06).&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C014-RULE-M13-01&quot;,
+  &quot;statement&quot;: &quot;Hệ thống không được gợi ý các sản phẩm đã hết hàng hoặc đã bị ẩn.&quot;,
+  &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+  &quot;actors&quot;: [
+    &quot;Khách vãng lai&quot;,
+    &quot;Khách hàng&quot;
+  ],
+  &quot;preconditions&quot;: [
+    &quot;Hệ thống có dữ liệu truyện&quot;
+  ],
+  &quot;conditions&quot;: [
+    &quot;Sản phẩm thuộc danh sách gợi ý bị hết hàng hoặc bị ẩn&quot;
+  ],
+  &quot;action&quot;: &quot;Hệ thống loại bỏ các sản phẩm đó khỏi danh sách gợi ý&quot;,
+  &quot;outcome&quot;: &quot;Mục gợi ý hiển thị sản phẩm hợp lệ hoặc hiển thị trống/ẩn mục gợi ý&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0113&quot;,
+      &quot;quote&quot;: &quot;BR1. Không gợi ý sản phẩm hết hàng hoặc đã bị ẩn.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C014-RULE-M13-02&quot;,
+  &quot;statement&quot;: &quot;Hệ thống gợi ý sản phẩm dựa trên wishlist của người dùng hoặc truyện bán chạy nếu không có wishlist.&quot;,
+  &quot;category&quot;: &quot;FUNCTIONAL&quot;,
+  &quot;actors&quot;: [
+    &quot;Khách hàng&quot;
+  ],
+  &quot;preconditions&quot;: [
+    &quot;Hệ thống có dữ liệu truyện&quot;
+  ],
+  &quot;conditions&quot;: [
+    &quot;Người dùng đã đăng nhập và có wishlist&quot;
+  ],
+  &quot;action&quot;: &quot;Hệ thống gợi ý tập tiếp theo hoặc truyện cùng thể loại với truyện trong wishlist&quot;,
+  &quot;outcome&quot;: &quot;Hiển thị mục &#x27;Gợi ý cho bạn&#x27; tại trang chủ&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0113&quot;,
+      &quot;quote&quot;: &quot;24.1.2. Hệ thống xác định người dùng đã đăng nhập và có wishlist.\n24.1.3. Hệ thống gợi ý tập tiếp theo hoặc truyện cùng thể loại với truyện trong wishlist.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C020-RULE-M19-01&quot;,
+  &quot;statement&quot;: &quot;Hệ thống hiển thị số liệu tổng quan, biểu đồ doanh thu và bảng xếp hạng theo khoảng thời gian được chọn.&quot;,
+  &quot;category&quot;: &quot;FUNCTIONAL&quot;,
+  &quot;actors&quot;: [
+    &quot;Admin&quot;
+  ],
+  &quot;preconditions&quot;: [
+    &quot;Admin đã đăng nhập và có quyền phù hợp.&quot;
+  ],
+  &quot;conditions&quot;: [
+    &quot;Admin mở trang Tổng quan&quot;,
+    &quot;Admin chọn khoảng thời gian (Hôm nay, Tuần này, Tháng này, Năm này hoặc Tùy chỉnh)&quot;
+  ],
+  &quot;action&quot;: &quot;Hệ thống cập nhật số liệu và biểu đồ doanh thu theo ngày.&quot;,
+  &quot;outcome&quot;: &quot;Dashboard hiển thị đúng số liệu của khoảng thời gian đã chọn.&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0156&quot;,
+      &quot;quote&quot;: &quot;39.1.3. Admin chọn khoảng thời gian (Hôm nay, Tuần này, Tháng này, Năm này).\n39.1.4. Hệ thống cập nhật số liệu và biểu đồ doanh thu theo ngày.&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;rule_id&quot;: &quot;C020-RULE-M19-02&quot;,
+  &quot;statement&quot;: &quot;Bảng xếp hạng sản phẩm bán chạy và đánh giá cao chỉ hiển thị tối đa 10 mục.&quot;,
+  &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+  &quot;actors&quot;: [
+    &quot;Admin&quot;
+  ],
+  &quot;preconditions&quot;: [],
+  &quot;conditions&quot;: [
+    &quot;Hệ thống hiển thị Top 10 bán chạy và Top 10 đánh giá cao&quot;
+  ],
+  &quot;action&quot;: &quot;Giới hạn số lượng hiển thị&quot;,
+  &quot;outcome&quot;: &quot;Bảng xếp hạng chỉ hiển thị tối đa 10 mục.&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0156&quot;,
+      &quot;quote&quot;: &quot;Business Rules | BR1. Bảng xếp hạng chỉ hiển thị tối đa 10 mục.&quot;
+    }
+  ]
+}</pre><h2>Scenarios trong bộ rút gọn</h2><pre>{
+  &quot;scenario_id&quot;: &quot;C003-SCN-M02-001&quot;,
+  &quot;title&quot;: &quot;Tìm kiếm truyện thành công&quot;,
+  &quot;type&quot;: &quot;POSITIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;C003-RULE-M02-001&quot;
+  ],
+  &quot;given&quot;: &quot;Người dùng truy cập website&quot;,
+  &quot;when&quot;: &quot;Người dùng nhập từ khóa hợp lệ và nhấn tìm kiếm&quot;,
+  &quot;then&quot;: &quot;Danh sách truyện khớp từ khóa được hiển thị kèm số lượng kết quả&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;C003-SCN-M02-002&quot;,
+  &quot;title&quot;: &quot;Tìm kiếm không có kết quả&quot;,
+  &quot;type&quot;: &quot;NEGATIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;C003-RULE-M02-001&quot;
+  ],
+  &quot;given&quot;: &quot;Người dùng truy cập website&quot;,
+  &quot;when&quot;: &quot;Người dùng nhập từ khóa không có truyện nào khớp&quot;,
+  &quot;then&quot;: &quot;Hệ thống hiển thị danh sách trống kèm thông báo không có kết quả&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;C004-SC-UC8-01&quot;,
+  &quot;title&quot;: &quot;Xem danh sách Flash Sale thành công&quot;,
+  &quot;type&quot;: &quot;POSITIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;C004-BR1&quot;
+  ],
+  &quot;given&quot;: &quot;Có ít nhất một chương trình Flash Sale được cấu hình&quot;,
+  &quot;when&quot;: &quot;Người dùng nhấn &#x27;Xem thêm&#x27; ở mục Flash Sale trên trang chủ hoặc biểu tượng Flash Sale&quot;,
+  &quot;then&quot;: &quot;Trang Flash Sale hiển thị đúng khung giờ, trạng thái, sản phẩm, giá và số lượng còn lại&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;C004-SC-UC8-04&quot;,
+  &quot;title&quot;: &quot;Xử lý khi chương trình Flash Sale kết thúc&quot;,
+  &quot;type&quot;: &quot;STATE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;C004-BR1&quot;
+  ],
+  &quot;given&quot;: &quot;Chương trình Flash Sale đang diễn ra&quot;,
+  &quot;when&quot;: &quot;Thời gian đếm ngược về 0&quot;,
+  &quot;then&quot;: &quot;Hệ thống ẩn hoặc vô hiệu hóa mức giá Flash Sale và áp dụng lại giá gốc&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;C005-SC-UC9-001&quot;,
+  &quot;title&quot;: &quot;Thêm sản phẩm thành công vào giỏ hàng&quot;,
+  &quot;type&quot;: &quot;POSITIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;C005-RULE-M04-001&quot;
+  ],
+  &quot;given&quot;: &quot;Người dùng đang ở trang chi tiết truyện còn hàng&quot;,
+  &quot;when&quot;: &quot;Người dùng chọn số lượng hợp lệ và nhấn &#x27;Thêm vào giỏ hàng&#x27;&quot;,
+  &quot;then&quot;: &quot;Sản phẩm được thêm vào giỏ, thông báo hiển thị và số lượng trên biểu tượng giỏ hàng được cập nhật&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;C005-SC-UC9-002&quot;,
+  &quot;title&quot;: &quot;Thêm sản phẩm vượt quá tồn kho&quot;,
+  &quot;type&quot;: &quot;NEGATIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;C005-RULE-M04-002&quot;
+  ],
+  &quot;given&quot;: &quot;Người dùng đang ở trang chi tiết truyện&quot;,
+  &quot;when&quot;: &quot;Người dùng nhập số lượng yêu cầu lớn hơn tồn kho và nhấn &#x27;Thêm vào giỏ hàng&#x27;&quot;,
+  &quot;then&quot;: &quot;Hệ thống chặn thao tác và hiển thị thông báo lỗi&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;C010-SCENARIO-UC15-001&quot;,
+  &quot;title&quot;: &quot;Áp dụng voucher thành công&quot;,
+  &quot;type&quot;: &quot;POSITIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;C010-RULE-M09-001&quot;
+  ],
+  &quot;given&quot;: &quot;Khách hàng đã đăng nhập và đang ở trang Checkout&quot;,
+  &quot;when&quot;: &quot;Khách hàng chọn một voucher hợp lệ&quot;,
+  &quot;then&quot;: &quot;Hệ thống áp dụng giảm giá và cập nhật tổng tiền đơn hàng&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;C010-SCENARIO-UC15-002&quot;,
+  &quot;title&quot;: &quot;Áp dụng voucher không tồn tại&quot;,
+  &quot;type&quot;: &quot;NEGATIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;C010-RULE-M09-001&quot;
+  ],
+  &quot;given&quot;: &quot;Khách hàng đang ở trang Checkout&quot;,
+  &quot;when&quot;: &quot;Khách hàng nhập mã voucher không tồn tại&quot;,
+  &quot;then&quot;: &quot;Hệ thống hiển thị thông báo lỗi&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;C010-SCENARIO-UC16-001&quot;,
+  &quot;title&quot;: &quot;Admin thêm voucher mới&quot;,
+  &quot;type&quot;: &quot;POSITIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;C010-RULE-M09-003&quot;
+  ],
+  &quot;given&quot;: &quot;Admin đã đăng nhập và ở trang quản lý voucher&quot;,
+  &quot;when&quot;: &quot;Admin nhập thông tin voucher hợp lệ và nhấn Lưu&quot;,
+  &quot;then&quot;: &quot;Hệ thống lưu voucher và cập nhật danh sách&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;C014-SCN-UC24-01&quot;,
+  &quot;title&quot;: &quot;Xem gợi ý sản phẩm thành công cho người dùng có wishlist&quot;,
+  &quot;type&quot;: &quot;POSITIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;C014-RULE-M13-02&quot;
+  ],
+  &quot;given&quot;: &quot;Người dùng đã đăng nhập và có wishlist&quot;,
+  &quot;when&quot;: &quot;Người dùng mở trang chủ&quot;,
+  &quot;then&quot;: &quot;Hệ thống hiển thị mục &#x27;Gợi ý cho bạn&#x27; với các truyện cùng thể loại hoặc tập tiếp theo&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;C014-SCN-UC24-02&quot;,
+  &quot;title&quot;: &quot;Xem gợi ý sản phẩm cho khách vãng lai hoặc người dùng không có wishlist&quot;,
+  &quot;type&quot;: &quot;POSITIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;C014-RULE-M13-02&quot;
+  ],
+  &quot;given&quot;: &quot;Người dùng chưa đăng nhập hoặc chưa có wishlist&quot;,
+  &quot;when&quot;: &quot;Người dùng mở trang chủ&quot;,
+  &quot;then&quot;: &quot;Hệ thống hiển thị mục &#x27;Gợi ý cho bạn&#x27; với các truyện có lượt bán cao nhất&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;C014-SCN-UC24-03&quot;,
+  &quot;title&quot;: &quot;Xử lý khi không còn sản phẩm phù hợp để gợi ý&quot;,
+  &quot;type&quot;: &quot;NEGATIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;C014-RULE-M13-01&quot;
+  ],
+  &quot;given&quot;: &quot;Các truyện gợi ý đều hết hàng hoặc bị ẩn&quot;,
+  &quot;when&quot;: &quot;Hệ thống thực hiện gợi ý sản phẩm&quot;,
+  &quot;then&quot;: &quot;Hệ thống loại bỏ các truyện đó và hiển thị mục trống hoặc ẩn mục gợi ý&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><pre>{
+  &quot;scenario_id&quot;: &quot;C020-SCN-M19-01&quot;,
+  &quot;title&quot;: &quot;Xem dashboard với khoảng thời gian mặc định&quot;,
+  &quot;type&quot;: &quot;POSITIVE&quot;,
+  &quot;rule_ids&quot;: [
+    &quot;C020-RULE-M19-01&quot;
+  ],
+  &quot;given&quot;: &quot;Admin đã đăng nhập và mở trang Tổng quan&quot;,
+  &quot;when&quot;: &quot;Admin chọn khoảng thời gian &#x27;Hôm nay&#x27;&quot;,
+  &quot;then&quot;: &quot;Hệ thống hiển thị số liệu và biểu đồ doanh thu tương ứng với ngày hôm nay&quot;,
+  &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+}</pre><h2>Issues liên quan</h2><pre>{
+  &quot;issue_id&quot;: &quot;C005-ISSUE-M04-001&quot;,
+  &quot;type&quot;: &quot;AMBIGUITY&quot;,
+  &quot;description&quot;: &quot;Quy tắc hợp nhất giỏ hàng của khách vãng lai khi đăng nhập chưa được xác định cụ thể.&quot;,
+  &quot;question&quot;: &quot;Quy tắc hợp nhất giỏ hàng (merge) cụ thể là gì (ví dụ: cộng dồn số lượng, ghi đè, hay ưu tiên giỏ hàng đã đăng nhập)?&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0054&quot;,
+      &quot;quote&quot;: &quot;BR2. Quy tắc hợp nhất giỏ hàng của khách vãng lai cần được nhóm phát triển xác nhận.&quot;
+    }
+  ],
+  &quot;blocks_scenarios&quot;: []
+}</pre><pre>{
+  &quot;issue_id&quot;: &quot;C014-ISSUE-M13-01&quot;,
+  &quot;type&quot;: &quot;AMBIGUITY&quot;,
+  &quot;description&quot;: &quot;Quy tắc gợi ý chi tiết chưa được xác định rõ ràng.&quot;,
+  &quot;question&quot;: &quot;Các tiêu chí cụ thể để xác định &#x27;tập tiếp theo&#x27; hoặc &#x27;truyện cùng thể loại&#x27; là gì? Làm thế nào để xác định &#x27;lượt bán cao nhất&#x27; (theo thời gian nào, phạm vi nào)?&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0113&quot;,
+      &quot;quote&quot;: &quot;BR2. Quy tắc gợi ý chi tiết cần được nhóm phát triển xác nhận.&quot;
+    }
+  ],
+  &quot;blocks_scenarios&quot;: []
+}</pre><pre>{
+  &quot;issue_id&quot;: &quot;C020-ISSUE-M19-01&quot;,
+  &quot;type&quot;: &quot;AMBIGUITY&quot;,
+  &quot;description&quot;: &quot;Hệ thống mô tả &#x27;từ chối hoặc cảnh báo&#x27; nhưng không quy định rõ hình thức cảnh báo (popup, text đỏ, hay thông báo hệ thống).&quot;,
+  &quot;question&quot;: &quot;Hình thức cảnh báo cụ thể khi ngày kết thúc trước ngày bắt đầu là gì?&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0156&quot;,
+      &quot;quote&quot;: &quot;Hệ thống từ chối hoặc cảnh báo và giữ số liệu cũ.&quot;
+    }
+  ],
+  &quot;blocks_scenarios&quot;: []
+}</pre><pre>{
+  &quot;issue_id&quot;: &quot;X02-001&quot;,
+  &quot;type&quot;: &quot;MISSING_INFORMATION&quot;,
+  &quot;description&quot;: &quot;Quy tắc hợp nhất giỏ hàng của khách vãng lai khi đăng nhập chưa được xác định cụ thể trong tài liệu.&quot;,
+  &quot;question&quot;: &quot;Quy tắc hợp nhất giỏ hàng (hợp nhất hay giữ lại) khi khách vãng lai đăng nhập là gì?&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;B0054&quot;,
+      &quot;quote&quot;: &quot;BR2. Quy tắc hợp nhất giỏ hàng của khách vãng lai cần được nhóm phát triển xác nhận.&quot;
+    }
+  ],
+  &quot;blocks_scenarios&quot;: []
+}</pre><h2>Hàng chờ review không bị mất</h2><pre>{
+  &quot;rules&quot;: [
+    {
+      &quot;rule_id&quot;: &quot;C001-RULE-PERF-01&quot;,
+      &quot;statement&quot;: &quot;Thời gian phản hồi cho các thao tác tra cứu thông thường không vượt quá 3 giây trong điều kiện tải bình thường.&quot;,
+      &quot;category&quot;: &quot;NON_FUNCTIONAL&quot;,
+      &quot;actors&quot;: [
+        &quot;Customer&quot;
+      ],
+      &quot;preconditions&quot;: [
+        &quot;Hệ thống đang ở điều kiện tải bình thường&quot;
+      ],
+      &quot;conditions&quot;: [
+        &quot;Thực hiện thao tác tra cứu (xem danh sách, tìm kiếm, xem chi tiết truyện)&quot;
+      ],
+      &quot;action&quot;: &quot;Hệ thống xử lý yêu cầu&quot;,
+      &quot;outcome&quot;: &quot;Thời gian phản hồi &lt;= 3 giây&quot;,
+      &quot;source_refs&quot;: [
+        {
+          &quot;block_id&quot;: &quot;B0169&quot;,
+          &quot;quote&quot;: &quot;NFR-PERF-01: Thời gian phản hồi cho các thao tác tra cứu thông thường (xem danh sách, tìm kiếm, xem chi tiết truyện) không vượt quá 3 giây trong điều kiện tải bình thường.&quot;
+        }
+      ]
+    },
+    {
+      &quot;rule_id&quot;: &quot;C001-RULE-INV-01&quot;,
+      &quot;statement&quot;: &quot;Hệ thống phải chặn việc thêm vào giỏ hàng nếu số lượng yêu cầu vượt quá tồn kho.&quot;,
+      &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+      &quot;actors&quot;: [
+        &quot;Customer&quot;
+      ],
+      &quot;preconditions&quot;: [
+        &quot;Sản phẩm có tồn kho&quot;
+      ],
+      &quot;conditions&quot;: [
+        &quot;Số lượng yêu cầu &gt; số lượng tồn kho&quot;
+      ],
+      &quot;action&quot;: &quot;Người dùng thêm sản phẩm vào giỏ hàng&quot;,
+      &quot;outcome&quot;: &quot;Hệ thống chặn thao tác&quot;,
+      &quot;source_refs&quot;: [
+        {
+          &quot;block_id&quot;: &quot;B0202&quot;,
+          &quot;quote&quot;: &quot;Giả định rằng logic kiểm tra tồn kho khi thêm giỏ hàng tuân theo quy tắc stockQuantity &lt; quantity sẽ bị chặn, như ghi nhận trong tài liệu khảo sát.&quot;
+        }
+      ]
+    },
+    {
+      &quot;rule_id&quot;: &quot;C003-RULE-M02-004&quot;,
+      &quot;statement&quot;: &quot;Khi số lượng tồn kho bằng 0, nút &#x27;Thêm vào giỏ&#x27; chuyển thành &#x27;Hết hàng&#x27; và bị vô hiệu hóa.&quot;,
+      &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+      &quot;actors&quot;: [
+        &quot;Khách vãng lai&quot;,
+        &quot;Khách hàng&quot;
+      ],
+      &quot;preconditions&quot;: [
+        &quot;Truyện tồn tại&quot;
+      ],
+      &quot;conditions&quot;: [
+        &quot;Số lượng tồn kho bằng 0&quot;
+      ],
+      &quot;action&quot;: &quot;Cập nhật trạng thái nút thêm vào giỏ&quot;,
+      &quot;outcome&quot;: &quot;Nút chuyển thành &#x27;Hết hàng&#x27; và bị vô hiệu hóa&quot;,
+      &quot;source_refs&quot;: [
+        {
+          &quot;block_id&quot;: &quot;B0046&quot;,
+          &quot;quote&quot;: &quot;BR1. Khi số lượng tồn kho bằng 0, nút &#x27;Thêm vào giỏ&#x27; chuyển thành &#x27;Hết hàng&#x27; và bị vô hiệu hóa.&quot;
+        }
+      ]
+    },
+    {
+      &quot;rule_id&quot;: &quot;C004-BR1&quot;,
+      &quot;statement&quot;: &quot;Chỉ được mua với giá Flash Sale trong đúng khung giờ của chương trình.&quot;,
+      &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+      &quot;actors&quot;: [
+        &quot;Khách vãng lai&quot;,
+        &quot;Khách hàng&quot;
+      ],
+      &quot;preconditions&quot;: [
+        &quot;Chương trình Flash Sale đang diễn ra&quot;
+      ],
+      &quot;conditions&quot;: [
+        &quot;Thời gian hiện tại nằm trong khung giờ của chương trình&quot;
+      ],
+      &quot;action&quot;: &quot;Áp dụng giá Flash Sale&quot;,
+      &quot;outcome&quot;: &quot;Người dùng mua sản phẩm với giá Flash Sale&quot;,
+      &quot;source_refs&quot;: [
+        {
+          &quot;block_id&quot;: &quot;B0050&quot;,
+          &quot;quote&quot;: &quot;BR1. Chỉ được mua với giá Flash Sale trong đúng khung giờ của chương trình.&quot;
+        }
+      ]
+    },
+    {
+      &quot;rule_id&quot;: &quot;C004-BR2&quot;,
+      &quot;statement&quot;: &quot;Số lượng mua giá Flash Sale không vượt quá số lượng còn lại.&quot;,
+      &quot;category&quot;: &quot;BUSINESS_RULE&quot;,
+      &quot;actors&quot;: [
+        &quot;Khách vãng lai&quot;,
+        &quot;Khách hàng&quot;
+      ],
+      &quot;preconditions&quot;: [
+        &quot;Sản phẩm thuộc chương trình Flash Sale&quot;
+      ],
+      &quot;conditions&quot;: [
+        &quot;Số lượng yêu cầu &gt; Số lượng Flash Sale còn lại&quot;
+      ],
+      &quot;action&quot;: &quot;Hệ thống chặn thao tác thêm vào giỏ&quot;,
+      &quot;outcome&quot;: &quot;Hiển thị thông báo lỗi&quot;,
+      &quot;source_refs&quot;: [
+        {
+          &quot;block_id&quot;: &quot;B0050&quot;,
+          &quot;quote&quot;: &quot;BR2. Số lượng mua giá Flash Sale không vượt quá số lượng còn lại.&quot;
+        }
+      ]
+    },
+    {
+      &quot;rule_id&quot;: &quot;C019-RULE-M18-03&quot;,
+      &quot;statement&quot;: &quot;Kiểm tra quyền thực hiện ở phía máy chủ.&quot;,
+      &quot;category&quot;: &quot;NON_FUNCTIONAL&quot;,
+      &quot;actors&quot;: [
+        &quot;Hệ thống&quot;
+      ],
+      &quot;preconditions&quot;: [],
+      &quot;conditions&quot;: [
+        &quot;Người dùng thực hiện truy cập trang hoặc chức năng quản trị.&quot;
+      ],
+      &quot;action&quot;: &quot;Hệ thống kiểm tra quyền.&quot;,
+      &quot;outcome&quot;: &quot;Kiểm tra quyền thực hiện ở phía máy chủ.&quot;,
+      &quot;source_refs&quot;: [
+        {
+          &quot;block_id&quot;: &quot;B0148&quot;,
+          &quot;quote&quot;: &quot;BR2. Kiểm tra quyền thực hiện ở phía máy chủ.&quot;
+        }
+      ]
+    },
+    {
+      &quot;rule_id&quot;: &quot;C020-RULE-M19-03&quot;,
+      &quot;statement&quot;: &quot;Khi ngày kết thúc trước ngày bắt đầu trong tùy chỉnh thời gian, hệ thống từ chối hoặc cảnh báo và giữ số liệu cũ.&quot;,
+      &quot;category&quot;: &quot;FUNCTIONAL&quot;,
+      &quot;actors&quot;: [
+        &quot;Admin&quot;
+      ],
+      &quot;preconditions&quot;: [],
+      &quot;conditions&quot;: [
+        &quot;Admin chọn &#x27;Tùy chỉnh&#x27;&quot;,
+        &quot;Ngày kết thúc trước ngày bắt đầu&quot;
+      ],
+      &quot;action&quot;: &quot;Hệ thống từ chối hoặc cảnh báo và giữ số liệu cũ.&quot;,
+      &quot;outcome&quot;: &quot;Quay lại bước 3.&quot;,
+      &quot;source_refs&quot;: [
+        {
+          &quot;block_id&quot;: &quot;B0156&quot;,
+          &quot;quote&quot;: &quot;39.3.1  EF1 - Ngày kết thúc trước ngày bắt đầu:\nTại bước 3, ngày kết thúc trước ngày bắt đầu.\nHệ thống từ chối hoặc cảnh báo và giữ số liệu cũ.\nQuay lại bước 3.&quot;
+        }
+      ]
+    },
+    {
+      &quot;rule_id&quot;: &quot;C021-BR-M20-03&quot;,
+      &quot;statement&quot;: &quot;File xuất ra phải mở được bằng Excel.&quot;,
+      &quot;category&quot;: &quot;NON_FUNCTIONAL&quot;,
+      &quot;actors&quot;: [
+        &quot;Admin&quot;
+      ],
+      &quot;preconditions&quot;: [],
+      &quot;conditions&quot;: [],
+      &quot;action&quot;: &quot;Tạo file báo cáo&quot;,
+      &quot;outcome&quot;: &quot;File Excel hợp lệ&quot;,
+      &quot;source_refs&quot;: [
+        {
+          &quot;block_id&quot;: &quot;B0162&quot;,
+          &quot;quote&quot;: &quot;BR1. File xuất ra phải mở được bằng Excel.&quot;
+        }
+      ]
+    }
+  ],
+  &quot;scenarios&quot;: [
+    {
+      &quot;scenario_id&quot;: &quot;C001-SCENARIO-PERF-01&quot;,
+      &quot;title&quot;: &quot;Kiểm tra thời gian phản hồi tra cứu&quot;,
+      &quot;type&quot;: &quot;POSITIVE&quot;,
+      &quot;rule_ids&quot;: [
+        &quot;C001-RULE-PERF-01&quot;
+      ],
+      &quot;given&quot;: &quot;Người dùng đang ở trang chủ&quot;,
+      &quot;when&quot;: &quot;Người dùng thực hiện tìm kiếm truyện&quot;,
+      &quot;then&quot;: &quot;Kết quả hiển thị trong vòng 3 giây&quot;,
+      &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+    },
+    {
+      &quot;scenario_id&quot;: &quot;C001-SCENARIO-INV-01&quot;,
+      &quot;title&quot;: &quot;Thêm sản phẩm vượt quá tồn kho vào giỏ hàng&quot;,
+      &quot;type&quot;: &quot;NEGATIVE&quot;,
+      &quot;rule_ids&quot;: [
+        &quot;C001-RULE-INV-01&quot;
+      ],
+      &quot;given&quot;: &quot;Sản phẩm có tồn kho là 5&quot;,
+      &quot;when&quot;: &quot;Người dùng thêm 6 sản phẩm vào giỏ hàng&quot;,
+      &quot;then&quot;: &quot;Hệ thống hiển thị thông báo lỗi và không thêm vào giỏ hàng&quot;,
+      &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+    },
+    {
+      &quot;scenario_id&quot;: &quot;C003-SCN-M02-003&quot;,
+      &quot;title&quot;: &quot;Xem chi tiết truyện hết hàng&quot;,
+      &quot;type&quot;: &quot;STATE&quot;,
+      &quot;rule_ids&quot;: [
+        &quot;C003-RULE-M02-004&quot;
+      ],
+      &quot;given&quot;: &quot;Truyện có số lượng tồn kho bằng 0&quot;,
+      &quot;when&quot;: &quot;Người dùng truy cập trang chi tiết truyện&quot;,
+      &quot;then&quot;: &quot;Nút &#x27;Thêm vào giỏ&#x27; hiển thị là &#x27;Hết hàng&#x27; và bị vô hiệu hóa&quot;,
+      &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+    },
+    {
+      &quot;scenario_id&quot;: &quot;C004-SC-UC8-02&quot;,
+      &quot;title&quot;: &quot;Thêm sản phẩm Flash Sale vào giỏ hàng thành công&quot;,
+      &quot;type&quot;: &quot;POSITIVE&quot;,
+      &quot;rule_ids&quot;: [
+        &quot;C004-BR1&quot;
+      ],
+      &quot;given&quot;: &quot;Người dùng đang ở trang Flash Sale và chương trình đang diễn ra&quot;,
+      &quot;when&quot;: &quot;Người dùng nhấn &#x27;Thêm vào giỏ&#x27; trên một sản phẩm&quot;,
+      &quot;then&quot;: &quot;Hệ thống kiểm tra số lượng Flash Sale còn lại và thêm sản phẩm vào giỏ với giá Flash Sale&quot;,
+      &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+    },
+    {
+      &quot;scenario_id&quot;: &quot;C004-SC-UC8-03&quot;,
+      &quot;title&quot;: &quot;Chặn thêm vào giỏ khi vượt quá số lượng còn lại&quot;,
+      &quot;type&quot;: &quot;NEGATIVE&quot;,
+      &quot;rule_ids&quot;: [
+        &quot;C004-BR2&quot;
+      ],
+      &quot;given&quot;: &quot;Sản phẩm Flash Sale còn lại số lượng nhất định&quot;,
+      &quot;when&quot;: &quot;Người dùng yêu cầu số lượng lớn hơn số lượng còn lại&quot;,
+      &quot;then&quot;: &quot;Hệ thống chặn thao tác thêm vào giỏ và hiển thị thông báo&quot;,
+      &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+    },
+    {
+      &quot;scenario_id&quot;: &quot;C020-SCN-M19-02&quot;,
+      &quot;title&quot;: &quot;Tùy chỉnh thời gian không hợp lệ&quot;,
+      &quot;type&quot;: &quot;NEGATIVE&quot;,
+      &quot;rule_ids&quot;: [
+        &quot;C020-RULE-M19-03&quot;
+      ],
+      &quot;given&quot;: &quot;Admin đang ở bước chọn khoảng thời gian&quot;,
+      &quot;when&quot;: &quot;Admin chọn &#x27;Tùy chỉnh&#x27; và nhập ngày kết thúc trước ngày bắt đầu&quot;,
+      &quot;then&quot;: &quot;Hệ thống hiển thị cảnh báo và giữ nguyên số liệu cũ&quot;,
+      &quot;expected_status&quot;: &quot;SUPPORTED&quot;
+    }
+  ]
+}</pre><h2>PR checklist không tự đánh giá đạt</h2><pre>{
+  &quot;plan_item_id&quot;: &quot;TP-PR-01&quot;,
+  &quot;description&quot;: &quot;Hoàn thành và phê duyệt Test Plan đúng tiến độ mốc dự án.&quot;,
+  &quot;status&quot;: &quot;NOT_ASSESSED&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;10 | PR | PR-01 | Lịch trình bàn giao kế hoạch kiểm thử | Hoàn thành và phê duyệt Test Plan đúng tiến độ mốc dự án. | 2 | Ràng buộc dự án (Constraints)&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;plan_item_id&quot;: &quot;TP-PR-02&quot;,
+  &quot;description&quot;: &quot;100% Bug phải được ghi nhận trên Excel và gắn nhãn theo mức độ.&quot;,
+  &quot;status&quot;: &quot;NOT_ASSESSED&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;11 | PR | PR-02 | Quy trình quản lý Defect | 100% Bug phải được ghi nhận trên Excel và gắn nhãn theo mức độ. | 2 | Ràng buộc dự án (Constraints)&quot;
+    }
+  ]
+}</pre><h2>Validation warnings</h2><pre>&quot;Rule chưa có scenario: C001-RULE-SEC-01&quot;</pre><pre>&quot;Rule chưa có scenario: C003-RULE-M02-002&quot;</pre><pre>&quot;Rule chưa có scenario: C003-RULE-M02-003&quot;</pre><pre>&quot;Rule chưa có scenario: C005-RULE-M04-003&quot;</pre><pre>&quot;Rule chưa có scenario: C010-RULE-M09-002&quot;</pre><pre>&quot;Rule chưa có scenario: C020-RULE-M19-02&quot;</pre><pre>&quot;Có rule giữ làm phụ thuộc của scenario, không phải tự mở rộng phạm vi: C004-BR1&quot;</pre><pre>&quot;BROAD_SCOPE_VS_TABLE: Mục 2.1 đã thu hẹp nhưng các đoạn khác còn nhắc M01–M20. Lọc theo 2.1; phạm vi rộng hơn cần reviewer xác nhận.&quot;</pre><pre>&quot;DEFECT_TOOL_MISMATCH: Có tham chiếu Excel và Jira/DMS cho quản lý lỗi; cần xác nhận công cụ chính thức.&quot;</pre><pre>&quot;BROWSER_SCOPE_MISMATCH: Bảng nêu Chrome/Edge nhưng môi trường còn Firefox/Safari. Không tự mở rộng phạm vi NFR-05.&quot;</pre><pre>&quot;APPROVAL_NOT_EVIDENCED: Trang phê duyệt còn placeholder; không suy ra Test Plan đã được ký duyệt.&quot;</pre><pre>&quot;Đối chiếu bảo thủ bằng module/khái niệm; chưa gọi Gemini cho scope. REVIEW_REQUIRED không bị xóa khỏi audit.&quot;</pre><pre>&quot;Test Plan chỉ xác định phạm vi/tiêu chí: chi tiết mới như Bcrypt không được tự chép vào expected SRS. Phải xác nhận nếu SRS chỉ ghi hash chung.&quot;</pre><h2>Plan nguồn và bằng chứng</h2><pre>{
+  &quot;item_id&quot;: &quot;TP-FR-M02&quot;,
+  &quot;kind&quot;: &quot;FR&quot;,
+  &quot;requirement_id&quot;: &quot;FR-M02&quot;,
+  &quot;title&quot;: &quot;M02 – Sản phẩm / Truyện tranh (Product) (Customer)&quot;,
+  &quot;outline&quot;: &quot;Tìm kiếm, lọc truyện tranh.&quot;,
+  &quot;estimated_test_cases&quot;: 10,
+  &quot;note&quot;: &quot;&quot;,
+  &quot;module&quot;: &quot;M02&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;1 | FR | FR-M02 | M02 – Sản phẩm / Truyện tranh (Product) (Customer) | Tìm kiếm, lọc truyện tranh. | 10 | &quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;item_id&quot;: &quot;TP-FR-M03&quot;,
+  &quot;kind&quot;: &quot;FR&quot;,
+  &quot;requirement_id&quot;: &quot;FR-M03&quot;,
+  &quot;title&quot;: &quot;M03 – Flash Sale / Khuyến mãi giờ vàng (Customer)&quot;,
+  &quot;outline&quot;: &quot;Xem danh sách Flash Sale.&quot;,
+  &quot;estimated_test_cases&quot;: 6,
+  &quot;note&quot;: &quot;&quot;,
+  &quot;module&quot;: &quot;M03&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;2 | FR | FR-M03 | M03 – Flash Sale / Khuyến mãi giờ vàng (Customer) | Xem danh sách Flash Sale. | 6 | &quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;item_id&quot;: &quot;TP-FR-M04&quot;,
+  &quot;kind&quot;: &quot;FR&quot;,
+  &quot;requirement_id&quot;: &quot;FR-M04&quot;,
+  &quot;title&quot;: &quot;M04 – Giỏ hàng (Cart) (Customer)&quot;,
+  &quot;outline&quot;: &quot;Thêm/xóa/sửa số lượng sản phẩm, tính tổng tiền tạm tính.&quot;,
+  &quot;estimated_test_cases&quot;: 10,
+  &quot;note&quot;: &quot;&quot;,
+  &quot;module&quot;: &quot;M04&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;3 | FR | FR-M04 | M04 – Giỏ hàng (Cart) (Customer) | Thêm/xóa/sửa số lượng sản phẩm, tính tổng tiền tạm tính. | 10 | &quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;item_id&quot;: &quot;TP-FR-M09&quot;,
+  &quot;kind&quot;: &quot;FR&quot;,
+  &quot;requirement_id&quot;: &quot;FR-M09&quot;,
+  &quot;title&quot;: &quot;M09 – Mã giảm giá (Voucher/Coupon) (Customer)&quot;,
+  &quot;outline&quot;: &quot;Chọn voucher, kiểm tra điều kiện áp dụng.&quot;,
+  &quot;estimated_test_cases&quot;: 14,
+  &quot;note&quot;: &quot;&quot;,
+  &quot;module&quot;: &quot;M09&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;4 | FR | FR-M09 | M09 – Mã giảm giá (Voucher/Coupon) (Customer) | Chọn voucher, kiểm tra điều kiện áp dụng. | 14 | &quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;item_id&quot;: &quot;TP-FR-M13&quot;,
+  &quot;kind&quot;: &quot;FR&quot;,
+  &quot;requirement_id&quot;: &quot;FR-M13&quot;,
+  &quot;title&quot;: &quot;M13 – Gợi ý sản phẩm (Recommendation) (Customer)&quot;,
+  &quot;outline&quot;: &quot;Gợi ý sản phẩm liên quan, truyện tranh theo yêu thích ở trang chủ.&quot;,
+  &quot;estimated_test_cases&quot;: 11,
+  &quot;note&quot;: &quot;&quot;,
+  &quot;module&quot;: &quot;M13&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;5 | FR | FR-M13 | M13 – Gợi ý sản phẩm (Recommendation) (Customer) | Gợi ý sản phẩm liên quan, truyện tranh theo yêu thích ở trang chủ. | 11 | &quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;item_id&quot;: &quot;TP-FR-M19&quot;,
+  &quot;kind&quot;: &quot;FR&quot;,
+  &quot;requirement_id&quot;: &quot;FR-M19&quot;,
+  &quot;title&quot;: &quot;M19 – [Admin] Dashboard tổng quan (Admin)&quot;,
+  &quot;outline&quot;: &quot;Thống kê nhanh doanh thu, đơn hàng, sản phẩm bán chạy.&quot;,
+  &quot;estimated_test_cases&quot;: 8,
+  &quot;note&quot;: &quot;&quot;,
+  &quot;module&quot;: &quot;M19&quot;,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;6 | FR | FR-M19 | M19 – [Admin] Dashboard tổng quan (Admin) | Thống kê nhanh doanh thu, đơn hàng, sản phẩm bán chạy. | 8 | &quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;item_id&quot;: &quot;TP-NFR-03&quot;,
+  &quot;kind&quot;: &quot;NFR&quot;,
+  &quot;requirement_id&quot;: &quot;NFR-03&quot;,
+  &quot;title&quot;: &quot;Mã hóa mật khẩu và dữ liệu nhạy cảm&quot;,
+  &quot;outline&quot;: &quot;Mật khẩu hash Bcrypt.&quot;,
+  &quot;estimated_test_cases&quot;: 5,
+  &quot;note&quot;: &quot;Bảo mật (Security)&quot;,
+  &quot;module&quot;: null,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;7 | NFR | NFR-03 | Mã hóa mật khẩu và dữ liệu nhạy cảm | Mật khẩu hash Bcrypt. | 5 | Bảo mật (Security)&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;item_id&quot;: &quot;TP-NFR-04&quot;,
+  &quot;kind&quot;: &quot;NFR&quot;,
+  &quot;requirement_id&quot;: &quot;NFR-04&quot;,
+  &quot;title&quot;: &quot;Phòng chống lỗ hổng bảo mật Web&quot;,
+  &quot;outline&quot;: &quot;Chống OWASP Top 10 (SQL Injection).&quot;,
+  &quot;estimated_test_cases&quot;: 8,
+  &quot;note&quot;: &quot;Bảo mật (Security)&quot;,
+  &quot;module&quot;: null,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;8 | NFR | NFR-04 | Phòng chống lỗ hổng bảo mật Web | Chống OWASP Top 10 (SQL Injection). | 8 | Bảo mật (Security)&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;item_id&quot;: &quot;TP-NFR-05&quot;,
+  &quot;kind&quot;: &quot;NFR&quot;,
+  &quot;requirement_id&quot;: &quot;NFR-05&quot;,
+  &quot;title&quot;: &quot;Tương thích đa thiết bị và trình duyệt&quot;,
+  &quot;outline&quot;: &quot;Giao diện Responsive chuẩn trên Chrome, Edge.&quot;,
+  &quot;estimated_test_cases&quot;: 6,
+  &quot;note&quot;: &quot;Khả dụng / Trải nghiệm người dùng (Usability)&quot;,
+  &quot;module&quot;: null,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;9 | NFR | NFR-05 | Tương thích đa thiết bị và trình duyệt | Giao diện Responsive chuẩn trên Chrome, Edge. | 6 | Khả dụng / Trải nghiệm người dùng (Usability)&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;item_id&quot;: &quot;TP-PR-01&quot;,
+  &quot;kind&quot;: &quot;PR&quot;,
+  &quot;requirement_id&quot;: &quot;PR-01&quot;,
+  &quot;title&quot;: &quot;Lịch trình bàn giao kế hoạch kiểm thử&quot;,
+  &quot;outline&quot;: &quot;Hoàn thành và phê duyệt Test Plan đúng tiến độ mốc dự án.&quot;,
+  &quot;estimated_test_cases&quot;: 2,
+  &quot;note&quot;: &quot;Ràng buộc dự án (Constraints)&quot;,
+  &quot;module&quot;: null,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;10 | PR | PR-01 | Lịch trình bàn giao kế hoạch kiểm thử | Hoàn thành và phê duyệt Test Plan đúng tiến độ mốc dự án. | 2 | Ràng buộc dự án (Constraints)&quot;
+    }
+  ]
+}</pre><pre>{
+  &quot;item_id&quot;: &quot;TP-PR-02&quot;,
+  &quot;kind&quot;: &quot;PR&quot;,
+  &quot;requirement_id&quot;: &quot;PR-02&quot;,
+  &quot;title&quot;: &quot;Quy trình quản lý Defect&quot;,
+  &quot;outline&quot;: &quot;100% Bug phải được ghi nhận trên Excel và gắn nhãn theo mức độ.&quot;,
+  &quot;estimated_test_cases&quot;: 2,
+  &quot;note&quot;: &quot;Ràng buộc dự án (Constraints)&quot;,
+  &quot;module&quot;: null,
+  &quot;source_refs&quot;: [
+    {
+      &quot;block_id&quot;: &quot;TP-B0046&quot;,
+      &quot;quote&quot;: &quot;11 | PR | PR-02 | Quy trình quản lý Defect | 100% Bug phải được ghi nhận trên Excel và gắn nhãn theo mức độ. | 2 | Ràng buộc dự án (Constraints)&quot;
+    }
+  ]
+}</pre></body></html>

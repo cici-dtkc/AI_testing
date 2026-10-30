@@ -4,9 +4,9 @@ from __future__ import annotations
 import math
 from typing import Any
 
-from AI.app.agents.risk_prioritization.config.config import Config
-from AI.app.agents.risk_prioritization.data.mapping import TCContext
-from AI.app.agents.risk_prioritization.data.models import RiskSignals
+from ..config.config import Config
+from ..data.mapping import TCContext
+from ..data.models import RiskSignals
 
 
 def _level(label: Any, table: dict) -> float | None:

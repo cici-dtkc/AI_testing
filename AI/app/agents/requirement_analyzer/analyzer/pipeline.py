@@ -17,22 +17,7 @@ def analyze_full(document:Document,key:str,model:str,output:Path,chunk_chars:int
         cache=checkpoint/f'{signature}.json'
         print(f'Nhóm {n}/{len(batches)}: {batch["module"]}, {len(target_ids)} blocks',flush=True)
         if resume and cache.exists():a=Analysis.model_validate_json(cache.read_text(encoding='utf-8'))
-        else:
-            feedback=None
-            for attempt in range(3):
-                a=generator(subset,key,model,target_ids) if feedback is None else generator(subset,key,model,target_ids,validation_feedback=feedback)
-                try:
-                    validate(a,subset)
-                    for rule in a.rules:
-                        if not any(ref.block_id in target_ids for ref in rule.source_refs):raise ValueError('Rule không tham chiếu target block.')
-                    break
-                except ValueError as exc:
-                    if attempt==2:raise
-                    feedback=str(exc)
-                    if 'Quote không nguyên văn tại ' in feedback:
-                        block_id=feedback.split('Quote không nguyên văn tại ',1)[1].split(':',1)[0]
-                        source=next((block.text for block in subset.blocks if block.block_id==block_id),None)
-                        if source:feedback+=f'\nTrích dẫn nguyên văn từ block {block_id} (chọn một đoạn liên tục, không diễn giải):\n{source}'
+        else:a=generator(subset,key,model,target_ids)
         validate(a,subset)
         # Reject rules grounded only in background context.
         for rule in a.rules:

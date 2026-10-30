@@ -5,7 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from AI.app.agents.risk_prioritization.data.models import DefectRecord, RiskSignals
+from ..data.models import DefectRecord, RiskSignals
 
 
 def load_signals(directory: str | Path | None) -> RiskSignals:

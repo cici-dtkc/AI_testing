@@ -7,6 +7,11 @@ AI/.env
 AI/.env.*
 !AI/.env.example
 
+# Supervisor pipeline run artifacts (per-run data, not source)
+AI/app/storage/runs/
+AI/app/agents/*/outputs/latest/
+AI/app/agents/*/outputs/*/checkpoints/
+
 # Local IDE and OS files
 .vscode/*
 !.vscode/
@@ -26,3 +31,6 @@ testing/target/
 
 CLAUDE.md
 .claude
+
+# Test case generator per-module cache
+AI/app/agents/test_case_generator/outputs/**/.module_cache/
