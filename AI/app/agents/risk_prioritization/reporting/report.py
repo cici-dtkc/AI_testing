@@ -5,7 +5,7 @@ import html
 import json
 from pathlib import Path
 
-from AI.app.agents.risk_prioritization.data.models import PrioritizationResult
+from ..data.models import PrioritizationResult
 
 
 def write_outputs(result: PrioritizationResult, out_dir: str | Path) -> dict[str, str]:

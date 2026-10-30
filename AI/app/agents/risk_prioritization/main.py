@@ -4,10 +4,10 @@ from __future__ import annotations
 import argparse
 
 from .config.config import Config
-from AI.app.agents.risk_prioritization.data.loader import load_analysis, load_test_cases
-from AI.app.agents.risk_prioritization.core.pipeline import run_pipeline
-from AI.app.agents.risk_prioritization.reporting.report import write_outputs
-from AI.app.agents.risk_prioritization.core.signals import load_signals
+from .data.loader import load_analysis, load_test_cases
+from .core.pipeline import run_pipeline
+from .reporting.report import write_outputs
+from .core.signals import load_signals
 
 
 def main() -> None:
