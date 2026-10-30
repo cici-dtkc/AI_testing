@@ -2,13 +2,16 @@
 from __future__ import annotations
 
 import math
+from typing import Any
 
 from AI.app.agents.risk_prioritization.config.config import Config
 from AI.app.agents.risk_prioritization.data.mapping import TCContext
 from AI.app.agents.risk_prioritization.data.models import RiskSignals
 
 
-def _level(label: str | None, table: dict) -> float | None:
+def _level(label: Any, table: dict) -> float | None:
+    if isinstance(label, dict):
+        label = label.get("priority")
     return table.get(label.strip().lower()) if label else None
 
 

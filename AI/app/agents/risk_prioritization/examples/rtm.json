@@ -1,1 +1,1016 @@
-{"UC-14": "Critical", "UC-11": "Critical", "UC-2": "High"}
+{
+ "C001-RULE-INV-01": {
+  "test_case_ids": [
+   "TC-02"
+  ],
+  "coverage_count": 1
+ },
+ "C001-RULE-PERF-01": {
+  "test_case_ids": [
+   "TC-01"
+  ],
+  "coverage_count": 1
+ },
+ "C001-SCENARIO-INV-01": {
+  "test_case_ids": [
+   "TC-02"
+  ],
+  "coverage_count": 1
+ },
+ "C001-SCENARIO-PERF-01": {
+  "test_case_ids": [
+   "TC-01"
+  ],
+  "coverage_count": 1
+ },
+ "C002-BR-UC1-01": {
+  "test_case_ids": [
+   "TC-03"
+  ],
+  "coverage_count": 1
+ },
+ "C002-BR-UC1-02": {
+  "test_case_ids": [
+   "TC-03"
+  ],
+  "coverage_count": 1
+ },
+ "C002-BR-UC2-01": {
+  "test_case_ids": [
+   "TC-04"
+  ],
+  "coverage_count": 1
+ },
+ "C002-SC-UC1-01": {
+  "test_case_ids": [
+   "TC-03"
+  ],
+  "coverage_count": 1
+ },
+ "C002-SC-UC2-01": {
+  "test_case_ids": [
+   "TC-04"
+  ],
+  "coverage_count": 1
+ },
+ "C003-RULE-M02-001": {
+  "test_case_ids": [
+   "TC-05",
+   "TC-06"
+  ],
+  "coverage_count": 2
+ },
+ "C003-RULE-M02-004": {
+  "test_case_ids": [
+   "TC-07"
+  ],
+  "coverage_count": 1
+ },
+ "C003-SCN-M02-001": {
+  "test_case_ids": [
+   "TC-05"
+  ],
+  "coverage_count": 1
+ },
+ "C003-SCN-M02-002": {
+  "test_case_ids": [
+   "TC-06"
+  ],
+  "coverage_count": 1
+ },
+ "C003-SCN-M02-003": {
+  "test_case_ids": [
+   "TC-07"
+  ],
+  "coverage_count": 1
+ },
+ "C004-BR1": {
+  "test_case_ids": [
+   "TC-08",
+   "TC-09",
+   "TC-11"
+  ],
+  "coverage_count": 3
+ },
+ "C004-BR2": {
+  "test_case_ids": [
+   "TC-10"
+  ],
+  "coverage_count": 1
+ },
+ "C004-SC-UC8-01": {
+  "test_case_ids": [
+   "TC-08"
+  ],
+  "coverage_count": 1
+ },
+ "C004-SC-UC8-02": {
+  "test_case_ids": [
+   "TC-09"
+  ],
+  "coverage_count": 1
+ },
+ "C004-SC-UC8-03": {
+  "test_case_ids": [
+   "TC-10"
+  ],
+  "coverage_count": 1
+ },
+ "C004-SC-UC8-04": {
+  "test_case_ids": [
+   "TC-11"
+  ],
+  "coverage_count": 1
+ },
+ "C005-RULE-M04-001": {
+  "test_case_ids": [
+   "TC-12"
+  ],
+  "coverage_count": 1
+ },
+ "C005-RULE-M04-002": {
+  "test_case_ids": [
+   "TC-02"
+  ],
+  "coverage_count": 1
+ },
+ "C005-SC-UC9-001": {
+  "test_case_ids": [
+   "TC-12"
+  ],
+  "coverage_count": 1
+ },
+ "C005-SC-UC9-002": {
+  "test_case_ids": [
+   "TC-02"
+  ],
+  "coverage_count": 1
+ },
+ "C006-RULE-M05-01": {
+  "test_case_ids": [
+   "TC-13"
+  ],
+  "coverage_count": 1
+ },
+ "C006-RULE-M05-02": {
+  "test_case_ids": [
+   "TC-14"
+  ],
+  "coverage_count": 1
+ },
+ "C006-RULE-M05-04": {
+  "test_case_ids": [
+   "TC-15"
+  ],
+  "coverage_count": 1
+ },
+ "C006-SCN-M05-01": {
+  "test_case_ids": [
+   "TC-13"
+  ],
+  "coverage_count": 1
+ },
+ "C006-SCN-M05-02": {
+  "test_case_ids": [
+   "TC-14"
+  ],
+  "coverage_count": 1
+ },
+ "C006-SCN-M05-03": {
+  "test_case_ids": [
+   "TC-15"
+  ],
+  "coverage_count": 1
+ },
+ "C007-RULE-M06-001": {
+  "test_case_ids": [
+   "TC-16"
+  ],
+  "coverage_count": 1
+ },
+ "C007-RULE-M06-002": {
+  "test_case_ids": [
+   "TC-16"
+  ],
+  "coverage_count": 1
+ },
+ "C007-RULE-M06-003": {
+  "test_case_ids": [
+   "TC-17"
+  ],
+  "coverage_count": 1
+ },
+ "C007-RULE-M06-004": {
+  "test_case_ids": [
+   "TC-18"
+  ],
+  "coverage_count": 1
+ },
+ "C007-SCN-M06-001": {
+  "test_case_ids": [
+   "TC-16"
+  ],
+  "coverage_count": 1
+ },
+ "C007-SCN-M06-002": {
+  "test_case_ids": [
+   "TC-17"
+  ],
+  "coverage_count": 1
+ },
+ "C007-SCN-M06-003": {
+  "test_case_ids": [
+   "TC-18"
+  ],
+  "coverage_count": 1
+ },
+ "C008-BR1": {
+  "test_case_ids": [
+   "TC-19",
+   "TC-20",
+   "TC-21",
+   "TC-22",
+   "TC-23"
+  ],
+  "coverage_count": 5
+ },
+ "C008-SC-UC14-01": {
+  "test_case_ids": [
+   "TC-19"
+  ],
+  "coverage_count": 1
+ },
+ "C008-SC-UC14-02": {
+  "test_case_ids": [
+   "TC-20"
+  ],
+  "coverage_count": 1
+ },
+ "C008-SC-UC14-03": {
+  "test_case_ids": [
+   "TC-21"
+  ],
+  "coverage_count": 1
+ },
+ "C008-SC-UC14-04": {
+  "test_case_ids": [
+   "TC-22"
+  ],
+  "coverage_count": 1
+ },
+ "C008-SC-UC14-05": {
+  "test_case_ids": [
+   "TC-23"
+  ],
+  "coverage_count": 1
+ },
+ "C009-RULE-M08-01": {
+  "test_case_ids": [
+   "TC-24"
+  ],
+  "coverage_count": 1
+ },
+ "C009-RULE-M08-02": {
+  "test_case_ids": [
+   "TC-24"
+  ],
+  "coverage_count": 1
+ },
+ "C009-RULE-M08-03": {
+  "test_case_ids": [
+   "TC-25"
+  ],
+  "coverage_count": 1
+ },
+ "C009-RULE-M08-04": {
+  "test_case_ids": [
+   "TC-26"
+  ],
+  "coverage_count": 1
+ },
+ "C009-RULE-M08-05": {
+  "test_case_ids": [
+   "TC-27"
+  ],
+  "coverage_count": 1
+ },
+ "C009-SC-M08-01": {
+  "test_case_ids": [
+   "TC-24"
+  ],
+  "coverage_count": 1
+ },
+ "C009-SC-M08-02": {
+  "test_case_ids": [
+   "TC-25"
+  ],
+  "coverage_count": 1
+ },
+ "C009-SC-M08-03": {
+  "test_case_ids": [
+   "TC-26"
+  ],
+  "coverage_count": 1
+ },
+ "C009-SC-M08-04": {
+  "test_case_ids": [
+   "TC-27"
+  ],
+  "coverage_count": 1
+ },
+ "C010-RULE-M09-001": {
+  "test_case_ids": [
+   "TC-28",
+   "TC-29"
+  ],
+  "coverage_count": 2
+ },
+ "C010-RULE-M09-003": {
+  "test_case_ids": [
+   "TC-30"
+  ],
+  "coverage_count": 1
+ },
+ "C010-SCENARIO-UC15-001": {
+  "test_case_ids": [
+   "TC-28"
+  ],
+  "coverage_count": 1
+ },
+ "C010-SCENARIO-UC15-002": {
+  "test_case_ids": [
+   "TC-29"
+  ],
+  "coverage_count": 1
+ },
+ "C010-SCENARIO-UC16-001": {
+  "test_case_ids": [
+   "TC-30"
+  ],
+  "coverage_count": 1
+ },
+ "C011-RULE-M10-01": {
+  "test_case_ids": [
+   "TC-31",
+   "TC-32"
+  ],
+  "coverage_count": 2
+ },
+ "C011-RULE-M10-03": {
+  "test_case_ids": [
+   "TC-33",
+   "TC-34"
+  ],
+  "coverage_count": 2
+ },
+ "C011-SCN-UC17-01": {
+  "test_case_ids": [
+   "TC-31"
+  ],
+  "coverage_count": 1
+ },
+ "C011-SCN-UC17-02": {
+  "test_case_ids": [
+   "TC-32"
+  ],
+  "coverage_count": 1
+ },
+ "C011-SCN-UC18-01": {
+  "test_case_ids": [
+   "TC-33"
+  ],
+  "coverage_count": 1
+ },
+ "C011-SCN-UC18-02": {
+  "test_case_ids": [
+   "TC-34"
+  ],
+  "coverage_count": 1
+ },
+ "C012-BR-M11-01": {
+  "test_case_ids": [
+   "TC-35",
+   "TC-36"
+  ],
+  "coverage_count": 2
+ },
+ "C012-BR-M11-02": {
+  "test_case_ids": [
+   "TC-35",
+   "TC-36"
+  ],
+  "coverage_count": 2
+ },
+ "C012-BR-M11-04": {
+  "test_case_ids": [
+   "TC-37"
+  ],
+  "coverage_count": 1
+ },
+ "C012-SC-UC19-01": {
+  "test_case_ids": [
+   "TC-35"
+  ],
+  "coverage_count": 1
+ },
+ "C012-SC-UC19-02": {
+  "test_case_ids": [
+   "TC-36"
+  ],
+  "coverage_count": 1
+ },
+ "C012-SC-UC21-01": {
+  "test_case_ids": [
+   "TC-37"
+  ],
+  "coverage_count": 1
+ },
+ "C013-RULE-M12-01": {
+  "test_case_ids": [
+   "TC-38"
+  ],
+  "coverage_count": 1
+ },
+ "C013-RULE-M12-02": {
+  "test_case_ids": [
+   "TC-38"
+  ],
+  "coverage_count": 1
+ },
+ "C013-RULE-M12-03": {
+  "test_case_ids": [
+   "TC-39"
+  ],
+  "coverage_count": 1
+ },
+ "C013-RULE-M12-04": {
+  "test_case_ids": [
+   "TC-40"
+  ],
+  "coverage_count": 1
+ },
+ "C013-RULE-M12-05": {
+  "test_case_ids": [
+   "TC-41"
+  ],
+  "coverage_count": 1
+ },
+ "C013-SC-M12-01": {
+  "test_case_ids": [
+   "TC-38"
+  ],
+  "coverage_count": 1
+ },
+ "C013-SC-M12-02": {
+  "test_case_ids": [
+   "TC-39"
+  ],
+  "coverage_count": 1
+ },
+ "C013-SC-M12-03": {
+  "test_case_ids": [
+   "TC-40"
+  ],
+  "coverage_count": 1
+ },
+ "C013-SC-M12-04": {
+  "test_case_ids": [
+   "TC-41"
+  ],
+  "coverage_count": 1
+ },
+ "C014-RULE-M13-01": {
+  "test_case_ids": [
+   "TC-44"
+  ],
+  "coverage_count": 1
+ },
+ "C014-RULE-M13-02": {
+  "test_case_ids": [
+   "TC-42",
+   "TC-43"
+  ],
+  "coverage_count": 2
+ },
+ "C014-SCN-UC24-01": {
+  "test_case_ids": [
+   "TC-42"
+  ],
+  "coverage_count": 1
+ },
+ "C014-SCN-UC24-02": {
+  "test_case_ids": [
+   "TC-43"
+  ],
+  "coverage_count": 1
+ },
+ "C014-SCN-UC24-03": {
+  "test_case_ids": [
+   "TC-44"
+  ],
+  "coverage_count": 1
+ },
+ "C015-BR-M14-01": {
+  "test_case_ids": [
+   "TC-45",
+   "TC-46"
+  ],
+  "coverage_count": 2
+ },
+ "C015-BR-M14-02": {
+  "test_case_ids": [
+   "TC-47"
+  ],
+  "coverage_count": 1
+ },
+ "C015-SC-UC25-01": {
+  "test_case_ids": [
+   "TC-45"
+  ],
+  "coverage_count": 1
+ },
+ "C015-SC-UC25-02": {
+  "test_case_ids": [
+   "TC-46"
+  ],
+  "coverage_count": 1
+ },
+ "C015-SC-UC27-01": {
+  "test_case_ids": [
+   "TC-47"
+  ],
+  "coverage_count": 1
+ },
+ "C016-RULE-M15-01": {
+  "test_case_ids": [
+   "TC-48",
+   "TC-49"
+  ],
+  "coverage_count": 2
+ },
+ "C016-RULE-M15-02": {
+  "test_case_ids": [
+   "TC-50"
+  ],
+  "coverage_count": 1
+ },
+ "C016-SC-UC30-01": {
+  "test_case_ids": [
+   "TC-48"
+  ],
+  "coverage_count": 1
+ },
+ "C016-SC-UC30-02": {
+  "test_case_ids": [
+   "TC-49"
+  ],
+  "coverage_count": 1
+ },
+ "C016-SC-UC30-03": {
+  "test_case_ids": [
+   "TC-50"
+  ],
+  "coverage_count": 1
+ },
+ "C017-BR1": {
+  "test_case_ids": [
+   "TC-51",
+   "TC-52"
+  ],
+  "coverage_count": 2
+ },
+ "C017-BR2": {
+  "test_case_ids": [
+   "TC-54"
+  ],
+  "coverage_count": 1
+ },
+ "C017-FR-M16-VAL": {
+  "test_case_ids": [
+   "TC-53"
+  ],
+  "coverage_count": 1
+ },
+ "C017-SC-UC32-01": {
+  "test_case_ids": [
+   "TC-51"
+  ],
+  "coverage_count": 1
+ },
+ "C017-SC-UC32-02": {
+  "test_case_ids": [
+   "TC-52"
+  ],
+  "coverage_count": 1
+ },
+ "C017-SC-UC32-03": {
+  "test_case_ids": [
+   "TC-53"
+  ],
+  "coverage_count": 1
+ },
+ "C017-SC-UC32-04": {
+  "test_case_ids": [
+   "TC-54"
+  ],
+  "coverage_count": 1
+ },
+ "C018-BR-M17-01": {
+  "test_case_ids": [
+   "TC-55"
+  ],
+  "coverage_count": 1
+ },
+ "C018-BR-M17-02": {
+  "test_case_ids": [
+   "TC-56"
+  ],
+  "coverage_count": 1
+ },
+ "C018-BR-M17-04": {
+  "test_case_ids": [
+   "TC-57"
+  ],
+  "coverage_count": 1
+ },
+ "C018-SC-UC33-01": {
+  "test_case_ids": [
+   "TC-55"
+  ],
+  "coverage_count": 1
+ },
+ "C018-SC-UC34-01": {
+  "test_case_ids": [
+   "TC-56"
+  ],
+  "coverage_count": 1
+ },
+ "C018-SC-UC35-01": {
+  "test_case_ids": [
+   "TC-57"
+  ],
+  "coverage_count": 1
+ },
+ "C019-RULE-M18-01": {
+  "test_case_ids": [
+   "TC-58",
+   "TC-59"
+  ],
+  "coverage_count": 2
+ },
+ "C019-RULE-M18-04": {
+  "test_case_ids": [
+   "TC-60"
+  ],
+  "coverage_count": 1
+ },
+ "C019-SC-UC36-01": {
+  "test_case_ids": [
+   "TC-58"
+  ],
+  "coverage_count": 1
+ },
+ "C019-SC-UC36-02": {
+  "test_case_ids": [
+   "TC-59"
+  ],
+  "coverage_count": 1
+ },
+ "C019-SC-UC38-01": {
+  "test_case_ids": [
+   "TC-60"
+  ],
+  "coverage_count": 1
+ },
+ "C020-RULE-M19-01": {
+  "test_case_ids": [
+   "TC-61"
+  ],
+  "coverage_count": 1
+ },
+ "C020-RULE-M19-03": {
+  "test_case_ids": [
+   "TC-62"
+  ],
+  "coverage_count": 1
+ },
+ "C020-SCN-M19-01": {
+  "test_case_ids": [
+   "TC-61"
+  ],
+  "coverage_count": 1
+ },
+ "C020-SCN-M19-02": {
+  "test_case_ids": [
+   "TC-62"
+  ],
+  "coverage_count": 1
+ },
+ "C021-BR-M20-01": {
+  "test_case_ids": [
+   "TC-63",
+   "TC-64"
+  ],
+  "coverage_count": 2
+ },
+ "C021-BR-M20-02": {
+  "test_case_ids": [
+   "TC-63"
+  ],
+  "coverage_count": 1
+ },
+ "C021-BR-M20-03": {
+  "test_case_ids": [
+   "TC-65"
+  ],
+  "coverage_count": 1
+ },
+ "C021-SC-UC40-01": {
+  "test_case_ids": [
+   "TC-63"
+  ],
+  "coverage_count": 1
+ },
+ "C021-SC-UC40-02": {
+  "test_case_ids": [
+   "TC-64"
+  ],
+  "coverage_count": 1
+ },
+ "C021-SC-UC41-01": {
+  "test_case_ids": [
+   "TC-65"
+  ],
+  "coverage_count": 1
+ },
+ "M01": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "M02": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "M03": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "M04": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "M06": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "M07": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "M09": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "M10": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "M11": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "M12": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "M13": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "M14": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "M15": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "M16": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "M17": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "M18": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "M19": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "M20": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-1": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-10": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-11": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-12": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-13": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "UC-14": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-15": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-16": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "UC-17": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "UC-18": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "UC-19": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "UC-2": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-20": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "UC-21": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "UC-23": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "UC-24": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "UC-25": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-27": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-28": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-30": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-31": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-32": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-33": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-34": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-35": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-36": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-37": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-38": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "UC-39": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-40": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-41": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Thông thường"
+ },
+ "UC-5": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-6": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-7": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-8": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ },
+ "UC-9": {
+  "test_case_ids": [],
+  "coverage_count": 0,
+  "priority": "Cao"
+ }
+}
