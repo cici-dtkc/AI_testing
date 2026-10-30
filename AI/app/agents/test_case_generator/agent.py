@@ -13,16 +13,24 @@ def run_test_case_generator(llm, state: dict) -> dict:
     # Lấy API key và model từ môi trường hoặc state
     key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY", "")
     model = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
+    # Tuỳ chọn: mã nguồn để chạy kiểm thử hộp trắng (basis path/coverage/data-flow)
+    code_path = state.get("code_path")
     
-    # Chạy pipeline sinh test case
-    # Lưu ý: nếu dùng object llm truyền vào, bạn có thể gọi trực tiếp, ở đây dùng hàm gemini chuẩn qua pipeline
-    test_suite, warnings = generate_full_test_cases(analysis_file, key, model)
+    # Chạy pipeline: engine chọn kỹ thuật trước, LLM sinh case theo kế hoạch
+    test_suite, plan, warnings = generate_full_test_cases(
+        analysis_file,
+        key,
+        model,
+        Path(code_path) if code_path else None,
+        cache_dir=output_folder / '.module_cache',
+    )
     
     payload = {
         "provider": "GEMINI",
         "model": model,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "test_suite": test_suite.model_dump(),
+        "technique_plan": plan.model_dump(),
         "validation_warnings": warnings
     }
     
@@ -30,5 +38,9 @@ def run_test_case_generator(llm, state: dict) -> dict:
     
     return {
         "test_cases": test_suite.model_dump(),
-        "trace": [f"test_case_generator: đã sinh {len(test_suite.test_cases)} test cases và ghi báo cáo."],
+        "technique_plan": plan.model_dump(),
+        "trace": [
+            f"test_case_generator: {plan.summary}.",
+            f"test_case_generator: đã sinh {len(test_suite.test_cases)} test cases và ghi báo cáo.",
+        ],
     }

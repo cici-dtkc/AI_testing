@@ -28,3 +28,5 @@ testing/out/
 testing/build/
 testing/.gradle/
 testing/target/
+# Test case generator per-module cache
+AI/app/agents/test_case_generator/outputs/**/.module_cache/
