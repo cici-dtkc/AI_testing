@@ -59,7 +59,9 @@ def write_test_report(payload: dict, folder: Path):
         module = tc.get("module") or module_for(tc.get("title", ""))
         tc["module"] = module
         module_counters[module] = module_counters.get(module, 0) + 1
-        tc["test_case_id"] = f"{module}-TC-{module_counters[module]:02d}"
+        # Tên module hộp trắng chứa đường dẫn/ký tự đặc biệt -> chỉ giữ ký tự an toàn cho ID.
+        module_key = re.sub(r"[^0-9A-Za-z_]+", "-", module).strip("-") or "MODULE"
+        tc["test_case_id"] = f"{module_key}-TC-{module_counters[module]:02d}"
         # Mô tả dễ đọc dựa trên tiêu đề Test Case; ID gốc vẫn giữ ở trace_scenario_ids.
         tc["scenario_description"] = tc.get("scenario_description") or tc.get("title", "")
 
@@ -71,6 +73,12 @@ def write_test_report(payload: dict, folder: Path):
     for tc in test_cases:
         tc_type = str(tc.get("type") or "N/A")
         type_class = tc_type.upper() if tc_type.upper() in {"POSITIVE", "NEGATIVE", "BOUNDARY"} else "OTHER"
+        flow = str(tc.get("flow") or "—")
+        technique = str(tc.get("technique") or "N/A")
+        variant = tc.get("technique_variant")
+        technique_text = technique + (f" / {variant}" if variant else "")
+        coverage_items = render_list(tc.get("coverage_items", []))
+        coverage_html = "<ul>" + "".join(f"<li>{e(x)}</li>" for x in coverage_items) + "</ul>" if coverage_items else "—"
         priority = str(tc.get("priority") or "N/A")
         priority_lower = priority.lower()
         if "cao" in priority_lower or priority_lower in {"high", "critical", "p0", "p1"}:
@@ -97,9 +105,11 @@ def write_test_report(payload: dict, folder: Path):
         rows.append(f"""
         <tr>
             <td class="id">{e(tc.get('test_case_id'))}</td>
-            <td class="module">{e(tc.get('module'))}</td>
+            <td class="flow">{e(flow)}</td>
             <td class="title">{e(tc.get('title'))}</td>
             <td><span class="type type-{type_class}">{e(tc_type)}</span></td>
+            <td><span class="tech">{e(technique_text)}</span></td>
+            <td class="coverage">{coverage_html}</td>
             <td><span class="priority {priority_class}">{e(priority)}</span></td>
             <td><ul>{preconditions}</ul></td>
             <td>{given or '—'}</td>
@@ -110,13 +120,100 @@ def write_test_report(payload: dict, folder: Path):
         </tr>
         """)
 
+    # --- Kế hoạch kỹ thuật (engine chọn trước khi sinh case) ------------------
+    plan = payload.get("technique_plan") or {}
+    plan_modules = plan.get("modules") or []
+    white_box = plan.get("white_box") or []
+
+    def technique_label(choice: dict) -> str:
+        label = str(choice.get("technique") or "N/A")
+        variant = choice.get("variant")
+        return f"{label} / {variant}" if variant else label
+
+    plan_html = ""
+    if plan_modules:
+        plan_rows = []
+        for module in plan_modules:
+            techniques = module.get("techniques") or []
+            primary = techniques[0] if techniques else {}
+            supporting = techniques[1:]
+            supporting_html = "<br>".join(
+                e(technique_label(choice)) for choice in supporting
+            ) or "—"
+            obligations_html = "".join(
+                "<li><b>"
+                + e(technique_label(choice))
+                + ":</b> "
+                + " ".join(e(x) for x in choice.get("obligations") or [])
+                + "</li>"
+                for choice in techniques
+            )
+            range_parts = []
+            for item in module.get("numeric_ranges") or []:
+                range_parts.append(
+                    f"{e(item.get('label', ''))} [{e(item.get('min'))}..{e(item.get('max'))}]"
+                )
+            range_text = "; ".join(range_parts) or "—"
+            warnings_html = ""
+            if module.get("warnings"):
+                warnings_html = "<ul>" + "".join(
+                    f"<li class='warn-inline'>{e(w)}</li>" for w in module["warnings"]
+                ) + "</ul>"
+            plan_rows.append(
+                "<tr>"
+                f"<td><b>{e(module.get('module'))}</b><div class='muted'>{e(module.get('story'))}</div></td>"
+                f"<td>{e(technique_label(primary))}</td>"
+                f"<td>{supporting_html}</td>"
+                f"<td>{e(primary.get('estimated_cases'))}</td>"
+                f"<td>{range_text}</td>"
+                "<td><details><summary>Nghĩa vụ bao phủ</summary><ul>"
+                f"{obligations_html}</ul></details>{warnings_html}</td>"
+                "</tr>"
+            )
+        plan_html = (
+            "<section class='plan'><h2>Kế hoạch kỹ thuật theo module</h2>"
+            f"<p class='muted'>{e(plan.get('summary'))}</p>"
+            "<div class='table-wrap plan-wrap'><table class='plan-table'>"
+            "<thead><tr><th>Module</th><th>Kỹ thuật chính</th><th>Bổ trợ</th>"
+            "<th>Case ước tính</th><th>Ràng buộc biên</th><th>Căn cứ &amp; nghĩa vụ</th>"
+            "</tr></thead>"
+            f"<tbody>{''.join(plan_rows)}</tbody></table></div></section>"
+        )
+
+    white_box_html = ""
+    if white_box:
+        wb_rows = []
+        for unit in white_box:
+            target_text = "; ".join(
+                f"{e(t.get('level'))}: {e(t.get('items'))}"
+                for t in unit.get("coverage_targets") or []
+            ) or "—"
+            wb_rows.append(
+                "<tr>"
+                f"<td><b>{e(unit.get('module'))}</b><div class='muted'>{e(unit.get('source'))}</div></td>"
+                f"<td>{e(unit.get('statements'))}</td>"
+                f"<td>{e(unit.get('decisions'))}</td>"
+                f"<td>{e(unit.get('cyclomatic'))}</td>"
+                f"<td>{e(unit.get('basis_paths'))}</td>"
+                f"<td>{e(unit.get('data_flow_pairs'))}</td>"
+                f"<td>{target_text}</td>"
+                "</tr>"
+            )
+        white_box_html = (
+            "<section class='plan'><h2>Kế hoạch kiểm thử hộp trắng</h2>"
+            "<div class='table-wrap plan-wrap'><table class='plan-table'>"
+            "<thead><tr><th>Hàm</th><th>Câu lệnh</th><th>Quyết định</th><th>V(G)</th>"
+            "<th>Case tối thiểu</th><th>Cặp def-use</th><th>Hạng mục bao phủ</th></tr></thead>"
+            f"<tbody>{''.join(wb_rows)}</tbody></table></div></section>"
+        )
+
     if rows:
         table_html = f"""
         <div class="table-wrap">
             <table id="testTable">
                 <thead><tr>
-                    <th>Mã Test Case</th><th>Module</th><th>Tên Test Case</th>
-                    <th>Loại</th><th>Ưu tiên</th><th>Điều kiện tiên quyết</th>
+                    <th>Mã Test Case</th><th>Luồng</th><th>Tên Test Case</th>
+                    <th>Loại</th><th>Kỹ thuật</th><th>Coverage</th><th>Ưu tiên</th><th>Điều kiện tiên quyết</th>
                     <th>Dữ liệu đầu vào</th><th>Các bước thực hiện</th>
                     <th>Kết quả mong đợi</th><th>Kịch bản</th><th>Rule IDs</th>
                 </tr></thead>
@@ -165,13 +262,21 @@ table{{border-collapse:separate;border-spacing:0;width:100%;min-width:2200px}}
 thead th{{position:sticky;top:0;z-index:2;background:var(--navy);color:white;text-align:left;padding:13px 12px;white-space:nowrap}}
 tbody td{{padding:12px;border-bottom:1px solid #e5ebf0;border-right:1px solid #edf1f5;vertical-align:top;max-width:340px;overflow-wrap:anywhere}}
 tbody tr:nth-child(even){{background:#f8fbfd}} tbody tr:hover{{background:#edf6fc}}
-td.id{{font-weight:700;color:var(--blue);white-space:nowrap;min-width:160px}} td.module{{font-weight:600;white-space:nowrap}}
+td.id{{font-weight:700;color:var(--blue);white-space:nowrap;min-width:160px}} td.flow{{font-weight:600;white-space:nowrap;color:#245b85}}
 td.title{{min-width:250px;font-weight:600}} td ul,td ol{{margin:0;padding-left:18px;min-width:160px}} td li{{margin:0 0 5px}}
 .type,.priority{{display:inline-block;border-radius:5px;padding:4px 8px;font-size:12px;white-space:nowrap}}
 .type-POSITIVE{{background:#dcfce7;color:#166534}} .type-NEGATIVE{{background:#fee2e2;color:#991b1b}} .type-BOUNDARY{{background:#fef9c3;color:#854d0e}} .type-OTHER{{background:#edf2f7;color:#334155}}
 .priority{{border-radius:20px;font-weight:650}} .priority.high{{background:#fde8e7;color:#a62d2a}} .priority.normal{{background:#fff2d7;color:#815a08}} .priority.low{{background:#e4f5e9;color:#246c3d}}
 td.scenario{{min-width:300px}} .scenario-desc{{font-weight:600;margin-bottom:8px}} .trace-ids{{font-size:12px;color:var(--muted);border-top:1px solid #e5ebf0;padding-top:6px}}
 .warnings{{margin-top:24px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px 18px}} footer{{color:var(--muted);padding:12px 2px;font-size:12px}}
+.plan{{margin:0 0 18px;background:white;border:1px solid var(--border);border-radius:10px;padding:14px 18px}}
+.plan h2{{font-size:18px;margin:0 0 6px;color:var(--navy)}} .plan .muted{{color:var(--muted);font-size:12px;margin:2px 0 8px}}
+.plan-wrap{{max-height:none;border:0;box-shadow:none}} .plan-table{{width:100%;min-width:0;border-collapse:collapse;font-size:13px}}
+.plan-table th{{position:static;background:#eaf1f7;color:var(--navy);border:1px solid var(--border);padding:8px;text-align:left;white-space:normal}}
+.plan-table td{{padding:8px;border:1px solid #e5ebf0;vertical-align:top;max-width:620px;overflow-wrap:anywhere}}
+.plan-table ul{{margin:4px 0 0;padding-left:16px}} .plan-table details summary{{cursor:pointer;color:var(--blue);font-size:12px}}
+.tech{{display:inline-block;background:#eef4fb;border:1px solid #d5e3f2;border-radius:5px;padding:3px 6px;font-size:11px;font-weight:600;color:#245b85;white-space:nowrap}}
+.warn-inline{{color:#a62d2a}}
 @media print{{body{{background:white}}header{{background:white;color:black;padding:12px 0}}header p{{color:#333}}main{{padding:8px}}.toolbar{{display:none}}.table-wrap{{max-height:none;overflow:visible;box-shadow:none;border:0}}table{{min-width:0;font-size:8px}}thead th{{position:static;background:#e8edf2;color:#111}}tbody td{{padding:4px;font-size:8px}}}}
 </style>
 </head>
@@ -181,6 +286,8 @@ td.scenario{{min-width:300px}} .scenario-desc{{font-weight:600;margin-bottom:8px
 <main>
 <div class="meta"><span><b>Provider:</b> {provider}</span><span><b>Model:</b> {model}</span><span><b>Tổng số Test Case:</b> {total}</span></div>
 <div class="summary"><b>Tóm tắt:</b> {summary}</div>
+{plan_html}
+{white_box_html}
 <div class="toolbar"><input id="search" type="search" placeholder="Tìm theo mã, module, tiêu đề hoặc nội dung test case..." aria-label="Tìm kiếm test case"><span class="count" id="count">{total} / {total} Test Case</span></div>
 {table_html}
 {warnings_section}
