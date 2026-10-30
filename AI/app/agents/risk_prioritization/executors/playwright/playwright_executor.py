@@ -50,7 +50,7 @@ class PlaywrightExecutor:
                             # Infer page from module or use home page
                             module = tc.get("module", "")
                             if "TimKiem" in module or "tìm kiếm" in str(tc.get("title", "")).lower():
-                                test_steps.insert(0, "Mở /")
+                                test_steps.insert(0, "Mở /home")
                             elif "DangNhap" in module or "đăng nhập" in str(tc.get("title", "")).lower():
                                 test_steps.insert(0, "Mở /login")
                             elif "DangKy" in module or "đăng ký" in str(tc.get("title", "")).lower():
@@ -59,7 +59,7 @@ class PlaywrightExecutor:
                                 test_steps.insert(0, "Mở /cart")
                             else:
                                 # Default to home page
-                                test_steps.insert(0, "Mở /")
+                                test_steps.insert(0, "Mở /home")
 
                         for step in test_steps:
                             parse_step(step, page)

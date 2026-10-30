@@ -19,10 +19,10 @@ npm install -g newman newman-reporter-html
 # Start test target (Java web app)
 cd testing
 ./gradlew appRun  # or deploy WAR to Tomcat
-# Verify at http://localhost:8080/TTLTW_Nhom6
+# Verify at http://localhost:8080/TTLTW_Nhom6/home
 ```
 
-If venv unavailable: `sudo apt install python3-venv`
+**Important:** Ensure web app is accessible before running tests. The executor uses `BASE_URL = http://localhost:8080/TTLTW_Nhom6`.
 
 ### End-to-End Workflow
 
@@ -188,7 +188,7 @@ Expected: 8 passed tests covering formula, dependency promotion, cycle detection
 - `RETRY_ENABLED = True` - Flaky test detection
 
 **Playwright** (`executors/playwright/config.py`):
-- `BASE_URL = "http://localhost:8080"`
+- `BASE_URL = "http://localhost:8080/TTLTW_Nhom6"`
 - `BROWSER_TYPE = "chromium"`
 - `HEADLESS = True`
 - `SELECTOR_MAP` - Vietnamese field name → CSS selector mappings
@@ -199,6 +199,93 @@ Expected: 8 passed tests covering formula, dependency promotion, cycle detection
 - `NEWMAN_REPORTERS = ["cli", "json", "html"]`
 
 **Risk scoring** (`config/config.py`):
-- Weights: `W_R = 3.0`, `W_C = 2.0`, `W_H = 2.5`, `W_D = 1.5`
+- Weights: `W_R = 0.35`, `W_C = 0.25`, `W_H = 0.25`, `W_D = 0.15`
+- Complexity weights: `preconditions = 0.05`, `steps = 0.03`
+- Type boost: `NEGATIVE = +0.2`, `BOUNDARY = +0.15`
 - Priority thresholds: P1/P2/P3/P4 boundaries
 - Critical modules list (higher R scores)
+
+## Troubleshooting
+
+### All Tests Return ERROR
+
+**Symptom:** 100+ ERROR states, screenshots show 404 pages
+
+**Cause:** `BASE_URL` mismatch with actual web app deployment path
+
+**Fix:** Update `executors/playwright/config.py`:
+```python
+BASE_URL = "http://localhost:8080/TTLTW_Nhom6"  # Match your deployment context path
+```
+
+Verify web app is accessible: `curl http://localhost:8080/TTLTW_Nhom6/home`
+
+### Step Parser Failures
+
+**Symptom:** Tests fail with "Unknown step pattern" errors
+
+**Cause:** Vietnamese test steps too abstract or missing explicit actions
+
+**Solutions:**
+1. **Add explicit actions to test cases:** "Nhập username = admin", "Nhấn Đăng nhập"
+2. **Add selector mappings:** Update `SELECTOR_MAP` in `executors/playwright/config.py`
+3. **Check step parser patterns:** Review `executors/playwright/step_parser.py`
+
+**Supported patterns:**
+- Navigation: `Mở /path`, `Truy cập URL`
+- Input: `Nhập field = value`
+- Click: `Nhấn button`
+- Select: `Chọn option`
+- Wait: `Chờ N giây`
+- Abstract: `Thực hiện`, `Kiểm tra` (limited support)
+
+### Evidence Not Found
+
+**Symptom:** HTML report shows broken evidence links
+
+**Cause:** Evidence stored in `AI/outputs/evidence/` but report expects different location
+
+**Fix:** Ensure report is generated in correct location:
+```bash
+cd AI
+python -m app.agents.risk_prioritization.run_execution
+```
+
+Evidence paths are relative from report location: `outputs/execution_report.html`
+
+### Test Case ID Mismatch
+
+**Symptom:** Evidence stored as "unknown" test case ID
+
+**Cause:** Test case JSON uses different field name for ID
+
+**Fix:** Already applied - executor checks both `test_case_id` and `id` fields
+
+### Web App Not Running
+
+**Symptom:** Connection refused errors, all tests timeout
+
+**Solution:**
+```bash
+cd testing
+./gradlew appRun  # Start Tomcat with auto-deploy
+# Or deploy WAR manually to Tomcat
+```
+
+Verify: `curl http://localhost:8080/TTLTW_Nhom6/home` should return HTML
+
+## Known Limitations
+
+- **Vietnamese step parsing:** Limited to common patterns, abstract phrases may not parse
+- **Dynamic content:** Tests may fail on AJAX-heavy pages without explicit waits
+- **Authentication:** Tests requiring login need session management or API token setup
+- **Test data:** Tests assume clean database state (no data isolation between runs)
+- **Parallel execution:** Max 2 workers to avoid database contention
+
+## Version History
+
+**2026-10-30:**
+- ✅ Phase 0 complete: Test case columns wired into scoring (preconditions, steps, type)
+- ✅ Execution layer fixes: ID field, BASE_URL, step parser enhancements, auto-navigation
+- ✅ Evidence store working with SHA-256 integrity checking
+- 🔄 Test case generation improvements needed for better step specificity

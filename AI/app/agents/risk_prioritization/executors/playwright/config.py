@@ -1,4 +1,4 @@
-BASE_URL = "http://localhost:8080"
+BASE_URL = "http://localhost:8080/TTLTW_Nhom6"
 BROWSER_TYPE = "chromium"
 HEADLESS = True
 VIEWPORT = {"width": 1280, "height": 720}
