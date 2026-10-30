@@ -21,11 +21,29 @@ def load_signals(directory: str | Path | None) -> RiskSignals:
     defects = read("defects.json")
     return RiskSignals(
         rtm=read("rtm.json"),
-        change_log=read("change_log.json"),
+        change_log=_change_labels(read("change_log.json")),
         defects=[DefectRecord(**x) for x in defects] if defects is not None else None,
         dependencies=read("dependencies.json"),
     )
 
+
+CHURN_LEVELS = [(6, "core"), (4, "major"), (2, "minor"), (1, "indirect")]
+
+
+def _change_labels(raw) -> dict | None:
+    """Accepts "M07" -> "major" or the per-file churn list; aggregates files per module."""
+    if raw is None or isinstance(raw, dict):
+        return raw
+    totals: dict[str, int] = {}
+    for rec in raw:
+        mod = rec.get("module")
+        if mod:
+            totals[mod] = totals.get(mod, 0) + rec["change_count"]
+    return {m: next(label for floor, label in CHURN_LEVELS if n >= floor)
+            for m, n in totals.items() if n}
+
+
+# Kept for the standalone extractor script which writes per-file churn with a module field.
 
 def input_hash(test_cases: list[dict], analysis: dict | None, signals: RiskSignals, config: dict) -> str:
     payload = {

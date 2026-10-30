@@ -5,14 +5,22 @@ import json
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
+@dataclass
+class OrchestratorConfig:
+    base_url: str = "http://localhost:8080/TTLTW_Nhom6"
+    max_workers: int = 2
+    execution_timeout: int = 300
+    retry_timeout: int = 300
 
 @dataclass
 class Config:
     formula_version: str = "1.0"
     weights: dict = field(default_factory=lambda: {"R": 0.35, "C": 0.25, "H": 0.25, "D": 0.15})
+    complexity_weights: dict = field(default_factory=lambda: {"preconditions": 0.05, "steps": 0.03})
     thresholds: dict = field(default_factory=lambda: {"P1": 75.0, "P2": 55.0, "P3": 35.0})
     decay_lambda: float = 0.3                  # defect age decay (per release)
     defaults: dict = field(default_factory=lambda: {"R": 3, "C": 3, "H": 3, "D": 1})
+    type_boost: dict = field(default_factory=lambda: {"NEGATIVE": 0.2, "BOUNDARY": 0.15})
     # label -> score (lower-case keys). Covers RTM labels, SRS "Priority" (Cao/Thong thuong/Thap) and TC priority
     r_levels: dict = field(default_factory=lambda: {
         "critical": 5, "high": 4, "medium": 3, "low": 2, "optional": 1,

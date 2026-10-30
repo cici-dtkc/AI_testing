@@ -1,5 +1,152 @@
 [
-  {"defect_id": "DEF-101", "module": "M07", "severity": 4, "age_releases": 1},
-  {"defect_id": "DEF-102", "module": "M06", "severity": 3, "age_releases": 2},
-  {"defect_id": "DEF-103", "module": "M04", "severity": 2, "age_releases": 4}
+ {
+  "file": "controller/CheckoutServlet.java",
+  "line": 98,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-001",
+  "module": "M06",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "controller/ProxyServlet.java",
+  "line": 90,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-002",
+  "module": "M02",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "controller/UserB/SubmitReviewServlet.java",
+  "line": 80,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-003",
+  "module": "M10",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "controller/admin/AddComicServlet.java",
+  "line": 158,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-004",
+  "module": "M14",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "controller/admin/AdminInventoryServlet.java",
+  "line": 47,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-005",
+  "module": "M16",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "controller/admin/AdminNotificationPageServlet.java",
+  "line": 30,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-006",
+  "module": "M12",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "controller/admin/CreateFlashSaleServlet.java",
+  "line": 139,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-007",
+  "module": "M14",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "controller/admin/ListComicsServlet.java",
+  "line": 70,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-008",
+  "module": "M14",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "controller/admin/ProductManagementServlet.java",
+  "line": 85,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-009",
+  "module": "M14",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "controller/admin/UpdateComicServlet.java",
+  "line": 98,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-010",
+  "module": "M14",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "controller/admin/UpdateComicServlet.java",
+  "line": 151,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-011",
+  "module": "M14",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "dao/ComicDAO.java",
+  "line": 119,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-012",
+  "module": "M02",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "dao/ComicDAO.java",
+  "line": 818,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-013",
+  "module": "M02",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "dao/ComicDAO.java",
+  "line": 877,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-014",
+  "module": "M02",
+  "severity": 1,
+  "age_releases": 0
+ },
+ {
+  "file": "dao/ComicDAO.java",
+  "line": 1368,
+  "comment": "empty catch block, exception swallowed",
+  "severity_guess": "low",
+  "defect_id": "DEF-015",
+  "module": "M02",
+  "severity": 1,
+  "age_releases": 0
+ }
 ]

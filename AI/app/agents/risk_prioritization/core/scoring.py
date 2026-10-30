@@ -2,13 +2,16 @@
 from __future__ import annotations
 
 import math
+from typing import Any
 
 from ..config.config import Config
 from ..data.mapping import TCContext
 from ..data.models import RiskSignals
 
 
-def _level(label: str | None, table: dict) -> float | None:
+def _level(label: Any, table: dict) -> float | None:
+    if isinstance(label, dict):
+        label = label.get("priority")
     return table.get(label.strip().lower()) if label else None
 
 
@@ -29,16 +32,36 @@ def score_R(ctx: TCContext, signals: RiskSignals, cfg: Config) -> tuple[float, s
 
 
 def _boost(v: float, ctx: TCContext, cfg: Config) -> float:
-    return min(5.0, v + cfg.critical_boost) if ctx.module in cfg.critical_modules else float(v)
+    v = min(5.0, v + cfg.critical_boost) if ctx.module in cfg.critical_modules else float(v)
+    if ctx.test_type in cfg.type_boost:
+        v = min(5.0, v + cfg.type_boost[ctx.test_type])
+    return v
 
 
-def score_C(module: str, signals: RiskSignals, cfg: Config) -> tuple[float, str, bool]:
+def score_C(ctx: TCContext, module: str, signals: RiskSignals, cfg: Config) -> tuple[float, str, bool]:
     if signals.change_log is None:
-        return float(cfg.defaults["C"]), "default(no change_log)", True
-    label = signals.change_log.get(module)
-    if label is None:
-        return 1.0, "no_change_record", False
-    return float(cfg.c_levels.get(label.lower(), cfg.defaults["C"])), f"change_log:{label}", False
+        base_score = float(cfg.defaults["C"])
+        defaults_flag = True
+        source = "default(no change_log)"
+    else:
+        label = signals.change_log.get(module)
+        if label is None:
+            base_score = 1.0
+            defaults_flag = False
+            source = "no_change_record"
+        else:
+            base_score = float(cfg.c_levels.get(label.lower(), cfg.defaults["C"]))
+            defaults_flag = False
+            source = f"change_log:{label}"
+
+    # add structural complexity
+    complexity_boost = (
+        ctx.precondition_count * cfg.complexity_weights.get("preconditions", 0) +
+        ctx.step_count * cfg.complexity_weights.get("steps", 0)
+    )
+    final_score = min(5.0, base_score + complexity_boost)
+
+    return final_score, source, defaults_flag
 
 
 def module_defect_weights(signals: RiskSignals, cfg: Config) -> dict[str, float]:

@@ -24,7 +24,8 @@ def run_pipeline(test_cases: list[dict], analysis: dict | None = None, signals: 
 
     # 2. map
     index = AnalysisIndex(analysis)
-    ctx = {t["test_case_id"]: build_context(t, index, cfg, signals.dependencies) for t in test_cases}
+    tc_deps = {k: v for k, v in (signals.dependencies or {}).items() if isinstance(v, list)}
+    ctx = {t["test_case_id"]: build_context(t, index, cfg, tc_deps) for t in test_cases}
     prereqs, w = dep.clean_dependencies(ids, {i: c.depends_on for i, c in ctx.items()})
     warnings += w
     dependents = dep.transitive_dependents(ids, prereqs)
@@ -36,7 +37,7 @@ def run_pipeline(test_cases: list[dict], analysis: dict | None = None, signals: 
     for t in test_cases:
         i, c = t["test_case_id"], ctx[t["test_case_id"]]
         R, r_src, r_def = scoring.score_R(c, signals, cfg)
-        C, c_src, c_def = scoring.score_C(c.module, signals, cfg)
+        C, c_src, c_def = scoring.score_C(c, c.module, signals, cfg)
         H, h_src, h_def = scoring.score_H(c.module, wm, signals, cfg)
         D, d_def = scoring.score_D(len(dependents[i]), kmax, bool(prereqs), cfg)
         S, s100 = scoring.combine(R, C, H, D, cfg)
