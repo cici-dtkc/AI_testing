@@ -1,0 +1,5 @@
+[
+  {"defect_id": "DEF-101", "module": "M07", "severity": 4, "age_releases": 1},
+  {"defect_id": "DEF-102", "module": "M06", "severity": 3, "age_releases": 2},
+  {"defect_id": "DEF-103", "module": "M04", "severity": 2, "age_releases": 4}
+]

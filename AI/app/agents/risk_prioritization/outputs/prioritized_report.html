@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang='vi'>
+<meta charset='utf-8'>
+<title>Risk Prioritization</title>
+<style>body {
+    font: 14px system-ui;
+    margin: 24px
+}
+
+table {
+    border-collapse: collapse
+}
+
+td, th {
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    vertical-align: top
+}</style>
+<h1>Risk &amp; Prioritization</h1>
+<p>formula 1.0 | hash ff71f928f16a | total 65 | {&quot;P1&quot;: 6, &quot;P2&quot;: 2, &quot;P3&quot;: 9, &quot;P4&quot;:
+    48}</p>
+<h3>Warnings</h3>
+<ul>
+    <li>None</li>
+</ul>
+<table>
+    <tr>
+        <th>#</th>
+        <th>TC</th>
+        <th>Pri</th>
+        <th>S100</th>
+        <th>R/C/H/D</th>
+        <th>Module</th>
+        <th>Title</th>
+        <th>Flags</th>
+        <th>Rationale</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>TC-20</td>
+        <td><b>P1</b></td>
+        <td>85</td>
+        <td>5/5/5/1</td>
+        <td>M07</td>
+        <td>Xử lý khi khách hàng hủy thanh toán tại cổng VNPay</td>
+        <td></td>
+        <td>TC-20 xếp P1 (S100=85) vì R=5 (rtm:UC-14), C=5, H=5, D=1; module M07, use case UC-14. Nguồn:
+            C008-SC-UC14-02, C008-BR1.
+        </td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>TC-21</td>
+        <td><b>P1</b></td>
+        <td>85</td>
+        <td>5/5/5/1</td>
+        <td>M07</td>
+        <td>Xử lý kết quả giao dịch thanh toán thất bại từ VNPay</td>
+        <td></td>
+        <td>TC-21 xếp P1 (S100=85) vì R=5 (rtm:UC-14), C=5, H=5, D=1; module M07, use case UC-14. Nguồn:
+            C008-SC-UC14-03, C008-BR1.
+        </td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>TC-22</td>
+        <td><b>P1</b></td>
+        <td>85</td>
+        <td>5/5/5/1</td>
+        <td>M07</td>
+        <td>Từ chối callback VNPay khi chữ ký hoặc dữ liệu không hợp lệ</td>
+        <td></td>
+        <td>TC-22 xếp P1 (S100=85) vì R=5 (rtm:UC-14), C=5, H=5, D=1; module M07, use case UC-14. Nguồn:
+            C008-SC-UC14-04, C008-BR1.
+        </td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>TC-23</td>
+        <td><b>P1</b></td>
+        <td>85</td>
+        <td>5/5/5/1</td>
+        <td>M07</td>
+        <td>Xử lý khi hết thời gian chờ thanh toán (Timeout) trên VNPay</td>
+        <td></td>
+        <td>TC-23 xếp P1 (S100=85) vì R=5 (rtm:UC-14), C=5, H=5, D=1; module M07, use case UC-14. Nguồn:
+            C008-SC-UC14-05, C008-BR1.
+        </td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>TC-16</td>
+        <td><b>P1</b></td>
+        <td>82.6403</td>
+        <td>5/4/3.22245/5</td>
+        <td>M06</td>
+        <td>Tạo đơn hàng thành công với phương thức thanh toán COD</td>
+        <td>promoted</td>
+        <td>TC-16 xếp P1 (S100=82.6403) vì R=5 (rtm:UC-11), C=4, H=3.22245, D=5; module M06, use case UC-11. Nguồn:
+            C007-SCN-M06-001, C007-RULE-M06-001, C007-RULE-M06-002. Được đẩy lên sớm vì là tiền đề của TC rủi ro cao hơn
+            (S_eff=4.4).
+        </td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>TC-19</td>
+        <td><b>P1</b></td>
+        <td>85</td>
+        <td>5/5/5/1</td>
+        <td>M07</td>
+        <td>Thanh toán trực tuyến thành công qua cổng thanh toán VNPay</td>
+        <td></td>
+        <td>TC-19 xếp P1 (S100=85) vì R=5 (rtm:UC-14), C=5, H=5, D=1; module M07, use case UC-14. Nguồn:
+            C008-SC-UC14-01, C008-BR1. Chạy sau: TC-16.
+        </td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>TC-17</td>
+        <td><b>P2</b></td>
+        <td>67.6403</td>
+        <td>5/4/3.22245/1</td>
+        <td>M06</td>
+        <td>Đặt hàng thất bại do không cung cấp địa chỉ giao hàng</td>
+        <td></td>
+        <td>TC-17 xếp P2 (S100=67.6403) vì R=5 (rtm:UC-11), C=4, H=3.22245, D=1; module M06, use case UC-11. Nguồn:
+            C007-SCN-M06-002, C007-RULE-M06-003.
+        </td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>TC-18</td>
+        <td><b>P2</b></td>
+        <td>58.8903</td>
+        <td>4/4/3.22245/1</td>
+        <td>M06</td>
+        <td>Nhấn Mua ngay sản phẩm khi đã hết hàng</td>
+        <td></td>
+        <td>TC-18 xếp P2 (S100=58.8903) vì R=4 (srs_use_case_priority), C=4, H=3.22245, D=1; module M06, use case UC-12.
+            Nguồn: C007-SCN-M06-003, C007-RULE-M06-004.
+        </td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>TC-02</td>
+        <td><b>P3</b></td>
+        <td>50.0821</td>
+        <td>4/4/1.81314/1</td>
+        <td>M04</td>
+        <td>Thêm sản phẩm vào giỏ hàng với số lượng vượt quá tồn kho</td>
+        <td></td>
+        <td>TC-02 xếp P3 (S100=50.0821) vì R=4 (srs_use_case_priority), C=4, H=1.81314, D=1; module M04, use case UC-9.
+            Nguồn: C001-SCENARIO-INV-01, C005-SC-UC9-002, C001-RULE-INV-01.
+        </td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>TC-12</td>
+        <td><b>P3</b></td>
+        <td>50.0821</td>
+        <td>4/4/1.81314/1</td>
+        <td>M04</td>
+        <td>Thêm sản phẩm vào giỏ hàng thành công với số lượng hợp lệ</td>
+        <td></td>
+        <td>TC-12 xếp P3 (S100=50.0821) vì R=4 (srs_use_case_priority), C=4, H=1.81314, D=1; module M04, use case UC-9.
+            Nguồn: C005-SC-UC9-001, C005-RULE-M04-001.
+        </td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>TC-58</td>
+        <td><b>P3</b></td>
+        <td>47.5</td>
+        <td>5/3/1/1</td>
+        <td>M18</td>
+        <td>Chặn truy cập trang quản trị khi người dùng chưa đăng nhập</td>
+        <td></td>
+        <td>TC-58 xếp P3 (S100=47.5) vì R=5 (srs_use_case_priority), C=3, H=1, D=1; module M18, use case UC-36. Nguồn:
+            C019-SC-UC36-01, C019-RULE-M18-01.
+        </td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>TC-59</td>
+        <td><b>P3</b></td>
+        <td>47.5</td>
+        <td>5/3/1/1</td>
+        <td>M18</td>
+        <td>Chặn tài khoản người dùng thông thường truy cập trang quản trị</td>
+        <td></td>
+        <td>TC-59 xếp P3 (S100=47.5) vì R=5 (srs_use_case_priority), C=3, H=1, D=1; module M18, use case UC-36. Nguồn:
+            C019-SC-UC36-02, C019-RULE-M18-01.
+        </td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>TC-08</td>
+        <td><b>P3</b></td>
+        <td>38.75</td>
+        <td>4/3/1/1</td>
+        <td>M03</td>
+        <td>Xem danh sách chương trình Flash Sale đang và sắp diễn ra</td>
+        <td></td>
+        <td>TC-08 xếp P3 (S100=38.75) vì R=4 (srs_use_case_priority), C=3, H=1, D=1; module M03, use case UC-8. Nguồn:
+            C004-SC-UC8-01, C004-BR1.
+        </td>
+    </tr>
+    <tr>
+        <td>14</td>
+        <td>TC-09</td>
+        <td><b>P3</b></td>
+        <td>38.75</td>
+        <td>4/3/1/1</td>
+        <td>M03</td>
+        <td>Thêm sản phẩm Flash Sale vào giỏ hàng trong khung giờ hợp lệ</td>
+        <td></td>
+        <td>TC-09 xếp P3 (S100=38.75) vì R=4 (srs_use_case_priority), C=3, H=1, D=1; module M03, use case UC-8. Nguồn:
+            C004-SC-UC8-02, C004-BR1.
+        </td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>TC-10</td>
+        <td><b>P3</b></td>
+        <td>38.75</td>
+        <td>4/3/1/1</td>
+        <td>M03</td>
+        <td>Chặn thêm sản phẩm Flash Sale vào giỏ khi yêu cầu vượt số lượng còn lại</td>
+        <td></td>
+        <td>TC-10 xếp P3 (S100=38.75) vì R=4 (srs_use_case_priority), C=3, H=1, D=1; module M03, use case UC-8. Nguồn:
+            C004-SC-UC8-03, C004-BR2.
+        </td>
+    </tr>
+    <tr>
+        <td>16</td>
+        <td>TC-11</td>
+        <td><b>P3</b></td>
+        <td>38.75</td>
+        <td>4/3/1/1</td>
+        <td>M03</td>
+        <td>Xử lý khi thời gian chương trình Flash Sale kết thúc</td>
+        <td></td>
+        <td>TC-11 xếp P3 (S100=38.75) vì R=4 (srs_use_case_priority), C=3, H=1, D=1; module M03, use case UC-8. Nguồn:
+            C004-SC-UC8-04, C004-BR1.
+        </td>
+    </tr>
+    <tr>
+        <td>17</td>
+        <td>TC-60</td>
+        <td><b>P3</b></td>
+        <td>38.75</td>
+        <td>4/3/1/1</td>
+        <td>M18</td>
+        <td>Admin thực hiện khóa tài khoản người dùng thành công</td>
+        <td></td>
+        <td>TC-60 xếp P3 (S100=38.75) vì R=4 (srs_use_case_priority), C=3, H=1, D=1; module M18, use case UC-38. Nguồn:
+            C019-SC-UC38-01, C019-RULE-M18-04.
+        </td>
+    </tr>
+    <tr>
+        <td>18</td>
+        <td>TC-55</td>
+        <td><b>P4</b></td>
+        <td>32.25</td>
+        <td>4/1/1/2.6</td>
+        <td>M17</td>
+        <td>Admin duyệt xác nhận đơn hàng ở trạng thái Chờ xác nhận</td>
+        <td></td>
+        <td>TC-55 xếp P4 (S100=32.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=2.6; module M17, use case UC-33.
+            Nguồn: C018-SC-UC33-01, C018-BR-M17-01. Chạy sau: TC-16.
+        </td>
+    </tr>
+    <tr>
+        <td>19</td>
+        <td>TC-03</td>
+        <td><b>P4</b></td>
+        <td>29.25</td>
+        <td>4/1/1/1.8</td>
+        <td>M01</td>
+        <td>Đăng ký tài khoản mới thành công bằng email và mật khẩu hợp lệ</td>
+        <td></td>
+        <td>TC-03 xếp P4 (S100=29.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1.8; module M01, use case UC-1. Nguồn:
+            C002-SC-UC1-01, C002-BR-UC1-01, C002-BR-UC1-02.
+        </td>
+    </tr>
+    <tr>
+        <td>20</td>
+        <td>TC-01</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>NFR</td>
+        <td>Kiểm tra thời gian phản hồi khi tra cứu và tìm kiếm truyện</td>
+        <td>R</td>
+        <td>TC-01 xếp P4 (S100=26.25) vì R=4 (tc_priority_original), C=1, H=1, D=1; module NFR. Nguồn:
+            C001-SCENARIO-PERF-01, C001-RULE-PERF-01. Dùng giá trị mặc định cho: R.
+        </td>
+    </tr>
+    <tr>
+        <td>21</td>
+        <td>TC-04</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M01</td>
+        <td>Đăng nhập thất bại do nhập sai tên đăng nhập hoặc mật khẩu</td>
+        <td></td>
+        <td>TC-04 xếp P4 (S100=26.25) vì R=4 (rtm:UC-2), C=1, H=1, D=1; module M01, use case UC-2. Nguồn:
+            C002-SC-UC2-01, C002-BR-UC2-01. Chạy sau: TC-03.
+        </td>
+    </tr>
+    <tr>
+        <td>22</td>
+        <td>TC-05</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M02</td>
+        <td>Tìm kiếm truyện thành công theo từ khóa hợp lệ</td>
+        <td></td>
+        <td>TC-05 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M02, use case UC-5. Nguồn:
+            C003-SCN-M02-001, C003-RULE-M02-001.
+        </td>
+    </tr>
+    <tr>
+        <td>23</td>
+        <td>TC-06</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M02</td>
+        <td>Tìm kiếm truyện không có kết quả phù hợp</td>
+        <td></td>
+        <td>TC-06 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M02, use case UC-5. Nguồn:
+            C003-SCN-M02-002, C003-RULE-M02-001.
+        </td>
+    </tr>
+    <tr>
+        <td>24</td>
+        <td>TC-07</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M02</td>
+        <td>Kiểm tra hiển thị nút Thêm vào giỏ khi truyện có tồn kho bằng 0</td>
+        <td></td>
+        <td>TC-07 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M02, use case UC-7. Nguồn:
+            C003-SCN-M02-003, C003-RULE-M02-004.
+        </td>
+    </tr>
+    <tr>
+        <td>25</td>
+        <td>TC-15</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M05</td>
+        <td>Kiểm tra quyền truy cập tính năng Wishlist khi chưa đăng nhập</td>
+        <td>R</td>
+        <td>TC-15 xếp P4 (S100=26.25) vì R=4 (tc_priority_original), C=1, H=1, D=1; module M05. Nguồn: C006-SCN-M05-03,
+            C006-RULE-M05-04. Dùng giá trị mặc định cho: R.
+        </td>
+    </tr>
+    <tr>
+        <td>26</td>
+        <td>TC-24</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M08</td>
+        <td>Tính và hiển thị phí vận chuyển tự động qua API GHN</td>
+        <td>R</td>
+        <td>TC-24 xếp P4 (S100=26.25) vì R=4 (tc_priority_original), C=1, H=1, D=1; module M08. Nguồn: C009-SC-M08-01,
+            C009-RULE-M08-01, C009-RULE-M08-02. Dùng giá trị mặc định cho: R.
+        </td>
+    </tr>
+    <tr>
+        <td>27</td>
+        <td>TC-27</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M08</td>
+        <td>Tạo vận đơn GHN tự động sau khi đặt hàng thành công</td>
+        <td>R</td>
+        <td>TC-27 xếp P4 (S100=26.25) vì R=4 (tc_priority_original), C=1, H=1, D=1; module M08. Nguồn: C009-SC-M08-04,
+            C009-RULE-M08-05. Chạy sau: TC-16. Dùng giá trị mặc định cho: R.
+        </td>
+    </tr>
+    <tr>
+        <td>28</td>
+        <td>TC-28</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M09</td>
+        <td>Áp dụng voucher giảm giá hợp lệ tại trang Checkout</td>
+        <td></td>
+        <td>TC-28 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M09, use case UC-15. Nguồn:
+            C010-SCENARIO-UC15-001, C010-RULE-M09-001.
+        </td>
+    </tr>
+    <tr>
+        <td>29</td>
+        <td>TC-29</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M09</td>
+        <td>Áp dụng mã voucher không tồn tại trong hệ thống</td>
+        <td></td>
+        <td>TC-29 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M09, use case UC-15. Nguồn:
+            C010-SCENARIO-UC15-002, C010-RULE-M09-001.
+        </td>
+    </tr>
+    <tr>
+        <td>30</td>
+        <td>TC-45</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M14</td>
+        <td>Admin thêm truyện tranh mới thành công</td>
+        <td></td>
+        <td>TC-45 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M14, use case UC-25. Nguồn:
+            C015-SC-UC25-01, C015-BR-M14-01.
+        </td>
+    </tr>
+    <tr>
+        <td>31</td>
+        <td>TC-46</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M14</td>
+        <td>Admin thêm truyện thất bại do tệp ảnh không đúng định dạng</td>
+        <td></td>
+        <td>TC-46 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M14, use case UC-25. Nguồn:
+            C015-SC-UC25-02, C015-BR-M14-01.
+        </td>
+    </tr>
+    <tr>
+        <td>32</td>
+        <td>TC-47</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M14</td>
+        <td>Chặn Admin xóa truyện tranh đang có trong đơn hàng hoặc giỏ hàng</td>
+        <td></td>
+        <td>TC-47 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M14, use case UC-27. Nguồn:
+            C015-SC-UC27-01, C015-BR-M14-02.
+        </td>
+    </tr>
+    <tr>
+        <td>33</td>
+        <td>TC-48</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M15</td>
+        <td>Admin thêm danh mục thể loại mới thành công</td>
+        <td></td>
+        <td>TC-48 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M15, use case UC-30. Nguồn:
+            C016-SC-UC30-01, C016-RULE-M15-01.
+        </td>
+    </tr>
+    <tr>
+        <td>34</td>
+        <td>TC-49</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M15</td>
+        <td>Admin thêm danh mục thể loại trùng tên đã tồn tại</td>
+        <td></td>
+        <td>TC-49 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M15, use case UC-30. Nguồn:
+            C016-SC-UC30-02, C016-RULE-M15-01.
+        </td>
+    </tr>
+    <tr>
+        <td>35</td>
+        <td>TC-50</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M15</td>
+        <td>Chặn Admin xóa danh mục đang có truyện sử dụng</td>
+        <td></td>
+        <td>TC-50 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M15, use case UC-30. Nguồn:
+            C016-SC-UC30-03, C016-RULE-M15-02.
+        </td>
+    </tr>
+    <tr>
+        <td>36</td>
+        <td>TC-51</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M16</td>
+        <td>Admin cập nhật số lượng tồn kho sản phẩm thành công</td>
+        <td></td>
+        <td>TC-51 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M16, use case UC-32. Nguồn:
+            C017-SC-UC32-01, C017-BR1.
+        </td>
+    </tr>
+    <tr>
+        <td>37</td>
+        <td>TC-52</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M16</td>
+        <td>Admin nhập số lượng khiến tồn kho bị âm</td>
+        <td></td>
+        <td>TC-52 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M16, use case UC-32. Nguồn:
+            C017-SC-UC32-02, C017-BR1.
+        </td>
+    </tr>
+    <tr>
+        <td>38</td>
+        <td>TC-53</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M16</td>
+        <td>Admin nhập giá trị tồn kho không phải ký tự số</td>
+        <td></td>
+        <td>TC-53 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M16, use case UC-32. Nguồn:
+            C017-SC-UC32-03, C017-FR-M16-VAL.
+        </td>
+    </tr>
+    <tr>
+        <td>39</td>
+        <td>TC-54</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M16</td>
+        <td>Cảnh báo hết hàng và vô hiệu hóa mua hàng khi tồn kho bằng 0</td>
+        <td></td>
+        <td>TC-54 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M16, use case UC-32. Nguồn:
+            C017-SC-UC32-04, C017-BR2.
+        </td>
+    </tr>
+    <tr>
+        <td>40</td>
+        <td>TC-56</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M17</td>
+        <td>Chặn Admin cập nhật trạng thái đơn hàng sai quy trình</td>
+        <td></td>
+        <td>TC-56 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M17, use case UC-34. Nguồn:
+            C018-SC-UC34-01, C018-BR-M17-02. Chạy sau: TC-55.
+        </td>
+    </tr>
+    <tr>
+        <td>41</td>
+        <td>TC-57</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M17</td>
+        <td>Chặn Admin hủy đơn hàng khi đơn đã ở trạng thái Đã giao</td>
+        <td></td>
+        <td>TC-57 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M17, use case UC-35. Nguồn:
+            C018-SC-UC35-01, C018-BR-M17-04. Chạy sau: TC-55.
+        </td>
+    </tr>
+    <tr>
+        <td>42</td>
+        <td>TC-61</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M19</td>
+        <td>Admin xem Dashboard tổng quan theo bộ lọc thời gian Hôm nay</td>
+        <td></td>
+        <td>TC-61 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M19, use case UC-39. Nguồn:
+            C020-SCN-M19-01, C020-RULE-M19-01.
+        </td>
+    </tr>
+    <tr>
+        <td>43</td>
+        <td>TC-62</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M19</td>
+        <td>Báo lỗi khi tùy chỉnh khoảng thời gian có ngày kết thúc trước ngày bắt đầu trên Dashboard</td>
+        <td></td>
+        <td>TC-62 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M19, use case UC-39. Nguồn:
+            C020-SCN-M19-02, C020-RULE-M19-03.
+        </td>
+    </tr>
+    <tr>
+        <td>44</td>
+        <td>TC-63</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M20</td>
+        <td>Admin xem báo cáo thống kê doanh thu và lợi nhuận chi tiết</td>
+        <td></td>
+        <td>TC-63 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M20, use case UC-40. Nguồn:
+            C021-SC-UC40-01, C021-BR-M20-01, C021-BR-M20-02.
+        </td>
+    </tr>
+    <tr>
+        <td>45</td>
+        <td>TC-64</td>
+        <td><b>P4</b></td>
+        <td>26.25</td>
+        <td>4/1/1/1</td>
+        <td>M20</td>
+        <td>Báo lỗi tại trang Thống kê khi khoảng thời gian không hợp lệ</td>
+        <td></td>
+        <td>TC-64 xếp P4 (S100=26.25) vì R=4 (srs_use_case_priority), C=1, H=1, D=1; module M20, use case UC-40. Nguồn:
+            C021-SC-UC40-02, C021-BR-M20-01.
+        </td>
+    </tr>
+    <tr>
+        <td>46</td>
+        <td>TC-13</td>
+        <td><b>P4</b></td>
+        <td>20.5</td>
+        <td>3/1/1/1.8</td>
+        <td>M05</td>
+        <td>Thêm sản phẩm vào Wishlist thành công khi đã đăng nhập</td>
+        <td>R</td>
+        <td>TC-13 xếp P4 (S100=20.5) vì R=3 (tc_priority_original), C=1, H=1, D=1.8; module M05. Nguồn: C006-SCN-M05-01,
+            C006-RULE-M05-01. Dùng giá trị mặc định cho: R.
+        </td>
+    </tr>
+    <tr>
+        <td>47</td>
+        <td>TC-14</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M05</td>
+        <td>Ngăn chặn thêm trùng lặp sản phẩm đã có trong Wishlist</td>
+        <td>R</td>
+        <td>TC-14 xếp P4 (S100=17.5) vì R=3 (tc_priority_original), C=1, H=1, D=1; module M05. Nguồn: C006-SCN-M05-02,
+            C006-RULE-M05-02. Chạy sau: TC-13. Dùng giá trị mặc định cho: R.
+        </td>
+    </tr>
+    <tr>
+        <td>48</td>
+        <td>TC-25</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M08</td>
+        <td>Báo lỗi khi địa chỉ giao hàng thiếu thông tin Quận/Huyện</td>
+        <td>R</td>
+        <td>TC-25 xếp P4 (S100=17.5) vì R=3 (tc_priority_original), C=1, H=1, D=1; module M08. Nguồn: C009-SC-M08-02,
+            C009-RULE-M08-03. Dùng giá trị mặc định cho: R.
+        </td>
+    </tr>
+    <tr>
+        <td>49</td>
+        <td>TC-26</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M08</td>
+        <td>Xử lý ngoại lệ khi API GHN bị timeout hoặc phản hồi lỗi</td>
+        <td>R</td>
+        <td>TC-26 xếp P4 (S100=17.5) vì R=3 (tc_priority_original), C=1, H=1, D=1; module M08. Nguồn: C009-SC-M08-03,
+            C009-RULE-M08-04. Dùng giá trị mặc định cho: R.
+        </td>
+    </tr>
+    <tr>
+        <td>50</td>
+        <td>TC-30</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M09</td>
+        <td>Admin thêm voucher khuyến mãi mới thành công</td>
+        <td></td>
+        <td>TC-30 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M09, use case UC-16. Nguồn:
+            C010-SCENARIO-UC16-001, C010-RULE-M09-003.
+        </td>
+    </tr>
+    <tr>
+        <td>51</td>
+        <td>TC-31</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M10</td>
+        <td>Khách hàng đánh giá sản phẩm thành công cho đơn hàng hoàn thành</td>
+        <td></td>
+        <td>TC-31 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M10, use case UC-17. Nguồn:
+            C011-SCN-UC17-01, C011-RULE-M10-01.
+        </td>
+    </tr>
+    <tr>
+        <td>52</td>
+        <td>TC-32</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M10</td>
+        <td>Gửi đánh giá sản phẩm thất bại do chưa chọn số sao</td>
+        <td></td>
+        <td>TC-32 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M10, use case UC-17. Nguồn:
+            C011-SCN-UC17-02, C011-RULE-M10-01.
+        </td>
+    </tr>
+    <tr>
+        <td>53</td>
+        <td>TC-33</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M10</td>
+        <td>Gửi yêu cầu đổi/trả hàng thành công</td>
+        <td></td>
+        <td>TC-33 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M10, use case UC-18. Nguồn:
+            C011-SCN-UC18-01, C011-RULE-M10-03.
+        </td>
+    </tr>
+    <tr>
+        <td>54</td>
+        <td>TC-34</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M10</td>
+        <td>Gửi yêu cầu trả hàng thất bại do tệp minh chứng sai định dạng hoặc quá dung lượng</td>
+        <td></td>
+        <td>TC-34 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M10, use case UC-18. Nguồn:
+            C011-SCN-UC18-02, C011-RULE-M10-03.
+        </td>
+    </tr>
+    <tr>
+        <td>55</td>
+        <td>TC-35</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M11</td>
+        <td>Cập nhật thông tin cá nhân thành công với dữ liệu hợp lệ</td>
+        <td></td>
+        <td>TC-35 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M11, use case UC-19. Nguồn:
+            C012-SC-UC19-01, C012-BR-M11-01, C012-BR-M11-02.
+        </td>
+    </tr>
+    <tr>
+        <td>56</td>
+        <td>TC-36</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M11</td>
+        <td>Cập nhật thông tin cá nhân thất bại khi số điện thoại sai định dạng</td>
+        <td></td>
+        <td>TC-36 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M11, use case UC-19. Nguồn:
+            C012-SC-UC19-02, C012-BR-M11-01, C012-BR-M11-02.
+        </td>
+    </tr>
+    <tr>
+        <td>57</td>
+        <td>TC-37</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M11</td>
+        <td>Xem lịch sử điểm thưởng (C-Point) khi chưa phát sinh giao dịch</td>
+        <td></td>
+        <td>TC-37 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M11, use case UC-21. Nguồn:
+            C012-SC-UC21-01, C012-BR-M11-04.
+        </td>
+    </tr>
+    <tr>
+        <td>58</td>
+        <td>TC-38</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M12</td>
+        <td>Nhận thông báo Push Notification qua FCM khi đơn hàng thay đổi trạng thái</td>
+        <td></td>
+        <td>TC-38 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M12, use case UC-23. Nguồn:
+            C013-SC-M12-01, C013-RULE-M12-01, C013-RULE-M12-02.
+        </td>
+    </tr>
+    <tr>
+        <td>59</td>
+        <td>TC-39</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M12</td>
+        <td>Hiển thị danh sách thông báo mới và số lượng chưa đọc</td>
+        <td></td>
+        <td>TC-39 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M12, use case UC-23. Nguồn:
+            C013-SC-M12-02, C013-RULE-M12-03.
+        </td>
+    </tr>
+    <tr>
+        <td>60</td>
+        <td>TC-40</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M12</td>
+        <td>Đánh dấu tất cả thông báo là đã đọc thành công</td>
+        <td></td>
+        <td>TC-40 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M12, use case UC-23. Nguồn:
+            C013-SC-M12-03, C013-RULE-M12-04.
+        </td>
+    </tr>
+    <tr>
+        <td>61</td>
+        <td>TC-41</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M12</td>
+        <td>Lưu thông báo nội bộ ứng dụng khi gửi FCM push thất bại</td>
+        <td></td>
+        <td>TC-41 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M12, use case UC-23. Nguồn:
+            C013-SC-M12-04, C013-RULE-M12-05.
+        </td>
+    </tr>
+    <tr>
+        <td>62</td>
+        <td>TC-42</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M13</td>
+        <td>Hiển thị mục Gợi ý cho bạn dựa trên Wishlist của người dùng</td>
+        <td></td>
+        <td>TC-42 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M13, use case UC-24. Nguồn:
+            C014-SCN-UC24-01, C014-RULE-M13-02.
+        </td>
+    </tr>
+    <tr>
+        <td>63</td>
+        <td>TC-43</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M13</td>
+        <td>Hiển thị mục Gợi ý theo truyện bán chạy nhất cho khách chưa có Wishlist</td>
+        <td></td>
+        <td>TC-43 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M13, use case UC-24. Nguồn:
+            C014-SCN-UC24-02, C014-RULE-M13-02.
+        </td>
+    </tr>
+    <tr>
+        <td>64</td>
+        <td>TC-44</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M13</td>
+        <td>Loại bỏ truyện hết hàng hoặc bị ẩn khỏi danh sách gợi ý</td>
+        <td></td>
+        <td>TC-44 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M13, use case UC-24. Nguồn:
+            C014-SCN-UC24-03, C014-RULE-M13-01.
+        </td>
+    </tr>
+    <tr>
+        <td>65</td>
+        <td>TC-65</td>
+        <td><b>P4</b></td>
+        <td>17.5</td>
+        <td>3/1/1/1</td>
+        <td>M20</td>
+        <td>Admin xuất báo cáo thống kê ra file Excel thành công</td>
+        <td></td>
+        <td>TC-65 xếp P4 (S100=17.5) vì R=3 (srs_use_case_priority), C=1, H=1, D=1; module M20, use case UC-41. Nguồn:
+            C021-SC-UC41-01, C021-BR-M20-03.
+        </td>
+    </tr>
+</table>
+</html>

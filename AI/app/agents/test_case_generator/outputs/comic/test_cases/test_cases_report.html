@@ -1,1334 +1,972 @@
-<!doctype html><html lang="vi"><meta charset="utf-8"><title>Test Cases Report</title><style>body{font:16px system-ui;max-width:1000px;margin:40px auto;padding:0 20px;color:#17243a}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f2f6fa;padding:16px;border-radius:8px}h2{margin-top:32px}</style><h1>Test Case Generator Report</h1><p>Provider: GEMINI | Model: gemini-flash-latest</p><p>Bộ Test Case hoàn chỉnh bao phủ toàn bộ các kịch bản kiểm thử (Scenarios) và quy tắc nghiệp vụ (Rules) từ tài liệu phân tích hệ thống Website bán truyện tranh online.</p><h2>Danh sách Test Cases (65)</h2><pre>{
-  &quot;test_case_id&quot;: &quot;TC-01&quot;,
-  &quot;title&quot;: &quot;Kiểm tra thời gian phản hồi khi tra cứu và tìm kiếm truyện&quot;,
-  &quot;type&quot;: &quot;NON_FUNCTIONAL&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Hệ thống đang hoạt động ở điều kiện tải bình thường&quot;,
-    &quot;Có dữ liệu truyện trong hệ thống&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng đang truy cập trang chủ của website&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhập từ khóa tìm kiếm truyện tranh vào thanh tìm kiếm&quot;,
-    &quot;Nhấn Enter hoặc biểu tượng tìm kiếm&quot;,
-    &quot;Ghi nhận thời gian hệ thống phản hồi và hiển thị danh sách kết quả&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Danh sách kết quả tra cứu được hiển thị trong vòng 3 giây, tuân thủ yêu cầu hiệu năng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C001-SCENARIO-PERF-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C001-RULE-PERF-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-02&quot;,
-  &quot;title&quot;: &quot;Thêm sản phẩm vào giỏ hàng với số lượng vượt quá tồn kho&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Sản phẩm truyện đang hiển thị và còn tồn kho là 5 cuốn&quot;,
-    &quot;Người dùng đang ở trang chi tiết sản phẩm&quot;
-  ],
-  &quot;given&quot;: &quot;Sản phẩm có tồn kho là 5&quot;,
-  &quot;steps&quot;: [
-    &quot;Tại ô nhập số lượng, nhập giá trị 6&quot;,
-    &quot;Nhấn nút &#x27;Thêm vào giỏ hàng&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống chặn thao tác, không thêm sản phẩm vào giỏ hàng và hiển thị thông báo lỗi vượt quá số lượng tồn kho.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C001-SCENARIO-INV-01&quot;,
-    &quot;C005-SC-UC9-002&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C001-RULE-INV-01&quot;,
-    &quot;C005-RULE-M04-002&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-03&quot;,
-  &quot;title&quot;: &quot;Đăng ký tài khoản mới thành công bằng email và mật khẩu hợp lệ&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Người dùng chưa đăng nhập và truy cập trang đăng ký&quot;,
-    &quot;Email sử dụng chưa từng được đăng ký trong hệ thống&quot;
-  ],
-  &quot;given&quot;: &quot;Khách vãng lai truy cập trang đăng ký tài khoản&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhập tên đăng nhập hợp lệ (không chứa &#x27;@&#x27; và khoảng trắng)&quot;,
-    &quot;Nhập email chưa tồn tại trong hệ thống&quot;,
-    &quot;Nhập mật khẩu thỏa mãn BR1 (tối thiểu 8 ký tự, có chữ hoa, thường, số, ký tự đặc biệt) và xác nhận mật khẩu khớp&quot;,
-    &quot;Nhấn nút &#x27;Đăng ký&#x27;&quot;,
-    &quot;Nhận mã OTP gửi về email và nhập mã OTP vào form xác thực&quot;,
-    &quot;Nhấn nút xác nhận kích hoạt tài khoản&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Tài khoản được kích hoạt thành công, hệ thống hiển thị thông báo thành công và chuyển hướng về trang đăng nhập.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C002-SC-UC1-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C002-BR-UC1-01&quot;,
-    &quot;C002-BR-UC1-02&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-04&quot;,
-  &quot;title&quot;: &quot;Đăng nhập thất bại do nhập sai tên đăng nhập hoặc mật khẩu&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Tài khoản đã tồn tại và đã được kích hoạt&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng đang ở cửa sổ đăng nhập&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhập tên đăng nhập đúng và mật khẩu sai (hoặc ngược lại)&quot;,
-    &quot;Hoàn tất xác minh CAPTCHA&quot;,
-    &quot;Nhấn nút &#x27;Đăng nhập&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống từ chối đăng nhập, hiển thị thông báo sai thông tin, không tạo phiên làm việc và tăng bộ đếm đăng nhập sai.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C002-SC-UC2-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C002-BR-UC2-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-05&quot;,
-  &quot;title&quot;: &quot;Tìm kiếm truyện thành công theo từ khóa hợp lệ&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Người dùng truy cập vào website&quot;,
-    &quot;Hệ thống có truyện phù hợp từ khóa đang ở trạng thái hiển thị&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng truy cập website và đứng tại thanh tìm kiếm&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhập từ khóa tìm kiếm (tên truyện, tác giả, thể loại hoặc NXB)&quot;,
-    &quot;Nhấn Enter hoặc biểu tượng tìm kiếm&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống hiển thị danh sách truyện khớp từ khóa kèm tổng số lượng kết quả, loại trừ các truyện bị Admin ẩn; từ khóa được lưu vào lịch sử tìm kiếm.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C003-SCN-M02-001&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C003-RULE-M02-001&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-06&quot;,
-  &quot;title&quot;: &quot;Tìm kiếm truyện không có kết quả phù hợp&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Người dùng truy cập vào website&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng truy cập website&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhập từ khóa không tồn tại trong hệ thống (ví dụ: &#x27;xyzabcdef123&#x27;)&quot;,
-    &quot;Nhấn Enter hoặc biểu tượng tìm kiếm&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống hiển thị danh sách trống kèm thông báo không có kết quả phù hợp.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C003-SCN-M02-002&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C003-RULE-M02-001&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-07&quot;,
-  &quot;title&quot;: &quot;Kiểm tra hiển thị nút Thêm vào giỏ khi truyện có tồn kho bằng 0&quot;,
-  &quot;type&quot;: &quot;STATE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Truyện tồn tại, đang ở trạng thái hiển thị nhưng có số lượng tồn kho bằng 0&quot;
-  ],
-  &quot;given&quot;: &quot;Truyện có số lượng tồn kho bằng 0&quot;,
-  &quot;steps&quot;: [
-    &quot;Người dùng điều hướng vào trang chi tiết truyện này&quot;,
-    &quot;Kiểm tra trạng thái hiển thị của nút mua hàng&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Nút &#x27;Thêm vào giỏ&#x27; chuyển thành trạng thái hiển thị &#x27;Hết hàng&#x27; và bị vô hiệu hóa (disabled), không cho phép nhấn.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C003-SCN-M02-003&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C003-RULE-M02-004&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-08&quot;,
-  &quot;title&quot;: &quot;Xem danh sách chương trình Flash Sale đang và sắp diễn ra&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Có ít nhất một chương trình Flash Sale đã được cấu hình trong hệ thống&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng truy cập trang chủ&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhấn &#x27;Xem thêm&#x27; tại mục Flash Sale trên trang chủ hoặc nhấn vào biểu tượng Flash Sale&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Trang Flash Sale hiển thị danh sách các khung giờ kèm trạng thái (&#x27;Đang bán&#x27; hoặc &#x27;Sắp diễn ra&#x27;), đồng hồ đếm ngược, danh sách sản phẩm cùng giá gốc, giá giảm và số lượng còn lại.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C004-SC-UC8-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C004-BR1&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-09&quot;,
-  &quot;title&quot;: &quot;Thêm sản phẩm Flash Sale vào giỏ hàng trong khung giờ hợp lệ&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Chương trình Flash Sale đang trong khung giờ diễn ra&quot;,
-    &quot;Sản phẩm Flash Sale còn số lượng bán&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng đang ở trang Flash Sale và chương trình đang diễn ra&quot;,
-  &quot;steps&quot;: [
-    &quot;Chọn một sản phẩm Flash Sale còn hàng&quot;,
-    &quot;Nhấn &#x27;Thêm vào giỏ&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống kiểm tra số lượng Flash Sale còn lại và thêm thành công sản phẩm vào giỏ hàng với mức giá Flash Sale.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C004-SC-UC8-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C004-BR1&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-10&quot;,
-  &quot;title&quot;: &quot;Chặn thêm sản phẩm Flash Sale vào giỏ khi yêu cầu vượt số lượng còn lại&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Chương trình Flash Sale đang diễn ra&quot;,
-    &quot;Sản phẩm Flash Sale chỉ còn lại số lượng là N (ví dụ: N=1)&quot;
-  ],
-  &quot;given&quot;: &quot;Sản phẩm Flash Sale còn lại số lượng nhất định&quot;,
-  &quot;steps&quot;: [
-    &quot;Người dùng chọn số lượng mua N + 1&quot;,
-    &quot;Nhấn &#x27;Thêm vào giỏ&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống chặn thao tác thêm vào giỏ và hiển thị thông báo lỗi vượt quá số lượng Flash Sale còn lại.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C004-SC-UC8-03&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C004-BR2&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-11&quot;,
-  &quot;title&quot;: &quot;Xử lý khi thời gian chương trình Flash Sale kết thúc&quot;,
-  &quot;type&quot;: &quot;STATE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Người dùng đang ở trang chi tiết sản phẩm hoặc trang Flash Sale khi thời gian sắp hết&quot;
-  ],
-  &quot;given&quot;: &quot;Chương trình Flash Sale đang diễn ra và đồng hồ đếm ngược chuyển về 0&quot;,
-  &quot;steps&quot;: [
-    &quot;Chờ đồng hồ đếm ngược của chương trình kết thúc (về 0)&quot;,
-    &quot;Quan sát giá bán hiển thị của sản phẩm hoặc thực hiện thêm vào giỏ&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống tự động ẩn/vô hiệu hóa mức giá Flash Sale và quay về áp dụng mức giá bán gốc của sản phẩm.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C004-SC-UC8-04&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C004-BR1&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-12&quot;,
-  &quot;title&quot;: &quot;Thêm sản phẩm vào giỏ hàng thành công với số lượng hợp lệ&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Sản phẩm đang hiển thị và còn tồn kho lớn hơn 0&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng đang ở trang chi tiết truyện còn hàng&quot;,
-  &quot;steps&quot;: [
-    &quot;Chọn số lượng sản phẩm là 1 (hoặc nhỏ hơn/bằng tồn kho)&quot;,
-    &quot;Nhấn nút &#x27;Thêm vào giỏ hàng&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Sản phẩm được thêm vào giỏ hàng với đúng số lượng đã chọn, hiển thị thông báo thành công và số lượng trên biểu tượng giỏ hàng tăng tương ứng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C005-SC-UC9-001&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C005-RULE-M04-001&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-13&quot;,
-  &quot;title&quot;: &quot;Thêm sản phẩm vào Wishlist thành công khi đã đăng nhập&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Người dùng đã đăng nhập tài khoản Khách hàng&quot;,
-    &quot;Sản phẩm chưa từng có trong wishlist của tài khoản&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng đã đăng nhập và đang ở trang chi tiết truyện&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhấn vào biểu tượng/nút &#x27;Thêm vào yêu thích&#x27; (Wishlist)&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Sản phẩm được lưu thành công vào wishlist của người dùng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C006-SCN-M05-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C006-RULE-M05-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-14&quot;,
-  &quot;title&quot;: &quot;Ngăn chặn thêm trùng lặp sản phẩm đã có trong Wishlist&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Người dùng đã đăng nhập&quot;,
-    &quot;Sản phẩm đã tồn tại trong wishlist của người dùng&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng đã đăng nhập và sản phẩm đã có trong wishlist&quot;,
-  &quot;steps&quot;: [
-    &quot;Truy cập vào trang chi tiết sản phẩm đã có trong wishlist&quot;,
-    &quot;Thực hiện thao tác thêm sản phẩm đó vào wishlist một lần nữa&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống ngăn chặn hành động thêm trùng lặp và giữ nguyên danh sách wishlist hiện có.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C006-SCN-M05-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C006-RULE-M05-02&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-15&quot;,
-  &quot;title&quot;: &quot;Kiểm tra quyền truy cập tính năng Wishlist khi chưa đăng nhập&quot;,
-  &quot;type&quot;: &quot;AUTHORIZATION&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Người dùng chưa thực hiện đăng nhập vào hệ thống&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng là khách vãng lai (chưa đăng nhập)&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhấn vào nút Wishlist trên trang chi tiết hoặc thanh điều hướng&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống yêu cầu đăng nhập (hiển thị thông báo hoặc chuyển hướng người dùng tới trang đăng nhập), không cho phép truy cập trực tiếp wishlist.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C006-SCN-M05-03&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C006-RULE-M05-04&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-16&quot;,
-  &quot;title&quot;: &quot;Tạo đơn hàng thành công với phương thức thanh toán COD&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã đăng nhập&quot;,
-    &quot;Giỏ hàng có ít nhất một sản phẩm hợp lệ và còn đủ tồn kho&quot;,
-    &quot;Đã có thông tin địa chỉ nhận hàng đầy đủ&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng đã đăng nhập và có sản phẩm trong giỏ hàng&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhấn &#x27;Thanh toán&#x27; tại trang giỏ hàng&quot;,
-    &quot;Chọn địa chỉ giao hàng hợp lệ&quot;,
-    &quot;Chọn phương thức &#x27;Thanh toán khi nhận hàng (COD)&#x27;&quot;,
-    &quot;Kiểm tra tổng tiền hiển thị và nhấn &#x27;Đặt hàng&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Đơn hàng được tạo thành công ở trạng thái &#x27;Chờ xác nhận&#x27;, tồn kho sản phẩm được cập nhật trừ đi, hiển thị màn hình &#x27;Đặt hàng thành công&#x27;.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C007-SCN-M06-001&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C007-RULE-M06-001&quot;,
-    &quot;C007-RULE-M06-002&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-17&quot;,
-  &quot;title&quot;: &quot;Đặt hàng thất bại do không cung cấp địa chỉ giao hàng&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã đăng nhập và đang ở trang Checkout&quot;,
-    &quot;Chưa chọn hoặc để trống thông tin địa chỉ giao hàng&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng đang ở trang Checkout mà thiếu thông tin địa chỉ&quot;,
-  &quot;steps&quot;: [
-    &quot;Để trống địa chỉ nhận hàng&quot;,
-    &quot;Nhấn nút &#x27;Đặt hàng&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống chặn tạo đơn hàng và hiển thị thông báo lỗi yêu cầu bổ sung thông tin địa chỉ giao hàng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C007-SCN-M06-002&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C007-RULE-M06-003&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-18&quot;,
-  &quot;title&quot;: &quot;Nhấn Mua ngay sản phẩm khi đã hết hàng&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã đăng nhập&quot;,
-    &quot;Sản phẩm có tồn kho bằng 0&quot;
-  ],
-  &quot;given&quot;: &quot;Sản phẩm đã hết hàng&quot;,
-  &quot;steps&quot;: [
-    &quot;Truy cập trang chi tiết sản phẩm hết hàng&quot;,
-    &quot;Cố gắng thực hiện hành động &#x27;Mua ngay&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống không chuyển sang trang Checkout và hiển thị thông báo sản phẩm đã hết hàng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C007-SCN-M06-003&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C007-RULE-M06-004&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-19&quot;,
-  &quot;title&quot;: &quot;Thanh toán trực tuyến thành công qua cổng thanh toán VNPay&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã đăng nhập và thông tin checkout hợp lệ&quot;,
-    &quot;Sản phẩm còn đủ tồn kho&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng đã đăng nhập và checkout hợp lệ&quot;,
-  &quot;steps&quot;: [
-    &quot;Tại trang Checkout, chọn phương thức thanh toán VNPay&quot;,
-    &quot;Nhấn &#x27;Đặt hàng&#x27;&quot;,
-    &quot;Hệ thống chuyển hướng sang cổng thanh toán VNPay&quot;,
-    &quot;Thực hiện giao dịch thanh toán thành công trên VNPay&quot;,
-    &quot;VNPay gửi dữ liệu callback hợp lệ về hệ thống&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống xác thực chữ ký callback thành công, cập nhật trạng thái đơn hàng thành đã thanh toán và hiển thị trang &#x27;Đặt hàng thành công&#x27;.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C008-SC-UC14-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C008-BR1&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-20&quot;,
-  &quot;title&quot;: &quot;Xử lý khi khách hàng hủy thanh toán tại cổng VNPay&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã được chuyển hướng sang cổng thanh toán VNPay&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng đang ở giao diện thanh toán VNPay&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhấn nút &#x27;Hủy giao dịch&#x27; hoặc quay lại trang web của cửa hàng&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống không ghi nhận thanh toán thành công, không tạo đơn hoặc chuyển trạng thái lỗi và hiển thị thông báo hủy thanh toán cho khách hàng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C008-SC-UC14-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C008-BR1&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-21&quot;,
-  &quot;title&quot;: &quot;Xử lý kết quả giao dịch thanh toán thất bại từ VNPay&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng thực hiện thanh toán trên cổng VNPay nhưng giao dịch không thành công (thẻ lỗi/không đủ tiền)&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng đã thực hiện giao dịch thanh toán trên VNPay&quot;,
-  &quot;steps&quot;: [
-    &quot;Cổng VNPay gửi callback báo trạng thái giao dịch thất bại về hệ thống&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống không ghi nhận thanh toán và hiển thị thông báo thanh toán thất bại.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C008-SC-UC14-03&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C008-BR1&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-22&quot;,
-  &quot;title&quot;: &quot;Từ chối callback VNPay khi chữ ký hoặc dữ liệu không hợp lệ&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Giao dịch được gửi callback về endpoint hệ thống&quot;
-  ],
-  &quot;given&quot;: &quot;Hệ thống nhận callback từ VNPay&quot;,
-  &quot;steps&quot;: [
-    &quot;Mô phỏng/gửi callback chứa chữ ký sai hoặc dữ liệu giao dịch bị thay đổi&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống từ chối xử lý callback, không cập nhật trạng thái đơn hàng và bảo vệ an toàn giao dịch.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C008-SC-UC14-04&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C008-BR1&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-23&quot;,
-  &quot;title&quot;: &quot;Xử lý khi hết thời gian chờ thanh toán (Timeout) trên VNPay&quot;,
-  &quot;type&quot;: &quot;BOUNDARY&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng được chuyển hướng sang VNPay nhưng không thao tác&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng đang ở cổng VNPay và vượt quá thời gian cho phép thanh toán&quot;,
-  &quot;steps&quot;: [
-    &quot;Để phiên thanh toán quá hạn (timeout)&quot;,
-    &quot;Quay lại website cửa hàng&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống ghi nhận là thanh toán thất bại, thông báo hết hạn thanh toán và không làm mất dữ liệu giỏ hàng của khách hàng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C008-SC-UC14-05&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C008-BR1&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-24&quot;,
-  &quot;title&quot;: &quot;Tính và hiển thị phí vận chuyển tự động qua API GHN&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã đăng nhập và đang ở trang Checkout&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng nhập địa chỉ giao hàng hợp lệ&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhập đầy đủ thông tin Tỉnh/Thành, Quận/Huyện, Phường/Xã hợp lệ&quot;,
-    &quot;Hệ thống gọi API GHN để tính cước phí&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống tính thành công và hiển thị rõ ràng phí vận chuyển GHN cho người dùng trước khi đặt hàng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C009-SC-M08-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C009-RULE-M08-01&quot;,
-    &quot;C009-RULE-M08-02&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-25&quot;,
-  &quot;title&quot;: &quot;Báo lỗi khi địa chỉ giao hàng thiếu thông tin Quận/Huyện&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Người dùng đang ở bước nhập địa chỉ nhận hàng tại Checkout&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng nhập địa chỉ thiếu thông tin quận/huyện&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhập Tỉnh/Thành nhưng để trống Quận/Huyện&quot;,
-    &quot;Thực hiện xác nhận địa chỉ&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống xử lý và thông báo lỗi yêu cầu cung cấp đầy đủ thông tin Quận/Huyện, không gọi API sai định dạng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C009-SC-M08-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C009-RULE-M08-03&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-26&quot;,
-  &quot;title&quot;: &quot;Xử lý ngoại lệ khi API GHN bị timeout hoặc phản hồi lỗi&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Người dùng nhập địa chỉ hợp lệ tại trang Checkout&quot;
-  ],
-  &quot;given&quot;: &quot;API bên thứ ba GHN không phản hồi hoặc trả về lỗi&quot;,
-  &quot;steps&quot;: [
-    &quot;Hệ thống gửi yêu cầu tính phí sang API GHN&quot;,
-    &quot;API GHN timeout hoặc phản hồi mã lỗi&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống thông báo lỗi phù hợp, kích hoạt phương án dự phòng (nếu có) và không chặn mất luồng đặt hàng hay làm mất giỏ hàng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C009-SC-M08-03&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C009-RULE-M08-04&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-27&quot;,
-  &quot;title&quot;: &quot;Tạo vận đơn GHN tự động sau khi đặt hàng thành công&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Đơn hàng được đặt thành công&quot;
-  ],
-  &quot;given&quot;: &quot;Đơn hàng đã được đặt thành công trong hệ thống&quot;,
-  &quot;steps&quot;: [
-    &quot;Hệ thống tiếp nhận thông tin đơn hàng hợp lệ vừa tạo&quot;,
-    &quot;Thực hiện gọi API tạo vận đơn sang hệ thống GHN&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Vận đơn GHN được tạo thành công gắn với mã đơn hàng tương ứng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C009-SC-M08-04&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C009-RULE-M08-05&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-28&quot;,
-  &quot;title&quot;: &quot;Áp dụng voucher giảm giá hợp lệ tại trang Checkout&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã đăng nhập và đang ở trang Checkout&quot;,
-    &quot;Voucher còn hạn dùng, còn số lượt và đơn hàng đạt giá trị tối thiểu (min_order_amount)&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng đã đăng nhập và đang ở trang Checkout&quot;,
-  &quot;steps&quot;: [
-    &quot;Chọn một voucher hợp lệ trong danh sách voucher đã lưu hoặc nhập mã voucher&quot;,
-    &quot;Nhấn nút &#x27;Áp dụng&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Voucher được áp dụng thành công, mức giảm giá được trừ vào tổng tiền đơn hàng chính xác.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C010-SCENARIO-UC15-001&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C010-RULE-M09-001&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-29&quot;,
-  &quot;title&quot;: &quot;Áp dụng mã voucher không tồn tại trong hệ thống&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đang ở trang Checkout&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng đang ở trang Checkout&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhập mã voucher giả định không tồn tại (ví dụ: &#x27;KHONGTONTAI999&#x27;)&quot;,
-    &quot;Nhấn nút &#x27;Áp dụng&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống từ chối áp dụng và hiển thị thông báo lỗi mã voucher không tồn tại.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C010-SCENARIO-UC15-002&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C010-RULE-M09-001&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-30&quot;,
-  &quot;title&quot;: &quot;Admin thêm voucher khuyến mãi mới thành công&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin đã đăng nhập và có quyền quản lý voucher&quot;
-  ],
-  &quot;given&quot;: &quot;Admin đang ở trang quản lý voucher&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhấn &#x27;Thêm voucher&#x27;&quot;,
-    &quot;Nhập đầy đủ thông tin hợp lệ (mã voucher, hạn dùng, giá trị giảm, min_order_amount, số lượt)&quot;,
-    &quot;Nhấn nút &#x27;Lưu&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Voucher mới được tạo thành công và xuất hiện trong danh sách quản lý voucher của Admin.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C010-SCENARIO-UC16-001&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C010-RULE-M09-003&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-31&quot;,
-  &quot;title&quot;: &quot;Khách hàng đánh giá sản phẩm thành công cho đơn hàng hoàn thành&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã đăng nhập&quot;,
-    &quot;Đơn hàng ở trạng thái &#x27;Hoàn thành&#x27; và sản phẩm chưa được đánh giá&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng đã đăng nhập và có đơn hàng hoàn thành chưa đánh giá&quot;,
-  &quot;steps&quot;: [
-    &quot;Tại tab &#x27;Hoàn thành&#x27;, nhấn nút &#x27;Đánh giá&#x27;&quot;,
-    &quot;Chọn số sao (1 đến 5 sao)&quot;,
-    &quot;Nhập nội dung bình luận (có thể kèm ảnh)&quot;,
-    &quot;Nhấn nút &#x27;Gửi nhận xét&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Đánh giá được lưu thành công, số sao trung bình của sản phẩm được cập nhật, đánh giá hiển thị ở trang chi tiết truyện và nút &#x27;Đánh giá&#x27; của đơn hàng bị vô hiệu hóa.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C011-SCN-UC17-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C011-RULE-M10-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-32&quot;,
-  &quot;title&quot;: &quot;Gửi đánh giá sản phẩm thất bại do chưa chọn số sao&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đang ở popup đánh giá sản phẩm&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng chưa chọn số sao đánh giá&quot;,
-  &quot;steps&quot;: [
-    &quot;Để trống không chọn số sao&quot;,
-    &quot;Nhập nội dung bình luận&quot;,
-    &quot;Nhấn &#x27;Gửi nhận xét&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống từ chối lưu, hiển thị thông báo lỗi yêu cầu chọn số sao đánh giá.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C011-SCN-UC17-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C011-RULE-M10-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-33&quot;,
-  &quot;title&quot;: &quot;Gửi yêu cầu đổi/trả hàng thành công&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã đăng nhập&quot;,
-    &quot;Đơn hàng đang ở trạng thái cho phép trả hàng&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng có đơn hàng đủ điều kiện trả hàng&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhấn nút &#x27;Trả hàng&#x27;&quot;,
-    &quot;Nhập lý do trả hàng chi tiết&quot;,
-    &quot;Đính kèm tệp hình ảnh minh chứng hợp lệ&quot;,
-    &quot;Nhấn &#x27;Gửi yêu cầu&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Yêu cầu trả hàng được tạo với trạng thái &#x27;Đang xem xét&#x27; và đơn hàng được chuyển sang tab Trả hàng/Hoàn tiền.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C011-SCN-UC18-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C011-RULE-M10-03&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-34&quot;,
-  &quot;title&quot;: &quot;Gửi yêu cầu trả hàng thất bại do tệp minh chứng sai định dạng hoặc quá dung lượng&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đang ở popup yêu cầu trả hàng&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng nhập lý do hợp lệ nhưng tải lên file đính kèm không đúng quy định&quot;,
-  &quot;steps&quot;: [
-    &quot;Chọn đính kèm tệp sai định dạng (ví dụ: .exe) hoặc file vượt dung lượng cho phép&quot;,
-    &quot;Nhấn &#x27;Gửi yêu cầu&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống từ chối tệp tải lên, hiển thị thông báo lỗi và không gửi yêu cầu.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C011-SCN-UC18-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C011-RULE-M10-03&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-35&quot;,
-  &quot;title&quot;: &quot;Cập nhật thông tin cá nhân thành công với dữ liệu hợp lệ&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã đăng nhập và mở mục Thông tin tài khoản&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng đang ở trang chỉnh sửa thông tin cá nhân&quot;,
-  &quot;steps&quot;: [
-    &quot;Cập nhật họ tên hợp lệ&quot;,
-    &quot;Nhập số điện thoại gồm 10 chữ số bắt đầu bằng 03, 05, 07, 08 hoặc 09&quot;,
-    &quot;Nhấn nút &#x27;Lưu thay đổi&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Thông tin cá nhân được lưu thành công và hiển thị đồng bộ trên giao diện.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C012-SC-UC19-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C012-BR-M11-01&quot;,
-    &quot;C012-BR-M11-02&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-36&quot;,
-  &quot;title&quot;: &quot;Cập nhật thông tin cá nhân thất bại khi số điện thoại sai định dạng&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đang ở trang chỉnh sửa thông tin tài khoản&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng nhập số điện thoại không đúng đầu số hoặc không đủ 10 chữ số&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhập số điện thoại không hợp lệ (ví dụ: &#x27;012345678&#x27; hoặc bắt đầu bằng 02)&quot;,
-    &quot;Nhấn &#x27;Lưu thay đổi&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống từ chối lưu, hiển thị thông báo lỗi tại trường số điện thoại.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C012-SC-UC19-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C012-BR-M11-01&quot;,
-    &quot;C012-BR-M11-02&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-37&quot;,
-  &quot;title&quot;: &quot;Xem lịch sử điểm thưởng (C-Point) khi chưa phát sinh giao dịch&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thấp&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã đăng nhập tài khoản mới chưa có giao dịch điểm nào&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng truy cập vào mục ưu đãi C-Point&quot;,
-  &quot;steps&quot;: [
-    &quot;Mở tab Lịch sử giao dịch điểm thưởng&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống hiển thị tổng số điểm hiện có là 0 và danh sách lịch sử trống kèm thông báo phù hợp.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C012-SC-UC21-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C012-BR-M11-04&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-38&quot;,
-  &quot;title&quot;: &quot;Nhận thông báo Push Notification qua FCM khi đơn hàng thay đổi trạng thái&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã đăng nhập&quot;,
-    &quot;FCM token của thiết bị đã được đăng ký và lưu trữ hợp lệ&quot;
-  ],
-  &quot;given&quot;: &quot;Hệ thống phát sinh sự kiện đơn hàng đổi trạng thái&quot;,
-  &quot;steps&quot;: [
-    &quot;Admin thay đổi trạng thái đơn hàng của khách&quot;,
-    &quot;Hệ thống tạo thông báo và gửi push qua Firebase Cloud Messaging&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Thiết bị nhận được thông báo push và thông báo được lưu trong mục Thông báo của ứng dụng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C013-SC-M12-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C013-RULE-M12-01&quot;,
-    &quot;C013-RULE-M12-02&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-39&quot;,
-  &quot;title&quot;: &quot;Hiển thị danh sách thông báo mới và số lượng chưa đọc&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã đăng nhập và có thông báo chưa đọc&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng đang ở bất kỳ trang nào trên website&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhấn vào biểu tượng thông báo hình quả chuông trên header&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Dropdown hiển thị danh sách các thông báo mới nhất kèm số lượng thông báo chưa đọc chính xác.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C013-SC-M12-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C013-RULE-M12-03&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-40&quot;,
-  &quot;title&quot;: &quot;Đánh dấu tất cả thông báo là đã đọc thành công&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Thấp&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng có thông báo chưa đọc trong hòm thư thông báo&quot;
-  ],
-  &quot;given&quot;: &quot;Khách hàng đang mở giao diện mục Thông báo&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhấn nút &#x27;Đánh dấu tất cả đã đọc&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Tất cả thông báo được chuyển sang trạng thái đã đọc và số đếm thông báo chưa đọc trên biểu tượng chuông về 0.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C013-SC-M12-03&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C013-RULE-M12-04&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-41&quot;,
-  &quot;title&quot;: &quot;Lưu thông báo nội bộ ứng dụng khi gửi FCM push thất bại&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Khách hàng đã đăng nhập nhưng thiết bị mất kết nối FCM hoặc không có token&quot;
-  ],
-  &quot;given&quot;: &quot;Sự kiện thông báo được tạo nhưng kết nối tới FCM bị lỗi&quot;,
-  &quot;steps&quot;: [
-    &quot;Hệ thống thực hiện gửi push qua FCM thất bại&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống vẫn ghi nhận và lưu thông báo vào cơ sở dữ liệu nội bộ để hiển thị trong ứng dụng khi khách hàng truy cập.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C013-SC-M12-04&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C013-RULE-M12-05&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-42&quot;,
-  &quot;title&quot;: &quot;Hiển thị mục Gợi ý cho bạn dựa trên Wishlist của người dùng&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Người dùng đã đăng nhập và đã có ít nhất một truyện trong Wishlist&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng đã đăng nhập và có wishlist&quot;,
-  &quot;steps&quot;: [
-    &quot;Điều hướng tới trang chủ của website&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Mục &#x27;Gợi ý cho bạn&#x27; hiển thị các truyện là tập tiếp theo hoặc cùng thể loại với các truyện trong Wishlist của người dùng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C014-SCN-UC24-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C014-RULE-M13-02&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-43&quot;,
-  &quot;title&quot;: &quot;Hiển thị mục Gợi ý theo truyện bán chạy nhất cho khách chưa có Wishlist&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Người dùng chưa đăng nhập hoặc tài khoản chưa có truyện nào trong Wishlist&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng truy cập trang chủ mà không có dữ liệu Wishlist&quot;,
-  &quot;steps&quot;: [
-    &quot;Mở trang chủ website&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Mục &#x27;Gợi ý cho bạn&#x27; hiển thị danh sách các truyện có lượt bán cao nhất trong hệ thống.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C014-SCN-UC24-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C014-RULE-M13-02&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-44&quot;,
-  &quot;title&quot;: &quot;Loại bỏ truyện hết hàng hoặc bị ẩn khỏi danh sách gợi ý&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Các sản phẩm thỏa điều kiện gợi ý đều đã hết hàng hoặc đang ở trạng thái bị Admin ẩn&quot;
-  ],
-  &quot;given&quot;: &quot;Các truyện dự kiến gợi ý không còn hàng hoặc bị ẩn&quot;,
-  &quot;steps&quot;: [
-    &quot;Hệ thống tổng hợp danh sách gợi ý và tải trang chủ&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống loại bỏ hoàn toàn các truyện hết hàng/bị ẩn khỏi mục gợi ý; hiển thị danh sách trống hợp lệ hoặc ẩn khối gợi ý.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C014-SCN-UC24-03&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C014-RULE-M13-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-45&quot;,
-  &quot;title&quot;: &quot;Admin thêm truyện tranh mới thành công&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin đã đăng nhập và có quyền quản lý sản phẩm&quot;
-  ],
-  &quot;given&quot;: &quot;Admin đang ở trang Quản lý sản phẩm&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhấn &#x27;Thêm truyện&#x27;&quot;,
-    &quot;Nhập đầy đủ các thông tin bắt buộc (tên truyện, tác giả, thể loại, NXB, giá)&quot;,
-    &quot;Tải lên tệp ảnh minh họa đúng định dạng và kích thước&quot;,
-    &quot;Nhấn nút &#x27;Lưu&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Truyện mới được lưu thành công vào cơ sở dữ liệu và hiển thị trên bảng danh sách truyện của trang quản trị.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C015-SC-UC25-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C015-BR-M14-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-46&quot;,
-  &quot;title&quot;: &quot;Admin thêm truyện thất bại do tệp ảnh không đúng định dạng&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin đang ở form thêm truyện mới&quot;
-  ],
-  &quot;given&quot;: &quot;Admin nhập thông tin hợp lệ nhưng đính kèm file ảnh không hợp lệ&quot;,
-  &quot;steps&quot;: [
-    &quot;Chọn tải lên tệp ảnh sai định dạng hoặc vượt quá dung lượng cho phép&quot;,
-    &quot;Nhấn &#x27;Lưu&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống từ chối lưu, hiển thị thông báo lỗi ảnh không hợp lệ và giữ lại thông tin form nhập.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C015-SC-UC25-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C015-BR-M14-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-47&quot;,
-  &quot;title&quot;: &quot;Chặn Admin xóa truyện tranh đang có trong đơn hàng hoặc giỏ hàng&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin đã đăng nhập&quot;,
-    &quot;Truyện định xóa đang nằm trong đơn hàng đã tạo hoặc giỏ hàng của khách hàng&quot;
-  ],
-  &quot;given&quot;: &quot;Truyện cần xóa đang có liên kết dữ liệu trong đơn hàng/giỏ hàng&quot;,
-  &quot;steps&quot;: [
-    &quot;Tại dòng truyện cần xóa, nhấn biểu tượng thùng rác&quot;,
-    &quot;Nhấn xác nhận xóa&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống cảnh báo hoặc chặn xóa truyện để tránh làm sai lệch dữ liệu đơn hàng hiện có.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C015-SC-UC27-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C015-BR-M14-02&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-48&quot;,
-  &quot;title&quot;: &quot;Admin thêm danh mục thể loại mới thành công&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin có quyền quản lý danh mục và mở trang Quản lý thể loại&quot;
-  ],
-  &quot;given&quot;: &quot;Tên thể loại định thêm chưa từng tồn tại trên hệ thống&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhấn &#x27;Thêm thể loại&#x27;&quot;,
-    &quot;Nhập tên thể loại mới&quot;,
-    &quot;Nhấn &#x27;Lưu&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Danh mục thể loại mới được lưu thành công và cập nhật lên danh sách thể loại.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C016-SC-UC30-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C016-RULE-M15-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-49&quot;,
-  &quot;title&quot;: &quot;Admin thêm danh mục thể loại trùng tên đã tồn tại&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Đã có một thể loại mang tên &#x27;Hành động&#x27; trong hệ thống&quot;
-  ],
-  &quot;given&quot;: &quot;Admin đang ở form thêm thể loại&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhập tên thể loại trùng với tên đã có (&#x27;Hành động&#x27;)&quot;,
-    &quot;Nhấn &#x27;Lưu&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống từ chối lưu và hiển thị thông báo lỗi tên danh mục đã tồn tại.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C016-SC-UC30-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C016-RULE-M15-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-50&quot;,
-  &quot;title&quot;: &quot;Chặn Admin xóa danh mục đang có truyện sử dụng&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Thể loại định xóa đang được gắn cho ít nhất một cuốn truyện trong hệ thống&quot;
-  ],
-  &quot;given&quot;: &quot;Danh mục thể loại đang được truyện sử dụng&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhấn nút xóa danh mục thể loại này&quot;,
-    &quot;Xác nhận xóa trong popup&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống ngăn chặn xóa và hiển thị cảnh báo danh mục đang có truyện sử dụng không thể xóa.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C016-SC-UC30-03&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C016-RULE-M15-02&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-51&quot;,
-  &quot;title&quot;: &quot;Admin cập nhật số lượng tồn kho sản phẩm thành công&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin đã đăng nhập và mở trang Quản lý tồn kho&quot;
-  ],
-  &quot;given&quot;: &quot;Sản phẩm đang hiển thị trong danh sách tồn kho&quot;,
-  &quot;steps&quot;: [
-    &quot;Chọn sản phẩm cần cập nhật&quot;,
-    &quot;Nhập số lượng nhập thêm hoặc điều chỉnh là số nguyên dương hợp lệ (ví dụ: 50)&quot;,
-    &quot;Nhấn nút &#x27;Lưu&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Số lượng tồn kho của sản phẩm được cập nhật chính xác trên hệ thống.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C017-SC-UC32-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C017-BR1&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-52&quot;,
-  &quot;title&quot;: &quot;Admin nhập số lượng khiến tồn kho bị âm&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin đang ở giao diện điều chỉnh tồn kho sản phẩm&quot;
-  ],
-  &quot;given&quot;: &quot;Admin nhập số lượng điều chỉnh khiến tồn kho kết quả nhỏ hơn 0&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhập giá trị làm tồn kho trở thành số âm (ví dụ: -10)&quot;,
-    &quot;Nhấn &#x27;Lưu&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống từ chối cập nhật, hiển thị thông báo tồn kho không được âm và giữ nguyên số lượng cũ.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C017-SC-UC32-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C017-BR1&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-53&quot;,
-  &quot;title&quot;: &quot;Admin nhập giá trị tồn kho không phải ký tự số&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin đang ở ô nhập số lượng tồn kho&quot;
-  ],
-  &quot;given&quot;: &quot;Admin nhập dữ liệu dạng chuỗi chữ&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhập các ký tự chữ hoặc ký tự đặc biệt (ví dụ: &#x27;abc#@&#x27;)&quot;,
-    &quot;Nhấn &#x27;Lưu&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống từ chối, hiển thị lỗi yêu cầu giá trị nhập phải là số hợp lệ.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C017-SC-UC32-03&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C017-FR-M16-VAL&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-54&quot;,
-  &quot;title&quot;: &quot;Cảnh báo hết hàng và vô hiệu hóa mua hàng khi tồn kho bằng 0&quot;,
-  &quot;type&quot;: &quot;BOUNDARY&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Sản phẩm có số lượng tồn kho bằng 0 trong quản lý kho&quot;
-  ],
-  &quot;given&quot;: &quot;Tồn kho sản phẩm bằng 0&quot;,
-  &quot;steps&quot;: [
-    &quot;Admin kiểm tra hiển thị sản phẩm tại trang quản lý kho&quot;,
-    &quot;Khách hàng truy cập trang mua hàng của sản phẩm đó&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống hiển thị cảnh báo hết hàng và vô hiệu hóa nút mua của sản phẩm ở phía khách hàng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C017-SC-UC32-04&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C017-BR2&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-55&quot;,
-  &quot;title&quot;: &quot;Admin duyệt xác nhận đơn hàng ở trạng thái Chờ xác nhận&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin đã đăng nhập&quot;,
-    &quot;Đơn hàng đang ở tab và trạng thái &#x27;Chờ xác nhận&#x27;&quot;
-  ],
-  &quot;given&quot;: &quot;Đơn hàng đang ở trạng thái &#x27;Chờ xác nhận&#x27;&quot;,
-  &quot;steps&quot;: [
-    &quot;Mở tab &#x27;Chờ xác nhận&#x27;&quot;,
-    &quot;Nhấn &#x27;Xem chi tiết&#x27; một đơn hàng&quot;,
-    &quot;Nhấn nút &#x27;Xác nhận&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Đơn hàng chuyển thành công sang trạng thái &#x27;Chờ lấy hàng&#x27; và gửi thông báo cập nhật cho khách hàng.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C018-SC-UC33-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C018-BR-M17-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-56&quot;,
-  &quot;title&quot;: &quot;Chặn Admin cập nhật trạng thái đơn hàng sai quy trình&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Đơn hàng đang ở trạng thái &#x27;Đã hủy&#x27;&quot;
-  ],
-  &quot;given&quot;: &quot;Đơn hàng đã bị hủy&quot;,
-  &quot;steps&quot;: [
-    &quot;Admin cố gắng chuyển trạng thái đơn hàng từ &#x27;Đã hủy&#x27; sang &#x27;Hoàn thành&#x27; hoặc &#x27;Đang giao&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống từ chối cập nhật và hiển thị thông báo lỗi chuyển trạng thái không hợp lệ.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C018-SC-UC34-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C018-BR-M17-02&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-57&quot;,
-  &quot;title&quot;: &quot;Chặn Admin hủy đơn hàng khi đơn đã ở trạng thái Đã giao&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Đơn hàng đã được giao thành công (trạng thái &#x27;Đã giao&#x27; hoặc &#x27;Hoàn thành&#x27;)&quot;
-  ],
-  &quot;given&quot;: &quot;Đơn hàng đã được giao&quot;,
-  &quot;steps&quot;: [
-    &quot;Admin chọn hành động Hủy đối với đơn hàng này&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống từ chối cho phép hủy và hiển thị thông báo chỉ đơn chưa được giao mới được phép hủy.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C018-SC-UC35-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C018-BR-M17-04&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-58&quot;,
-  &quot;title&quot;: &quot;Chặn truy cập trang quản trị khi người dùng chưa đăng nhập&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Người dùng chưa đăng nhập bất kỳ tài khoản nào&quot;
-  ],
-  &quot;given&quot;: &quot;Người dùng chưa xác thực danh tính&quot;,
-  &quot;steps&quot;: [
-    &quot;Truy cập trực tiếp URL của trang quản trị (ví dụ: &#x27;/admin/dashboard&#x27;)&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống chặn truy cập và tự động chuyển hướng người dùng về trang đăng nhập.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C019-SC-UC36-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C019-RULE-M18-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-59&quot;,
-  &quot;title&quot;: &quot;Chặn tài khoản người dùng thông thường truy cập trang quản trị&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Người dùng đã đăng nhập với vai trò Khách hàng (Customer) không có quyền Admin&quot;
-  ],
-  &quot;given&quot;: &quot;Tài khoản không đủ quyền truy cập quản trị&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhập đường dẫn trực tiếp tới trang chức năng quản trị (ví dụ: &#x27;/admin/orders&#x27;)&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống chặn truy cập hoặc chuyển hướng và hiển thị thông báo không có quyền truy cập.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C019-SC-UC36-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C019-RULE-M18-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-60&quot;,
-  &quot;title&quot;: &quot;Admin thực hiện khóa tài khoản người dùng thành công&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin có quyền quản lý người dùng và đang ở trang Quản lý người dùng&quot;
-  ],
-  &quot;given&quot;: &quot;Tài khoản người dùng đang hoạt động bình thường&quot;,
-  &quot;steps&quot;: [
-    &quot;Chọn một tài khoản người dùng trong danh sách&quot;,
-    &quot;Chọn hành động &#x27;Khóa tài khoản&#x27;&quot;,
-    &quot;Xác nhận khóa&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Trạng thái tài khoản chuyển thành &#x27;Bị khóa&#x27;; tài khoản này không thể đăng nhập vào hệ thống sau đó.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C019-SC-UC38-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C019-RULE-M18-04&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-61&quot;,
-  &quot;title&quot;: &quot;Admin xem Dashboard tổng quan theo bộ lọc thời gian Hôm nay&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin đã đăng nhập và mở trang Dashboard Tổng quan&quot;
-  ],
-  &quot;given&quot;: &quot;Admin đang ở trang Dashboard Tổng quan&quot;,
-  &quot;steps&quot;: [
-    &quot;Tại bộ lọc thời gian, chọn &#x27;Hôm nay&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Dashboard cập nhật hiển thị chính xác các chỉ số số đơn, doanh thu, khách hàng mới và biểu đồ doanh thu theo các giờ trong ngày hôm nay.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C020-SCN-M19-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C020-RULE-M19-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-62&quot;,
-  &quot;title&quot;: &quot;Báo lỗi khi tùy chỉnh khoảng thời gian có ngày kết thúc trước ngày bắt đầu trên Dashboard&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin đang ở bộ lọc thời gian tùy chỉnh của Dashboard&quot;
-  ],
-  &quot;given&quot;: &quot;Admin chọn khoảng thời gian không hợp lệ&quot;,
-  &quot;steps&quot;: [
-    &quot;Chọn khoảng thời gian &#x27;Tùy chỉnh&#x27;&quot;,
-    &quot;Nhập ngày kết thúc nhỏ hơn (trước) ngày bắt đầu&quot;,
-    &quot;Xác nhận áp dụng&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống từ chối hoặc cảnh báo lỗi thời gian không hợp lệ và giữ nguyên số liệu thống kê cũ.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C020-SCN-M19-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C020-RULE-M19-03&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-63&quot;,
-  &quot;title&quot;: &quot;Admin xem báo cáo thống kê doanh thu và lợi nhuận chi tiết&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Cao&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin đã đăng nhập và mở trang Thống kê&quot;
-  ],
-  &quot;given&quot;: &quot;Admin chọn khoảng thời gian thống kê hợp lệ&quot;,
-  &quot;steps&quot;: [
-    &quot;Chọn khoảng thời gian (ví dụ: Tháng này)&quot;,
-    &quot;Xem các bảng số liệu thống kê&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống hiển thị chính xác doanh thu, số đơn, giá trị đơn trung bình, lợi nhuận (Doanh thu - Giá nhập), biên lợi nhuận (Lợi nhuận / Doanh thu), Top 5 Flash Sale/Voucher và danh sách truyện bán/chưa bán.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C021-SC-UC40-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C021-BR-M20-01&quot;,
-    &quot;C021-BR-M20-02&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-64&quot;,
-  &quot;title&quot;: &quot;Báo lỗi tại trang Thống kê khi khoảng thời gian không hợp lệ&quot;,
-  &quot;type&quot;: &quot;NEGATIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin đang ở trang Thống kê&quot;
-  ],
-  &quot;given&quot;: &quot;Admin nhập khoảng thời gian sai logic&quot;,
-  &quot;steps&quot;: [
-    &quot;Chọn ngày kết thúc trước ngày bắt đầu&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Hệ thống cảnh báo lỗi khoảng thời gian không hợp lệ và yêu cầu chọn lại.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C021-SC-UC40-02&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C021-BR-M20-01&quot;
-  ]
-}</pre><pre>{
-  &quot;test_case_id&quot;: &quot;TC-65&quot;,
-  &quot;title&quot;: &quot;Admin xuất báo cáo thống kê ra file Excel thành công&quot;,
-  &quot;type&quot;: &quot;POSITIVE&quot;,
-  &quot;priority&quot;: &quot;Thông thường&quot;,
-  &quot;preconditions&quot;: [
-    &quot;Admin đã chọn khoảng thời gian hợp lệ tại trang Thống kê&quot;
-  ],
-  &quot;given&quot;: &quot;Dữ liệu thống kê đã được hiển thị trên màn hình&quot;,
-  &quot;steps&quot;: [
-    &quot;Nhấn nút &#x27;Xuất Excel&#x27;&quot;
-  ],
-  &quot;expected_result&quot;: &quot;Trình duyệt tự động tải xuống file Excel (.xlsx) hợp lệ chứa đầy đủ thông tin header và dữ liệu báo cáo theo đúng kỳ đã chọn, mở được bằng phần mềm Excel mà không làm treo giao diện.&quot;,
-  &quot;trace_scenario_ids&quot;: [
-    &quot;C021-SC-UC41-01&quot;
-  ],
-  &quot;trace_rule_ids&quot;: [
-    &quot;C021-BR-M20-03&quot;
-  ]
-}</pre><h2>Validation Warnings</h2><p>Không có.</p></html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bộ Test Case - Website bán truyện tranh online</title>
+<style>
+:root{--navy:#17324d;--blue:#245b85;--border:#d7e0e8;--text:#243447;--muted:#637487}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f7fb;color:var(--text);font:14px/1.5 "Segoe UI",Arial,sans-serif}
+header{background:linear-gradient(120deg,#17324d,#245b85);color:white;padding:28px clamp(16px,3vw,40px)}
+h1{margin:0 0 8px;font-size:clamp(22px,3vw,32px)} header p{margin:0;color:#e0eaf3}
+main{padding:22px clamp(12px,2vw,28px) 40px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;color:var(--muted)}
+.meta span{background:white;border:1px solid var(--border);border-radius:8px;padding:8px 12px}
+.summary{background:white;border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:18px}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+#search{flex:1;min-width:240px;padding:11px 13px;border:1px solid #c8d4df;border-radius:8px;font:inherit;background:white}
+.count{color:var(--muted);font-weight:600}
+.table-wrap{overflow:auto;background:white;border:1px solid var(--border);border-radius:10px;box-shadow:0 4px 16px #17324d0d;max-height:78vh}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:2200px}
+thead th{position:sticky;top:0;z-index:2;background:var(--navy);color:white;text-align:left;font-weight:650;padding:13px 12px;white-space:nowrap}
+tbody td{padding:12px;border-bottom:1px solid #e5ebf0;border-right:1px solid #edf1f5;vertical-align:top;max-width:340px;overflow-wrap:anywhere}
+tbody tr:nth-child(even){background:#f8fbfd} tbody tr:hover{background:#edf6fc}
+td.id{font-weight:700;color:var(--blue);white-space:nowrap;min-width:160px}
+td.module{font-weight:600;white-space:nowrap} td.title{min-width:250px;font-weight:600}
+td ul,td ol{margin:0;padding-left:18px;min-width:160px} td li{margin:0 0 5px}
+.type{display:inline-block;background:#edf2f7;border-radius:5px;padding:3px 7px;font-size:12px;white-space:nowrap}
+.type-POSITIVE{background:#dcfce7;color:#166534} .type-NEGATIVE{background:#fee2e2;color:#991b1b} .type-BOUNDARY{background:#fef9c3;color:#854d0e}
+.priority{display:inline-block;border-radius:20px;padding:4px 9px;font-weight:650;white-space:nowrap;font-size:12px}
+.priority.high{background:#fde8e7;color:#a62d2a} .priority.normal{background:#fff2d7;color:#815a08} .priority.low{background:#e4f5e9;color:#246c3d}
+td.scenario{min-width:300px} .scenario-desc{font-weight:600;margin-bottom:8px} .trace-ids{font-size:12px;color:var(--muted);border-top:1px solid #e5ebf0;padding-top:6px}
+.warnings{margin-top:24px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px 18px}
+footer{color:var(--muted);padding:12px 2px;font-size:12px}
+@media print{body{background:white}header{background:white;color:black;padding:12px 0}header p{color:#333}main{padding:8px}.toolbar{display:none}.table-wrap{max-height:none;overflow:visible;box-shadow:none;border:0}table{min-width:0;font-size:8px}thead th{position:static;background:#e8edf2;color:#111}tbody td{padding:5px}}
+</style>
+</head>
+<body>
+<header><h1>Bộ Test Case – Website bán truyện tranh online</h1>
+<p>Danh sách 65 Test Case với dữ liệu đầu vào, bước thực hiện, kết quả mong đợi và mô tả kịch bản.</p></header>
+<main>
+<div class="meta"><span><b>Provider:</b> GEMINI</span><span><b>Model:</b> gemini-flash-latest</span><span><b>Tổng số Test Case:</b> 65</span></div>
+<div class="summary"><b>Tóm tắt:</b> Bộ Test Case hoàn chỉnh bao phủ toàn bộ các kịch bản kiểm thử (Scenarios) và quy tắc nghiệp vụ (Rules) từ tài liệu phân tích hệ thống Website bán truyện tranh online.</div>
+<div class="toolbar"><input id="search" type="search" placeholder="Tìm theo mã, module, tiêu đề hoặc nội dung test case..." aria-label="Tìm kiếm test case"><span class="count" id="count">65 / 65 Test Case</span></div>
+<div class="table-wrap"><table id="testTable">
+<thead><tr><th>Mã Test Case</th><th>Module</th><th>Tên Test Case</th><th>Loại</th><th>Ưu tiên</th><th>Điều kiện tiên quyết</th><th>Dữ liệu đầu vào</th><th>Các bước thực hiện</th><th>Kết quả mong đợi</th><th>Kịch bản</th><th>Rule IDs</th></tr></thead>
+<tbody>
+      <tr>
+        <td class="id">TimKiem-TC-01</td>
+        <td class="module">TimKiem</td>
+        <td class="title">Kiểm tra thời gian phản hồi khi tra cứu và tìm kiếm truyện</td>
+        <td><span class="type type-OTHER">NON_FUNCTIONAL</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Hệ thống đang hoạt động ở điều kiện tải bình thường</li><li>Có dữ liệu truyện trong hệ thống</li></ul></td>
+        <td>Người dùng đang truy cập trang chủ của website</td>
+        <td><ol><li>Nhập từ khóa tìm kiếm truyện tranh vào thanh tìm kiếm</li><li>Nhấn Enter hoặc biểu tượng tìm kiếm</li><li>Ghi nhận thời gian hệ thống phản hồi và hiển thị danh sách kết quả</li></ol></td>
+        <td>Danh sách kết quả tra cứu được hiển thị trong vòng 3 giây, tuân thủ yêu cầu hiệu năng.</td>
+        <td class="scenario"><div class='scenario-desc'>Kiểm tra thời gian phản hồi khi tra cứu và tìm kiếm truyện</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C001-SCENARIO-PERF-01</li></ul></div></td>
+        <td><ul><li>C001-RULE-PERF-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyTonKho-TC-01</td>
+        <td class="module">QuanLyTonKho</td>
+        <td class="title">Thêm sản phẩm vào giỏ hàng với số lượng vượt quá tồn kho</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Sản phẩm truyện đang hiển thị và còn tồn kho là 5 cuốn</li><li>Người dùng đang ở trang chi tiết sản phẩm</li></ul></td>
+        <td>Sản phẩm có tồn kho là 5</td>
+        <td><ol><li>Tại ô nhập số lượng, nhập giá trị 6</li><li>Nhấn nút &#x27;Thêm vào giỏ hàng&#x27;</li></ol></td>
+        <td>Hệ thống chặn thao tác, không thêm sản phẩm vào giỏ hàng và hiển thị thông báo lỗi vượt quá số lượng tồn kho.</td>
+        <td class="scenario"><div class='scenario-desc'>Thêm sản phẩm vào giỏ hàng với số lượng vượt quá tồn kho</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C001-SCENARIO-INV-01</li><li>C005-SC-UC9-002</li></ul></div></td>
+        <td><ul><li>C001-RULE-INV-01</li><li>C005-RULE-M04-002</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">TaiKhoanPhanQuyen-TC-01</td>
+        <td class="module">TaiKhoanPhanQuyen</td>
+        <td class="title">Đăng ký tài khoản mới thành công bằng email và mật khẩu hợp lệ</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Người dùng chưa đăng nhập và truy cập trang đăng ký</li><li>Email sử dụng chưa từng được đăng ký trong hệ thống</li></ul></td>
+        <td>Khách vãng lai truy cập trang đăng ký tài khoản</td>
+        <td><ol><li>Nhập tên đăng nhập hợp lệ (không chứa &#x27;@&#x27; và khoảng trắng)</li><li>Nhập email chưa tồn tại trong hệ thống</li><li>Nhập mật khẩu thỏa mãn BR1 (tối thiểu 8 ký tự, có chữ hoa, thường, số, ký tự đặc biệt) và xác nhận mật khẩu khớp</li><li>Nhấn nút &#x27;Đăng ký&#x27;</li><li>Nhận mã OTP gửi về email và nhập mã OTP vào form xác thực</li><li>Nhấn nút xác nhận kích hoạt tài khoản</li></ol></td>
+        <td>Tài khoản được kích hoạt thành công, hệ thống hiển thị thông báo thành công và chuyển hướng về trang đăng nhập.</td>
+        <td class="scenario"><div class='scenario-desc'>Đăng ký tài khoản mới thành công bằng email và mật khẩu hợp lệ</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C002-SC-UC1-01</li></ul></div></td>
+        <td><ul><li>C002-BR-UC1-01</li><li>C002-BR-UC1-02</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">TaiKhoanPhanQuyen-TC-02</td>
+        <td class="module">TaiKhoanPhanQuyen</td>
+        <td class="title">Đăng nhập thất bại do nhập sai tên đăng nhập hoặc mật khẩu</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Tài khoản đã tồn tại và đã được kích hoạt</li></ul></td>
+        <td>Người dùng đang ở cửa sổ đăng nhập</td>
+        <td><ol><li>Nhập tên đăng nhập đúng và mật khẩu sai (hoặc ngược lại)</li><li>Hoàn tất xác minh CAPTCHA</li><li>Nhấn nút &#x27;Đăng nhập&#x27;</li></ol></td>
+        <td>Hệ thống từ chối đăng nhập, hiển thị thông báo sai thông tin, không tạo phiên làm việc và tăng bộ đếm đăng nhập sai.</td>
+        <td class="scenario"><div class='scenario-desc'>Đăng nhập thất bại do nhập sai tên đăng nhập hoặc mật khẩu</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C002-SC-UC2-01</li></ul></div></td>
+        <td><ul><li>C002-BR-UC2-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">TimKiem-TC-02</td>
+        <td class="module">TimKiem</td>
+        <td class="title">Tìm kiếm truyện thành công theo từ khóa hợp lệ</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Người dùng truy cập vào website</li><li>Hệ thống có truyện phù hợp từ khóa đang ở trạng thái hiển thị</li></ul></td>
+        <td>Người dùng truy cập website và đứng tại thanh tìm kiếm</td>
+        <td><ol><li>Nhập từ khóa tìm kiếm (tên truyện, tác giả, thể loại hoặc NXB)</li><li>Nhấn Enter hoặc biểu tượng tìm kiếm</li></ol></td>
+        <td>Hệ thống hiển thị danh sách truyện khớp từ khóa kèm tổng số lượng kết quả, loại trừ các truyện bị Admin ẩn; từ khóa được lưu vào lịch sử tìm kiếm.</td>
+        <td class="scenario"><div class='scenario-desc'>Tìm kiếm truyện thành công theo từ khóa hợp lệ</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C003-SCN-M02-001</li></ul></div></td>
+        <td><ul><li>C003-RULE-M02-001</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">TimKiem-TC-03</td>
+        <td class="module">TimKiem</td>
+        <td class="title">Tìm kiếm truyện không có kết quả phù hợp</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Người dùng truy cập vào website</li></ul></td>
+        <td>Người dùng truy cập website</td>
+        <td><ol><li>Nhập từ khóa không tồn tại trong hệ thống (ví dụ: &#x27;xyzabcdef123&#x27;)</li><li>Nhấn Enter hoặc biểu tượng tìm kiếm</li></ol></td>
+        <td>Hệ thống hiển thị danh sách trống kèm thông báo không có kết quả phù hợp.</td>
+        <td class="scenario"><div class='scenario-desc'>Tìm kiếm truyện không có kết quả phù hợp</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C003-SCN-M02-002</li></ul></div></td>
+        <td><ul><li>C003-RULE-M02-001</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyTonKho-TC-02</td>
+        <td class="module">QuanLyTonKho</td>
+        <td class="title">Kiểm tra hiển thị nút Thêm vào giỏ khi truyện có tồn kho bằng 0</td>
+        <td><span class="type type-OTHER">STATE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Truyện tồn tại, đang ở trạng thái hiển thị nhưng có số lượng tồn kho bằng 0</li></ul></td>
+        <td>Truyện có số lượng tồn kho bằng 0</td>
+        <td><ol><li>Người dùng điều hướng vào trang chi tiết truyện này</li><li>Kiểm tra trạng thái hiển thị của nút mua hàng</li></ol></td>
+        <td>Nút &#x27;Thêm vào giỏ&#x27; chuyển thành trạng thái hiển thị &#x27;Hết hàng&#x27; và bị vô hiệu hóa (disabled), không cho phép nhấn.</td>
+        <td class="scenario"><div class='scenario-desc'>Kiểm tra hiển thị nút Thêm vào giỏ khi truyện có tồn kho bằng 0</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C003-SCN-M02-003</li></ul></div></td>
+        <td><ul><li>C003-RULE-M02-004</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">FlashSale-TC-01</td>
+        <td class="module">FlashSale</td>
+        <td class="title">Xem danh sách chương trình Flash Sale đang và sắp diễn ra</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Có ít nhất một chương trình Flash Sale đã được cấu hình trong hệ thống</li></ul></td>
+        <td>Người dùng truy cập trang chủ</td>
+        <td><ol><li>Nhấn &#x27;Xem thêm&#x27; tại mục Flash Sale trên trang chủ hoặc nhấn vào biểu tượng Flash Sale</li></ol></td>
+        <td>Trang Flash Sale hiển thị danh sách các khung giờ kèm trạng thái (&#x27;Đang bán&#x27; hoặc &#x27;Sắp diễn ra&#x27;), đồng hồ đếm ngược, danh sách sản phẩm cùng giá gốc, giá giảm và số lượng còn lại.</td>
+        <td class="scenario"><div class='scenario-desc'>Xem danh sách chương trình Flash Sale đang và sắp diễn ra</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C004-SC-UC8-01</li></ul></div></td>
+        <td><ul><li>C004-BR1</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">FlashSale-TC-02</td>
+        <td class="module">FlashSale</td>
+        <td class="title">Thêm sản phẩm Flash Sale vào giỏ hàng trong khung giờ hợp lệ</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Chương trình Flash Sale đang trong khung giờ diễn ra</li><li>Sản phẩm Flash Sale còn số lượng bán</li></ul></td>
+        <td>Người dùng đang ở trang Flash Sale và chương trình đang diễn ra</td>
+        <td><ol><li>Chọn một sản phẩm Flash Sale còn hàng</li><li>Nhấn &#x27;Thêm vào giỏ&#x27;</li></ol></td>
+        <td>Hệ thống kiểm tra số lượng Flash Sale còn lại và thêm thành công sản phẩm vào giỏ hàng với mức giá Flash Sale.</td>
+        <td class="scenario"><div class='scenario-desc'>Thêm sản phẩm Flash Sale vào giỏ hàng trong khung giờ hợp lệ</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C004-SC-UC8-02</li></ul></div></td>
+        <td><ul><li>C004-BR1</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">FlashSale-TC-03</td>
+        <td class="module">FlashSale</td>
+        <td class="title">Chặn thêm sản phẩm Flash Sale vào giỏ khi yêu cầu vượt số lượng còn lại</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Chương trình Flash Sale đang diễn ra</li><li>Sản phẩm Flash Sale chỉ còn lại số lượng là N (ví dụ: N=1)</li></ul></td>
+        <td>Sản phẩm Flash Sale còn lại số lượng nhất định</td>
+        <td><ol><li>Người dùng chọn số lượng mua N + 1</li><li>Nhấn &#x27;Thêm vào giỏ&#x27;</li></ol></td>
+        <td>Hệ thống chặn thao tác thêm vào giỏ và hiển thị thông báo lỗi vượt quá số lượng Flash Sale còn lại.</td>
+        <td class="scenario"><div class='scenario-desc'>Chặn thêm sản phẩm Flash Sale vào giỏ khi yêu cầu vượt số lượng còn lại</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C004-SC-UC8-03</li></ul></div></td>
+        <td><ul><li>C004-BR2</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">FlashSale-TC-04</td>
+        <td class="module">FlashSale</td>
+        <td class="title">Xử lý khi thời gian chương trình Flash Sale kết thúc</td>
+        <td><span class="type type-OTHER">STATE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Người dùng đang ở trang chi tiết sản phẩm hoặc trang Flash Sale khi thời gian sắp hết</li></ul></td>
+        <td>Chương trình Flash Sale đang diễn ra và đồng hồ đếm ngược chuyển về 0</td>
+        <td><ol><li>Chờ đồng hồ đếm ngược của chương trình kết thúc (về 0)</li><li>Quan sát giá bán hiển thị của sản phẩm hoặc thực hiện thêm vào giỏ</li></ol></td>
+        <td>Hệ thống tự động ẩn/vô hiệu hóa mức giá Flash Sale và quay về áp dụng mức giá bán gốc của sản phẩm.</td>
+        <td class="scenario"><div class='scenario-desc'>Xử lý khi thời gian chương trình Flash Sale kết thúc</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C004-SC-UC8-04</li></ul></div></td>
+        <td><ul><li>C004-BR1</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">GioHang-TC-01</td>
+        <td class="module">GioHang</td>
+        <td class="title">Thêm sản phẩm vào giỏ hàng thành công với số lượng hợp lệ</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Sản phẩm đang hiển thị và còn tồn kho lớn hơn 0</li></ul></td>
+        <td>Người dùng đang ở trang chi tiết truyện còn hàng</td>
+        <td><ol><li>Chọn số lượng sản phẩm là 1 (hoặc nhỏ hơn/bằng tồn kho)</li><li>Nhấn nút &#x27;Thêm vào giỏ hàng&#x27;</li></ol></td>
+        <td>Sản phẩm được thêm vào giỏ hàng với đúng số lượng đã chọn, hiển thị thông báo thành công và số lượng trên biểu tượng giỏ hàng tăng tương ứng.</td>
+        <td class="scenario"><div class='scenario-desc'>Thêm sản phẩm vào giỏ hàng thành công với số lượng hợp lệ</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C005-SC-UC9-001</li></ul></div></td>
+        <td><ul><li>C005-RULE-M04-001</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">Wishlist-TC-01</td>
+        <td class="module">Wishlist</td>
+        <td class="title">Thêm sản phẩm vào Wishlist thành công khi đã đăng nhập</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Người dùng đã đăng nhập tài khoản Khách hàng</li><li>Sản phẩm chưa từng có trong wishlist của tài khoản</li></ul></td>
+        <td>Người dùng đã đăng nhập và đang ở trang chi tiết truyện</td>
+        <td><ol><li>Nhấn vào biểu tượng/nút &#x27;Thêm vào yêu thích&#x27; (Wishlist)</li></ol></td>
+        <td>Sản phẩm được lưu thành công vào wishlist của người dùng.</td>
+        <td class="scenario"><div class='scenario-desc'>Thêm sản phẩm vào Wishlist thành công khi đã đăng nhập</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C006-SCN-M05-01</li></ul></div></td>
+        <td><ul><li>C006-RULE-M05-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">Wishlist-TC-02</td>
+        <td class="module">Wishlist</td>
+        <td class="title">Ngăn chặn thêm trùng lặp sản phẩm đã có trong Wishlist</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Người dùng đã đăng nhập</li><li>Sản phẩm đã tồn tại trong wishlist của người dùng</li></ul></td>
+        <td>Người dùng đã đăng nhập và sản phẩm đã có trong wishlist</td>
+        <td><ol><li>Truy cập vào trang chi tiết sản phẩm đã có trong wishlist</li><li>Thực hiện thao tác thêm sản phẩm đó vào wishlist một lần nữa</li></ol></td>
+        <td>Hệ thống ngăn chặn hành động thêm trùng lặp và giữ nguyên danh sách wishlist hiện có.</td>
+        <td class="scenario"><div class='scenario-desc'>Ngăn chặn thêm trùng lặp sản phẩm đã có trong Wishlist</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C006-SCN-M05-02</li></ul></div></td>
+        <td><ul><li>C006-RULE-M05-02</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">Wishlist-TC-03</td>
+        <td class="module">Wishlist</td>
+        <td class="title">Kiểm tra quyền truy cập tính năng Wishlist khi chưa đăng nhập</td>
+        <td><span class="type type-OTHER">AUTHORIZATION</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Người dùng chưa thực hiện đăng nhập vào hệ thống</li></ul></td>
+        <td>Người dùng là khách vãng lai (chưa đăng nhập)</td>
+        <td><ol><li>Nhấn vào nút Wishlist trên trang chi tiết hoặc thanh điều hướng</li></ol></td>
+        <td>Hệ thống yêu cầu đăng nhập (hiển thị thông báo hoặc chuyển hướng người dùng tới trang đăng nhập), không cho phép truy cập trực tiếp wishlist.</td>
+        <td class="scenario"><div class='scenario-desc'>Kiểm tra quyền truy cập tính năng Wishlist khi chưa đăng nhập</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C006-SCN-M05-03</li></ul></div></td>
+        <td><ul><li>C006-RULE-M05-04</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">DatHang-TC-01</td>
+        <td class="module">DatHang</td>
+        <td class="title">Tạo đơn hàng thành công với phương thức thanh toán COD</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Khách hàng đã đăng nhập</li><li>Giỏ hàng có ít nhất một sản phẩm hợp lệ và còn đủ tồn kho</li><li>Đã có thông tin địa chỉ nhận hàng đầy đủ</li></ul></td>
+        <td>Khách hàng đã đăng nhập và có sản phẩm trong giỏ hàng</td>
+        <td><ol><li>Nhấn &#x27;Thanh toán&#x27; tại trang giỏ hàng</li><li>Chọn địa chỉ giao hàng hợp lệ</li><li>Chọn phương thức &#x27;Thanh toán khi nhận hàng (COD)&#x27;</li><li>Kiểm tra tổng tiền hiển thị và nhấn &#x27;Đặt hàng&#x27;</li></ol></td>
+        <td>Đơn hàng được tạo thành công ở trạng thái &#x27;Chờ xác nhận&#x27;, tồn kho sản phẩm được cập nhật trừ đi, hiển thị màn hình &#x27;Đặt hàng thành công&#x27;.</td>
+        <td class="scenario"><div class='scenario-desc'>Tạo đơn hàng thành công với phương thức thanh toán COD</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C007-SCN-M06-001</li></ul></div></td>
+        <td><ul><li>C007-RULE-M06-001</li><li>C007-RULE-M06-002</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">DatHang-TC-02</td>
+        <td class="module">DatHang</td>
+        <td class="title">Đặt hàng thất bại do không cung cấp địa chỉ giao hàng</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Khách hàng đã đăng nhập và đang ở trang Checkout</li><li>Chưa chọn hoặc để trống thông tin địa chỉ giao hàng</li></ul></td>
+        <td>Khách hàng đang ở trang Checkout mà thiếu thông tin địa chỉ</td>
+        <td><ol><li>Để trống địa chỉ nhận hàng</li><li>Nhấn nút &#x27;Đặt hàng&#x27;</li></ol></td>
+        <td>Hệ thống chặn tạo đơn hàng và hiển thị thông báo lỗi yêu cầu bổ sung thông tin địa chỉ giao hàng.</td>
+        <td class="scenario"><div class='scenario-desc'>Đặt hàng thất bại do không cung cấp địa chỉ giao hàng</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C007-SCN-M06-002</li></ul></div></td>
+        <td><ul><li>C007-RULE-M06-003</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyTonKho-TC-03</td>
+        <td class="module">QuanLyTonKho</td>
+        <td class="title">Nhấn Mua ngay sản phẩm khi đã hết hàng</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Khách hàng đã đăng nhập</li><li>Sản phẩm có tồn kho bằng 0</li></ul></td>
+        <td>Sản phẩm đã hết hàng</td>
+        <td><ol><li>Truy cập trang chi tiết sản phẩm hết hàng</li><li>Cố gắng thực hiện hành động &#x27;Mua ngay&#x27;</li></ol></td>
+        <td>Hệ thống không chuyển sang trang Checkout và hiển thị thông báo sản phẩm đã hết hàng.</td>
+        <td class="scenario"><div class='scenario-desc'>Nhấn Mua ngay sản phẩm khi đã hết hàng</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C007-SCN-M06-003</li></ul></div></td>
+        <td><ul><li>C007-RULE-M06-004</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">ThanhToan-TC-01</td>
+        <td class="module">ThanhToan</td>
+        <td class="title">Thanh toán trực tuyến thành công qua cổng thanh toán VNPay</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Khách hàng đã đăng nhập và thông tin checkout hợp lệ</li><li>Sản phẩm còn đủ tồn kho</li></ul></td>
+        <td>Khách hàng đã đăng nhập và checkout hợp lệ</td>
+        <td><ol><li>Tại trang Checkout, chọn phương thức thanh toán VNPay</li><li>Nhấn &#x27;Đặt hàng&#x27;</li><li>Hệ thống chuyển hướng sang cổng thanh toán VNPay</li><li>Thực hiện giao dịch thanh toán thành công trên VNPay</li><li>VNPay gửi dữ liệu callback hợp lệ về hệ thống</li></ol></td>
+        <td>Hệ thống xác thực chữ ký callback thành công, cập nhật trạng thái đơn hàng thành đã thanh toán và hiển thị trang &#x27;Đặt hàng thành công&#x27;.</td>
+        <td class="scenario"><div class='scenario-desc'>Thanh toán trực tuyến thành công qua cổng thanh toán VNPay</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C008-SC-UC14-01</li></ul></div></td>
+        <td><ul><li>C008-BR1</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">ThanhToan-TC-02</td>
+        <td class="module">ThanhToan</td>
+        <td class="title">Xử lý khi khách hàng hủy thanh toán tại cổng VNPay</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Khách hàng đã được chuyển hướng sang cổng thanh toán VNPay</li></ul></td>
+        <td>Khách hàng đang ở giao diện thanh toán VNPay</td>
+        <td><ol><li>Nhấn nút &#x27;Hủy giao dịch&#x27; hoặc quay lại trang web của cửa hàng</li></ol></td>
+        <td>Hệ thống không ghi nhận thanh toán thành công, không tạo đơn hoặc chuyển trạng thái lỗi và hiển thị thông báo hủy thanh toán cho khách hàng.</td>
+        <td class="scenario"><div class='scenario-desc'>Xử lý khi khách hàng hủy thanh toán tại cổng VNPay</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C008-SC-UC14-02</li></ul></div></td>
+        <td><ul><li>C008-BR1</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">ThanhToan-TC-03</td>
+        <td class="module">ThanhToan</td>
+        <td class="title">Xử lý kết quả giao dịch thanh toán thất bại từ VNPay</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Khách hàng thực hiện thanh toán trên cổng VNPay nhưng giao dịch không thành công (thẻ lỗi/không đủ tiền)</li></ul></td>
+        <td>Khách hàng đã thực hiện giao dịch thanh toán trên VNPay</td>
+        <td><ol><li>Cổng VNPay gửi callback báo trạng thái giao dịch thất bại về hệ thống</li></ol></td>
+        <td>Hệ thống không ghi nhận thanh toán và hiển thị thông báo thanh toán thất bại.</td>
+        <td class="scenario"><div class='scenario-desc'>Xử lý kết quả giao dịch thanh toán thất bại từ VNPay</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C008-SC-UC14-03</li></ul></div></td>
+        <td><ul><li>C008-BR1</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">ThanhToan-TC-04</td>
+        <td class="module">ThanhToan</td>
+        <td class="title">Từ chối callback VNPay khi chữ ký hoặc dữ liệu không hợp lệ</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Giao dịch được gửi callback về endpoint hệ thống</li></ul></td>
+        <td>Hệ thống nhận callback từ VNPay</td>
+        <td><ol><li>Mô phỏng/gửi callback chứa chữ ký sai hoặc dữ liệu giao dịch bị thay đổi</li></ol></td>
+        <td>Hệ thống từ chối xử lý callback, không cập nhật trạng thái đơn hàng và bảo vệ an toàn giao dịch.</td>
+        <td class="scenario"><div class='scenario-desc'>Từ chối callback VNPay khi chữ ký hoặc dữ liệu không hợp lệ</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C008-SC-UC14-04</li></ul></div></td>
+        <td><ul><li>C008-BR1</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">ThanhToan-TC-05</td>
+        <td class="module">ThanhToan</td>
+        <td class="title">Xử lý khi hết thời gian chờ thanh toán (Timeout) trên VNPay</td>
+        <td><span class="type type-BOUNDARY">BOUNDARY</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Khách hàng được chuyển hướng sang VNPay nhưng không thao tác</li></ul></td>
+        <td>Khách hàng đang ở cổng VNPay và vượt quá thời gian cho phép thanh toán</td>
+        <td><ol><li>Để phiên thanh toán quá hạn (timeout)</li><li>Quay lại website cửa hàng</li></ol></td>
+        <td>Hệ thống ghi nhận là thanh toán thất bại, thông báo hết hạn thanh toán và không làm mất dữ liệu giỏ hàng của khách hàng.</td>
+        <td class="scenario"><div class='scenario-desc'>Xử lý khi hết thời gian chờ thanh toán (Timeout) trên VNPay</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C008-SC-UC14-05</li></ul></div></td>
+        <td><ul><li>C008-BR1</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">VanChuyen-TC-01</td>
+        <td class="module">VanChuyen</td>
+        <td class="title">Tính và hiển thị phí vận chuyển tự động qua API GHN</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Khách hàng đã đăng nhập và đang ở trang Checkout</li></ul></td>
+        <td>Người dùng nhập địa chỉ giao hàng hợp lệ</td>
+        <td><ol><li>Nhập đầy đủ thông tin Tỉnh/Thành, Quận/Huyện, Phường/Xã hợp lệ</li><li>Hệ thống gọi API GHN để tính cước phí</li></ol></td>
+        <td>Hệ thống tính thành công và hiển thị rõ ràng phí vận chuyển GHN cho người dùng trước khi đặt hàng.</td>
+        <td class="scenario"><div class='scenario-desc'>Tính và hiển thị phí vận chuyển tự động qua API GHN</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C009-SC-M08-01</li></ul></div></td>
+        <td><ul><li>C009-RULE-M08-01</li><li>C009-RULE-M08-02</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">VanChuyen-TC-02</td>
+        <td class="module">VanChuyen</td>
+        <td class="title">Báo lỗi khi địa chỉ giao hàng thiếu thông tin Quận/Huyện</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Người dùng đang ở bước nhập địa chỉ nhận hàng tại Checkout</li></ul></td>
+        <td>Người dùng nhập địa chỉ thiếu thông tin quận/huyện</td>
+        <td><ol><li>Nhập Tỉnh/Thành nhưng để trống Quận/Huyện</li><li>Thực hiện xác nhận địa chỉ</li></ol></td>
+        <td>Hệ thống xử lý và thông báo lỗi yêu cầu cung cấp đầy đủ thông tin Quận/Huyện, không gọi API sai định dạng.</td>
+        <td class="scenario"><div class='scenario-desc'>Báo lỗi khi địa chỉ giao hàng thiếu thông tin Quận/Huyện</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C009-SC-M08-02</li></ul></div></td>
+        <td><ul><li>C009-RULE-M08-03</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">VanChuyen-TC-03</td>
+        <td class="module">VanChuyen</td>
+        <td class="title">Xử lý ngoại lệ khi API GHN bị timeout hoặc phản hồi lỗi</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Người dùng nhập địa chỉ hợp lệ tại trang Checkout</li></ul></td>
+        <td>API bên thứ ba GHN không phản hồi hoặc trả về lỗi</td>
+        <td><ol><li>Hệ thống gửi yêu cầu tính phí sang API GHN</li><li>API GHN timeout hoặc phản hồi mã lỗi</li></ol></td>
+        <td>Hệ thống thông báo lỗi phù hợp, kích hoạt phương án dự phòng (nếu có) và không chặn mất luồng đặt hàng hay làm mất giỏ hàng.</td>
+        <td class="scenario"><div class='scenario-desc'>Xử lý ngoại lệ khi API GHN bị timeout hoặc phản hồi lỗi</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C009-SC-M08-03</li></ul></div></td>
+        <td><ul><li>C009-RULE-M08-04</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">VanChuyen-TC-04</td>
+        <td class="module">VanChuyen</td>
+        <td class="title">Tạo vận đơn GHN tự động sau khi đặt hàng thành công</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Đơn hàng được đặt thành công</li></ul></td>
+        <td>Đơn hàng đã được đặt thành công trong hệ thống</td>
+        <td><ol><li>Hệ thống tiếp nhận thông tin đơn hàng hợp lệ vừa tạo</li><li>Thực hiện gọi API tạo vận đơn sang hệ thống GHN</li></ol></td>
+        <td>Vận đơn GHN được tạo thành công gắn với mã đơn hàng tương ứng.</td>
+        <td class="scenario"><div class='scenario-desc'>Tạo vận đơn GHN tự động sau khi đặt hàng thành công</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C009-SC-M08-04</li></ul></div></td>
+        <td><ul><li>C009-RULE-M08-05</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">GiamGia-TC-01</td>
+        <td class="module">GiamGia</td>
+        <td class="title">Áp dụng voucher giảm giá hợp lệ tại trang Checkout</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Khách hàng đã đăng nhập và đang ở trang Checkout</li><li>Voucher còn hạn dùng, còn số lượt và đơn hàng đạt giá trị tối thiểu (min_order_amount)</li></ul></td>
+        <td>Khách hàng đã đăng nhập và đang ở trang Checkout</td>
+        <td><ol><li>Chọn một voucher hợp lệ trong danh sách voucher đã lưu hoặc nhập mã voucher</li><li>Nhấn nút &#x27;Áp dụng&#x27;</li></ol></td>
+        <td>Voucher được áp dụng thành công, mức giảm giá được trừ vào tổng tiền đơn hàng chính xác.</td>
+        <td class="scenario"><div class='scenario-desc'>Áp dụng voucher giảm giá hợp lệ tại trang Checkout</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C010-SCENARIO-UC15-001</li></ul></div></td>
+        <td><ul><li>C010-RULE-M09-001</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">GiamGia-TC-02</td>
+        <td class="module">GiamGia</td>
+        <td class="title">Áp dụng mã voucher không tồn tại trong hệ thống</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Khách hàng đang ở trang Checkout</li></ul></td>
+        <td>Khách hàng đang ở trang Checkout</td>
+        <td><ol><li>Nhập mã voucher giả định không tồn tại (ví dụ: &#x27;KHONGTONTAI999&#x27;)</li><li>Nhấn nút &#x27;Áp dụng&#x27;</li></ol></td>
+        <td>Hệ thống từ chối áp dụng và hiển thị thông báo lỗi mã voucher không tồn tại.</td>
+        <td class="scenario"><div class='scenario-desc'>Áp dụng mã voucher không tồn tại trong hệ thống</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C010-SCENARIO-UC15-002</li></ul></div></td>
+        <td><ul><li>C010-RULE-M09-001</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">GiamGia-TC-03</td>
+        <td class="module">GiamGia</td>
+        <td class="title">Admin thêm voucher khuyến mãi mới thành công</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Admin đã đăng nhập và có quyền quản lý voucher</li></ul></td>
+        <td>Admin đang ở trang quản lý voucher</td>
+        <td><ol><li>Nhấn &#x27;Thêm voucher&#x27;</li><li>Nhập đầy đủ thông tin hợp lệ (mã voucher, hạn dùng, giá trị giảm, min_order_amount, số lượt)</li><li>Nhấn nút &#x27;Lưu&#x27;</li></ol></td>
+        <td>Voucher mới được tạo thành công và xuất hiện trong danh sách quản lý voucher của Admin.</td>
+        <td class="scenario"><div class='scenario-desc'>Admin thêm voucher khuyến mãi mới thành công</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C010-SCENARIO-UC16-001</li></ul></div></td>
+        <td><ul><li>C010-RULE-M09-003</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">DanhGiaDoiTra-TC-01</td>
+        <td class="module">DanhGiaDoiTra</td>
+        <td class="title">Khách hàng đánh giá sản phẩm thành công cho đơn hàng hoàn thành</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Khách hàng đã đăng nhập</li><li>Đơn hàng ở trạng thái &#x27;Hoàn thành&#x27; và sản phẩm chưa được đánh giá</li></ul></td>
+        <td>Khách hàng đã đăng nhập và có đơn hàng hoàn thành chưa đánh giá</td>
+        <td><ol><li>Tại tab &#x27;Hoàn thành&#x27;, nhấn nút &#x27;Đánh giá&#x27;</li><li>Chọn số sao (1 đến 5 sao)</li><li>Nhập nội dung bình luận (có thể kèm ảnh)</li><li>Nhấn nút &#x27;Gửi nhận xét&#x27;</li></ol></td>
+        <td>Đánh giá được lưu thành công, số sao trung bình của sản phẩm được cập nhật, đánh giá hiển thị ở trang chi tiết truyện và nút &#x27;Đánh giá&#x27; của đơn hàng bị vô hiệu hóa.</td>
+        <td class="scenario"><div class='scenario-desc'>Khách hàng đánh giá sản phẩm thành công cho đơn hàng hoàn thành</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C011-SCN-UC17-01</li></ul></div></td>
+        <td><ul><li>C011-RULE-M10-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">DanhGiaDoiTra-TC-02</td>
+        <td class="module">DanhGiaDoiTra</td>
+        <td class="title">Gửi đánh giá sản phẩm thất bại do chưa chọn số sao</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Khách hàng đang ở popup đánh giá sản phẩm</li></ul></td>
+        <td>Khách hàng chưa chọn số sao đánh giá</td>
+        <td><ol><li>Để trống không chọn số sao</li><li>Nhập nội dung bình luận</li><li>Nhấn &#x27;Gửi nhận xét&#x27;</li></ol></td>
+        <td>Hệ thống từ chối lưu, hiển thị thông báo lỗi yêu cầu chọn số sao đánh giá.</td>
+        <td class="scenario"><div class='scenario-desc'>Gửi đánh giá sản phẩm thất bại do chưa chọn số sao</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C011-SCN-UC17-02</li></ul></div></td>
+        <td><ul><li>C011-RULE-M10-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">DanhGiaDoiTra-TC-03</td>
+        <td class="module">DanhGiaDoiTra</td>
+        <td class="title">Gửi yêu cầu đổi/trả hàng thành công</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Khách hàng đã đăng nhập</li><li>Đơn hàng đang ở trạng thái cho phép trả hàng</li></ul></td>
+        <td>Khách hàng có đơn hàng đủ điều kiện trả hàng</td>
+        <td><ol><li>Nhấn nút &#x27;Trả hàng&#x27;</li><li>Nhập lý do trả hàng chi tiết</li><li>Đính kèm tệp hình ảnh minh chứng hợp lệ</li><li>Nhấn &#x27;Gửi yêu cầu&#x27;</li></ol></td>
+        <td>Yêu cầu trả hàng được tạo với trạng thái &#x27;Đang xem xét&#x27; và đơn hàng được chuyển sang tab Trả hàng/Hoàn tiền.</td>
+        <td class="scenario"><div class='scenario-desc'>Gửi yêu cầu đổi/trả hàng thành công</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C011-SCN-UC18-01</li></ul></div></td>
+        <td><ul><li>C011-RULE-M10-03</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">DanhGiaDoiTra-TC-04</td>
+        <td class="module">DanhGiaDoiTra</td>
+        <td class="title">Gửi yêu cầu trả hàng thất bại do tệp minh chứng sai định dạng hoặc quá dung lượng</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Khách hàng đang ở popup yêu cầu trả hàng</li></ul></td>
+        <td>Khách hàng nhập lý do hợp lệ nhưng tải lên file đính kèm không đúng quy định</td>
+        <td><ol><li>Chọn đính kèm tệp sai định dạng (ví dụ: .exe) hoặc file vượt dung lượng cho phép</li><li>Nhấn &#x27;Gửi yêu cầu&#x27;</li></ol></td>
+        <td>Hệ thống từ chối tệp tải lên, hiển thị thông báo lỗi và không gửi yêu cầu.</td>
+        <td class="scenario"><div class='scenario-desc'>Gửi yêu cầu trả hàng thất bại do tệp minh chứng sai định dạng hoặc quá dung lượng</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C011-SCN-UC18-02</li></ul></div></td>
+        <td><ul><li>C011-RULE-M10-03</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">HoSoKhachHang-TC-01</td>
+        <td class="module">HoSoKhachHang</td>
+        <td class="title">Cập nhật thông tin cá nhân thành công với dữ liệu hợp lệ</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Khách hàng đã đăng nhập và mở mục Thông tin tài khoản</li></ul></td>
+        <td>Khách hàng đang ở trang chỉnh sửa thông tin cá nhân</td>
+        <td><ol><li>Cập nhật họ tên hợp lệ</li><li>Nhập số điện thoại gồm 10 chữ số bắt đầu bằng 03, 05, 07, 08 hoặc 09</li><li>Nhấn nút &#x27;Lưu thay đổi&#x27;</li></ol></td>
+        <td>Thông tin cá nhân được lưu thành công và hiển thị đồng bộ trên giao diện.</td>
+        <td class="scenario"><div class='scenario-desc'>Cập nhật thông tin cá nhân thành công với dữ liệu hợp lệ</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C012-SC-UC19-01</li></ul></div></td>
+        <td><ul><li>C012-BR-M11-01</li><li>C012-BR-M11-02</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">HoSoKhachHang-TC-02</td>
+        <td class="module">HoSoKhachHang</td>
+        <td class="title">Cập nhật thông tin cá nhân thất bại khi số điện thoại sai định dạng</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Khách hàng đang ở trang chỉnh sửa thông tin tài khoản</li></ul></td>
+        <td>Khách hàng nhập số điện thoại không đúng đầu số hoặc không đủ 10 chữ số</td>
+        <td><ol><li>Nhập số điện thoại không hợp lệ (ví dụ: &#x27;012345678&#x27; hoặc bắt đầu bằng 02)</li><li>Nhấn &#x27;Lưu thay đổi&#x27;</li></ol></td>
+        <td>Hệ thống từ chối lưu, hiển thị thông báo lỗi tại trường số điện thoại.</td>
+        <td class="scenario"><div class='scenario-desc'>Cập nhật thông tin cá nhân thất bại khi số điện thoại sai định dạng</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C012-SC-UC19-02</li></ul></div></td>
+        <td><ul><li>C012-BR-M11-01</li><li>C012-BR-M11-02</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">HoSoKhachHang-TC-03</td>
+        <td class="module">HoSoKhachHang</td>
+        <td class="title">Xem lịch sử điểm thưởng (C-Point) khi chưa phát sinh giao dịch</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority low">Thấp</span></td>
+        <td><ul><li>Khách hàng đã đăng nhập tài khoản mới chưa có giao dịch điểm nào</li></ul></td>
+        <td>Khách hàng truy cập vào mục ưu đãi C-Point</td>
+        <td><ol><li>Mở tab Lịch sử giao dịch điểm thưởng</li></ol></td>
+        <td>Hệ thống hiển thị tổng số điểm hiện có là 0 và danh sách lịch sử trống kèm thông báo phù hợp.</td>
+        <td class="scenario"><div class='scenario-desc'>Xem lịch sử điểm thưởng (C-Point) khi chưa phát sinh giao dịch</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C012-SC-UC21-01</li></ul></div></td>
+        <td><ul><li>C012-BR-M11-04</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">ThongBao-TC-01</td>
+        <td class="module">ThongBao</td>
+        <td class="title">Nhận thông báo Push Notification qua FCM khi đơn hàng thay đổi trạng thái</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Khách hàng đã đăng nhập</li><li>FCM token của thiết bị đã được đăng ký và lưu trữ hợp lệ</li></ul></td>
+        <td>Hệ thống phát sinh sự kiện đơn hàng đổi trạng thái</td>
+        <td><ol><li>Admin thay đổi trạng thái đơn hàng của khách</li><li>Hệ thống tạo thông báo và gửi push qua Firebase Cloud Messaging</li></ol></td>
+        <td>Thiết bị nhận được thông báo push và thông báo được lưu trong mục Thông báo của ứng dụng.</td>
+        <td class="scenario"><div class='scenario-desc'>Nhận thông báo Push Notification qua FCM khi đơn hàng thay đổi trạng thái</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C013-SC-M12-01</li></ul></div></td>
+        <td><ul><li>C013-RULE-M12-01</li><li>C013-RULE-M12-02</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">ThongBao-TC-02</td>
+        <td class="module">ThongBao</td>
+        <td class="title">Hiển thị danh sách thông báo mới và số lượng chưa đọc</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Khách hàng đã đăng nhập và có thông báo chưa đọc</li></ul></td>
+        <td>Khách hàng đang ở bất kỳ trang nào trên website</td>
+        <td><ol><li>Nhấn vào biểu tượng thông báo hình quả chuông trên header</li></ol></td>
+        <td>Dropdown hiển thị danh sách các thông báo mới nhất kèm số lượng thông báo chưa đọc chính xác.</td>
+        <td class="scenario"><div class='scenario-desc'>Hiển thị danh sách thông báo mới và số lượng chưa đọc</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C013-SC-M12-02</li></ul></div></td>
+        <td><ul><li>C013-RULE-M12-03</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">ThongBao-TC-03</td>
+        <td class="module">ThongBao</td>
+        <td class="title">Đánh dấu tất cả thông báo là đã đọc thành công</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority low">Thấp</span></td>
+        <td><ul><li>Khách hàng có thông báo chưa đọc trong hòm thư thông báo</li></ul></td>
+        <td>Khách hàng đang mở giao diện mục Thông báo</td>
+        <td><ol><li>Nhấn nút &#x27;Đánh dấu tất cả đã đọc&#x27;</li></ol></td>
+        <td>Tất cả thông báo được chuyển sang trạng thái đã đọc và số đếm thông báo chưa đọc trên biểu tượng chuông về 0.</td>
+        <td class="scenario"><div class='scenario-desc'>Đánh dấu tất cả thông báo là đã đọc thành công</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C013-SC-M12-03</li></ul></div></td>
+        <td><ul><li>C013-RULE-M12-04</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">ThongBao-TC-04</td>
+        <td class="module">ThongBao</td>
+        <td class="title">Lưu thông báo nội bộ ứng dụng khi gửi FCM push thất bại</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Khách hàng đã đăng nhập nhưng thiết bị mất kết nối FCM hoặc không có token</li></ul></td>
+        <td>Sự kiện thông báo được tạo nhưng kết nối tới FCM bị lỗi</td>
+        <td><ol><li>Hệ thống thực hiện gửi push qua FCM thất bại</li></ol></td>
+        <td>Hệ thống vẫn ghi nhận và lưu thông báo vào cơ sở dữ liệu nội bộ để hiển thị trong ứng dụng khi khách hàng truy cập.</td>
+        <td class="scenario"><div class='scenario-desc'>Lưu thông báo nội bộ ứng dụng khi gửi FCM push thất bại</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C013-SC-M12-04</li></ul></div></td>
+        <td><ul><li>C013-RULE-M12-05</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">Wishlist-TC-04</td>
+        <td class="module">Wishlist</td>
+        <td class="title">Hiển thị mục Gợi ý cho bạn dựa trên Wishlist của người dùng</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Người dùng đã đăng nhập và đã có ít nhất một truyện trong Wishlist</li></ul></td>
+        <td>Người dùng đã đăng nhập và có wishlist</td>
+        <td><ol><li>Điều hướng tới trang chủ của website</li></ol></td>
+        <td>Mục &#x27;Gợi ý cho bạn&#x27; hiển thị các truyện là tập tiếp theo hoặc cùng thể loại với các truyện trong Wishlist của người dùng.</td>
+        <td class="scenario"><div class='scenario-desc'>Hiển thị mục Gợi ý cho bạn dựa trên Wishlist của người dùng</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C014-SCN-UC24-01</li></ul></div></td>
+        <td><ul><li>C014-RULE-M13-02</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">Wishlist-TC-05</td>
+        <td class="module">Wishlist</td>
+        <td class="title">Hiển thị mục Gợi ý theo truyện bán chạy nhất cho khách chưa có Wishlist</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Người dùng chưa đăng nhập hoặc tài khoản chưa có truyện nào trong Wishlist</li></ul></td>
+        <td>Người dùng truy cập trang chủ mà không có dữ liệu Wishlist</td>
+        <td><ol><li>Mở trang chủ website</li></ol></td>
+        <td>Mục &#x27;Gợi ý cho bạn&#x27; hiển thị danh sách các truyện có lượt bán cao nhất trong hệ thống.</td>
+        <td class="scenario"><div class='scenario-desc'>Hiển thị mục Gợi ý theo truyện bán chạy nhất cho khách chưa có Wishlist</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C014-SCN-UC24-02</li></ul></div></td>
+        <td><ul><li>C014-RULE-M13-02</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">GoiYSanPham-TC-01</td>
+        <td class="module">GoiYSanPham</td>
+        <td class="title">Loại bỏ truyện hết hàng hoặc bị ẩn khỏi danh sách gợi ý</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Các sản phẩm thỏa điều kiện gợi ý đều đã hết hàng hoặc đang ở trạng thái bị Admin ẩn</li></ul></td>
+        <td>Các truyện dự kiến gợi ý không còn hàng hoặc bị ẩn</td>
+        <td><ol><li>Hệ thống tổng hợp danh sách gợi ý và tải trang chủ</li></ol></td>
+        <td>Hệ thống loại bỏ hoàn toàn các truyện hết hàng/bị ẩn khỏi mục gợi ý; hiển thị danh sách trống hợp lệ hoặc ẩn khối gợi ý.</td>
+        <td class="scenario"><div class='scenario-desc'>Loại bỏ truyện hết hàng hoặc bị ẩn khỏi danh sách gợi ý</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C014-SCN-UC24-03</li></ul></div></td>
+        <td><ul><li>C014-RULE-M13-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyTruyen-TC-01</td>
+        <td class="module">QuanLyTruyen</td>
+        <td class="title">Admin thêm truyện tranh mới thành công</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Admin đã đăng nhập và có quyền quản lý sản phẩm</li></ul></td>
+        <td>Admin đang ở trang Quản lý sản phẩm</td>
+        <td><ol><li>Nhấn &#x27;Thêm truyện&#x27;</li><li>Nhập đầy đủ các thông tin bắt buộc (tên truyện, tác giả, thể loại, NXB, giá)</li><li>Tải lên tệp ảnh minh họa đúng định dạng và kích thước</li><li>Nhấn nút &#x27;Lưu&#x27;</li></ol></td>
+        <td>Truyện mới được lưu thành công vào cơ sở dữ liệu và hiển thị trên bảng danh sách truyện của trang quản trị.</td>
+        <td class="scenario"><div class='scenario-desc'>Admin thêm truyện tranh mới thành công</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C015-SC-UC25-01</li></ul></div></td>
+        <td><ul><li>C015-BR-M14-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyTruyen-TC-02</td>
+        <td class="module">QuanLyTruyen</td>
+        <td class="title">Admin thêm truyện thất bại do tệp ảnh không đúng định dạng</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Admin đang ở form thêm truyện mới</li></ul></td>
+        <td>Admin nhập thông tin hợp lệ nhưng đính kèm file ảnh không hợp lệ</td>
+        <td><ol><li>Chọn tải lên tệp ảnh sai định dạng hoặc vượt quá dung lượng cho phép</li><li>Nhấn &#x27;Lưu&#x27;</li></ol></td>
+        <td>Hệ thống từ chối lưu, hiển thị thông báo lỗi ảnh không hợp lệ và giữ lại thông tin form nhập.</td>
+        <td class="scenario"><div class='scenario-desc'>Admin thêm truyện thất bại do tệp ảnh không đúng định dạng</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C015-SC-UC25-02</li></ul></div></td>
+        <td><ul><li>C015-BR-M14-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyTruyen-TC-03</td>
+        <td class="module">QuanLyTruyen</td>
+        <td class="title">Chặn Admin xóa truyện tranh đang có trong đơn hàng hoặc giỏ hàng</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Admin đã đăng nhập</li><li>Truyện định xóa đang nằm trong đơn hàng đã tạo hoặc giỏ hàng của khách hàng</li></ul></td>
+        <td>Truyện cần xóa đang có liên kết dữ liệu trong đơn hàng/giỏ hàng</td>
+        <td><ol><li>Tại dòng truyện cần xóa, nhấn biểu tượng thùng rác</li><li>Nhấn xác nhận xóa</li></ol></td>
+        <td>Hệ thống cảnh báo hoặc chặn xóa truyện để tránh làm sai lệch dữ liệu đơn hàng hiện có.</td>
+        <td class="scenario"><div class='scenario-desc'>Chặn Admin xóa truyện tranh đang có trong đơn hàng hoặc giỏ hàng</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C015-SC-UC27-01</li></ul></div></td>
+        <td><ul><li>C015-BR-M14-02</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyTheLoai-TC-01</td>
+        <td class="module">QuanLyTheLoai</td>
+        <td class="title">Admin thêm danh mục thể loại mới thành công</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Admin có quyền quản lý danh mục và mở trang Quản lý thể loại</li></ul></td>
+        <td>Tên thể loại định thêm chưa từng tồn tại trên hệ thống</td>
+        <td><ol><li>Nhấn &#x27;Thêm thể loại&#x27;</li><li>Nhập tên thể loại mới</li><li>Nhấn &#x27;Lưu&#x27;</li></ol></td>
+        <td>Danh mục thể loại mới được lưu thành công và cập nhật lên danh sách thể loại.</td>
+        <td class="scenario"><div class='scenario-desc'>Admin thêm danh mục thể loại mới thành công</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C016-SC-UC30-01</li></ul></div></td>
+        <td><ul><li>C016-RULE-M15-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyTheLoai-TC-02</td>
+        <td class="module">QuanLyTheLoai</td>
+        <td class="title">Admin thêm danh mục thể loại trùng tên đã tồn tại</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Đã có một thể loại mang tên &#x27;Hành động&#x27; trong hệ thống</li></ul></td>
+        <td>Admin đang ở form thêm thể loại</td>
+        <td><ol><li>Nhập tên thể loại trùng với tên đã có (&#x27;Hành động&#x27;)</li><li>Nhấn &#x27;Lưu&#x27;</li></ol></td>
+        <td>Hệ thống từ chối lưu và hiển thị thông báo lỗi tên danh mục đã tồn tại.</td>
+        <td class="scenario"><div class='scenario-desc'>Admin thêm danh mục thể loại trùng tên đã tồn tại</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C016-SC-UC30-02</li></ul></div></td>
+        <td><ul><li>C016-RULE-M15-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyTheLoai-TC-03</td>
+        <td class="module">QuanLyTheLoai</td>
+        <td class="title">Chặn Admin xóa danh mục đang có truyện sử dụng</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Thể loại định xóa đang được gắn cho ít nhất một cuốn truyện trong hệ thống</li></ul></td>
+        <td>Danh mục thể loại đang được truyện sử dụng</td>
+        <td><ol><li>Nhấn nút xóa danh mục thể loại này</li><li>Xác nhận xóa trong popup</li></ol></td>
+        <td>Hệ thống ngăn chặn xóa và hiển thị cảnh báo danh mục đang có truyện sử dụng không thể xóa.</td>
+        <td class="scenario"><div class='scenario-desc'>Chặn Admin xóa danh mục đang có truyện sử dụng</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C016-SC-UC30-03</li></ul></div></td>
+        <td><ul><li>C016-RULE-M15-02</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyTonKho-TC-04</td>
+        <td class="module">QuanLyTonKho</td>
+        <td class="title">Admin cập nhật số lượng tồn kho sản phẩm thành công</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Admin đã đăng nhập và mở trang Quản lý tồn kho</li></ul></td>
+        <td>Sản phẩm đang hiển thị trong danh sách tồn kho</td>
+        <td><ol><li>Chọn sản phẩm cần cập nhật</li><li>Nhập số lượng nhập thêm hoặc điều chỉnh là số nguyên dương hợp lệ (ví dụ: 50)</li><li>Nhấn nút &#x27;Lưu&#x27;</li></ol></td>
+        <td>Số lượng tồn kho của sản phẩm được cập nhật chính xác trên hệ thống.</td>
+        <td class="scenario"><div class='scenario-desc'>Admin cập nhật số lượng tồn kho sản phẩm thành công</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C017-SC-UC32-01</li></ul></div></td>
+        <td><ul><li>C017-BR1</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyTonKho-TC-05</td>
+        <td class="module">QuanLyTonKho</td>
+        <td class="title">Admin nhập số lượng khiến tồn kho bị âm</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Admin đang ở giao diện điều chỉnh tồn kho sản phẩm</li></ul></td>
+        <td>Admin nhập số lượng điều chỉnh khiến tồn kho kết quả nhỏ hơn 0</td>
+        <td><ol><li>Nhập giá trị làm tồn kho trở thành số âm (ví dụ: -10)</li><li>Nhấn &#x27;Lưu&#x27;</li></ol></td>
+        <td>Hệ thống từ chối cập nhật, hiển thị thông báo tồn kho không được âm và giữ nguyên số lượng cũ.</td>
+        <td class="scenario"><div class='scenario-desc'>Admin nhập số lượng khiến tồn kho bị âm</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C017-SC-UC32-02</li></ul></div></td>
+        <td><ul><li>C017-BR1</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyTonKho-TC-06</td>
+        <td class="module">QuanLyTonKho</td>
+        <td class="title">Admin nhập giá trị tồn kho không phải ký tự số</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Admin đang ở ô nhập số lượng tồn kho</li></ul></td>
+        <td>Admin nhập dữ liệu dạng chuỗi chữ</td>
+        <td><ol><li>Nhập các ký tự chữ hoặc ký tự đặc biệt (ví dụ: &#x27;abc#@&#x27;)</li><li>Nhấn &#x27;Lưu&#x27;</li></ol></td>
+        <td>Hệ thống từ chối, hiển thị lỗi yêu cầu giá trị nhập phải là số hợp lệ.</td>
+        <td class="scenario"><div class='scenario-desc'>Admin nhập giá trị tồn kho không phải ký tự số</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C017-SC-UC32-03</li></ul></div></td>
+        <td><ul><li>C017-FR-M16-VAL</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyTonKho-TC-07</td>
+        <td class="module">QuanLyTonKho</td>
+        <td class="title">Cảnh báo hết hàng và vô hiệu hóa mua hàng khi tồn kho bằng 0</td>
+        <td><span class="type type-BOUNDARY">BOUNDARY</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Sản phẩm có số lượng tồn kho bằng 0 trong quản lý kho</li></ul></td>
+        <td>Tồn kho sản phẩm bằng 0</td>
+        <td><ol><li>Admin kiểm tra hiển thị sản phẩm tại trang quản lý kho</li><li>Khách hàng truy cập trang mua hàng của sản phẩm đó</li></ol></td>
+        <td>Hệ thống hiển thị cảnh báo hết hàng và vô hiệu hóa nút mua của sản phẩm ở phía khách hàng.</td>
+        <td class="scenario"><div class='scenario-desc'>Cảnh báo hết hàng và vô hiệu hóa mua hàng khi tồn kho bằng 0</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C017-SC-UC32-04</li></ul></div></td>
+        <td><ul><li>C017-BR2</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyDonHang-TC-01</td>
+        <td class="module">QuanLyDonHang</td>
+        <td class="title">Admin duyệt xác nhận đơn hàng ở trạng thái Chờ xác nhận</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Admin đã đăng nhập</li><li>Đơn hàng đang ở tab và trạng thái &#x27;Chờ xác nhận&#x27;</li></ul></td>
+        <td>Đơn hàng đang ở trạng thái &#x27;Chờ xác nhận&#x27;</td>
+        <td><ol><li>Mở tab &#x27;Chờ xác nhận&#x27;</li><li>Nhấn &#x27;Xem chi tiết&#x27; một đơn hàng</li><li>Nhấn nút &#x27;Xác nhận&#x27;</li></ol></td>
+        <td>Đơn hàng chuyển thành công sang trạng thái &#x27;Chờ lấy hàng&#x27; và gửi thông báo cập nhật cho khách hàng.</td>
+        <td class="scenario"><div class='scenario-desc'>Admin duyệt xác nhận đơn hàng ở trạng thái Chờ xác nhận</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C018-SC-UC33-01</li></ul></div></td>
+        <td><ul><li>C018-BR-M17-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyDonHang-TC-02</td>
+        <td class="module">QuanLyDonHang</td>
+        <td class="title">Chặn Admin cập nhật trạng thái đơn hàng sai quy trình</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Đơn hàng đang ở trạng thái &#x27;Đã hủy&#x27;</li></ul></td>
+        <td>Đơn hàng đã bị hủy</td>
+        <td><ol><li>Admin cố gắng chuyển trạng thái đơn hàng từ &#x27;Đã hủy&#x27; sang &#x27;Hoàn thành&#x27; hoặc &#x27;Đang giao&#x27;</li></ol></td>
+        <td>Hệ thống từ chối cập nhật và hiển thị thông báo lỗi chuyển trạng thái không hợp lệ.</td>
+        <td class="scenario"><div class='scenario-desc'>Chặn Admin cập nhật trạng thái đơn hàng sai quy trình</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C018-SC-UC34-01</li></ul></div></td>
+        <td><ul><li>C018-BR-M17-02</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">QuanLyDonHang-TC-03</td>
+        <td class="module">QuanLyDonHang</td>
+        <td class="title">Chặn Admin hủy đơn hàng khi đơn đã ở trạng thái Đã giao</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Đơn hàng đã được giao thành công (trạng thái &#x27;Đã giao&#x27; hoặc &#x27;Hoàn thành&#x27;)</li></ul></td>
+        <td>Đơn hàng đã được giao</td>
+        <td><ol><li>Admin chọn hành động Hủy đối với đơn hàng này</li></ol></td>
+        <td>Hệ thống từ chối cho phép hủy và hiển thị thông báo chỉ đơn chưa được giao mới được phép hủy.</td>
+        <td class="scenario"><div class='scenario-desc'>Chặn Admin hủy đơn hàng khi đơn đã ở trạng thái Đã giao</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C018-SC-UC35-01</li></ul></div></td>
+        <td><ul><li>C018-BR-M17-04</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">TaiKhoanPhanQuyen-TC-03</td>
+        <td class="module">TaiKhoanPhanQuyen</td>
+        <td class="title">Chặn truy cập trang quản trị khi người dùng chưa đăng nhập</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Người dùng chưa đăng nhập bất kỳ tài khoản nào</li></ul></td>
+        <td>Người dùng chưa xác thực danh tính</td>
+        <td><ol><li>Truy cập trực tiếp URL của trang quản trị (ví dụ: &#x27;/admin/dashboard&#x27;)</li></ol></td>
+        <td>Hệ thống chặn truy cập và tự động chuyển hướng người dùng về trang đăng nhập.</td>
+        <td class="scenario"><div class='scenario-desc'>Chặn truy cập trang quản trị khi người dùng chưa đăng nhập</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C019-SC-UC36-01</li></ul></div></td>
+        <td><ul><li>C019-RULE-M18-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">TaiKhoanPhanQuyen-TC-04</td>
+        <td class="module">TaiKhoanPhanQuyen</td>
+        <td class="title">Chặn tài khoản người dùng thông thường truy cập trang quản trị</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Người dùng đã đăng nhập với vai trò Khách hàng (Customer) không có quyền Admin</li></ul></td>
+        <td>Tài khoản không đủ quyền truy cập quản trị</td>
+        <td><ol><li>Nhập đường dẫn trực tiếp tới trang chức năng quản trị (ví dụ: &#x27;/admin/orders&#x27;)</li></ol></td>
+        <td>Hệ thống chặn truy cập hoặc chuyển hướng và hiển thị thông báo không có quyền truy cập.</td>
+        <td class="scenario"><div class='scenario-desc'>Chặn tài khoản người dùng thông thường truy cập trang quản trị</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C019-SC-UC36-02</li></ul></div></td>
+        <td><ul><li>C019-RULE-M18-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">TaiKhoanPhanQuyen-TC-05</td>
+        <td class="module">TaiKhoanPhanQuyen</td>
+        <td class="title">Admin thực hiện khóa tài khoản người dùng thành công</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Admin có quyền quản lý người dùng và đang ở trang Quản lý người dùng</li></ul></td>
+        <td>Tài khoản người dùng đang hoạt động bình thường</td>
+        <td><ol><li>Chọn một tài khoản người dùng trong danh sách</li><li>Chọn hành động &#x27;Khóa tài khoản&#x27;</li><li>Xác nhận khóa</li></ol></td>
+        <td>Trạng thái tài khoản chuyển thành &#x27;Bị khóa&#x27;; tài khoản này không thể đăng nhập vào hệ thống sau đó.</td>
+        <td class="scenario"><div class='scenario-desc'>Admin thực hiện khóa tài khoản người dùng thành công</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C019-SC-UC38-01</li></ul></div></td>
+        <td><ul><li>C019-RULE-M18-04</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">Dashboard-TC-01</td>
+        <td class="module">Dashboard</td>
+        <td class="title">Admin xem Dashboard tổng quan theo bộ lọc thời gian Hôm nay</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Admin đã đăng nhập và mở trang Dashboard Tổng quan</li></ul></td>
+        <td>Admin đang ở trang Dashboard Tổng quan</td>
+        <td><ol><li>Tại bộ lọc thời gian, chọn &#x27;Hôm nay&#x27;</li></ol></td>
+        <td>Dashboard cập nhật hiển thị chính xác các chỉ số số đơn, doanh thu, khách hàng mới và biểu đồ doanh thu theo các giờ trong ngày hôm nay.</td>
+        <td class="scenario"><div class='scenario-desc'>Admin xem Dashboard tổng quan theo bộ lọc thời gian Hôm nay</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C020-SCN-M19-01</li></ul></div></td>
+        <td><ul><li>C020-RULE-M19-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">Dashboard-TC-02</td>
+        <td class="module">Dashboard</td>
+        <td class="title">Báo lỗi khi tùy chỉnh khoảng thời gian có ngày kết thúc trước ngày bắt đầu trên Dashboard</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Admin đang ở bộ lọc thời gian tùy chỉnh của Dashboard</li></ul></td>
+        <td>Admin chọn khoảng thời gian không hợp lệ</td>
+        <td><ol><li>Chọn khoảng thời gian &#x27;Tùy chỉnh&#x27;</li><li>Nhập ngày kết thúc nhỏ hơn (trước) ngày bắt đầu</li><li>Xác nhận áp dụng</li></ol></td>
+        <td>Hệ thống từ chối hoặc cảnh báo lỗi thời gian không hợp lệ và giữ nguyên số liệu thống kê cũ.</td>
+        <td class="scenario"><div class='scenario-desc'>Báo lỗi khi tùy chỉnh khoảng thời gian có ngày kết thúc trước ngày bắt đầu trên Dashboard</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C020-SCN-M19-02</li></ul></div></td>
+        <td><ul><li>C020-RULE-M19-03</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">BaoCaoThongKe-TC-01</td>
+        <td class="module">BaoCaoThongKe</td>
+        <td class="title">Admin xem báo cáo thống kê doanh thu và lợi nhuận chi tiết</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority high">Cao</span></td>
+        <td><ul><li>Admin đã đăng nhập và mở trang Thống kê</li></ul></td>
+        <td>Admin chọn khoảng thời gian thống kê hợp lệ</td>
+        <td><ol><li>Chọn khoảng thời gian (ví dụ: Tháng này)</li><li>Xem các bảng số liệu thống kê</li></ol></td>
+        <td>Hệ thống hiển thị chính xác doanh thu, số đơn, giá trị đơn trung bình, lợi nhuận (Doanh thu - Giá nhập), biên lợi nhuận (Lợi nhuận / Doanh thu), Top 5 Flash Sale/Voucher và danh sách truyện bán/chưa bán.</td>
+        <td class="scenario"><div class='scenario-desc'>Admin xem báo cáo thống kê doanh thu và lợi nhuận chi tiết</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C021-SC-UC40-01</li></ul></div></td>
+        <td><ul><li>C021-BR-M20-01</li><li>C021-BR-M20-02</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">BaoCaoThongKe-TC-02</td>
+        <td class="module">BaoCaoThongKe</td>
+        <td class="title">Báo lỗi tại trang Thống kê khi khoảng thời gian không hợp lệ</td>
+        <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Admin đang ở trang Thống kê</li></ul></td>
+        <td>Admin nhập khoảng thời gian sai logic</td>
+        <td><ol><li>Chọn ngày kết thúc trước ngày bắt đầu</li></ol></td>
+        <td>Hệ thống cảnh báo lỗi khoảng thời gian không hợp lệ và yêu cầu chọn lại.</td>
+        <td class="scenario"><div class='scenario-desc'>Báo lỗi tại trang Thống kê khi khoảng thời gian không hợp lệ</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C021-SC-UC40-02</li></ul></div></td>
+        <td><ul><li>C021-BR-M20-01</li></ul></td>
+      </tr>
+    
+      <tr>
+        <td class="id">BaoCaoThongKe-TC-03</td>
+        <td class="module">BaoCaoThongKe</td>
+        <td class="title">Admin xuất báo cáo thống kê ra file Excel thành công</td>
+        <td><span class="type type-POSITIVE">POSITIVE</span></td>
+        <td><span class="priority normal">Thông thường</span></td>
+        <td><ul><li>Admin đã chọn khoảng thời gian hợp lệ tại trang Thống kê</li></ul></td>
+        <td>Dữ liệu thống kê đã được hiển thị trên màn hình</td>
+        <td><ol><li>Nhấn nút &#x27;Xuất Excel&#x27;</li></ol></td>
+        <td>Trình duyệt tự động tải xuống file Excel (.xlsx) hợp lệ chứa đầy đủ thông tin header và dữ liệu báo cáo theo đúng kỳ đã chọn, mở được bằng phần mềm Excel mà không làm treo giao diện.</td>
+        <td class="scenario"><div class='scenario-desc'>Admin xuất báo cáo thống kê ra file Excel thành công</div><div class='trace-ids'><b>Mã truy vết tham chiếu:</b><ul><li>C021-SC-UC41-01</li></ul></div></td>
+        <td><ul><li>C021-BR-M20-03</li></ul></td>
+      </tr>
+    </tbody>
+</table></div>
+
+<footer>Test Case Generator Report · Có thể nhấn Ctrl + P để in hoặc lưu thành PDF.</footer>
+</main>
+<script>
+const search=document.getElementById('search'), table=document.getElementById('testTable'), count=document.getElementById('count');
+const rows=Array.from(table.querySelectorAll('tbody tr'));
+search.addEventListener('input',()=>{
+ const q=search.value.trim().toLocaleLowerCase('vi'); let visible=0;
+ rows.forEach(row=>{const match=row.innerText.toLocaleLowerCase('vi').includes(q);row.hidden=!match;if(match)visible++;});
+ count.textContent=visible+' / '+rows.length+' Test Case';
+});
+</script>
+</body>
+</html>
