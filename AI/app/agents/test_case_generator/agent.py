@@ -3,8 +3,9 @@ import os
 from .generator.pipeline import generate_full_test_cases
 from .generator.report import write_test_report
 from datetime import datetime, timezone
+from app.state.models import SharedState
 
-def run_test_case_generator(llm, state: dict) -> dict:
+def run_test_case_generator(llm, state: SharedState) -> dict:
     """Test Case Generator Agent nhận input analysis.json từ state hoặc mặc định và sinh test cases."""
     # Lấy đường dẫn analysis.json từ state hoặc dùng mặc định outputs/comic/analysis.json
     analysis_file = Path(state.get("analysis_path", "outputs/comic/analysis.json"))
