@@ -1,1 +1,1994 @@
-{"M07": "major", "M06": "minor", "M03": "indirect", "M04": "minor", "M18": "indirect"}
+[
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/VoucherDao.java",
+  "module": "M09",
+  "change_count": 20,
+  "last_modified_date": "2026-06-12",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/pubilc/LoginServlet.java",
+  "module": "M01",
+  "change_count": 18,
+  "last_modified_date": "2026-06-05",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/OrderServlet.java",
+  "module": "M06",
+  "change_count": 17,
+  "last_modified_date": "2026-06-17",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/CheckoutServlet.java",
+  "module": "M06",
+  "change_count": 12,
+  "last_modified_date": "2026-06-12",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/CartDAO.java",
+  "module": "M04",
+  "change_count": 12,
+  "last_modified_date": "2026-06-12",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/OrderDAO.java",
+  "module": "M06",
+  "change_count": 12,
+  "last_modified_date": "2026-10-12",
+  "authors": [
+   "NguyenTuan2005",
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/ReportServlet.java",
+  "module": "M20",
+  "change_count": 11,
+  "last_modified_date": "2026-06-15",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/filter/AdminAuthFilter.java",
+  "module": "M02",
+  "change_count": 11,
+  "last_modified_date": "2026-06-13",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/ReportDAO.java",
+  "module": "M02",
+  "change_count": 10,
+  "last_modified_date": "2026-10-12",
+  "authors": [
+   "NguyenTuan2005",
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/UserDao.java",
+  "module": "M02",
+  "change_count": 10,
+  "last_modified_date": "2026-10-12",
+  "authors": [
+   "NguyenTuan2005",
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/UserManagementServlet.java",
+  "module": "M18",
+  "change_count": 9,
+  "last_modified_date": "2026-06-13",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/VoucherServlet.java",
+  "module": "M09",
+  "change_count": 8,
+  "last_modified_date": "2026-03-29",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/pubilc/RegisterServlet.java",
+  "module": "M01",
+  "change_count": 7,
+  "last_modified_date": "2026-05-25",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/ComicDAO.java",
+  "module": "M02",
+  "change_count": 7,
+  "last_modified_date": "2026-10-12",
+  "authors": [
+   "NguyenTuan2005",
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/OrderService.java",
+  "module": "M06",
+  "change_count": 7,
+  "last_modified_date": "2026-06-15",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/OrderHistoryServlet.java",
+  "module": "M06",
+  "change_count": 6,
+  "last_modified_date": "2026-06-12",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/AdminOrderManagementServlet.java",
+  "module": "M17",
+  "change_count": 6,
+  "last_modified_date": "2026-06-15",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/ManageFlashSaleServlet.java",
+  "module": "M14",
+  "change_count": 6,
+  "last_modified_date": "2026-06-12",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/pubilc/AuthenEmailServlet.java",
+  "module": "M01",
+  "change_count": 6,
+  "last_modified_date": "2026-06-01",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/FlashSaleDAO.java",
+  "module": "M03",
+  "change_count": 6,
+  "last_modified_date": "2026-10-12",
+  "authors": [
+   "NguyenTuan2005",
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/NotificationDAO.java",
+  "module": "M12",
+  "change_count": 6,
+  "last_modified_date": "2026-05-31",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/filter/SecurityFilter.java",
+  "module": "M02",
+  "change_count": 6,
+  "last_modified_date": "2026-06-15",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/User.java",
+  "module": "M02",
+  "change_count": 6,
+  "last_modified_date": "2026-06-02",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/CartService.java",
+  "module": "M04",
+  "change_count": 6,
+  "last_modified_date": "2026-04-29",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/OrderViolationService.java",
+  "module": "M06",
+  "change_count": 6,
+  "last_modified_date": "2026-05-17",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/LoginGoogleCallbackServlet.java",
+  "module": "M01",
+  "change_count": 5,
+  "last_modified_date": "2026-06-17",
+  "authors": [
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/UpdateUserServlet.java",
+  "module": "M11",
+  "change_count": 5,
+  "last_modified_date": "2026-06-02",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/AddComicServlet.java",
+  "module": "M14",
+  "change_count": 5,
+  "last_modified_date": "2026-06-17",
+  "authors": [
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/UpdateComicServlet.java",
+  "module": "M14",
+  "change_count": 5,
+  "last_modified_date": "2026-06-07",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/db/JdbiConnector.java",
+  "module": "M02",
+  "change_count": 5,
+  "last_modified_date": "2026-04-05",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/filter/CartFlashSaleUpdateFilter.java",
+  "module": "M03",
+  "change_count": 5,
+  "last_modified_date": "2026-05-17",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/CartItem.java",
+  "module": "M04",
+  "change_count": 5,
+  "last_modified_date": "2026-04-18",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/scheduler/EventNotificationScheduler.java",
+  "module": "M12",
+  "change_count": 5,
+  "last_modified_date": "2026-06-05",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/vnpay/VNPayUtils.java",
+  "module": "M07",
+  "change_count": 5,
+  "last_modified_date": "2026-06-14",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/CategoriesServlet.java",
+  "module": "M02",
+  "change_count": 4,
+  "last_modified_date": "2026-05-08",
+  "authors": [
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/FacebookLoginServlet.java",
+  "module": "M01",
+  "change_count": 4,
+  "last_modified_date": "2026-06-17",
+  "authors": [
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/HomeServlet.java",
+  "module": "M02",
+  "change_count": 4,
+  "last_modified_date": "2026-03-29",
+  "authors": [
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/LoginFacebookCallbackServlet.java",
+  "module": "M01",
+  "change_count": 4,
+  "last_modified_date": "2026-06-17",
+  "authors": [
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/SearchServlet.java",
+  "module": "M02",
+  "change_count": 4,
+  "last_modified_date": "2026-04-25",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/CartServlet.java",
+  "module": "M04",
+  "change_count": 4,
+  "last_modified_date": "2026-04-29",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/AddSeriesServlet.java",
+  "module": "M15",
+  "change_count": 4,
+  "last_modified_date": "2026-06-07",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/CategoryManagementServlet.java",
+  "module": "M15",
+  "change_count": 4,
+  "last_modified_date": "2026-06-06",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/EditSeriesServlet.java",
+  "module": "M15",
+  "change_count": 4,
+  "last_modified_date": "2026-06-10",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/voucher/VoucherServlet.java",
+  "module": "M09",
+  "change_count": 4,
+  "last_modified_date": "2026-06-10",
+  "authors": [
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/voucher/editVoucher.java",
+  "module": "M09",
+  "change_count": 4,
+  "last_modified_date": "2026-06-10",
+  "authors": [
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/pubilc/VerifyOtpServlet.java",
+  "module": "M01",
+  "change_count": 4,
+  "last_modified_date": "2026-06-01",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/CategoriesDao.java",
+  "module": "M02",
+  "change_count": 4,
+  "last_modified_date": "2026-04-11",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/SeriesDAO.java",
+  "module": "M02",
+  "change_count": 4,
+  "last_modified_date": "2026-06-01",
+  "authors": [
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/WishlistDAO.java",
+  "module": "M05",
+  "change_count": 4,
+  "last_modified_date": "2026-10-12",
+  "authors": [
+   "NguyenTuan2005",
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/filter/AdminNotificationFilter.java",
+  "module": "M12",
+  "change_count": 4,
+  "last_modified_date": "2026-05-13",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Order.java",
+  "module": "M06",
+  "change_count": 4,
+  "last_modified_date": "2026-06-14",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/ComicService.java",
+  "module": "M02",
+  "change_count": 4,
+  "last_modified_date": "2026-04-26",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/NotificationService.java",
+  "module": "M12",
+  "change_count": 4,
+  "last_modified_date": "2026-05-17",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/ValidationUtils.java",
+  "module": "M02",
+  "change_count": 4,
+  "last_modified_date": "2026-04-10",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/vnpay/VNPayReturnServlet.java",
+  "module": "M10",
+  "change_count": 4,
+  "last_modified_date": "2026-03-22",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/CartSevlet.java",
+  "module": "M04",
+  "change_count": 3,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/ComicDetailServlet.java",
+  "module": "M02",
+  "change_count": 3,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/FlashSaleServlet.java",
+  "module": "M03",
+  "change_count": 3,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/LoginGoogleServlet.java",
+  "module": "M01",
+  "change_count": 3,
+  "last_modified_date": "2026-06-17",
+  "authors": [
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/SeriesDetailServlet.java",
+  "module": "M02",
+  "change_count": 3,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/BuyAgainServlet.java",
+  "module": "M06",
+  "change_count": 3,
+  "last_modified_date": "2026-04-26",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/ChangePasswordServlet.java",
+  "module": "M11",
+  "change_count": 3,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/PointHistoryServlet.java",
+  "module": "M11",
+  "change_count": 3,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/UserCategoryServlet.java",
+  "module": "M02",
+  "change_count": 3,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/WishlistViewServlet.java",
+  "module": "M05",
+  "change_count": 3,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserNotificationServlet.java",
+  "module": "M12",
+  "change_count": 3,
+  "last_modified_date": "2026-03-29",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/VoucherServlet.java",
+  "module": "M09",
+  "change_count": 3,
+  "last_modified_date": "2026-05-25",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/AdminComicSearchServlet.java",
+  "module": "M14",
+  "change_count": 3,
+  "last_modified_date": "2026-06-12",
+  "authors": [
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/AdminInventoryServlet.java",
+  "module": "M16",
+  "change_count": 3,
+  "last_modified_date": "2026-06-10",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/CreateFlashSaleServlet.java",
+  "module": "M14",
+  "change_count": 3,
+  "last_modified_date": "2026-06-07",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/DashBoardServlet.java",
+  "module": "M19",
+  "change_count": 3,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/DeleteComicServlet.java",
+  "module": "M14",
+  "change_count": 3,
+  "last_modified_date": "2026-06-05",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/DeleteSeriesServlet.java",
+  "module": "M15",
+  "change_count": 3,
+  "last_modified_date": "2026-06-06",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/PermissionManagementServlet.java",
+  "module": "M18",
+  "change_count": 3,
+  "last_modified_date": "2026-06-08",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/ProductManagementServlet.java",
+  "module": "M14",
+  "change_count": 3,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/SeriesManagementServlet.java",
+  "module": "M15",
+  "change_count": 3,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/ToggleComicHiddenServlet.java",
+  "module": "M14",
+  "change_count": 3,
+  "last_modified_date": "2026-06-05",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/VoucherDisplay.java",
+  "module": "M09",
+  "change_count": 3,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/voucher/SortVoucherServlet.java",
+  "module": "M09",
+  "change_count": 3,
+  "last_modified_date": "2026-06-10",
+  "authors": [
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/voucher/deleteVoucher.java",
+  "module": "M09",
+  "change_count": 3,
+  "last_modified_date": "2026-06-10",
+  "authors": [
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/pubilc/ResetPassServlet.java",
+  "module": "M02",
+  "change_count": 3,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/BannerDao.java",
+  "module": "M02",
+  "change_count": 3,
+  "last_modified_date": "2026-10-12",
+  "authors": [
+   "NguyenTuan2005",
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/FlashSaleComicsDAO.java",
+  "module": "M03",
+  "change_count": 3,
+  "last_modified_date": "2026-10-12",
+  "authors": [
+   "NguyenTuan2005",
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/InventoryTransactionDAO.java",
+  "module": "M02",
+  "change_count": 3,
+  "last_modified_date": "2026-06-17",
+  "authors": [
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/PointTransactionDAO.java",
+  "module": "M11",
+  "change_count": 3,
+  "last_modified_date": "2026-10-12",
+  "authors": [
+   "NguyenTuan2005",
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/UserPermissionDAO.java",
+  "module": "M02",
+  "change_count": 3,
+  "last_modified_date": "2026-06-10",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Cart.java",
+  "module": "M04",
+  "change_count": 3,
+  "last_modified_date": "2026-04-16",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Comic.java",
+  "module": "M02",
+  "change_count": 3,
+  "last_modified_date": "2026-04-19",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/FlashSale.java",
+  "module": "M03",
+  "change_count": 3,
+  "last_modified_date": "2026-03-29",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Voucher.java",
+  "module": "M09",
+  "change_count": 3,
+  "last_modified_date": "2026-05-31",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/AuthorPublisherService.java",
+  "module": "M02",
+  "change_count": 3,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/FlashSaleService.java",
+  "module": "M03",
+  "change_count": 3,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/RecommendationService.java",
+  "module": "M02",
+  "change_count": 3,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350",
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/RoleUtil.java",
+  "module": "M02",
+  "change_count": 3,
+  "last_modified_date": "2026-06-05",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/HelloApplication.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/HelloResource.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/config/SecurityConfig.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-06-01",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/CartServlet.java",
+  "module": "M04",
+  "change_count": 2,
+  "last_modified_date": "2026-04-18",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/FilterComicByCategoryServlet.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/FlashSaleApiServlet.java",
+  "module": "M03",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/HeaderServlet.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/HelloServlet.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-06-01",
+  "authors": [
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/ListProductController.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/MoMoReturnServlet.java",
+  "module": "M10",
+  "change_count": 2,
+  "last_modified_date": "2026-03-22",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/OrderSuccessServlet.java",
+  "module": "M06",
+  "change_count": 2,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/QRPaymentServlet.java",
+  "module": "M07",
+  "change_count": 2,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/SaveFCMTokenServlet.java",
+  "module": "M12",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/CartSevlet.java",
+  "module": "M04",
+  "change_count": 2,
+  "last_modified_date": "2026-04-23",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/OrderDetailServlet.java",
+  "module": "M06",
+  "change_count": 2,
+  "last_modified_date": "2026-06-12",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/StatusLogin.java",
+  "module": "M01",
+  "change_count": 2,
+  "last_modified_date": "2026-06-01",
+  "authors": [
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/SubmitReturnServlet.java",
+  "module": "M10",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/SubmitReviewServlet.java",
+  "module": "M10",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/UserVoucherServlet.java",
+  "module": "M09",
+  "change_count": 2,
+  "last_modified_date": "2026-05-25",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/WishlistServlet.java",
+  "module": "M05",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/AddCategoryServlet.java",
+  "module": "M15",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/AdminProductManagementServlet.java",
+  "module": "M14",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/DeleteCategoryServlet.java",
+  "module": "M15",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/GetCategoryByIdServlet.java",
+  "module": "M15",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/GetComicDetailServlet.java",
+  "module": "M14",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/GetComicImagesServlet.java",
+  "module": "M14",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/ListCategoriesServlet.java",
+  "module": "M15",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/ListComicsServlet.java",
+  "module": "M14",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/ListSeriesServlet.java",
+  "module": "M15",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/NotificationServlet.java",
+  "module": "M12",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/SearchCategoryServlet.java",
+  "module": "M15",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/UpdateCategoryServlet.java",
+  "module": "M15",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/voucher/VoucherDisplay.java",
+  "module": "M09",
+  "change_count": 2,
+  "last_modified_date": "2026-06-10",
+  "authors": [
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/voucher/searchVoucher.java",
+  "module": "M09",
+  "change_count": 2,
+  "last_modified_date": "2026-06-10",
+  "authors": [
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/listener/GuestCartSessionListener.java",
+  "module": "M04",
+  "change_count": 2,
+  "last_modified_date": "2026-04-29",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/pubilc/ForgotPasswordServlet.java",
+  "module": "M01",
+  "change_count": 2,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/pubilc/HomeServlet.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-05-12",
+  "authors": [
+   "hungdev",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/pubilc/VerifyRegisterServlet.java",
+  "module": "M01",
+  "change_count": 2,
+  "last_modified_date": "2026-05-25",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/ADao.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/FCMTokenDAO.java",
+  "module": "M12",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/LoginSessionDao.java",
+  "module": "M01",
+  "change_count": 2,
+  "last_modified_date": "2026-06-01",
+  "authors": [
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/OrderHistoryDAO.java",
+  "module": "M06",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/OrderReturnDAO.java",
+  "module": "M10",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/PaymentDAO.java",
+  "module": "M07",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/PermissonDAO.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-06-02",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/ReviewDAO.java",
+  "module": "M10",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/RoleDAO.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-06-07",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/StatisticsDAO.java",
+  "module": "M19",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/dao/UserShippingAddressDAO.java",
+  "module": "M11",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/filter/CartInitFilter.java",
+  "module": "M04",
+  "change_count": 2,
+  "last_modified_date": "2026-04-23",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/OrderItem.java",
+  "module": "M06",
+  "change_count": 2,
+  "last_modified_date": "2026-03-14",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Permission.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-06-02",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Role.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-06-05",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/CloudinaryService.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/RoleHierarchyService.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-06-10",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/UserViolationService.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-05-17",
+  "authors": [
+   "Truc350",
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/OtpGenerator.java",
+  "module": "M01",
+  "change_count": 2,
+  "last_modified_date": "2026-06-01",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/RateLimiter.java",
+  "module": "M02",
+  "change_count": 2,
+  "last_modified_date": "2026-05-25",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/ghn/GHNConfig.java",
+  "module": "M08",
+  "change_count": 2,
+  "last_modified_date": "2026-06-17",
+  "authors": [
+   "Truc350",
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/momo/MoMoUtils.java",
+  "module": "M07",
+  "change_count": 2,
+  "last_modified_date": "2026-03-22",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/config/CloudinaryConfig.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/config/FacebookConfig.java",
+  "module": "M01",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/AuthorPublisherInforServlet.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/HandleException.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/ProxyServlet.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/SearchSuggestServlet.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-24",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UploadAvatarServlet.java",
+  "module": "M11",
+  "change_count": 1,
+  "last_modified_date": "2026-04-10",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/UserB/LogoutStatus.java",
+  "module": "M01",
+  "change_count": 1,
+  "last_modified_date": "2026-06-01",
+  "authors": [
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/AdminNotificationPageServlet.java",
+  "module": "M12",
+  "change_count": 1,
+  "last_modified_date": "2026-05-17",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/ExportExcelServlet.java",
+  "module": "M20",
+  "change_count": 1,
+  "last_modified_date": "2026-04-30",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/UserPermissionOverrideServlet.java",
+  "module": "M18",
+  "change_count": 1,
+  "last_modified_date": "2026-06-02",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/profile/AdminProfileServlet.java",
+  "module": "M21",
+  "change_count": 1,
+  "last_modified_date": "2026-06-14",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/admin/voucher/loadCategory.java",
+  "module": "M09",
+  "change_count": 1,
+  "last_modified_date": "2026-03-22",
+  "authors": [
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/pubilc/HeaderServlet.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-05-07",
+  "authors": [
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/controller/pubilc/LogoutServlet.java",
+  "module": "M01",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/filter/CategoryFilter.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-24",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/filter/PromotionAccessFilter.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-06-10",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/filter/RateLimitFilter.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-05-24",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/filter/ServiceWorkerFilter.java",
+  "module": "M12",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Author.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Banner.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Category.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/ComicAuthor.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/ComicImage.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/ComicPublisher.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/FlashSale_Comics.java",
+  "module": "M03",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/LoginSession.java",
+  "module": "M01",
+  "change_count": 1,
+  "last_modified_date": "2026-05-30",
+  "authors": [
+   "hungdev"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Notification.java",
+  "module": "M12",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/OrderHistory.java",
+  "module": "M06",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/OrderReturn.java",
+  "module": "M10",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/OrderReturnImage.java",
+  "module": "M10",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Payment.java",
+  "module": "M07",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/PointTransaction.java",
+  "module": "M11",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Publisher.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/RevenueRow.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-04-30",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Review.java",
+  "module": "M10",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/ReviewImage.java",
+  "module": "M10",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/RolePermission.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-06-01",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/Series.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/UserPermissonOverride.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-06-02",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/UserShippingAddress.java",
+  "module": "M11",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/model/UserVoucher.java",
+  "module": "M09",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/ACLChecker.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-06-07",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/cache/CacheService.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-04-26",
+  "authors": [
+   "tram"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/service/ghn/GHNService.java",
+  "module": "M08",
+  "change_count": 1,
+  "last_modified_date": "2026-06-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/CurrencyFormatter.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/EmailUtils.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/LocalDateTimeAdapter.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/OtpToken.java",
+  "module": "M01",
+  "change_count": 1,
+  "last_modified_date": "2026-05-25",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/PasswordUtils.java",
+  "module": "M01",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/ReCaptchaUtils.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-05-22",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/TextUtils.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/ValidationResult.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-28",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/gson/GsonConfig.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ },
+ {
+  "file_path": "testing/src/main/java/vn/edu/hcmuaf/fit/ttltw_nhom6/utils/gson/LocalDateTimeAdapter.java",
+  "module": "M02",
+  "change_count": 1,
+  "last_modified_date": "2026-03-12",
+  "authors": [
+   "Truc350"
+  ]
+ }
+]

@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from app.state.models import SharedState
 from .config.config import Config
 from .data.loader import load_analysis, load_test_cases
 from .core.pipeline import run_pipeline
@@ -21,12 +22,14 @@ def _read_test_cases(raw) -> list[dict]:
     return data if isinstance(data, list) else data.get("test_suite", data)["test_cases"]
 
 
-def run_risk_prioritization(llm, state: dict, *, analysis_path: str | None = None,
+def run_risk_prioritization(llm, state: SharedState, *, analysis_path: str | None = None,
                             signals_dir: str | None = None, out_dir: str | None = None,
                             config_path: str | None = None) -> dict:
     """Ranks test cases. `llm` may be None (template rationale only)."""
+    analysis_path = analysis_path or state.get("analysis_path")
+    analysis = state.get("analysis") or load_analysis(analysis_path)
     try:
-        result = run_pipeline(_read_test_cases(state.get("test_cases", "")), load_analysis(analysis_path),
+        result = run_pipeline(_read_test_cases(state.get("test_cases", "")), analysis,
                               load_signals(signals_dir), Config.load(config_path), llm)
     except GuardrailError as exc:
         # spec: return an error to the Orchestrator instead of a partial result

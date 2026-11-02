@@ -1,2 +1,194 @@
-{"TC-04": ["TC-03"], "TC-14": ["TC-13"], "TC-19": ["TC-16"], "TC-27": ["TC-16"],
- "TC-55": ["TC-16"], "TC-56": ["TC-55"], "TC-57": ["TC-55"]}
+{
+ "M01": {
+  "depends_on": [
+   "M02",
+   "M04",
+   "M06"
+  ],
+  "external_apis": [
+   "JDBI"
+  ]
+ },
+ "M02": {
+  "depends_on": [
+   "M01",
+   "M03",
+   "M04",
+   "M05",
+   "M10"
+  ],
+  "external_apis": [
+   "Cloudinary",
+   "GHN",
+   "JDBI"
+  ]
+ },
+ "M03": {
+  "depends_on": [
+   "M04"
+  ],
+  "external_apis": [
+   "JDBI"
+  ]
+ },
+ "M04": {
+  "depends_on": [
+   "M02",
+   "M03"
+  ],
+  "external_apis": [
+   "JDBI"
+  ]
+ },
+ "M05": {
+  "depends_on": [
+   "M02"
+  ],
+  "external_apis": [
+   "JDBI"
+  ]
+ },
+ "M06": {
+  "depends_on": [
+   "M02",
+   "M03",
+   "M04",
+   "M07",
+   "M08",
+   "M09",
+   "M11"
+  ],
+  "external_apis": [
+   "GHN",
+   "JDBI",
+   "MoMo",
+   "VNPay"
+  ]
+ },
+ "M07": {
+  "depends_on": [
+   "M02"
+  ],
+  "external_apis": [
+   "JDBI",
+   "MoMo",
+   "VNPay"
+  ]
+ },
+ "M08": {
+  "depends_on": [
+   "M06"
+  ],
+  "external_apis": [
+   "Cloudinary",
+   "GHN"
+  ]
+ },
+ "M09": {
+  "depends_on": [
+   "M02",
+   "M12"
+  ],
+  "external_apis": [
+   "JDBI"
+  ]
+ },
+ "M10": {
+  "depends_on": [
+   "M02",
+   "M06",
+   "M07"
+  ],
+  "external_apis": [
+   "Cloudinary",
+   "JDBI",
+   "MoMo",
+   "VNPay"
+  ]
+ },
+ "M11": {
+  "depends_on": [
+   "M01",
+   "M02"
+  ],
+  "external_apis": [
+   "Cloudinary",
+   "JDBI"
+  ]
+ },
+ "M12": {
+  "depends_on": [
+   "M02",
+   "M03",
+   "M09"
+  ],
+  "external_apis": [
+   "FCM",
+   "JDBI"
+  ]
+ },
+ "M14": {
+  "depends_on": [
+   "M02",
+   "M03"
+  ],
+  "external_apis": [
+   "Cloudinary"
+  ]
+ },
+ "M15": {
+  "depends_on": [
+   "M02"
+  ],
+  "external_apis": [
+   "Cloudinary"
+  ]
+ },
+ "M16": {
+  "depends_on": [
+   "M02"
+  ],
+  "external_apis": []
+ },
+ "M17": {
+  "depends_on": [
+   "M02",
+   "M06",
+   "M12"
+  ],
+  "external_apis": []
+ },
+ "M18": {
+  "depends_on": [
+   "M02"
+  ],
+  "external_apis": [
+   "JDBI"
+  ]
+ },
+ "M19": {
+  "depends_on": [
+   "M02"
+  ],
+  "external_apis": [
+   "JDBI"
+  ]
+ },
+ "M20": {
+  "depends_on": [
+   "M02",
+   "M03",
+   "M09"
+  ],
+  "external_apis": []
+ },
+ "M21": {
+  "depends_on": [
+   "M01",
+   "M02"
+  ],
+  "external_apis": [
+   "JDBI"
+  ]
+ }
+}

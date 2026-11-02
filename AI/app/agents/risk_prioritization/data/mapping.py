@@ -22,6 +22,9 @@ class TCContext:
     original_priority: str | None = None
     runner: str = "ui"
     depends_on: list[str] = field(default_factory=list)
+    precondition_count: int = 0
+    step_count: int = 0
+    test_type: str | None = None
 
 
 class AnalysisIndex:
@@ -86,4 +89,7 @@ def build_context(tc: dict, index: AnalysisIndex, cfg: Config, extra_deps: dict 
         block_ids=list(dict.fromkeys(info["blocks"])),
         original_priority=tc.get("priority"), runner=runner,
         depends_on=list(dict.fromkeys(deps)),
+        precondition_count=len(tc.get("preconditions", [])),
+        step_count=len(tc.get("steps", [])),
+        test_type=tc.get("type"),
     )

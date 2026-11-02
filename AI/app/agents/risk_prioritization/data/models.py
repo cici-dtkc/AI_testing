@@ -17,10 +17,10 @@ class DefectRecord(BaseModel):
 
 class RiskSignals(BaseModel):
     """Optional external signals. None = the whole source is missing (defaults apply)."""
-    rtm: dict[str, str] | None = None             # "UC-9" | "M04" -> "Critical"/"High"/...
+    rtm: dict[str, Any] | None = None             # "UC-9" | "M04" -> "Critical"/"High"/... or {"priority": ...}
     change_log: dict[str, str] | None = None      # "M07" -> "none|indirect|minor|major|core"
     defects: list[DefectRecord] | None = None
-    dependencies: dict[str, list[str]] | None = None   # "TC-04" -> ["TC-03"]
+    dependencies: dict[str, Any] | None = None    # "TC-04" -> ["TC-03"] or module graph "M06" -> {...}
 
 
 class ScoredTC(BaseModel):
