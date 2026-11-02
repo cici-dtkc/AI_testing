@@ -9,11 +9,11 @@ from typing import Any, Callable
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import END, START, StateGraph
 
+from app.agents.executor import create_executor
 from app.agents.requirement_analyzer import run_requirement_analyzer, run_srs_analysis
 from app.agents.risk_prioritization import run_risk_prioritization
 from app.agents.test_case_generator import run_test_case_generator
-from app.runners.pytest_runner import run_pytest
-from app.state.models import SharedState
+from app.state.models import SharedState, merge_state
 from app.storage import RunStore, save_checkpoint, save_state, write_report
 from app.storage.log import get_logger
 
@@ -72,8 +72,8 @@ def _finish(state: SharedState, reason: str, store: RunStore) -> dict:
     if not run_dir:
         return {}
     rd = Path(run_dir)
-    save_state(state, store.state_path(rd))
     report_path = write_report(rd, state)
+    save_state({**state, "report": str(report_path)}, store.state_path(rd))
     store.finalize_meta(
         state.get("run_id", ""),
         status="done",
@@ -117,7 +117,10 @@ def build_supervisor(llm, store: RunStore, tests_dir: str) -> Callable[[SharedSt
         log = get_logger(state.get("run_dir"))
         decision = _route(state, llm)
         if decision["next_agent"] == END:
-            return {**bootstrap, **decision, **_finish(state, decision["trace"][0], store)}
+            return {
+                **bootstrap, **decision,
+                **_finish(merge_state(state, decision), decision["trace"][0], store),
+            }
         if log:
             log.dispatch(decision["next_agent"], decision["trace"][0].split(": ", 1)[-1])
         return {**bootstrap, **decision}
@@ -135,7 +138,7 @@ def _persist(name: str, fn: Callable[[SharedState], dict]) -> Callable[[SharedSt
         update = fn(state)
         run_dir = state.get("run_dir") or update.get("run_dir")
         if run_dir:
-            save_checkpoint({**state, **update}, Path(run_dir), name)
+            save_checkpoint(merge_state(state, update), Path(run_dir), name)
         if log and update.get("trace"):
             log.done(name, update["trace"][-1])
         return update
@@ -156,25 +159,27 @@ def _make_tc_generator(llm) -> Callable[[SharedState], dict]:
 def _make_risk(llm) -> Callable[[SharedState], dict]:
     def run(state: SharedState) -> dict:
         kwargs: dict[str, Any] = {}
+        if state.get("analysis_path"):
+            kwargs["analysis_path"] = state["analysis_path"]
         if state.get("run_dir"):
             kwargs["out_dir"] = str(Path(state["run_dir"]) / "prioritized")
-            if state.get("analysis_path"):
-                kwargs["analysis_path"] = state["analysis_path"]
         return run_risk_prioritization(llm, state, **kwargs)
 
     return run
 
 
 def _make_executor(tests_dir: str, store: RunStore) -> Callable[[SharedState], dict]:
+    executor = create_executor(tests_dir)
+
     def run(state: SharedState) -> dict:
         run_label = f"run{state.get('retry_count', 0)}"
-        status, log = run_pytest(tests_dir)
+        update = executor(state)
         if state.get("run_dir"):
-            store.save_executor_log(Path(state["run_dir"]), run_label, log)
-        return {
-            "test_results": {run_label: {"status": status, "log_tail": log}},
-            "trace": [f"executor: {run_label} -> {status}"],
-        }
+            store.save_executor_log(
+                Path(state["run_dir"]), run_label,
+                update["test_results"][run_label]["log_tail"],
+            )
+        return update
 
     return run
 

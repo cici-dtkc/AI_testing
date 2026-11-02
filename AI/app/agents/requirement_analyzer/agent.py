@@ -54,6 +54,7 @@ def run_srs_analysis(llm, state: SharedState) -> dict:
 
     return {
         "analysis_path": str(analysis_dir / "analysis.json"),
+        "analysis": payload,
         "trace": [
             "srs_analyzer: đã phân tích SRS -> "
             f"{len(analysis.rules)} rules, {len(analysis.scenarios)} scenarios, "
