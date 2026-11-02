@@ -59,7 +59,20 @@ def main():
             progress=lambda message: print(f'  + {message}', flush=True),
             cache_dir=cache_dir,
         )
-        
+
+        if warnings:
+            print(f'Cảnh báo ({len(warnings)}):')
+            for warning in warnings[:10]:
+                print(f'  ! {warning}')
+            if len(warnings) > 10:
+                print(f'  ... xem toàn bộ trong {args.output / "test_cases.json"}')
+
+        # Không ghi đè output cũ bằng kết quả rỗng: giữ nguyên test_cases.json/html
+        # của lần chạy thành công gần nhất để không mất dữ liệu khi API lỗi toàn bộ.
+        if not test_suite.test_cases:
+            print('Không sinh được test case nào — xem cảnh báo phía trên.', file=sys.stderr)
+            return 1
+
         payload = {
             'provider': 'GEMINI',
             'model': args.model,
@@ -79,15 +92,6 @@ def main():
         print(f'Đã sinh {len(test_suite.test_cases)} Test Cases.')
         print(f'JSON: {(args.output / "test_cases.json").resolve()}')
         print(f'HTML: {(args.output / "test_cases_report.html").resolve()}')
-        if warnings:
-            print(f'Cảnh báo ({len(warnings)}):')
-            for warning in warnings[:10]:
-                print(f'  ! {warning}')
-            if len(warnings) > 10:
-                print(f'  ... xem toàn bộ trong {args.output / "test_cases.json"}')
-        if not test_suite.test_cases:
-            print('Không sinh được test case nào — xem cảnh báo phía trên.', file=sys.stderr)
-            return 1
         return 0
     except (ValueError, RuntimeError, OSError) as exc:
         print(f'Lỗi: {exc}', file=sys.stderr)
