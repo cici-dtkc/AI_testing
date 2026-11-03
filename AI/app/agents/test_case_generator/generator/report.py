@@ -156,16 +156,27 @@ def write_test_report(payload: dict, folder: Path):
                 warnings_html = "<ul>" + "".join(
                     f"<li class='warn-inline'>{e(w)}</li>" for w in module["warnings"]
                 ) + "</ul>"
+            estimate_text = e(primary.get('estimated_cases'))
+            target = module.get("target_cases")
+            if target is not None:
+                estimate_text += f"<div class='muted'>Mục tiêu Analyzer: ~{e(target)}</div>"
             plan_rows.append(
                 "<tr>"
                 f"<td><b>{e(module.get('module'))}</b><div class='muted'>{e(module.get('story'))}</div></td>"
                 f"<td>{e(technique_label(primary))}</td>"
                 f"<td>{supporting_html}</td>"
-                f"<td>{e(primary.get('estimated_cases'))}</td>"
+                f"<td>{estimate_text}</td>"
                 f"<td>{range_text}</td>"
                 "<td><details><summary>Nghĩa vụ bao phủ</summary><ul>"
                 f"{obligations_html}</ul></details>{warnings_html}</td>"
                 "</tr>"
+            )
+        plan_warnings_html = ""
+        if plan.get("warnings"):
+            plan_warnings_html = (
+                "<ul>" + "".join(
+                    f"<li class='warn-inline'>{e(w)}</li>" for w in plan["warnings"]
+                ) + "</ul>"
             )
         plan_html = (
             "<section class='plan'><h2>Kế hoạch kỹ thuật theo module</h2>"
@@ -174,7 +185,8 @@ def write_test_report(payload: dict, folder: Path):
             "<thead><tr><th>Module</th><th>Kỹ thuật chính</th><th>Bổ trợ</th>"
             "<th>Case ước tính</th><th>Ràng buộc biên</th><th>Căn cứ &amp; nghĩa vụ</th>"
             "</tr></thead>"
-            f"<tbody>{''.join(plan_rows)}</tbody></table></div></section>"
+            f"<tbody>{''.join(plan_rows)}</tbody></table></div>"
+            f"{plan_warnings_html}</section>"
         )
 
     white_box_html = ""

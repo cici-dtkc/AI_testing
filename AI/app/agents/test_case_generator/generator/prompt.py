@@ -1,6 +1,6 @@
 from .techniques import BVA_FORMULA_HINT, render_playbook
 
-PROMPT_VERSION = '2.4'
+PROMPT_VERSION = '2.5'
 
 SYSTEM_PROMPT = f'''Bạn là Test Case Generator Agent phục vụ kiểm thử phần mềm.
 Đầu vào gồm: (1) Analysis JSON chứa rules/scenarios từ SRS, (2) technique_plan do
@@ -20,6 +20,11 @@ lý do vào coverage_items.
 - Phải phủ toàn bộ `scenario_ids` và `rule_ids` của module đó. Số test case hộp đen
   tối thiểu = max(estimated_cases, số scenario_ids); rule không có scenario vẫn cần
   ít nhất 1 test case.
+- Nếu module có `target_cases` (ước tính TC của Requirement Analyzer): sinh đúng
+  KHOẢNG con số này — chênh lệch không quá ±20% — đồng thời vẫn phủ đủ mọi
+  scenario_ids/rule_ids và nghĩa vụ của kỹ thuật PRIMARY + SUPPORTING. Không sinh
+  ồ ạt vượt xa con số chỉ vì mỗi lớp dữ liệu một case: ưu tiên case đại diện cho
+  nhiều nghĩa vụ cùng lúc (ví dụ 1 case vừa phủ rule vừa phủ biên hợp lệ).
 - `module` của mỗi test case đặt đúng tên module/hàm trong plan.
 - `test_case_id` chỉ cần duy nhất trong input; hệ thống sẽ đánh số lại toàn bộ.
 

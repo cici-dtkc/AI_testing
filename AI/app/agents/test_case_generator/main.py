@@ -35,7 +35,8 @@ def main():
             for module in plan.modules:
                 primary = module.techniques[0]
                 variant = f' ({primary.variant})' if primary.variant else ''
-                print(f'  - {module.module}: {primary.technique}{variant} ~ {primary.estimated_cases} case')
+                target = f' [mục tiêu Analyzer: ~{module.target_cases}]' if module.target_cases is not None else ''
+                print(f'  - {module.module}: {primary.technique}{variant} ~ {primary.estimated_cases} case{target}')
                 print(f'      {module.story}')
             for warning in warnings:
                 print(f'  ! {warning}')

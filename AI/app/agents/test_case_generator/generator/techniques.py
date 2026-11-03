@@ -936,6 +936,46 @@ def build_module_plans(analysis: dict) -> list[ModulePlan]:
     return plans
 
 
+def _module_targets(
+    analysis_data: dict,
+    modules: list[ModulePlan],
+) -> tuple[dict[str, int], list[str]]:
+    """Chia ước tính TC của Requirement Analyzer (coverage_matrix) cho các module.
+
+    Mỗi hàng matrix phân bổ estimated_test_cases cho các module có chung
+    rule/scenario, tỷ lệ theo số item chung; phần lẻ giao cho module trùng
+    nhiều nhất. Hàng không khớp module nào → cảnh báo (không thể sinh TC).
+    """
+    matrix = (analysis_data.get('scope_comparison') or {}).get('coverage_matrix') or []
+    targets: dict[str, int] = {}
+    warnings: list[str] = []
+    for row in matrix:
+        est = row.get('estimated_test_cases') or 0
+        if not est:
+            continue
+        row_rules = {str(x) for x in row.get('rule_ids') or []}
+        row_scenarios = {str(x) for x in row.get('scenario_ids') or []}
+        overlaps: dict[str, int] = {}
+        for module in modules:
+            count = len(set(module.rule_ids) & row_rules)
+            count += len(set(module.scenario_ids) & row_scenarios)
+            if count:
+                overlaps[module.module] = count
+        if not overlaps:
+            warnings.append(
+                f'{row.get("plan_item_id", "?" )}: {est} TC ước tính nhưng không có '
+                'rule/scenario IN_SCOPE để sinh test case ('
+                f'{row.get("coverage_status", "?")}).'
+            )
+            continue
+        total = sum(overlaps.values())
+        for module, share in overlaps.items():
+            targets[module] = targets.get(module, 0) + est * share // total
+        top = max(overlaps, key=overlaps.get)
+        targets[top] += est - sum(est * share // total for share in overlaps.values())
+    return targets, warnings
+
+
 def build_technique_plan(
     analysis_data: dict,
     white_box: list[WhiteBoxPlan] | None = None,
@@ -944,6 +984,17 @@ def build_technique_plan(
     analysis = analysis_data.get('analysis', analysis_data) or {}
     modules = build_module_plans(analysis)
 
+    targets, target_warnings = _module_targets(analysis_data, modules)
+    for module_plan in modules:
+        target = targets.get(module_plan.module)
+        if target is None:
+            continue
+        module_plan.target_cases = target
+        module_plan.story += (
+            f' [Mục tiêu: khoảng {target} test case theo ước tính của '
+            'Requirement Analyzer cho module này.]'
+        )
+
     counts = Counter(plan.techniques[0].technique for plan in modules)
     summary_parts = [
         f'{TECHNIQUE_LIBRARY[name].title}: {count}' for name, count in counts.most_common()
@@ -951,8 +1002,15 @@ def build_technique_plan(
     summary = f'{len(modules)} module — ' + '; '.join(summary_parts) if modules else '0 module'
     if white_box:
         summary += f'. Hộp trắng: {len(white_box)} hàm phân tích từ mã nguồn.'
+    if targets:
+        summary += f'. Mục tiêu tổng: {sum(targets.values())} TC (ước tính của Analyzer).'
 
-    return TechniquePlan(summary=summary, modules=modules, white_box=white_box or [])
+    return TechniquePlan(
+        summary=summary,
+        modules=modules,
+        white_box=white_box or [],
+        warnings=target_warnings,
+    )
 
 
 # --------------------------------------------------------------------------
