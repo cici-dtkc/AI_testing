@@ -81,6 +81,8 @@ class ModulePlan(StrictModel):
     numeric_ranges: list[NumericRange] = Field(default_factory=list)
     story: str
     warnings: list[str] = Field(default_factory=list)
+    # Tổng TC ước tính của Requirement Analyzer cho module này (từ coverage_matrix).
+    target_cases: int | None = None
 
 
 class CoverageTarget(StrictModel):
@@ -107,3 +109,4 @@ class TechniquePlan(StrictModel):
     summary: str
     modules: list[ModulePlan]
     white_box: list[WhiteBoxPlan] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)

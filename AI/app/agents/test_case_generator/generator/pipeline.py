@@ -29,10 +29,69 @@ def _bounded_sources(
     return selected, warnings
 
 
-def load_analysis(analysis_path: Path) -> dict:
+def apply_scope(analysis_data: dict) -> tuple[dict, list[str]]:
+    """Thu hẹp analysis theo kết quả đối chiếu scope của Requirement Analyzer.
+
+    Chỉ giữ rule/scenario có quyết định IN_SCOPE, cộng rule phụ thuộc của
+    scenario được giữ (giống analyzer/scope.py::reconcile); issue giữ theo
+    issue_audit. Input không có scope_comparison thì giữ nguyên.
+    """
+    scope = analysis_data.get('scope_comparison')
+    analysis = analysis_data.get('analysis') or {}
+    if not scope:
+        return analysis_data, []
+
+    decisions = scope.get('decisions') or []
+    status_of = {
+        (d.get('item_type'), str(d.get('item_id'))): d.get('status')
+        for d in decisions
+    }
+    kept_scenario_ids = {
+        iid for (typ, iid), st in status_of.items()
+        if typ == 'scenario' and st == 'IN_SCOPE'
+    }
+    kept_rule_ids = {
+        iid for (typ, iid), st in status_of.items()
+        if typ == 'rule' and st == 'IN_SCOPE'
+    }
+    scenarios = [
+        s for s in analysis.get('scenarios') or []
+        if str(s.get('scenario_id')) in kept_scenario_ids
+    ]
+    dependencies = {
+        str(rid) for s in scenarios for rid in (s.get('rule_ids') or [])
+    } - kept_rule_ids
+    kept_rule_ids |= dependencies
+    rules = [
+        r for r in analysis.get('rules') or []
+        if str(r.get('rule_id')) in kept_rule_ids
+    ]
+    issues = list(analysis.get('issues') or [])
+    issue_audit = scope.get('issue_audit')
+    if issue_audit:
+        retained = {
+            str(a.get('issue_id')) for a in issue_audit if a.get('retained')
+        }
+        issues = [i for i in issues if str(i.get('issue_id')) in retained]
+
+    filtered = dict(analysis)
+    filtered.update({'rules': rules, 'scenarios': scenarios, 'issues': issues})
+    data = dict(analysis_data)
+    data['analysis'] = filtered
+
+    warnings: list[str] = []
+    if dependencies:
+        warnings.append(
+            'Rule giữ làm phụ thuộc của scenario IN_SCOPE: ' + ', '.join(sorted(dependencies))
+        )
+    return data, warnings
+
+
+def load_analysis(analysis_path: Path) -> tuple[dict, list[str]]:
     if not analysis_path.is_file():
         raise ValueError(f'Không tìm thấy file analysis đầu vào tại: {analysis_path}')
-    return json.loads(analysis_path.read_text(encoding='utf-8'))
+    data = json.loads(analysis_path.read_text(encoding='utf-8'))
+    return apply_scope(data)
 
 
 def build_plan(
@@ -40,12 +99,12 @@ def build_plan(
     code_path: Path | None = None,
 ) -> tuple[TechniquePlan, list[str], dict[str, str]]:
     """Chỉ chạy bước chọn kỹ thuật (không gọi LLM) để kiểm tra/quyết định trước."""
-    analysis_data = load_analysis(analysis_path)
+    analysis_data, scope_warnings = load_analysis(analysis_path)
     white_box, warnings, sources = ([], [], {})
     if code_path is not None:
         white_box, warnings, sources = analyze_path(Path(code_path))
     plan = build_technique_plan(analysis_data, white_box)
-    return plan, warnings, sources
+    return plan, scope_warnings + warnings + plan.warnings, sources
 
 
 def generate_full_test_cases(
@@ -57,7 +116,7 @@ def generate_full_test_cases(
     progress: Callable[[str], None] | None = None,
     cache_dir: Path | None = None,
 ) -> tuple[TestSuite, TechniquePlan, list[str]]:
-    analysis_data = load_analysis(analysis_path)
+    analysis_data, scope_warnings = load_analysis(analysis_path)
 
     # Bước 1: engine quyết định kỹ thuật cho từng module (hộp đen + hộp trắng).
     white_box, white_box_warnings, sources = ([], [], {})
@@ -81,9 +140,11 @@ def generate_full_test_cases(
 
     # Bước 3: kiểm tra truy vết, coverage tag và mức phủ tối thiểu.
     warnings = (
-        white_box_warnings
+        scope_warnings
+        + white_box_warnings
         + source_warnings
         + generation_warnings
+        + plan.warnings
         + validate_test_cases(test_suite, analysis_data, plan)
     )
 

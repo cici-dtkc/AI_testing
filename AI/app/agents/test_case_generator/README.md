@@ -28,6 +28,20 @@ analysis.json ──► (1) Technique Planner ──► technique_plan ──►
 3. **Validation** (`generator/validation.py`) — kiểm tra truy vết, đúng kế hoạch kỹ thuật,
    single-fault assumption, trùng coverage item, độ phủ scenario/rule.
 
+## Input thu hẹp scope + mục tiêu số test case
+
+Input mặc định là output **đã đối chiếu scope** của Requirement Analyzer (có
+`scope_comparison`). Generator tự bỏ rule/scenario `OUT_OF_SCOPE` — chỉ giữ
+`IN_SCOPE` + rule phụ thuộc của scenario — nên số module và test case bám theo
+bảng 2.1 Test Plan thay vì sinh cho toàn bộ SRS.
+
+Mỗi module trong plan có `target_cases`: ước tính TC của Analyzer được phân bổ từ
+`coverage_matrix` (chia tỷ lệ theo rule/scenario chung). LLM được yêu cầu sinh đúng
+khoảng con số đó (±20%), vẫn phủ đủ mọi scenario/rule của module. Hàng matrix không
+có rule/scenario IN_SCOPE (GAP_NEEDS_DESIGN / PROCESS_CHECKLIST) không thể sinh
+case — được ghi cảnh báo trong plan. Muốn bỏ thu hẹp scope thì xoá `scope_comparison`
+khỏi file input.
+
 ## Khi nào áp dụng kỹ thuật nào
 
 Thang quyết định trong `select_techniques()` (dừng ở nhánh đầu tiên khớp):
