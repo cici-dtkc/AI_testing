@@ -104,6 +104,12 @@ lại API cho phần đã xong. Đổi model không làm mất cache.
   gemini-flash-latest`.
 - `Gemini 429 ... quota/rate limit`: hết quota tạm thời — chờ khoảng 1 phút, tăng
   `--delay`, hoặc đổi model.
+- `Gemini 403 ... free tier is not available for this project`: project của API key
+  không có free tier (ảnh hưởng mọi model, đổi model không giúp). Tạo API key mới ở
+  project khác trong AI Studio hoặc bật billing, rồi chạy lại.
+- `Gemini lỗi mạng ... ReadTimeout/ConnectTimeout`: mạng chập chờn — generator tự
+  thử lại vài lượt rồi ghi cảnh báo cho module đó và tiếp tục module khác, không
+  sập cả tiến trình. Chạy lại sẽ dùng cache cho các module đã xong.
 - Model cũ như `gemini-2.5-flash` có thể trả 404 với tài khoản mới; dùng các model
   `*-latest` ở trên.
 
@@ -111,7 +117,7 @@ Kết quả trong thư mục output:
 
 - `test_cases.json` — test suite + `technique_plan` + `validation_warnings`
 - `test_cases_report.html` — bảng test case theo mẫu bài tập 8: `Mã TC · Luồng ·
-  Dữ liệu đầu vào · Các bước · Kết quả mong đợi · Kịch bản` (kèm Kỹ thuật, Coverage,
+  Dữ liệu đầu vào · Các bước · Kết quả mong đợi · Kịch bản` (kèm Kỹ thuật,
   Ưu tiên). Tên module nằm ngay trong mã test case (`TimKiem-TC-01`), không lặp cột
   Module. Các bước viết 2–5 bước, mỗi bước ≤ 10 từ; kết quả mong đợi 1 câu ≤ 25 từ.
   Cuối báo cáo có 2 bảng kế hoạch (hộp đen theo module, hộp trắng theo hàm).

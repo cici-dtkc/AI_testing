@@ -1,15 +1,15 @@
 {
   "provider": "GEMINI",
-  "model": "gemini-flash-latest",
-  "created_at": "2026-10-30T04:54:41.675241+00:00",
+  "model": "gemini-flash-lite-latest",
+  "created_at": "2026-11-02T18:04:39.049239+00:00",
   "prompt_version": "2.4",
   "test_suite": {
-    "summary": "Sinh theo 18/18 module/hàm được chọn: 115 test case. (dùng lại cache: 18).",
+    "summary": "Sinh theo 18/18 module/hàm được chọn: 109 test case. (dùng lại cache: 18).",
     "test_cases": [
       {
         "test_case_id": "TimKiem-TC-01",
         "module": "TimKiem",
-        "title": "Tìm kiếm truyện thành công với từ khóa khớp",
+        "title": "Tìm kiếm truyện thành công với từ khóa hợp lệ",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "DECISION_TABLE",
@@ -21,24 +21,24 @@
         "preconditions": [
           "Người dùng truy cập được website"
         ],
-        "given": "Nhập từ khóa hợp lệ 'Naruto' vào thanh tìm kiếm",
+        "given": "Từ khóa tìm kiếm hợp lệ, không chứa ký tự đặc biệt",
         "steps": [
-          "Nhập từ khóa 'Naruto'",
-          "Nhấn nút tìm kiếm"
+          "Nhập từ khóa vào thanh tìm kiếm",
+          "Xác nhận tìm kiếm"
         ],
-        "expected_result": "Hiển thị danh sách truyện khớp từ khóa kèm số lượng kết quả.",
+        "expected_result": "Hiển thị danh sách truyện khớp kèm số lượng kết quả và lưu lịch sử.",
         "trace_scenario_ids": [
           "C003-SCN-M02-001"
         ],
         "trace_rule_ids": [
           "C003-RULE-M02-001"
         ],
-        "scenario_description": "Tìm kiếm truyện thành công với từ khóa khớp"
+        "scenario_description": "Tìm kiếm truyện thành công với từ khóa hợp lệ"
       },
       {
         "test_case_id": "TimKiem-TC-02",
         "module": "TimKiem",
-        "title": "Tìm kiếm không có kết quả phù hợp",
+        "title": "Tìm kiếm không có kết quả với từ khóa không khớp",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "DECISION_TABLE",
@@ -50,24 +50,53 @@
         "preconditions": [
           "Người dùng truy cập được website"
         ],
-        "given": "Nhập từ khóa không tồn tại 'Abcxyz123'",
+        "given": "Từ khóa tìm kiếm không khớp với bất kỳ truyện nào",
         "steps": [
-          "Nhập từ khóa 'Abcxyz123'",
+          "Nhập từ khóa không tồn tại vào ô tìm kiếm",
           "Xác nhận tìm kiếm"
         ],
-        "expected_result": "Hiển thị danh sách trống kèm thông báo không có kết quả.",
+        "expected_result": "Hiển thị danh sách trống kèm thông báo không tìm thấy kết quả.",
         "trace_scenario_ids": [
           "C003-SCN-M02-002"
         ],
         "trace_rule_ids": [
           "C003-RULE-M02-001"
         ],
-        "scenario_description": "Tìm kiếm không có kết quả phù hợp"
+        "scenario_description": "Tìm kiếm không có kết quả với từ khóa không khớp"
       },
       {
         "test_case_id": "TimKiem-TC-03",
         "module": "TimKiem",
-        "title": "Phân trang kết quả tìm kiếm hợp lệ",
+        "title": "Phân trang kết quả tìm kiếm vượt quá 12 truyện",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "technique": "DECISION_TABLE",
+        "technique_variant": "",
+        "flow": "Chính",
+        "coverage_items": [
+          "R3"
+        ],
+        "preconditions": [
+          "Hệ thống có sẵn hơn 12 truyện khớp từ khóa"
+        ],
+        "given": "Kết quả tìm kiếm trả về số lượng lớn hơn 12",
+        "steps": [
+          "Thực hiện tìm kiếm truyện",
+          "Kiểm tra số lượng truyện trên trang đầu"
+        ],
+        "expected_result": "Hiển thị tối đa 12 truyện trên mỗi trang kèm điều hướng phân trang.",
+        "trace_scenario_ids": [
+          "C003-SCN-M02-001"
+        ],
+        "trace_rule_ids": [
+          "C003-RULE-M02-002"
+        ],
+        "scenario_description": "Phân trang kết quả tìm kiếm vượt quá 12 truyện"
+      },
+      {
+        "test_case_id": "TimKiem-TC-04",
+        "module": "TimKiem",
+        "title": "Kiểm tra phân vùng tương đương từ khóa hợp lệ",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -77,26 +106,55 @@
           "V1"
         ],
         "preconditions": [
-          "Kết quả tìm kiếm trả về 15 truyện"
+          "Người dùng ở trang chủ"
         ],
-        "given": "Số lượng kết quả vượt quá một trang",
+        "given": "Từ khóa nhập vào thuộc lớp hợp lệ",
         "steps": [
-          "Thực hiện tìm kiếm truyện",
-          "Quan sát số lượng truyện trên trang 1"
+          "Nhập từ khóa hợp lệ",
+          "Gửi yêu cầu tìm kiếm"
         ],
-        "expected_result": "Hiển thị tối đa 12 truyện trên trang đầu tiên và có phân trang.",
+        "expected_result": "Hệ thống chấp nhận từ khóa và trả về kết quả.",
         "trace_scenario_ids": [
           "C003-SCN-M02-001"
         ],
         "trace_rule_ids": [
-          "C003-RULE-M02-002"
+          "C003-RULE-M02-001"
         ],
-        "scenario_description": "Phân trang kết quả tìm kiếm hợp lệ"
+        "scenario_description": "Kiểm tra phân vùng tương đương từ khóa hợp lệ"
       },
       {
-        "test_case_id": "TimKiem-TC-04",
+        "test_case_id": "TimKiem-TC-05",
         "module": "TimKiem",
-        "title": "Kiểm tra biên số lượng truyện hiển thị tối đa",
+        "title": "Kiểm tra phân vùng tương đương từ khóa không hợp lệ",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "technique": "EQUIVALENCE_PARTITIONING",
+        "technique_variant": "WEAK_ROBUST",
+        "flow": "E1",
+        "coverage_items": [
+          "X1"
+        ],
+        "preconditions": [
+          "Người dùng ở trang chủ"
+        ],
+        "given": "Từ khóa nhập vào chứa ký tự đặc biệt bị cấm",
+        "steps": [
+          "Nhập từ khóa chứa ký tự đặc biệt",
+          "Gửi yêu cầu tìm kiếm"
+        ],
+        "expected_result": "Hệ thống từ chối hoặc lọc bỏ ký tự đặc biệt, hiển thị thông báo lỗi.",
+        "trace_scenario_ids": [
+          "C003-SCN-M02-002"
+        ],
+        "trace_rule_ids": [
+          "C003-RULE-M02-001"
+        ],
+        "scenario_description": "Kiểm tra phân vùng tương đương từ khóa không hợp lệ"
+      },
+      {
+        "test_case_id": "TimKiem-TC-06",
+        "module": "TimKiem",
+        "title": "Biên thời gian phản hồi hợp lệ (3 giây)",
         "type": "BOUNDARY",
         "priority": "Cao",
         "technique": "BOUNDARY_VALUE_ANALYSIS",
@@ -106,27 +164,27 @@
           "B1"
         ],
         "preconditions": [
-          "Kết quả tìm kiếm trả về đúng 12 truyện"
+          "Hệ thống ở điều kiện tải bình thường"
         ],
-        "given": "Số lượng kết quả đạt biên tối đa 12",
+        "given": "Thời gian xử lý đạt đúng biên 3 giây",
         "steps": [
-          "Thực hiện tìm kiếm truyện",
-          "Kiểm tra số truyện hiển thị"
+          "Thực hiện thao tác tìm kiếm",
+          "Đo thời gian phản hồi"
         ],
-        "expected_result": "Hiển thị đúng 12 truyện trên một trang duy nhất không phân trang.",
+        "expected_result": "Thời gian phản hồi đạt đúng hoặc dưới 3 giây, đạt chuẩn.",
         "trace_scenario_ids": [
-          "C003-SCN-M02-001"
+          "C001-SCENARIO-PERF-01"
         ],
         "trace_rule_ids": [
-          "C003-RULE-M02-002"
+          "C001-RULE-PERF-01"
         ],
-        "scenario_description": "Kiểm tra biên số lượng truyện hiển thị tối đa"
+        "scenario_description": "Biên thời gian phản hồi hợp lệ (3 giây)"
       },
       {
-        "test_case_id": "TimKiem-TC-05",
+        "test_case_id": "TimKiem-TC-07",
         "module": "TimKiem",
-        "title": "Kiểm tra ngoài biên số lượng truyện hiển thị",
-        "type": "BOUNDARY",
+        "title": "Biên thời gian phản hồi ngoài giới hạn (4 giây)",
+        "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "BOUNDARY_VALUE_ANALYSIS",
         "technique_variant": "TWO_VALUE",
@@ -135,55 +193,55 @@
           "D1"
         ],
         "preconditions": [
-          "Kết quả tìm kiếm trả về 13 truyện"
+          "Hệ thống chịu tải cao hơn bình thường"
         ],
-        "given": "Số lượng kết quả vượt biên 12 thành 13",
+        "given": "Thời gian xử lý vượt biên đạt 4 giây",
         "steps": [
-          "Thực hiện tìm kiếm truyện",
-          "Kiểm tra phân trang"
+          "Thực hiện thao tác tìm kiếm",
+          "Đo thời gian phản hồi"
         ],
-        "expected_result": "Hiển thị 12 truyện ở trang 1 và 1 truyện ở trang 2.",
-        "trace_scenario_ids": [
-          "C003-SCN-M02-001"
-        ],
-        "trace_rule_ids": [
-          "C003-RULE-M02-002"
-        ],
-        "scenario_description": "Kiểm tra ngoài biên số lượng truyện hiển thị"
-      },
-      {
-        "test_case_id": "TimKiem-TC-06",
-        "module": "TimKiem",
-        "title": "Kiểm tra thời gian phản hồi tra cứu theo ngưỡng",
-        "type": "NON_FUNCTIONAL",
-        "priority": "Cao",
-        "technique": "NON_FUNCTIONAL_METRIC",
-        "technique_variant": "",
-        "flow": "Ẩn",
-        "coverage_items": [
-          "P1"
-        ],
-        "preconditions": [
-          "Hệ thống đang ở điều kiện tải bình thường"
-        ],
-        "given": "Thực hiện thao tác tra cứu thông thường",
-        "steps": [
-          "Gửi yêu cầu tìm kiếm truyện",
-          "Đo thời gian phản hồi bằng công cụ"
-        ],
-        "expected_result": "Thời gian phản hồi đạt dưới hoặc bằng 3 giây, kết luận Đạt.",
+        "expected_result": "Thời gian phản hồi vượt quá 3 giây, không đạt yêu cầu hiệu năng.",
         "trace_scenario_ids": [
           "C001-SCENARIO-PERF-01"
         ],
         "trace_rule_ids": [
           "C001-RULE-PERF-01"
         ],
-        "scenario_description": "Kiểm tra thời gian phản hồi tra cứu theo ngưỡng"
+        "scenario_description": "Biên thời gian phản hồi ngoài giới hạn (4 giây)"
+      },
+      {
+        "test_case_id": "TimKiem-TC-08",
+        "module": "TimKiem",
+        "title": "Kiểm tra ngưỡng hiệu năng thời gian phản hồi tra cứu",
+        "type": "NON_FUNCTIONAL",
+        "priority": "Cao",
+        "technique": "NON_FUNCTIONAL_METRIC",
+        "technique_variant": "",
+        "flow": "Ẩn",
+        "coverage_items": [
+          "F1"
+        ],
+        "preconditions": [
+          "Hệ thống chạy ở điều kiện tải bình thường bằng công cụ đo"
+        ],
+        "given": "Thực hiện liên tục các thao tác tìm kiếm và xem chi tiết",
+        "steps": [
+          "Gửi request tra cứu qua công cụ kiểm thử",
+          "Ghi nhận thời gian phản hồi thực tế"
+        ],
+        "expected_result": "Thời gian đo được <= 3 giây, kết luận Đạt chuẩn phi chức năng.",
+        "trace_scenario_ids": [
+          "C001-SCENARIO-PERF-01"
+        ],
+        "trace_rule_ids": [
+          "C001-RULE-PERF-01"
+        ],
+        "scenario_description": "Kiểm tra ngưỡng hiệu năng thời gian phản hồi tra cứu"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-01",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Đăng ký tài khoản thành công với thông tin hợp lệ",
+        "title": "Kiem tra dang ky tai khoan thanh cong voi thong tin hop le",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "DECISION_TABLE",
@@ -193,15 +251,15 @@
           "R1"
         ],
         "preconditions": [
-          "Khách vãng lai truy cập trang đăng ký"
+          "Khach vang lai truy cập trang đăng ký"
         ],
-        "given": "Mật khẩu dài 8 ký tự đủ ký tự, email là duy nhất",
+        "given": "Mat khau du 8 ky tu co hoa thuong so ky tu dac biet, email la duy nhat",
         "steps": [
-          "Nhập email duy nhất và mật khẩu hợp lệ",
-          "Xác thực OTP thành công",
-          "Nhấn nút đăng ký"
+          "Nhap thong tin hop le vao form",
+          "Xac thuc ma OTP thanh cong",
+          "Nhan nut Dang ky"
         ],
-        "expected_result": "Tài khoản được kích hoạt và chuyển về trang đăng nhập",
+        "expected_result": "Tai khoan duoc kich hoat va chuyen ve trang dang nhap",
         "trace_scenario_ids": [
           "C002-SC-UC1-01"
         ],
@@ -209,12 +267,12 @@
           "C002-BR-UC1-01",
           "C002-BR-UC1-02"
         ],
-        "scenario_description": "Đăng ký tài khoản thành công với thông tin hợp lệ"
+        "scenario_description": "Kiem tra dang ky tai khoan thanh cong voi thong tin hop le"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-02",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Đăng ký thất bại do mật khẩu không đủ ký tự",
+        "title": "Dang ky that bai do mat khau khong dat chuan",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "DECISION_TABLE",
@@ -224,26 +282,27 @@
           "R2"
         ],
         "preconditions": [
-          "Khách vãng lai truy cập trang đăng ký"
+          "Khach vang lai truy cập trang đăng ký"
         ],
-        "given": "Mật khẩu có 7 ký tự không đủ thành phần",
+        "given": "Mat khau duoi 8 ky tu hoac thieu thanh phan bat buoc",
         "steps": [
-          "Nhập email hợp lệ và mật khẩu 7 ký tự",
-          "Nhấn nút đăng ký"
+          "Nhap mat khau khong hop le",
+          "Nhap email hop le",
+          "Nhan nut Dang ky"
         ],
-        "expected_result": "Hệ thống hiển thị thông báo lỗi yêu cầu nhập lại",
+        "expected_result": "He thong thong bao loi va yeu cau nhap lai mat khau",
         "trace_scenario_ids": [
           "C002-SC-UC1-01"
         ],
         "trace_rule_ids": [
           "C002-BR-UC1-01"
         ],
-        "scenario_description": "Đăng ký thất bại do mật khẩu không đủ ký tự"
+        "scenario_description": "Dang ky that bai do mat khau khong dat chuan"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-03",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Đăng ký thất bại do email đã tồn tại",
+        "title": "Dang ky that bai do email da ton tai",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "DECISION_TABLE",
@@ -253,26 +312,27 @@
           "R3"
         ],
         "preconditions": [
-          "Khách vãng lai truy cập trang đăng ký"
+          "Khach vang lai truy cập trang đăng ký"
         ],
-        "given": "Email đã tồn tại trong hệ thống và mật khẩu hợp lệ",
+        "given": "Email da ton tai trong he thong",
         "steps": [
-          "Nhập email đã tồn tại và mật khẩu hợp lệ",
-          "Nhấn nút đăng ký"
+          "Nhap mat khau hop le",
+          "Nhap email da co",
+          "Nhan nut Dang ky"
         ],
-        "expected_result": "Thông báo email đã tồn tại và không tạo tài khoản",
+        "expected_result": "He thong thong bao email da ton tai va khong tao tai khoan",
         "trace_scenario_ids": [
           "C002-SC-UC1-01"
         ],
         "trace_rule_ids": [
           "C002-BR-UC1-02"
         ],
-        "scenario_description": "Đăng ký thất bại do email đã tồn tại"
+        "scenario_description": "Dang ky that bai do email da ton tai"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-04",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Đăng nhập thất bại do sai thông tin",
+        "title": "Dang nhap that bai do sai thong tin",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "DECISION_TABLE",
@@ -282,26 +342,26 @@
           "R4"
         ],
         "preconditions": [
-          "Người dùng tại trang đăng nhập"
+          "Nguoi dung tai trang dang nhap"
         ],
-        "given": "Nhập sai tên đăng nhập hoặc mật khẩu",
+        "given": "Thong tin dang nhap sai",
         "steps": [
-          "Nhập thông tin đăng nhập sai",
-          "Nhấn nút đăng nhập"
+          "Nhap sai ten dang nhap hoac mat khau",
+          "Nhan nut Dang nhap"
         ],
-        "expected_result": "Hệ thống hiển thị thông báo lỗi và tăng bộ đếm đăng nhập sai",
+        "expected_result": "He thong hien thi thong bao loi va tang bo dem dang nhap sai",
         "trace_scenario_ids": [
           "C002-SC-UC2-01"
         ],
         "trace_rule_ids": [
           "C002-BR-UC2-01"
         ],
-        "scenario_description": "Đăng nhập thất bại do sai thông tin"
+        "scenario_description": "Dang nhap that bai do sai thong tin"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-05",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Chặn yêu cầu POST vượt quá tần suất cho phép",
+        "title": "Chan yeu cau POST qua tan suat tu cung IP",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "DECISION_TABLE",
@@ -311,26 +371,25 @@
           "R5"
         ],
         "preconditions": [
-          "Người dùng thực hiện thao tác trên trang xác thực"
+          "Nguoi dung thuc hieu thao tac gui yeu cau lien tuc"
         ],
-        "given": "Cùng một IP gửi quá 10 yêu cầu POST trong 60 giây",
+        "given": "Cung IP gui qua 10 yeu cau POST trong 60 giay",
         "steps": [
-          "Gửi liên tiếp 11 yêu cầu từ cùng một IP",
-          "Quan sát phản hồi hệ thống"
+          "Gui yeu cau POST thu 11 tu cung IP"
         ],
-        "expected_result": "Chặn thao tác và hiển thị thông báo lỗi",
+        "expected_result": "He thong chan thao tac va hien thi thong bao loi",
         "trace_scenario_ids": [
           "C002-SC-UC2-01"
         ],
         "trace_rule_ids": [
           "C002-BR-UC2-01"
         ],
-        "scenario_description": "Chặn yêu cầu POST vượt quá tần suất cho phép"
+        "scenario_description": "Chan yeu cau POST qua tan suat tu cung IP"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-06",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Thanh toán COD thành công khi đã đăng nhập",
+        "title": "Thanh toán thành công với phương thức COD",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -340,14 +399,14 @@
           "V1"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập và có sản phẩm trong giỏ hàng"
+          "Khach hang da dang nhap va co san pham trong gio hang"
         ],
-        "given": "Chọn phương thức thanh toán COD",
+        "given": "Trang thanh toan hien thi",
         "steps": [
-          "Chọn thanh toán COD",
-          "Nhấn Đặt hàng"
+          "Chon phuong thuc thanh toan COD",
+          "Nhan Dat hang"
         ],
-        "expected_result": "Đơn hàng được tạo với trạng thái Chờ xác nhận",
+        "expected_result": "Don hang duoc tao voi trang thai Cho xac nhan",
         "trace_scenario_ids": [
           "C007-SCN-M06-001"
         ],
@@ -355,12 +414,12 @@
           "C007-RULE-M06-001",
           "C007-RULE-M06-005"
         ],
-        "scenario_description": "Thanh toán COD thành công khi đã đăng nhập"
+        "scenario_description": "Thanh toán thành công với phương thức COD"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-07",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Gửi yêu cầu trả hàng thành công",
+        "title": "Gui yeu cau tra hang thanh cong",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -370,27 +429,26 @@
           "V2"
         ],
         "preconditions": [
-          "Khách hàng có đơn hàng ở tab Chờ giao hàng"
+          "Khach hang co don hang o tab Cho giao hang"
         ],
-        "given": "Nhập lý do và đính kèm ảnh hợp lệ",
+        "given": "Popup tra hang mo",
         "steps": [
-          "Nhấn Trả hàng tại đơn hàng",
-          "Nhập lý do và đính kèm ảnh",
-          "Nhấn Gửi yêu cầu"
+          "Nhap ly do va dinh kem anh hop le",
+          "Nhan Gui yeu cau"
         ],
-        "expected_result": "Yêu cầu tạo với trạng thái Đang xem xét",
+        "expected_result": "Yeu cau duoc tao voi trang thai Dang xem xet",
         "trace_scenario_ids": [
           "C011-SCN-UC18-01"
         ],
         "trace_rule_ids": [
           "C011-RULE-M10-03"
         ],
-        "scenario_description": "Gửi yêu cầu trả hàng thành công"
+        "scenario_description": "Gui yeu cau tra hang thanh cong"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-08",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Gửi yêu cầu trả hàng thất bại với tệp không hợp lệ",
+        "title": "Gui yeu cau tra hang that bai do tep minh chung sai",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -400,26 +458,26 @@
           "X1"
         ],
         "preconditions": [
-          "Khách hàng đang ở popup yêu cầu trả hàng"
+          "Khach hang dang o popup yeu cau tra hang"
         ],
-        "given": "Đính kèm tệp sai định dạng hoặc quá dung lượng",
+        "given": "Tep dinh kem sai dinh dang hoac qua dung luong",
         "steps": [
-          "Tải lên tệp không hợp lệ",
-          "Nhấn Gửi yêu cầu"
+          "Tai len tep loi",
+          "Nhan Gui yeu cau"
         ],
-        "expected_result": "Hệ thống từ chối tệp và thông báo lỗi",
+        "expected_result": "He thong tu choi tep va thong bao loi",
         "trace_scenario_ids": [
           "C011-SCN-UC18-02"
         ],
         "trace_rule_ids": [
           "C011-RULE-M10-03"
         ],
-        "scenario_description": "Gửi yêu cầu trả hàng thất bại với tệp không hợp lệ"
+        "scenario_description": "Gui yeu cau tra hang that bai do tep minh chung sai"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-09",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Thêm truyện thành công với quyền Admin",
+        "title": "Them truyen thanh cong",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -429,26 +487,26 @@
           "V3"
         ],
         "preconditions": [
-          "Admin đã đăng nhập và có quyền phù hợp"
+          "Admin da dang nhap va co quyen phu hop"
         ],
-        "given": "Nhập thông tin truyện hợp lệ",
+        "given": "Trang them truyen mo",
         "steps": [
-          "Nhập thông tin truyện hợp lệ",
-          "Nhấn Lưu"
+          "Nhap thong tin hop le",
+          "Nhan Luu"
         ],
-        "expected_result": "Truyện mới được lưu và hiển thị trong danh sách",
+        "expected_result": "Truyen moi duoc luu va hien thi trong danh sach",
         "trace_scenario_ids": [
           "C015-SC-UC25-01"
         ],
         "trace_rule_ids": [
           "C015-BR-M14-01"
         ],
-        "scenario_description": "Thêm truyện thành công với quyền Admin"
+        "scenario_description": "Them truyen thanh cong"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-10",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Thêm truyện thất bại do ảnh không hợp lệ",
+        "title": "Them truyen that bai do anh khong hop le",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -458,26 +516,26 @@
           "X2"
         ],
         "preconditions": [
-          "Admin đang ở trang thêm truyện"
+          "Admin dang o trang them truyen"
         ],
-        "given": "Tải lên tệp ảnh sai định dạng hoặc quá dung lượng",
+        "given": "Tep anh tai len sai dinh dang hoac qua dung luong",
         "steps": [
-          "Tải lên ảnh không hợp lệ",
-          "Nhấn Lưu"
+          "Tai len anh loi",
+          "Nhan Luu"
         ],
-        "expected_result": "Hệ thống từ chối lưu và thông báo lỗi",
+        "expected_result": "He thong tu choi luu va thong bao",
         "trace_scenario_ids": [
           "C015-SC-UC25-02"
         ],
         "trace_rule_ids": [
           "C015-BR-M14-01"
         ],
-        "scenario_description": "Thêm truyện thất bại do ảnh không hợp lệ"
+        "scenario_description": "Them truyen that bai do anh khong hop le"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-11",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Thêm danh mục thành công với tên duy nhất",
+        "title": "Them danh muc thanh cong",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -487,26 +545,26 @@
           "V4"
         ],
         "preconditions": [
-          "Admin đã đăng nhập và mở trang Quản lý thể loại"
+          "Admin da dang nhap va mo trang Quan ly the loai"
         ],
-        "given": "Tên danh mục chưa tồn tại trong hệ thống",
+        "given": "Ten danh muc chua ton tai",
         "steps": [
-          "Nhập tên danh mục mới",
-          "Nhấn Lưu"
+          "Nhap ten danh muc moi",
+          "Nhan Luu"
         ],
-        "expected_result": "Hệ thống lưu danh mục và cập nhật danh sách",
+        "expected_result": "He thong luu danh muc va cap nhat danh sach",
         "trace_scenario_ids": [
           "C016-SC-UC30-01"
         ],
         "trace_rule_ids": [
           "C016-RULE-M15-01"
         ],
-        "scenario_description": "Thêm danh mục thành công với tên duy nhất"
+        "scenario_description": "Them danh muc thanh cong"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-12",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Thêm danh mục thất bại do trùng tên",
+        "title": "Them danh muc trung ten",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -516,26 +574,26 @@
           "X3"
         ],
         "preconditions": [
-          "Admin đã đăng nhập và mở trang Quản lý thể loại"
+          "Admin da dang nhap va mo trang Quan ly the loai"
         ],
-        "given": "Tên danh mục đã tồn tại",
+        "given": "Ten danh muc da ton tai trong he thong",
         "steps": [
-          "Nhập tên danh mục trùng",
-          "Nhấn Lưu"
+          "Nhap ten danh muc trung",
+          "Nhan Luu"
         ],
-        "expected_result": "Hệ thống từ chối lưu và thông báo lỗi",
+        "expected_result": "He thong tu choi luu va thong bao trung ten",
         "trace_scenario_ids": [
           "C016-SC-UC30-02"
         ],
         "trace_rule_ids": [
           "C016-RULE-M15-01"
         ],
-        "scenario_description": "Thêm danh mục thất bại do trùng tên"
+        "scenario_description": "Them danh muc trung ten"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-13",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Ngăn xóa danh mục đang có truyện sử dụng",
+        "title": "Xoa danh muc dang duoc su dung",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -545,26 +603,27 @@
           "X4"
         ],
         "preconditions": [
-          "Admin đã đăng nhập và mở trang Quản lý thể loại"
+          "Admin da dang nhap va mo trang Quan ly the loai"
         ],
-        "given": "Chọn danh mục đang được truyện liên kết",
+        "given": "Danh muc dang co truyen su dung",
         "steps": [
-          "Chọn xóa danh mục",
-          "Xác nhận xóa"
+          "Chon xoa danh muc",
+          "Xac nhan xoa"
         ],
-        "expected_result": "Hệ thống cảnh báo và không cho phép xóa",
+        "expected_result": "He thong ngan hoac canh bao va khong xoa",
         "trace_scenario_ids": [
           "C016-SC-UC30-03"
         ],
         "trace_rule_ids": [
-          "C016-RULE-M15-02"
+          "C016-RULE-M15-02",
+          "C016-RULE-M15-03"
         ],
-        "scenario_description": "Ngăn xóa danh mục đang có truyện sử dụng"
+        "scenario_description": "Xoa danh muc dang duoc su dung"
       },
       {
         "test_case_id": "TaiKhoanPhanQuyen-TC-14",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Xóa series không làm sai lệch dữ liệu liên quan",
+        "title": "Cap nhat ton kho thanh cong",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -574,55 +633,26 @@
           "V5"
         ],
         "preconditions": [
-          "Admin đã đăng nhập và có quyền phù hợp"
+          "Admin da dang nhap va mo trang quan ly ton kho"
         ],
-        "given": "Chọn series cần xóa",
+        "given": "So luong ton kho hop le",
         "steps": [
-          "Chọn xóa series",
-          "Xác nhận xóa"
+          "Chon san pham va nhap so luong duong",
+          "Nhan Luu"
         ],
-        "expected_result": "Hệ thống xóa series và xử lý an toàn dữ liệu truyện",
-        "trace_scenario_ids": [
-          "C016-SC-UC30-03"
-        ],
-        "trace_rule_ids": [
-          "C016-RULE-M15-03"
-        ],
-        "scenario_description": "Xóa series không làm sai lệch dữ liệu liên quan"
-      },
-      {
-        "test_case_id": "TaiKhoanPhanQuyen-TC-15",
-        "module": "TaiKhoanPhanQuyen",
-        "title": "Cập nhật tồn kho thành công",
-        "type": "POSITIVE",
-        "priority": "Cao",
-        "technique": "EQUIVALENCE_PARTITIONING",
-        "technique_variant": "WEAK_ROBUST",
-        "flow": "Chính",
-        "coverage_items": [
-          "V6"
-        ],
-        "preconditions": [
-          "Admin đã đăng nhập và mở trang quản lý tồn kho"
-        ],
-        "given": "Số lượng tồn kho mới là số dương",
-        "steps": [
-          "Nhập số lượng tồn kho hợp lệ",
-          "Nhấn Lưu"
-        ],
-        "expected_result": "Hệ thống cập nhật tồn kho thành công",
+        "expected_result": "He thong cap nhat ton kho va hien thi ket qua",
         "trace_scenario_ids": [
           "C017-SC-UC32-01"
         ],
         "trace_rule_ids": [
           "C017-BR1"
         ],
-        "scenario_description": "Cập nhật tồn kho thành công"
+        "scenario_description": "Cap nhat ton kho thanh cong"
       },
       {
-        "test_case_id": "TaiKhoanPhanQuyen-TC-16",
+        "test_case_id": "TaiKhoanPhanQuyen-TC-15",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Từ chối nhập số lượng tồn kho âm",
+        "title": "Nhap so luong ton kho am",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -632,55 +662,55 @@
           "X5"
         ],
         "preconditions": [
-          "Admin đang ở trang cập nhật tồn kho"
+          "Admin dang o trang cap nhat ton kho"
         ],
-        "given": "Nhập số lượng khiến kết quả tồn kho âm",
+        "given": "So luong nhap vao khien ton kho am",
         "steps": [
-          "Nhập số lượng âm",
-          "Nhấn Lưu"
+          "Nhap so luong am",
+          "Nhan Luu"
         ],
-        "expected_result": "Hệ thống từ chối, thông báo lỗi và quay lại",
+        "expected_result": "He thong tu choi va hien thi thong bao",
         "trace_scenario_ids": [
           "C017-SC-UC32-02"
         ],
         "trace_rule_ids": [
           "C017-BR1"
         ],
-        "scenario_description": "Từ chối nhập số lượng tồn kho âm"
+        "scenario_description": "Nhap so luong ton kho am"
       },
       {
-        "test_case_id": "TaiKhoanPhanQuyen-TC-17",
+        "test_case_id": "TaiKhoanPhanQuyen-TC-16",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Xác nhận đơn hàng thành công khi ở trạng thái Chờ xác nhận",
+        "title": "Xac nhan don hang thanh cong",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
         "flow": "Chính",
         "coverage_items": [
-          "V7"
+          "V6"
         ],
         "preconditions": [
-          "Admin đã đăng nhập, đơn hàng ở trạng thái Chờ xác nhận"
+          "Admin da dang nhap, don hang o trang thai Cho xac nhan"
         ],
-        "given": "Đơn hàng hợp lệ để xác nhận",
+        "given": "Don hang hop le",
         "steps": [
-          "Chọn đơn hàng",
-          "Nhấn Xác nhận"
+          "Chon don hang",
+          "Nhan Xac nhan"
         ],
-        "expected_result": "Đơn hàng chuyển sang Chờ lấy hàng",
+        "expected_result": "Don hang chuyen sang Cho lay hang",
         "trace_scenario_ids": [
           "C018-SC-UC33-01"
         ],
         "trace_rule_ids": [
           "C018-BR-M17-01"
         ],
-        "scenario_description": "Xác nhận đơn hàng thành công khi ở trạng thái Chờ xác nhận"
+        "scenario_description": "Xac nhan don hang thanh cong"
       },
       {
-        "test_case_id": "TaiKhoanPhanQuyen-TC-18",
+        "test_case_id": "TaiKhoanPhanQuyen-TC-17",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Từ chối hủy đơn hàng đã giao",
+        "title": "Huy don hang da giao",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -690,26 +720,25 @@
           "X6"
         ],
         "preconditions": [
-          "Đơn hàng đã ở trạng thái Đã giao"
+          "Don hang da o trang thai Da giao"
         ],
-        "given": "Chọn đơn hàng đã giao",
+        "given": "Don hang khong du dieu kien huy",
         "steps": [
-          "Chọn hủy đơn hàng",
-          "Xác nhận"
+          "Chon huy don hang"
         ],
-        "expected_result": "Hệ thống từ chối hủy và thông báo lỗi",
+        "expected_result": "He thong tu choi huy va thong bao",
         "trace_scenario_ids": [
           "C018-SC-UC35-01"
         ],
         "trace_rule_ids": [
           "C018-BR-M17-04"
         ],
-        "scenario_description": "Từ chối hủy đơn hàng đã giao"
+        "scenario_description": "Huy don hang da giao"
       },
       {
-        "test_case_id": "TaiKhoanPhanQuyen-TC-19",
+        "test_case_id": "TaiKhoanPhanQuyen-TC-18",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Chặn truy cập trang quản trị khi chưa đăng nhập",
+        "title": "Truy cap trang quan tri khi chua dang nhap",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -719,84 +748,82 @@
           "X7"
         ],
         "preconditions": [
-          "Người dùng chưa đăng nhập"
+          "Nguoi dung chua dang nhap"
         ],
-        "given": "Truy cập trực tiếp URL trang quản trị",
+        "given": "URL trang quan tri",
         "steps": [
-          "Nhập URL trang quản trị trên trình duyệt",
-          "Truy cập"
+          "Truy cap truc tiep URL quan tri"
         ],
-        "expected_result": "Hệ thống chuyển hướng đến trang đăng nhập",
+        "expected_result": "He thong chuyen huong den trang dang nhap",
         "trace_scenario_ids": [
           "C019-SC-UC36-01"
         ],
         "trace_rule_ids": [
           "C019-RULE-M18-01"
         ],
-        "scenario_description": "Chặn truy cập trang quản trị khi chưa đăng nhập"
+        "scenario_description": "Truy cap trang quan tri khi chua dang nhap"
       },
       {
-        "test_case_id": "TaiKhoanPhanQuyen-TC-20",
+        "test_case_id": "TaiKhoanPhanQuyen-TC-19",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Chặn truy cập trang quản trị khi không đủ quyền",
+        "title": "Truy cap trang quan tri khi khong du quyen",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
-        "flow": "E11",
+        "flow": "E12",
         "coverage_items": [
           "X8"
         ],
         "preconditions": [
-          "Người dùng đã đăng nhập tài khoản thường"
+          "Nguoi dung da dang nhap nhung khong co quyen"
         ],
-        "given": "Truy cập trang quản trị",
+        "given": "Tai khoản khach hang",
         "steps": [
-          "Truy cập vào URL trang quản trị",
-          "Quan sát phản hồi"
+          "Truy cap trang quan tri"
         ],
-        "expected_result": "Hệ thống chặn hoặc chuyển hướng với thông báo lỗi",
+        "expected_result": "He thong chan va hien thi thong bao khong co quyen",
         "trace_scenario_ids": [
           "C019-SC-UC36-02"
         ],
         "trace_rule_ids": [
           "C019-RULE-M18-01"
         ],
-        "scenario_description": "Chặn truy cập trang quản trị khi không đủ quyền"
+        "scenario_description": "Truy cap trang quan tri khi khong du quyen"
       },
       {
-        "test_case_id": "TaiKhoanPhanQuyen-TC-21",
+        "test_case_id": "TaiKhoanPhanQuyen-TC-20",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Khóa tài khoản khi đăng nhập sai hoặc hủy nhiều đơn",
+        "title": "Khoa tai khoan nguoi dung",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
         "flow": "Chính",
         "coverage_items": [
-          "V8"
+          "V7"
         ],
         "preconditions": [
-          "Admin ở trang Quản lý người dùng"
+          "Admin dang o trang Quan ly nguoi dung"
         ],
-        "given": "Tài khoản vi phạm điều kiện khóa",
+        "given": "Tai khoan vi pham dieu kien khoa",
         "steps": [
-          "Chọn tài khoản cần khóa",
-          "Xác nhận khóa"
+          "Chon khoa tai khoan",
+          "Xac nhan"
         ],
-        "expected_result": "Trạng thái tài khoản được cập nhật thành bị khóa",
+        "expected_result": "Trang thai tai khoan duoc cap nhat thanh bi khoa",
         "trace_scenario_ids": [
           "C019-SC-UC38-01"
         ],
         "trace_rule_ids": [
           "C019-RULE-M18-04"
         ],
-        "scenario_description": "Khóa tài khoản khi đăng nhập sai hoặc hủy nhiều đơn"
+        "scenario_description": "Khoa tai khoan nguoi dung"
       },
       {
-        "test_case_id": "TaiKhoanPhanQuyen-TC-22",
+        "test_case_id": "TaiKhoanPhanQuyen-TC-21",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Kiểm tra biên dưới độ dài mật khẩu (7 ký tự)",
+        "title": "Kiem tra bien do dai mat khau duoi 8 ky tu",
         "type": "BOUNDARY",
         "priority": "Cao",
         "technique": "BOUNDARY_VALUE_ANALYSIS",
@@ -806,27 +833,27 @@
           "B1"
         ],
         "preconditions": [
-          "Khách vãng lai truy cập trang đăng ký"
+          "Khach vang lai truy cap trang dang ky"
         ],
-        "given": "Mật khẩu có đúng 7 ký tự",
+        "given": "Mat khau co 7 ky tu",
         "steps": [
-          "Nhập mật khẩu 7 ký tự",
-          "Nhấn đăng ký"
+          "Nhap mat khau 7 ky tu",
+          "Nhan Dang ky"
         ],
-        "expected_result": "Hệ thống báo lỗi mật khẩu chưa đạt tối thiểu 8 ký tự",
+        "expected_result": "He thong hien thi thong bao loi do khong du do dai",
         "trace_scenario_ids": [
           "C002-SC-UC1-01"
         ],
         "trace_rule_ids": [
           "C002-BR-UC1-01"
         ],
-        "scenario_description": "Kiểm tra biên dưới độ dài mật khẩu (7 ký tự)"
+        "scenario_description": "Kiem tra bien do dai mat khau duoi 8 ky tu"
       },
       {
-        "test_case_id": "TaiKhoanPhanQuyen-TC-23",
+        "test_case_id": "TaiKhoanPhanQuyen-TC-22",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Kiểm tra biên đúng độ dài mật khẩu (8 ký tự)",
-        "type": "POSITIVE",
+        "title": "Kiem tra bien do dai mat khau dung 8 ky tu",
+        "type": "BOUNDARY",
         "priority": "Cao",
         "technique": "BOUNDARY_VALUE_ANALYSIS",
         "technique_variant": "THREE_VALUE",
@@ -835,27 +862,27 @@
           "B2"
         ],
         "preconditions": [
-          "Khách vãng lai truy cập trang đăng ký"
+          "Khach vang lai truy cap trang dang ky"
         ],
-        "given": "Mật khẩu có đúng 8 ký tự hợp lệ",
+        "given": "Mat khau co 8 ky tu",
         "steps": [
-          "Nhập mật khẩu 8 ký tự",
-          "Nhấn đăng ký"
+          "Nhap mat khau 8 ky tu hop le",
+          "Nhan Dang ky"
         ],
-        "expected_result": "Hệ thống chấp nhận độ dài mật khẩu",
+        "expected_result": "Chap nhan do dai mat khau",
         "trace_scenario_ids": [
           "C002-SC-UC1-01"
         ],
         "trace_rule_ids": [
           "C002-BR-UC1-01"
         ],
-        "scenario_description": "Kiểm tra biên đúng độ dài mật khẩu (8 ký tự)"
+        "scenario_description": "Kiem tra bien do dai mat khau dung 8 ky tu"
       },
       {
-        "test_case_id": "TaiKhoanPhanQuyen-TC-24",
+        "test_case_id": "TaiKhoanPhanQuyen-TC-23",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Kiểm tra biên trên độ dài mật khẩu (9 ký tự)",
-        "type": "POSITIVE",
+        "title": "Kiem tra bien do dai mat khau tren 8 ky tu",
+        "type": "BOUNDARY",
         "priority": "Cao",
         "technique": "BOUNDARY_VALUE_ANALYSIS",
         "technique_variant": "THREE_VALUE",
@@ -864,55 +891,53 @@
           "B3"
         ],
         "preconditions": [
-          "Khách vãng lai truy cập trang đăng ký"
+          "Khach vang lai truy cap trang dang ky"
         ],
-        "given": "Mật khẩu có 9 ký tự hợp lệ",
+        "given": "Mat khau co 9 ky tu",
         "steps": [
-          "Nhập mật khẩu 9 ký tự",
-          "Nhấn đăng ký"
+          "Nhap mat khau 9 ky tu hop le",
+          "Nhan Dang ky"
         ],
-        "expected_result": "Hệ thống chấp nhận độ dài mật khẩu",
+        "expected_result": "Chap nhan do dai mat khau",
         "trace_scenario_ids": [
           "C002-SC-UC1-01"
         ],
         "trace_rule_ids": [
           "C002-BR-UC1-01"
         ],
-        "scenario_description": "Kiểm tra biên trên độ dài mật khẩu (9 ký tự)"
+        "scenario_description": "Kiem tra bien do dai mat khau tren 8 ky tu"
       },
       {
-        "test_case_id": "TaiKhoanPhanQuyen-TC-25",
+        "test_case_id": "TaiKhoanPhanQuyen-TC-24",
         "module": "TaiKhoanPhanQuyen",
-        "title": "Kiểm tra mã hóa mật khẩu trong cơ sở dữ liệu",
+        "title": "Do luong ma hoa mat khau phi chuc nang",
         "type": "NON_FUNCTIONAL",
         "priority": "Cao",
         "technique": "NON_FUNCTIONAL_METRIC",
         "technique_variant": "",
         "flow": "Ẩn",
         "coverage_items": [
-          "NFR1"
+          "NF1"
         ],
         "preconditions": [
-          "Người dùng thực hiện đăng ký tài khoản mới"
+          "He thong hoat dong binh thuong"
         ],
-        "given": "Mật khẩu plaintext được nhập vào form",
+        "given": "Nguoi dung tao hoac doi mat khau",
         "steps": [
-          "Hoàn tất đăng ký tài khoản",
-          "Kiểm tra bản ghi trong cơ sở dữ liệu"
+          "Thuc hien luu mat khau vao database",
+          "Kiem tra gia tri luu tru trong bang"
         ],
-        "expected_result": "Mật khẩu được lưu dưới dạng hash, không lưu plaintext, Đạt",
-        "trace_scenario_ids": [
-          "C002-SC-UC1-01"
-        ],
+        "expected_result": "Mat khau duoc luu duoi dang hash, khong luu plaintext - Đạt",
+        "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C001-RULE-SEC-01"
         ],
-        "scenario_description": "Kiểm tra mã hóa mật khẩu trong cơ sở dữ liệu"
+        "scenario_description": "Do luong ma hoa mat khau phi chuc nang"
       },
       {
         "test_case_id": "QuanLyTonKho-TC-01",
         "module": "QuanLyTonKho",
-        "title": "Chuyển trạng thái sang hết hàng khi tồn kho bằng 0",
+        "title": "Chuyển đổi trạng thái sản phẩm còn hàng sang hết hàng",
         "type": "STATE",
         "priority": "Cao",
         "technique": "STATE_TRANSITION",
@@ -922,26 +947,25 @@
           "T1"
         ],
         "preconditions": [
-          "Truyện tồn tại với tồn kho ban đầu lớn hơn 0"
+          "Sản phẩm đang ở trạng thái còn hàng"
         ],
-        "given": "Số lượng tồn kho cập nhật về 0",
+        "given": "Sản phẩm có tồn kho bằng 5",
         "steps": [
-          "Cập nhật tồn kho sản phẩm bằng 0",
-          "Truy cập trang chi tiết truyện"
+          "Cập nhật số lượng tồn kho thành 0"
         ],
-        "expected_result": "Nút 'Thêm vào giỏ' chuyển thành 'Hết hàng' và bị vô hiệu hóa.",
+        "expected_result": "Trạng thái sản phẩm chuyển thành hết hàng và nút mua bị vô hiệu hóa",
         "trace_scenario_ids": [
           "C003-SCN-M02-003"
         ],
         "trace_rule_ids": [
           "C003-RULE-M02-004"
         ],
-        "scenario_description": "Chuyển trạng thái sang hết hàng khi tồn kho bằng 0"
+        "scenario_description": "Chuyển đổi trạng thái sản phẩm còn hàng sang hết hàng"
       },
       {
         "test_case_id": "QuanLyTonKho-TC-02",
         "module": "QuanLyTonKho",
-        "title": "Chặn mua ngay sản phẩm đã hết hàng",
+        "title": "Chặn mua hàng khi sản phẩm hết hàng",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "STATE_TRANSITION",
@@ -951,14 +975,13 @@
           "T2"
         ],
         "preconditions": [
-          "Sản phẩm đã hết hàng"
+          "Sản phẩm đang ở trạng thái hết hàng"
         ],
         "given": "Sản phẩm có tồn kho bằng 0",
         "steps": [
-          "Truy cập trang chi tiết truyện",
-          "Nhấn nút Mua ngay"
+          "Khách hàng nhấn nút Mua ngay"
         ],
-        "expected_result": "Hệ thống hiển thị cảnh báo hết hàng và không chuyển trang.",
+        "expected_result": "Hệ thống hiển thị cảnh báo hết hàng và chặn giao dịch",
         "trace_scenario_ids": [
           "C007-SCN-M06-003",
           "C017-SC-UC32-04"
@@ -966,12 +989,12 @@
         "trace_rule_ids": [
           "C017-BR2"
         ],
-        "scenario_description": "Chặn mua ngay sản phẩm đã hết hàng"
+        "scenario_description": "Chặn mua hàng khi sản phẩm hết hàng"
       },
       {
         "test_case_id": "QuanLyTonKho-TC-03",
         "module": "QuanLyTonKho",
-        "title": "Thêm số lượng hợp lệ vào giỏ hàng thành công",
+        "title": "Thêm số lượng hợp lệ vào giỏ hàng",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -981,26 +1004,25 @@
           "V1"
         ],
         "preconditions": [
-          "Truyện đang hiển thị và còn hàng"
+          "Sản phẩm còn tồn kho"
         ],
-        "given": "Sản phẩm có tồn kho là 10",
+        "given": "Tồn kho là 10, chọn mua 2",
         "steps": [
-          "Chọn số lượng 2 sản phẩm",
-          "Nhấn Thêm vào giỏ hàng"
+          "Nhấn nút Thêm vào giỏ hàng"
         ],
-        "expected_result": "Sản phẩm được thêm vào giỏ và cập nhật biểu tượng giỏ hàng.",
+        "expected_result": "Sản phẩm được thêm vào giỏ hàng thành công",
         "trace_scenario_ids": [
           "C005-SC-UC9-001"
         ],
         "trace_rule_ids": [
           "C005-RULE-M04-001"
         ],
-        "scenario_description": "Thêm số lượng hợp lệ vào giỏ hàng thành công"
+        "scenario_description": "Thêm số lượng hợp lệ vào giỏ hàng"
       },
       {
         "test_case_id": "QuanLyTonKho-TC-04",
         "module": "QuanLyTonKho",
-        "title": "Chặn thêm số lượng vượt quá tồn kho",
+        "title": "Chặn thêm sản phẩm vượt quá tồn kho",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1012,12 +1034,11 @@
         "preconditions": [
           "Sản phẩm có tồn kho giới hạn"
         ],
-        "given": "Sản phẩm có tồn kho là 5",
+        "given": "Tồn kho là 5, chọn mua 6",
         "steps": [
-          "Nhập số lượng 6 sản phẩm",
-          "Nhấn Thêm vào giỏ hàng"
+          "Nhấn nút Thêm vào giỏ hàng"
         ],
-        "expected_result": "Hệ thống chặn thao tác và hiển thị thông báo vượt quá tồn kho.",
+        "expected_result": "Hệ thống hiển thị thông báo vượt quá tồn kho",
         "trace_scenario_ids": [
           "C001-SCENARIO-INV-01",
           "C005-SC-UC9-002"
@@ -1026,41 +1047,12 @@
           "C001-RULE-INV-01",
           "C005-RULE-M04-002"
         ],
-        "scenario_description": "Chặn thêm số lượng vượt quá tồn kho"
+        "scenario_description": "Chặn thêm sản phẩm vượt quá tồn kho"
       },
       {
         "test_case_id": "QuanLyTonKho-TC-05",
         "module": "QuanLyTonKho",
-        "title": "Từ chối giá trị nhập tồn kho không phải số",
-        "type": "NEGATIVE",
-        "priority": "Cao",
-        "technique": "EQUIVALENCE_PARTITIONING",
-        "technique_variant": "WEAK_ROBUST",
-        "flow": "E2",
-        "coverage_items": [
-          "X2"
-        ],
-        "preconditions": [
-          "Admin đang ở trang cập nhật tồn kho"
-        ],
-        "given": "Ô nhập tồn kho trống hoặc chứa chữ",
-        "steps": [
-          "Nhập giá trị abc vào ô tồn kho",
-          "Nhấn Lưu"
-        ],
-        "expected_result": "Hệ thống từ chối, hiển thị lỗi và quay lại bước nhập.",
-        "trace_scenario_ids": [
-          "C017-SC-UC32-03"
-        ],
-        "trace_rule_ids": [
-          "C017-FR-M16-VAL"
-        ],
-        "scenario_description": "Từ chối giá trị nhập tồn kho không phải số"
-      },
-      {
-        "test_case_id": "QuanLyTonKho-TC-06",
-        "module": "QuanLyTonKho",
-        "title": "Kiểm tra giá trị biên dưới của số lượng tồn kho",
+        "title": "Kiểm tra biên số lượng tồn kho tối thiểu",
         "type": "BOUNDARY",
         "priority": "Cao",
         "technique": "BOUNDARY_VALUE_ANALYSIS",
@@ -1068,30 +1060,30 @@
         "flow": "Chính",
         "coverage_items": [
           "B1",
-          "B2",
-          "B3"
+          "B2"
         ],
         "preconditions": [
-          "Sản phẩm áp dụng giới hạn tồn kho tối thiểu"
+          "Trang chi tiết sản phẩm hiển thị"
         ],
-        "given": "Giá trị số lượng biên là 0, 1 và 2",
+        "given": "Giá trị biên số lượng là 0 và 1",
         "steps": [
-          "Kiểm thử với giá trị số lượng lần lượt tại biên",
-          "Xác thực phản hồi hệ thống"
+          "Kiểm tra trạng thái hiển thị tại biên 0 và 1"
         ],
-        "expected_result": "Hệ thống xử lý chính xác theo giới hạn tối thiểu cho phép.",
+        "expected_result": "Hiển thị Hết hàng ở mức 0 và Cho phép mua ở mức 1",
         "trace_scenario_ids": [
+          "C003-SCN-M02-003",
           "C005-SC-UC9-001"
         ],
         "trace_rule_ids": [
+          "C003-RULE-M02-004",
           "C005-RULE-M04-001"
         ],
-        "scenario_description": "Kiểm tra giá trị biên dưới của số lượng tồn kho"
+        "scenario_description": "Kiểm tra biên số lượng tồn kho tối thiểu"
       },
       {
-        "test_case_id": "QuanLyTonKho-TC-07",
+        "test_case_id": "QuanLyTonKho-TC-06",
         "module": "QuanLyTonKho",
-        "title": "Luồng end-to-end đặt hàng kiểm tra tồn kho và địa chỉ",
+        "title": "Luồng chính quản lý giỏ hàng và đặt hàng",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "USE_CASE",
@@ -1101,21 +1093,49 @@
           "F1"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập và sản phẩm còn tồn kho"
+          "Khách hàng đăng nhập hệ thống"
         ],
-        "given": "Thông tin địa chỉ giao hàng đầy đủ và tồn kho đủ",
+        "given": "Sản phẩm còn đủ tồn kho và địa chỉ hợp lệ",
         "steps": [
-          "Nhấn nút Đặt hàng",
-          "Hệ thống kiểm tra tồn kho và địa chỉ"
+          "Thêm sản phẩm vào giỏ hàng",
+          "Tiến hành đặt hàng"
         ],
-        "expected_result": "Đơn hàng được tạo ở trạng thái Chờ xác nhận và cập nhật tồn kho.",
+        "expected_result": "Đơn hàng được tạo ở trạng thái Chờ xác nhận",
         "trace_scenario_ids": [
           "C005-SC-UC9-001"
         ],
         "trace_rule_ids": [
           "C007-RULE-M06-002"
         ],
-        "scenario_description": "Luồng end-to-end đặt hàng kiểm tra tồn kho và địa chỉ"
+        "scenario_description": "Luồng chính quản lý giỏ hàng và đặt hàng"
+      },
+      {
+        "test_case_id": "QuanLyTonKho-TC-07",
+        "module": "QuanLyTonKho",
+        "title": "Nhập giá trị tồn kho không phải số",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "technique": "EQUIVALENCE_PARTITIONING",
+        "technique_variant": "WEAK_ROBUST",
+        "flow": "E2",
+        "coverage_items": [
+          "X2"
+        ],
+        "preconditions": [
+          "Admin đang cập nhật số lượng tồn kho"
+        ],
+        "given": "Nhập ký tự chữ vào ô số lượng",
+        "steps": [
+          "Nhấn lưu cập nhật tồn kho"
+        ],
+        "expected_result": "Hệ thống từ chối và hiển thị lỗi định dạng số",
+        "trace_scenario_ids": [
+          "C017-SC-UC32-03"
+        ],
+        "trace_rule_ids": [
+          "C017-FR-M16-VAL"
+        ],
+        "scenario_description": "Nhập giá trị tồn kho không phải số"
       },
       {
         "test_case_id": "QuanLyTonKho-TC-08",
@@ -1130,14 +1150,15 @@
           "T3"
         ],
         "preconditions": [
+          "Khách hàng ở trang chi tiết truyện",
           "Sản phẩm còn tồn kho"
         ],
-        "given": "Sản phẩm còn hàng trong kho",
+        "given": "Sản phẩm còn tồn kho, số lượng chọn 1",
         "steps": [
-          "Mở trang chi tiết truyện",
-          "Nhấn nút Mua ngay"
+          "Nhấn nút Mua ngay",
+          "Kiểm tra trang hiển thị"
         ],
-        "expected_result": "Hệ thống chuyển đến trang Checkout với đúng sản phẩm và số lượng đã chọn.",
+        "expected_result": "Hệ thống chuyển đến trang Checkout với đúng sản phẩm và số lượng.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C007-RULE-M06-004"
@@ -1145,36 +1166,9 @@
         "scenario_description": "Mua ngay sản phẩm còn tồn kho chuyển trang Checkout"
       },
       {
-        "test_case_id": "QuanLyTonKho-TC-09",
-        "module": "QuanLyTonKho",
-        "title": "Mua ngay sản phẩm hết tồn kho hiển thị lỗi",
-        "type": "NEGATIVE",
-        "priority": "Cao",
-        "technique": "USE_CASE",
-        "technique_variant": "",
-        "flow": "E1",
-        "coverage_items": [
-          "F2"
-        ],
-        "preconditions": [
-          "Sản phẩm hết tồn kho"
-        ],
-        "given": "Sản phẩm có tồn kho bằng 0",
-        "steps": [
-          "Mở trang chi tiết truyện",
-          "Nhấn nút Mua ngay"
-        ],
-        "expected_result": "Hệ thống hiển thị thông báo sản phẩm hết hàng và không chuyển trang.",
-        "trace_scenario_ids": [],
-        "trace_rule_ids": [
-          "C007-RULE-M06-004"
-        ],
-        "scenario_description": "Mua ngay sản phẩm hết tồn kho hiển thị lỗi"
-      },
-      {
         "test_case_id": "QuanLyWebsite-TC-01",
         "module": "QuanLyWebsite",
-        "title": "Cập nhật thông tin tài khoản và dữ liệu hợp lệ",
+        "title": "Cập nhật tài khoản với thông tin hợp lệ",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "DECISION_TABLE",
@@ -1184,15 +1178,15 @@
           "R1"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập hệ thống"
+          "Khách hàng đã đăng nhập vào hệ thống."
         ],
-        "given": "Số điện thoại hợp lệ '0912345678' và điền đầy đủ trường bắt buộc",
+        "given": "Số điện thoại hợp lệ '0912345678' và không bỏ trống trường bắt buộc.",
         "steps": [
-          "Mở trang thông tin tài khoản",
+          "Mở trang Thông tin tài khoản",
           "Nhập số điện thoại hợp lệ",
           "Nhấn nút Lưu thay đổi"
         ],
-        "expected_result": "Hệ thống lưu thông tin và hiển thị thông báo thành công",
+        "expected_result": "Hệ thống lưu thông tin và hiển thị thông báo thành công.",
         "trace_scenario_ids": [
           "C012-SC-UC19-01"
         ],
@@ -1200,12 +1194,12 @@
           "C012-BR-M11-01",
           "C012-BR-M11-02"
         ],
-        "scenario_description": "Cập nhật thông tin tài khoản và dữ liệu hợp lệ"
+        "scenario_description": "Cập nhật tài khoản với thông tin hợp lệ"
       },
       {
         "test_case_id": "QuanLyWebsite-TC-02",
         "module": "QuanLyWebsite",
-        "title": "Cập nhật thông tin với số điện thoại sai định dạng",
+        "title": "Cập nhật tài khoản với số điện thoại sai định dạng",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "DECISION_TABLE",
@@ -1215,26 +1209,28 @@
           "R2"
         ],
         "preconditions": [
-          "Khách hàng đang ở trang chỉnh sửa thông tin"
+          "Khách hàng đã đăng nhập vào hệ thống."
         ],
-        "given": "Số điện thoại không hợp lệ '0412345678'",
+        "given": "Số điện thoại '0412345678' (sai đầu số) và điền đầy đủ trường bắt buộc.",
         "steps": [
-          "Nhập số điện thoại sai định dạng",
+          "Mở trang Thông tin tài khoản",
+          "Nhập số điện thoại không hợp lệ",
           "Nhấn nút Lưu thay đổi"
         ],
-        "expected_result": "Hệ thống hiển thị lỗi định dạng số điện thoại và từ chối lưu",
+        "expected_result": "Hệ thống hiển thị lỗi định dạng số điện thoại và từ chối lưu.",
         "trace_scenario_ids": [
           "C012-SC-UC19-02"
         ],
         "trace_rule_ids": [
-          "C012-BR-M11-01"
+          "C012-BR-M11-01",
+          "C012-BR-M11-02"
         ],
-        "scenario_description": "Cập nhật thông tin với số điện thoại sai định dạng"
+        "scenario_description": "Cập nhật tài khoản với số điện thoại sai định dạng"
       },
       {
         "test_case_id": "QuanLyWebsite-TC-03",
         "module": "QuanLyWebsite",
-        "title": "Cập nhật thông tin khi bỏ trống trường bắt buộc",
+        "title": "Cập nhật tài khoản khi bỏ trống trường bắt buộc",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "DECISION_TABLE",
@@ -1244,21 +1240,22 @@
           "R3"
         ],
         "preconditions": [
-          "Khách hàng đang ở trang chỉnh sửa thông tin"
+          "Khách hàng đã đăng nhập vào hệ thống."
         ],
-        "given": "Trường bắt buộc bị bỏ trống",
+        "given": "Số điện thoại hợp lệ '0912345678' nhưng bỏ trống trường bắt buộc.",
         "steps": [
+          "Mở trang Thông tin tài khoản",
           "Bỏ trống trường bắt buộc",
           "Nhấn nút Lưu thay đổi"
         ],
-        "expected_result": "Hệ thống từ chối lưu và hiển thị lỗi tại ô tương ứng",
+        "expected_result": "Hệ thống hiển thị lỗi trường bắt buộc và từ chối lưu.",
         "trace_scenario_ids": [
           "C012-SC-UC19-02"
         ],
         "trace_rule_ids": [
           "C012-BR-M11-02"
         ],
-        "scenario_description": "Cập nhật thông tin khi bỏ trống trường bắt buộc"
+        "scenario_description": "Cập nhật tài khoản khi bỏ trống trường bắt buộc"
       },
       {
         "test_case_id": "QuanLyWebsite-TC-04",
@@ -1273,14 +1270,15 @@
           "R4"
         ],
         "preconditions": [
-          "Admin đang ở bước chọn khoảng thời gian"
+          "Admin đang ở trang báo cáo."
         ],
-        "given": "Chọn tùy chỉnh với ngày kết thúc trước ngày bắt đầu",
+        "given": "Ngày kết thúc được chọn trước ngày bắt đầu.",
         "steps": [
           "Chọn Tùy chỉnh khoảng thời gian",
-          "Nhập ngày kết thúc trước ngày bắt đầu"
+          "Nhập ngày kết thúc trước ngày bắt đầu",
+          "Xác nhận tùy chỉnh"
         ],
-        "expected_result": "Hệ thống từ chối hoặc cảnh báo và giữ số liệu cũ",
+        "expected_result": "Hệ thống hiển thị cảnh báo và giữ nguyên số liệu cũ.",
         "trace_scenario_ids": [
           "C020-SCN-M19-02"
         ],
@@ -1292,7 +1290,7 @@
       {
         "test_case_id": "QuanLyWebsite-TC-05",
         "module": "QuanLyWebsite",
-        "title": "Kiểm tra hiển thị truyện bị ẩn đối với người dùng",
+        "title": "Kiểm tra số điện thoại hợp lệ đầu số 03",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1302,134 +1300,192 @@
           "V1"
         ],
         "preconditions": [
-          "Hệ thống có truyện ở trạng thái bị ẩn"
+          "Khách hàng mở trang cập nhật thông tin."
         ],
-        "given": "Truyện có trạng thái bị ẩn trong cơ sở dữ liệu",
+        "given": "Số điện thoại '0312345678' gồm 10 số bắt đầu bằng 03.",
         "steps": [
-          "Truy cập giao diện người dùng",
-          "Tìm kiếm hoặc xem danh sách truyện"
+          "Nhập số điện thoại 0312345678",
+          "Nhấn Lưu thay đổi"
         ],
-        "expected_result": "Truyện không xuất hiện trong kết quả tìm kiếm hoặc danh sách lọc",
-        "trace_scenario_ids": [],
+        "expected_result": "Hệ thống chấp nhận số điện thoại hợp lệ.",
+        "trace_scenario_ids": [
+          "C012-SC-UC19-01"
+        ],
         "trace_rule_ids": [
-          "C003-RULE-M02-003"
+          "C012-BR-M11-01"
         ],
-        "scenario_description": "Kiểm tra hiển thị truyện bị ẩn đối với người dùng"
+        "scenario_description": "Kiểm tra số điện thoại hợp lệ đầu số 03"
       },
       {
         "test_case_id": "QuanLyWebsite-TC-06",
         "module": "QuanLyWebsite",
-        "title": "Thiết lập địa chỉ mặc định duy nhất",
-        "type": "POSITIVE",
+        "title": "Kiểm tra số điện thoại không hợp lệ dưới 10 chữ số",
+        "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
-        "flow": "Chính",
+        "flow": "E1",
         "coverage_items": [
-          "V2"
+          "X1"
         ],
         "preconditions": [
-          "Khách hàng có nhiều địa chỉ giao hàng"
+          "Khách hàng mở trang cập nhật thông tin."
         ],
-        "given": "Khách hàng chọn một địa chỉ mới làm mặc định",
+        "given": "Số điện thoại '031234567' có 9 chữ số.",
         "steps": [
-          "Chọn thiết lập địa chỉ mặc định mới",
-          "Lưu thay đổi thông tin"
+          "Nhập số điện thoại 031234567",
+          "Nhấn Lưu thay đổi"
         ],
-        "expected_result": "Chỉ một địa chỉ được đánh dấu là mặc định tại một thời điểm",
-        "trace_scenario_ids": [],
+        "expected_result": "Hệ thống hiển thị lỗi định dạng số điện thoại.",
+        "trace_scenario_ids": [
+          "C012-SC-UC19-02"
+        ],
         "trace_rule_ids": [
-          "C012-BR-M11-03"
+          "C012-BR-M11-01"
         ],
-        "scenario_description": "Thiết lập địa chỉ mặc định duy nhất"
+        "scenario_description": "Kiểm tra số điện thoại không hợp lệ dưới 10 chữ số"
       },
       {
         "test_case_id": "QuanLyWebsite-TC-07",
         "module": "QuanLyWebsite",
-        "title": "Áp dụng quyền ghi đè riêng lẻ ưu tiên hơn vai trò",
-        "type": "POSITIVE",
-        "priority": "Cao",
-        "technique": "EQUIVALENCE_PARTITIONING",
-        "technique_variant": "WEAK_ROBUST",
-        "flow": "Chính",
-        "coverage_items": [
-          "V3"
-        ],
-        "preconditions": [
-          "Admin có quyền cao nhất về phân quyền"
-        ],
-        "given": "Người dùng có vai trò mặc định và được cấu hình quyền ghi đè riêng lẻ",
-        "steps": [
-          "Hệ thống áp dụng quyền cho người dùng",
-          "Kiểm tra quyền thực tế khi truy cập"
-        ],
-        "expected_result": "Quyền ghi đè riêng lẻ có ưu tiên cao hơn quyền theo vai trò",
-        "trace_scenario_ids": [],
-        "trace_rule_ids": [
-          "C019-RULE-M18-02"
-        ],
-        "scenario_description": "Áp dụng quyền ghi đè riêng lẻ ưu tiên hơn vai trò"
-      },
-      {
-        "test_case_id": "QuanLyWebsite-TC-08",
-        "module": "QuanLyWebsite",
-        "title": "Kiểm tra quyền truy cập thực hiện ở phía máy chủ",
+        "title": "Kiểm tra quyền thực hiện ở phía máy chủ",
         "type": "NON_FUNCTIONAL",
         "priority": "Cao",
         "technique": "NON_FUNCTIONAL_METRIC",
         "technique_variant": "",
         "flow": "Ẩn",
         "coverage_items": [
-          "FN1"
+          "PN1"
         ],
         "preconditions": [
-          "Cấu hình công cụ kiểm tra bảo mật phía server"
+          "Người dùng thường cố gắng truy cập API quản trị trực tiếp."
         ],
-        "given": "Người dùng cố gắng truy cập trang quản trị qua URL trực tiếp",
+        "given": "Yêu cầu HTTP gửi trực tiếp đến endpoint quản trị từ tài khoản thường.",
         "steps": [
-          "Gửi request trực tiếp đến endpoint quản trị mà không qua UI",
-          "Quan sát phản hồi từ máy chủ"
+          "Gửi request trực tiếp đến API quản trị",
+          "Quan sát phản hồi từ server"
         ],
-        "expected_result": "Hệ thống kiểm tra quyền ở phía máy chủ và chặn truy cập trái phép",
+        "expected_result": "Hệ thống từ chối truy cập và trả về mã lỗi 403 ở phía máy chủ.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C019-RULE-M18-03"
         ],
-        "scenario_description": "Kiểm tra quyền truy cập thực hiện ở phía máy chủ"
+        "scenario_description": "Kiểm tra quyền thực hiện ở phía máy chủ"
       },
       {
-        "test_case_id": "QuanLyWebsite-TC-09",
+        "test_case_id": "QuanLyWebsite-TC-08",
         "module": "QuanLyWebsite",
-        "title": "Kiểm tra định dạng file xuất báo cáo mở được bằng Excel",
+        "title": "Kiểm tra file báo cáo xuất ra mở được bằng Excel",
         "type": "NON_FUNCTIONAL",
         "priority": "Cao",
         "technique": "NON_FUNCTIONAL_METRIC",
         "technique_variant": "",
-        "flow": "Ẩn",
+        "flow": "Chính",
         "coverage_items": [
-          "FN2"
+          "PN2"
         ],
         "preconditions": [
-          "Admin đã chọn khoảng thời gian hợp lệ"
+          "Admin đã tạo khoảng thời gian báo cáo hợp lệ."
         ],
-        "given": "Hệ thống chuẩn bị tạo file báo cáo",
+        "given": "Yêu cầu xuất báo cáo Excel đã được kích hoạt.",
         "steps": [
           "Nhấn nút Xuất Excel",
-          "Mở file tải về bằng phần mềm Microsoft Excel"
+          "Tải file và mở bằng ứng dụng Microsoft Excel"
         ],
-        "expected_result": "File Excel hợp lệ và mở được thành công bằng Excel",
+        "expected_result": "File Excel tải về mở thành công, hiển thị đầy đủ dữ liệu không bị lỗi định dạng.",
         "trace_scenario_ids": [
           "C021-SC-UC41-01"
         ],
         "trace_rule_ids": [
           "C021-BR-M20-03"
         ],
-        "scenario_description": "Kiểm tra định dạng file xuất báo cáo mở được bằng Excel"
+        "scenario_description": "Kiểm tra file báo cáo xuất ra mở được bằng Excel"
+      },
+      {
+        "test_case_id": "QuanLyWebsite-TC-09",
+        "module": "QuanLyWebsite",
+        "title": "Kiểm tra ẩn truyện không hiển thị với người dùng",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "technique": "DECISION_TABLE",
+        "technique_variant": "",
+        "flow": "Chính",
+        "coverage_items": [
+          "R5"
+        ],
+        "preconditions": [
+          "Truyện có trạng thái bị ẩn trong hệ thống"
+        ],
+        "given": "Truyện A được cấu hình trạng thái ẩn",
+        "steps": [
+          "Đăng nhập tài khoản khách hàng",
+          "Tìm kiếm từ khóa truyện A"
+        ],
+        "expected_result": "Truyện không xuất hiện trong kết quả tìm kiếm",
+        "trace_scenario_ids": [],
+        "trace_rule_ids": [
+          "C003-RULE-M02-003"
+        ],
+        "scenario_description": "Kiểm tra ẩn truyện không hiển thị với người dùng"
+      },
+      {
+        "test_case_id": "QuanLyWebsite-TC-10",
+        "module": "QuanLyWebsite",
+        "title": "Kiểm tra chỉ có một địa chỉ mặc định",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "technique": "DECISION_TABLE",
+        "technique_variant": "",
+        "flow": "Chính",
+        "coverage_items": [
+          "R6"
+        ],
+        "preconditions": [
+          "Khách hàng đã có một địa chỉ mặc định sẵn"
+        ],
+        "given": "Thiết lập một địa chỉ khác làm mặc định",
+        "steps": [
+          "Truy cập danh sách địa chỉ",
+          "Chọn đặt địa chỉ mới làm mặc định"
+        ],
+        "expected_result": "Chỉ một địa chỉ được đánh dấu là mặc định",
+        "trace_scenario_ids": [],
+        "trace_rule_ids": [
+          "C012-BR-M11-03"
+        ],
+        "scenario_description": "Kiểm tra chỉ có một địa chỉ mặc định"
+      },
+      {
+        "test_case_id": "QuanLyWebsite-TC-11",
+        "module": "QuanLyWebsite",
+        "title": "Kiểm tra quyền ghi đè riêng lẻ được ưu tiên",
+        "type": "POSITIVE",
+        "priority": "Cao",
+        "technique": "DECISION_TABLE",
+        "technique_variant": "",
+        "flow": "Chính",
+        "coverage_items": [
+          "R7"
+        ],
+        "preconditions": [
+          "Admin có quyền cao nhất về phân quyền"
+        ],
+        "given": "Người dùng có vai trò và quyền ghi đè riêng lẻ",
+        "steps": [
+          "Gán vai trò và cấu hình quyền ghi đè riêng lẻ cho user",
+          "Kiểm tra quyền hạn áp dụng thực tế"
+        ],
+        "expected_result": "Quyền ghi đè riêng lẻ có ưu tiên cao hơn quyền theo vai trò",
+        "trace_scenario_ids": [],
+        "trace_rule_ids": [
+          "C019-RULE-M18-02"
+        ],
+        "scenario_description": "Kiểm tra quyền ghi đè riêng lẻ được ưu tiên"
       },
       {
         "test_case_id": "FlashSale-TC-01",
         "module": "FlashSale",
-        "title": "Xem danh sách Flash Sale thành công",
+        "title": "Xem danh sách Flash Sale thành công trong khung giờ",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "STATE_TRANSITION",
@@ -1439,21 +1495,22 @@
           "T1"
         ],
         "preconditions": [
-          "Chương trình Flash Sale đang diễn ra"
+          "Chương trình Flash Sale đã được cấu hình",
+          "Thời gian hiện tại nằm trong khung giờ"
         ],
-        "given": "Có ít nhất một chương trình Flash Sale được cấu hình",
+        "given": "Trạng thái hệ thống: Sắp diễn ra chuyển sang Đang diễn ra",
         "steps": [
-          "Nhấn Xem thêm ở mục Flash Sale",
-          "Kiển tra thông tin hiển thị"
+          "Nhấn biểu tượng Flash Sale trên trang chủ",
+          "Xem danh sách sản phẩm hiển thị"
         ],
-        "expected_result": "Trang Flash Sale hiển thị đúng khung giờ, sản phẩm, giá và số lượng.",
+        "expected_result": "Hiển thị đúng khung giờ, sản phẩm, giá và số lượng còn lại.",
         "trace_scenario_ids": [
           "C004-SC-UC8-01"
         ],
         "trace_rule_ids": [
           "C004-BR1"
         ],
-        "scenario_description": "Xem danh sách Flash Sale thành công"
+        "scenario_description": "Xem danh sách Flash Sale thành công trong khung giờ"
       },
       {
         "test_case_id": "FlashSale-TC-02",
@@ -1465,18 +1522,17 @@
         "technique_variant": "",
         "flow": "Chính",
         "coverage_items": [
-          "T2",
-          "V1"
+          "T2"
         ],
         "preconditions": [
           "Chương trình Flash Sale đang diễn ra"
         ],
-        "given": "Người dùng đang ở trang Flash Sale",
+        "given": "Số lượng yêu cầu nhỏ hơn hoặc bằng số lượng còn lại",
         "steps": [
-          "Nhấn Thêm vào giỏ trên sản phẩm",
-          "Kiểm tra giỏ hàng"
+          "Truy cập trang chi tiết sản phẩm Flash Sale",
+          "Nhấn Thêm vào giỏ"
         ],
-        "expected_result": "Sản phẩm được thêm vào giỏ với giá Flash Sale.",
+        "expected_result": "Thêm sản phẩm thành công với mức giá Flash Sale.",
         "trace_scenario_ids": [
           "C004-SC-UC8-02"
         ],
@@ -1488,7 +1544,7 @@
       {
         "test_case_id": "FlashSale-TC-03",
         "module": "FlashSale",
-        "title": "Chặn thêm vào giỏ khi vượt quá số lượng còn lại",
+        "title": "Chặn thêm vào giỏ khi vượt số lượng Flash Sale còn lại",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1498,11 +1554,11 @@
           "X1"
         ],
         "preconditions": [
-          "Sản phẩm Flash Sale có số lượng giới hạn"
+          "Sản phẩm thuộc chương trình Flash Sale"
         ],
         "given": "Số lượng yêu cầu lớn hơn số lượng còn lại",
         "steps": [
-          "Nhập số lượng vượt mức",
+          "Nhập số lượng vượt mức tồn kho",
           "Nhấn Thêm vào giỏ"
         ],
         "expected_result": "Hệ thống chặn thao tác và hiển thị thông báo lỗi.",
@@ -1512,12 +1568,12 @@
         "trace_rule_ids": [
           "C004-BR2"
         ],
-        "scenario_description": "Chặn thêm vào giỏ khi vượt quá số lượng còn lại"
+        "scenario_description": "Chặn thêm vào giỏ khi vượt số lượng Flash Sale còn lại"
       },
       {
         "test_case_id": "FlashSale-TC-04",
         "module": "FlashSale",
-        "title": "Xử lý khi chương trình Flash Sale kết thúc",
+        "title": "Xử lý tự động khi chương trình Flash Sale kết thúc",
         "type": "STATE",
         "priority": "Cao",
         "technique": "STATE_TRANSITION",
@@ -1531,22 +1587,22 @@
         ],
         "given": "Thời gian đếm ngược về 0",
         "steps": [
-          "Chờ thời gian kết thúc",
-          "Kiểm tra mức giá sản phẩm"
+          "Chờ đồng hồ đếm ngược kết thúc",
+          "Tải lại trang sản phẩm"
         ],
-        "expected_result": "Hệ thống vô hiệu hóa giá Flash Sale và áp dụng giá gốc.",
+        "expected_result": "Hệ thống ẩn giá Flash Sale và áp dụng lại giá gốc.",
         "trace_scenario_ids": [
           "C004-SC-UC8-04"
         ],
         "trace_rule_ids": [
           "C004-BR1"
         ],
-        "scenario_description": "Xử lý khi chương trình Flash Sale kết thúc"
+        "scenario_description": "Xử lý tự động khi chương trình Flash Sale kết thúc"
       },
       {
         "test_case_id": "FlashSale-TC-05",
         "module": "FlashSale",
-        "title": "Nhận thông báo thành công qua FCM",
+        "title": "Nhận thông báo sự kiện qua FCM khi đổi trạng thái đơn",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "USE_CASE",
@@ -1558,24 +1614,24 @@
         "preconditions": [
           "Khách hàng đã đăng nhập và có FCM token hợp lệ"
         ],
-        "given": "Đơn hàng đổi trạng thái",
+        "given": "Trạng thái đơn hàng thay đổi",
         "steps": [
-          "Kích hoạt sự kiện đổi trạng thái đơn hàng",
-          "Kiểm tra hộp thư thông báo"
+          "Kích hoạt thay đổi trạng thái đơn hàng",
+          "Kiểm tra hộp thư thông báo ứng dụng"
         ],
-        "expected_result": "Thông báo được gửi qua FCM và lưu trong ứng dụng.",
+        "expected_result": "Thông báo được gửi qua FCM và lưu trữ thành công.",
         "trace_scenario_ids": [
           "C013-SC-M12-01"
         ],
         "trace_rule_ids": [
           "C013-RULE-M12-01"
         ],
-        "scenario_description": "Nhận thông báo thành công qua FCM"
+        "scenario_description": "Nhận thông báo sự kiện qua FCM khi đổi trạng thái đơn"
       },
       {
         "test_case_id": "GioHang-TC-01",
         "module": "GioHang",
-        "title": "Tinh thanh tien voi so luong hop le",
+        "title": "Cap nhat thanh tien voi so luong hop le",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1585,24 +1641,24 @@
           "V1"
         ],
         "preconditions": [
-          "Giỏ hàng có ít nhất một sản phẩm"
+          "Gio hang co it nhat mot san pham"
         ],
-        "given": "So luong san pham la 2, don gia la 50000",
+        "given": "Don gia san pham la 100000, so luong hop le la 2",
         "steps": [
           "Thay doi so luong san pham thanh 2",
-          "He thống cap nhat thanh tien"
+          "Nhan nut cap nhat gio hang"
         ],
-        "expected_result": "Thành tiền hiển thị là 100000",
+        "expected_result": "Thanh tien duoc cap nhat dung bang 200000",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C005-RULE-M04-003"
         ],
-        "scenario_description": "Tinh thanh tien voi so luong hop le"
+        "scenario_description": "Cap nhat thanh tien voi so luong hop le"
       },
       {
         "test_case_id": "GioHang-TC-02",
         "module": "GioHang",
-        "title": "Tinh thanh tien voi so luong khong hop le",
+        "title": "Chan cap nhat thanh tien voi so luong khong hop le",
         "type": "NEGATIVE",
         "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1612,19 +1668,19 @@
           "X1"
         ],
         "preconditions": [
-          "Giỏ hàng có ít nhất một sản phẩm"
+          "Gio hang co it nhat mot san pham"
         ],
-        "given": "So luong san pham la -1, don gia la 50000",
+        "given": "Don gia san pham la 100000, so luong khong hop le la -1",
         "steps": [
-          "Nhap so luong san pham la -1",
-          "He thong xu ly yeu cau"
+          "Thay doi so luong san pham thanh -1",
+          "Nhan nut cap nhat gio hang"
         ],
-        "expected_result": "Hệ thống hiển thị thông báo lỗi số lượng không hợp lệ",
+        "expected_result": "Hien thi thong bao loi so luong khong hop le",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C005-RULE-M04-003"
         ],
-        "scenario_description": "Tinh thanh tien voi so luong khong hop le"
+        "scenario_description": "Chan cap nhat thanh tien voi so luong khong hop le"
       },
       {
         "test_case_id": "Wishlist-TC-01",
@@ -1639,14 +1695,13 @@
           "V1"
         ],
         "preconditions": [
-          "Người dùng đã đăng nhập",
-          "Truyện chưa có trong wishlist"
+          "Người dùng đã đăng nhập hệ thống"
         ],
         "given": "Người dùng ở trang chi tiết truyện",
         "steps": [
-          "Nhấn nút Thêm vào wishlist"
+          "Chọn nút thêm vào wishlist"
         ],
-        "expected_result": "Sản phẩm được lưu thành công vào wishlist.",
+        "expected_result": "Sản phẩm được lưu vào wishlist thành công.",
         "trace_scenario_ids": [
           "C006-SCN-M05-01"
         ],
@@ -1658,7 +1713,7 @@
       {
         "test_case_id": "Wishlist-TC-02",
         "module": "Wishlist",
-        "title": "Thêm trùng lặp sản phẩm vào wishlist",
+        "title": "Thêm sản phẩm đã tồn tại trong wishlist",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1671,18 +1726,18 @@
           "Người dùng đã đăng nhập",
           "Sản phẩm đã có sẵn trong wishlist"
         ],
-        "given": "Người dùng ở trang chi tiết truyện",
+        "given": "Sản phẩm trùng lặp trong wishlist",
         "steps": [
-          "Nhấn nút Thêm vào wishlist"
+          "Chọn thêm sản phẩm đó vào wishlist"
         ],
-        "expected_result": "Hệ thống ngăn chặn và hiển thị thông báo sản phẩm đã tồn tại.",
+        "expected_result": "Hệ thống ngăn chặn và hiển thị thông báo đã tồn tại.",
         "trace_scenario_ids": [
           "C006-SCN-M05-02"
         ],
         "trace_rule_ids": [
           "C006-RULE-M05-02"
         ],
-        "scenario_description": "Thêm trùng lặp sản phẩm vào wishlist"
+        "scenario_description": "Thêm sản phẩm đã tồn tại trong wishlist"
       },
       {
         "test_case_id": "Wishlist-TC-03",
@@ -1697,13 +1752,13 @@
           "X2"
         ],
         "preconditions": [
-          "Người dùng chưa đăng nhập hệ thống"
+          "Người dùng chưa đăng nhập"
         ],
-        "given": "Người dùng ở trạng thái khách vãng lai",
+        "given": "Trạng thái chưa xác thực",
         "steps": [
           "Truy cập vào chức năng wishlist"
         ],
-        "expected_result": "Hệ thống chuyển hướng đến trang yêu cầu đăng nhập.",
+        "expected_result": "Hệ thống yêu cầu chuyển hướng đến trang đăng nhập.",
         "trace_scenario_ids": [
           "C006-SCN-M05-03"
         ],
@@ -1725,14 +1780,13 @@
           "V2"
         ],
         "preconditions": [
-          "Người dùng đã đăng nhập",
-          "Tài khoản có wishlist"
+          "Người dùng đã đăng nhập và có wishlist"
         ],
-        "given": "Người dùng mở trang chủ",
+        "given": "Dữ liệu wishlist hợp lệ",
         "steps": [
-          "Quan sát khu vực Gợi ý cho bạn"
+          "Mở trang chủ ứng dụng"
         ],
-        "expected_result": "Hiển thị danh sách truyện cùng thể loại với wishlist.",
+        "expected_result": "Hiển thị mục Gợi ý cho bạn theo wishlist.",
         "trace_scenario_ids": [
           "C014-SCN-UC24-01"
         ],
@@ -1749,18 +1803,18 @@
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
-        "flow": "Chính",
+        "flow": "E3",
         "coverage_items": [
           "V3"
         ],
         "preconditions": [
           "Người dùng chưa đăng nhập hoặc không có wishlist"
         ],
-        "given": "Người dùng mở trang chủ",
+        "given": "Danh sách wishlist trống",
         "steps": [
-          "Quan sát khu vực Gợi ý cho bạn"
+          "Mở trang chủ ứng dụng"
         ],
-        "expected_result": "Hiển thị danh sách truyện có lượt bán cao nhất.",
+        "expected_result": "Hiển thị mục Gợi ý cho bạn với truyện bán chạy.",
         "trace_scenario_ids": [
           "C014-SCN-UC24-02"
         ],
@@ -1772,7 +1826,7 @@
       {
         "test_case_id": "Wishlist-TC-06",
         "module": "Wishlist",
-        "title": "Xóa sản phẩm hợp lệ khỏi wishlist thành công",
+        "title": "Xóa sản phẩm hợp lệ khỏi wishlist",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1785,25 +1839,24 @@
           "Người dùng đã đăng nhập",
           "Sản phẩm đã có trong wishlist"
         ],
-        "given": "Sản phẩm hợp lệ tồn tại trong wishlist",
+        "given": "Sản phẩm tồn tại trong wishlist hợp lệ",
         "steps": [
-          "Mở trang wishlist",
-          "Nhấn nút xóa sản phẩm",
-          "Xác nhận xóa"
+          "Chọn sản phẩm trong wishlist",
+          "Nhấn nút xóa sản phẩm"
         ],
-        "expected_result": "Sản phẩm bị loại bỏ khỏi wishlist",
+        "expected_result": "Sản phẩm bị loại bỏ khỏi wishlist thành công",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C006-RULE-M05-03"
         ],
-        "scenario_description": "Xóa sản phẩm hợp lệ khỏi wishlist thành công"
+        "scenario_description": "Xóa sản phẩm hợp lệ khỏi wishlist"
       },
       {
         "test_case_id": "Wishlist-TC-07",
         "module": "Wishlist",
-        "title": "Xóa sản phẩm khi chưa đăng nhập hệ thống",
-        "type": "AUTHORIZATION",
-        "priority": "Cao",
+        "title": "Xóa sản phẩm không tồn tại trong wishlist",
+        "type": "NEGATIVE",
+        "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
         "flow": "E1",
@@ -1811,138 +1864,80 @@
           "X3"
         ],
         "preconditions": [
-          "Người dùng chưa đăng nhập"
+          "Người dùng đã đăng nhập",
+          "Sản phẩm chưa có trong wishlist"
         ],
-        "given": "Trạng thái chưa xác thực",
+        "given": "Mã sản phẩm không có trong wishlist",
         "steps": [
-          "Truy cập wishlist",
-          "Thực hiện xóa sản phẩm"
+          "Gửi yêu cầu xóa sản phẩm không tồn tại"
         ],
-        "expected_result": "Hiển thị thông báo yêu cầu đăng nhập",
+        "expected_result": "Hệ thống hiển thị thông báo sản phẩm không tồn tại trong wishlist",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C006-RULE-M05-03"
         ],
-        "scenario_description": "Xóa sản phẩm khi chưa đăng nhập hệ thống"
+        "scenario_description": "Xóa sản phẩm không tồn tại trong wishlist"
       },
       {
         "test_case_id": "DatHang-TC-01",
         "module": "DatHang",
-        "title": "Kiểm tra chặn chuyển trạng thái đơn hàng đã hủy",
-        "type": "NEGATIVE",
+        "title": "Chuyển trạng thái đơn hàng thành công",
+        "type": "STATE",
+        "priority": "Cao",
+        "technique": "STATE_TRANSITION",
+        "technique_variant": "",
+        "flow": "Chính",
+        "coverage_items": [
+          "T1"
+        ],
+        "preconditions": [
+          "Đơn hàng ở trạng thái Chờ xử lý"
+        ],
+        "given": "Đơn hàng đang ở trạng thái Chờ xử lý",
+        "steps": [
+          "Chọn đơn hàng",
+          "Nhấn cập nhật trạng thái",
+          "Xác nhận chuyển sang Đã xác nhận"
+        ],
+        "expected_result": "Đơn hàng chuyển sang trạng thái Đã xác nhận thành công.",
+        "trace_scenario_ids": [],
+        "trace_rule_ids": [
+          "C018-BR-M17-03"
+        ],
+        "scenario_description": "Chuyển trạng thái đơn hàng thành công"
+      },
+      {
+        "test_case_id": "DatHang-TC-02",
+        "module": "DatHang",
+        "title": "Chặn cập nhật trạng thái đơn đã hủy",
+        "type": "STATE",
         "priority": "Cao",
         "technique": "STATE_TRANSITION",
         "technique_variant": "",
         "flow": "E1",
         "coverage_items": [
-          "T1"
+          "T2"
         ],
         "preconditions": [
-          "Đơn hàng tồn tại trong hệ thống"
+          "Đơn hàng ở trạng thái Đã hủy"
         ],
         "given": "Đơn hàng đang ở trạng thái Đã hủy",
         "steps": [
-          "Đăng nhập tài khoản Admin",
-          "Mở chi tiết đơn hàng đã hủy",
-          "Thực hiện cập nhật trạng thái mới"
+          "Chọn đơn hàng đã hủy",
+          "Thực hiện cập nhật trạng thái",
+          "Chọn trạng thái mới"
         ],
-        "expected_result": "Hệ thống từ chối cập nhật trạng thái đơn hàng",
+        "expected_result": "Hệ thống từ chối cập nhật và giữ nguyên trạng thái Đã hủy.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C018-BR-M17-03"
         ],
-        "scenario_description": "Kiểm tra chặn chuyển trạng thái đơn hàng đã hủy"
-      },
-      {
-        "test_case_id": "DatHang-TC-02",
-        "module": "DatHang",
-        "title": "Thanh toán thất bại do thiếu địa chỉ giao hàng",
-        "type": "NEGATIVE",
-        "priority": "Cao",
-        "technique": "EQUIVALENCE_PARTITIONING",
-        "technique_variant": "WEAK_ROBUST",
-        "flow": "E2",
-        "coverage_items": [
-          "X1"
-        ],
-        "preconditions": [
-          "Khách hàng đã đăng nhập tài khoản"
-        ],
-        "given": "Khách hàng đang ở trang Checkout thiếu thông tin địa chỉ",
-        "steps": [
-          "Nhập thông tin giỏ hàng hợp lệ",
-          "Để trống trường địa chỉ giao hàng",
-          "Nhấn nút Đặt hàng"
-        ],
-        "expected_result": "Hệ thống chặn tạo đơn và hiển thị thông báo yêu cầu bổ sung địa chỉ",
-        "trace_scenario_ids": [
-          "C007-SCN-M06-002"
-        ],
-        "trace_rule_ids": [
-          "C007-RULE-M06-003"
-        ],
-        "scenario_description": "Thanh toán thất bại do thiếu địa chỉ giao hàng"
+        "scenario_description": "Chặn cập nhật trạng thái đơn đã hủy"
       },
       {
         "test_case_id": "DatHang-TC-03",
         "module": "DatHang",
-        "title": "Tạo đơn hàng thành công với đầy đủ địa chỉ",
-        "type": "POSITIVE",
-        "priority": "Cao",
-        "technique": "USE_CASE",
-        "technique_variant": "",
-        "flow": "Chính",
-        "coverage_items": [
-          "F1"
-        ],
-        "preconditions": [
-          "Khách hàng đã đăng nhập và có sản phẩm trong giỏ"
-        ],
-        "given": "Khách hàng đang ở trang Checkout với địa chỉ giao hàng hợp lệ",
-        "steps": [
-          "Điền đầy đủ thông tin địa chỉ giao hàng",
-          "Chọn phương thức thanh toán",
-          "Nhấn nút Đặt hàng"
-        ],
-        "expected_result": "Hệ thống tạo đơn hàng thành công và hiển thị xác nhận",
-        "trace_scenario_ids": [],
-        "trace_rule_ids": [
-          "C007-RULE-M06-003"
-        ],
-        "scenario_description": "Tạo đơn hàng thành công với đầy đủ địa chỉ"
-      },
-      {
-        "test_case_id": "DatHang-TC-04",
-        "module": "DatHang",
-        "title": "Chuyển đổi trạng thái đơn hàng hợp lệ từ Mới sang Đang xử lý",
-        "type": "POSITIVE",
-        "priority": "Cao",
-        "technique": "STATE_TRANSITION",
-        "technique_variant": "",
-        "flow": "Chính",
-        "coverage_items": [
-          "T2"
-        ],
-        "preconditions": [
-          "Đơn hàng tồn tại ở trạng thái Mới"
-        ],
-        "given": "Đơn hàng đang ở trạng thái Mới",
-        "steps": [
-          "Đăng nhập tài khoản quản trị",
-          "Chọn đơn hàng mới",
-          "Thực hiện chuyển sang trạng thái Đang xử lý"
-        ],
-        "expected_result": "Hệ thống cập nhật thành công sang trạng thái Đang xử lý",
-        "trace_scenario_ids": [],
-        "trace_rule_ids": [
-          "C018-BR-M17-03"
-        ],
-        "scenario_description": "Chuyển đổi trạng thái đơn hàng hợp lệ từ Mới sang Đang xử lý"
-      },
-      {
-        "test_case_id": "DatHang-TC-05",
-        "module": "DatHang",
-        "title": "Kiểm tra phân vùng dữ liệu địa chỉ hợp lệ khi checkout",
+        "title": "Tạo đơn hàng hợp lệ với đầy đủ địa chỉ",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1952,24 +1947,81 @@
           "V1"
         ],
         "preconditions": [
-          "Khách hàng có giỏ hàng hợp lệ"
+          "Khách hàng ở trang Checkout"
         ],
-        "given": "Địa chỉ giao hàng có đầy đủ số nhà, đường, thành phố",
+        "given": "Nhập đầy đủ thông tin địa chỉ giao hàng hợp lệ",
         "steps": [
-          "Nhập địa chỉ giao hàng hợp lệ",
+          "Điền địa chỉ giao hàng",
           "Nhấn nút Đặt hàng"
         ],
-        "expected_result": "Hệ thống chấp nhận địa chỉ và cho phép tiếp tục tạo đơn",
+        "expected_result": "Hệ thống tạo đơn hàng thành công và chuyển sang bước thanh toán.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C007-RULE-M06-003"
         ],
-        "scenario_description": "Kiểm tra phân vùng dữ liệu địa chỉ hợp lệ khi checkout"
+        "scenario_description": "Tạo đơn hàng hợp lệ với đầy đủ địa chỉ"
+      },
+      {
+        "test_case_id": "DatHang-TC-04",
+        "module": "DatHang",
+        "title": "Chặn tạo đơn khi thiếu địa chỉ giao hàng",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "technique": "EQUIVALENCE_PARTITIONING",
+        "technique_variant": "WEAK_ROBUST",
+        "flow": "E1",
+        "coverage_items": [
+          "X1"
+        ],
+        "preconditions": [
+          "Khách hàng ở trang Checkout"
+        ],
+        "given": "Thông tin địa chỉ giao hàng để trống",
+        "steps": [
+          "Bỏ trống trường địa chỉ",
+          "Nhấn nút Đặt hàng"
+        ],
+        "expected_result": "Hệ thống chặn tạo đơn và hiển thị thông báo yêu cầu bổ sung địa chỉ.",
+        "trace_scenario_ids": [
+          "C007-SCN-M06-002"
+        ],
+        "trace_rule_ids": [
+          "C007-RULE-M06-003"
+        ],
+        "scenario_description": "Chặn tạo đơn khi thiếu địa chỉ giao hàng"
+      },
+      {
+        "test_case_id": "DatHang-TC-05",
+        "module": "DatHang",
+        "title": "Luồng kết thúc đặt hàng thành công",
+        "type": "POSITIVE",
+        "priority": "Thông thường",
+        "technique": "USE_CASE",
+        "technique_variant": "",
+        "flow": "Chính",
+        "coverage_items": [
+          "F1"
+        ],
+        "preconditions": [
+          "Giỏ hàng có sản phẩm"
+        ],
+        "given": "Khách hàng tiến hành checkout với thông tin hợp lệ",
+        "steps": [
+          "Nhập địa chỉ giao hàng",
+          "Chọn phương thức thanh toán",
+          "Nhấn Đặt hàng"
+        ],
+        "expected_result": "Hoàn tất tạo đơn hàng và hiển thị màn hình xác nhận thành công.",
+        "trace_scenario_ids": [],
+        "trace_rule_ids": [
+          "C007-RULE-M06-003"
+        ],
+        "scenario_description": "Luồng kết thúc đặt hàng thành công"
       },
       {
         "test_case_id": "ThanhToan-TC-01",
         "module": "ThanhToan",
-        "title": "Thanh toán VNPay thành công",
+        "title": "Thanh toán thành công qua VNPay",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "USE_CASE",
@@ -1979,27 +2031,27 @@
           "F1"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập và có sản phẩm trong giỏ hàng"
+          "Khách hàng đã đăng nhập và checkout hợp lệ"
         ],
-        "given": "Giỏ hàng hợp lệ và chọn phương thức VNPay",
+        "given": "Giỏ hàng có sản phẩm, chọn phương thức VNPay",
         "steps": [
           "Nhấn nút Đặt hàng",
           "Hoàn tất thanh toán trên VNPay",
           "Hệ thống nhận callback hợp lệ"
         ],
-        "expected_result": "Đơn hàng cập nhật trạng thái đã thanh toán và hiển thị trang thành công.",
+        "expected_result": "Đơn hàng cập nhật trạng thái đã thanh toán và hiển thị trang Đặt hàng thành công.",
         "trace_scenario_ids": [
           "C008-SC-UC14-01"
         ],
         "trace_rule_ids": [
           "C008-BR1"
         ],
-        "scenario_description": "Thanh toán VNPay thành công"
+        "scenario_description": "Thanh toán thành công qua VNPay"
       },
       {
         "test_case_id": "ThanhToan-TC-02",
         "module": "ThanhToan",
-        "title": "Hủy thanh toán VNPay",
+        "title": "Khách hàng hủy thanh toán tại VNPay",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "USE_CASE",
@@ -2022,7 +2074,7 @@
         "trace_rule_ids": [
           "C008-BR1"
         ],
-        "scenario_description": "Hủy thanh toán VNPay"
+        "scenario_description": "Khách hàng hủy thanh toán tại VNPay"
       },
       {
         "test_case_id": "ThanhToan-TC-03",
@@ -2037,9 +2089,9 @@
           "F3"
         ],
         "preconditions": [
-          "Khách hàng đã thực hiện thanh toán trên cổng"
+          "Khách hàng đã thực hiện thanh toán"
         ],
-        "given": "Giao dịch không thành công tại VNPay",
+        "given": "Đang thực hiện giao dịch thanh toán",
         "steps": [
           "VNPay trả kết quả thất bại về hệ thống"
         ],
@@ -2055,7 +2107,7 @@
       {
         "test_case_id": "ThanhToan-TC-04",
         "module": "ThanhToan",
-        "title": "Callback không hợp lệ",
+        "title": "Xử lý callback không hợp lệ",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "USE_CASE",
@@ -2065,25 +2117,26 @@
           "F4"
         ],
         "preconditions": [
-          "Hệ thống đang chờ kết quả callback"
+          "Hệ thống chờ nhận callback từ VNPay"
         ],
-        "given": "Nhận callback có chữ ký sai",
+        "given": "Nhận được dữ liệu callback từ VNPay",
         "steps": [
-          "Gửi callback chứa dữ liệu không hợp lệ"
+          "Gửi dữ liệu hoặc chữ ký không hợp lệ"
         ],
-        "expected_result": "Hệ thống từ chối callback và không cập nhật trạng thái đơn.",
+        "expected_result": "Hệ thống từ chối callback và không cập nhật trạng thái đơn hàng.",
         "trace_scenario_ids": [
           "C008-SC-UC14-04"
         ],
         "trace_rule_ids": [
-          "C008-BR1"
+          "C008-BR1",
+          "C008-BR2"
         ],
-        "scenario_description": "Callback không hợp lệ"
+        "scenario_description": "Xử lý callback không hợp lệ"
       },
       {
         "test_case_id": "ThanhToan-TC-05",
         "module": "ThanhToan",
-        "title": "Hết thời gian chờ thanh toán",
+        "title": "Hết thời gian chờ thanh toán cổng VNPay",
         "type": "BOUNDARY",
         "priority": "Cao",
         "technique": "USE_CASE",
@@ -2095,97 +2148,42 @@
         "preconditions": [
           "Khách hàng đang ở cổng thanh toán VNPay"
         ],
-        "given": "Phiên giao dịch quá thời gian chờ",
+        "given": "Khách hàng đang giữ phiên giao dịch",
         "steps": [
-          "Chờ quá thời gian quy định thanh toán"
+          "Để quá thời gian chờ thanh toán"
         ],
-        "expected_result": "Hệ thống xử lý như thất bại và không làm mất dữ liệu giỏ hàng.",
+        "expected_result": "Hệ thống xử lý như thanh toán thất bại và bảo lưu dữ liệu giỏ hàng.",
         "trace_scenario_ids": [
           "C008-SC-UC14-05"
         ],
         "trace_rule_ids": [
           "C008-BR1"
         ],
-        "scenario_description": "Hết thời gian chờ thanh toán"
-      },
-      {
-        "test_case_id": "ThanhToan-TC-06",
-        "module": "ThanhToan",
-        "title": "Xác thực callback dữ liệu hợp lệ EP",
-        "type": "POSITIVE",
-        "priority": "Cao",
-        "technique": "EQUIVALENCE_PARTITIONING",
-        "technique_variant": "WEAK_ROBUST",
-        "flow": "Chính",
-        "coverage_items": [
-          "V1"
-        ],
-        "preconditions": [
-          "Hệ thống nhận callback từ VNPay"
-        ],
-        "given": "Chữ ký callback hợp lệ chuẩn",
-        "steps": [
-          "Gửi callback xác thực chữ ký"
-        ],
-        "expected_result": "Hệ thống xác thực thành công và cập nhật trạng thái đơn.",
-        "trace_scenario_ids": [
-          "C008-SC-UC14-01"
-        ],
-        "trace_rule_ids": [
-          "C008-BR1"
-        ],
-        "scenario_description": "Xác thực callback dữ liệu hợp lệ EP"
-      },
-      {
-        "test_case_id": "ThanhToan-TC-07",
-        "module": "ThanhToan",
-        "title": "Sử dụng mock thanh toán khi sandbox VNPay không ổn định",
-        "type": "POSITIVE",
-        "priority": "Cao",
-        "technique": "USE_CASE",
-        "technique_variant": "",
-        "flow": "Chính",
-        "coverage_items": [
-          "F6"
-        ],
-        "preconditions": [
-          "Thực hiện kiểm thử module M07",
-          "Môi trường sandbox VNPay không ổn định"
-        ],
-        "given": "Hệ thống VNPay sandbox lỗi kết nối",
-        "steps": [
-          "Kích hoạt cấu hình mock thanh toán",
-          "Thực hiện giao dịch thanh toán thử nghiệm"
-        ],
-        "expected_result": "Hệ thống sử dụng mô phỏng (mock) thay thế API thật thành công",
-        "trace_scenario_ids": [],
-        "trace_rule_ids": [
-          "C008-BR2"
-        ],
-        "scenario_description": "Sử dụng mock thanh toán khi sandbox VNPay không ổn định"
+        "scenario_description": "Hết thời gian chờ thanh toán cổng VNPay"
       },
       {
         "test_case_id": "VanChuyen-TC-01",
         "module": "VanChuyen",
-        "title": "Tính phí vận chuyển và hiển thị thành công",
+        "title": "Tinh phi van chuyen thanh cong",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "USE_CASE",
         "technique_variant": "",
         "flow": "Chính",
         "coverage_items": [
-          "F1"
+          "F1",
+          "V1"
         ],
         "preconditions": [
-          "Người dùng đã nhập địa chỉ giao hàng hợp lệ"
+          "Nguoi dung da nhap dia chi giao hang"
         ],
-        "given": "Địa chỉ: 123 Nguyen Trai, Ha Noi",
+        "given": "Dia chi giao hang hop le",
         "steps": [
-          "Nhập địa chỉ giao hàng",
-          "Hệ thống gọi API GHN",
-          "Xem phí vận chuyển hiển thị"
+          "Nhap dia chi giao hang hop le",
+          "He thong goi API GHN tinh phi",
+          "Hien thi phi van chuyen cho nguoi dung"
         ],
-        "expected_result": "Hiển thị chính xác phí vận chuyển trước khi đặt hàng.",
+        "expected_result": "Phi van chuyen duoc hien thi chinh xac truoc khi dat hang.",
         "trace_scenario_ids": [
           "C009-SC-M08-01"
         ],
@@ -2193,130 +2191,74 @@
           "C009-RULE-M08-01",
           "C009-RULE-M08-02"
         ],
-        "scenario_description": "Tính phí vận chuyển và hiển thị thành công"
+        "scenario_description": "Tinh phi van chuyen thanh cong"
       },
       {
         "test_case_id": "VanChuyen-TC-02",
         "module": "VanChuyen",
-        "title": "API GHN lỗi hoặc timeout khi tính phí",
+        "title": "API GHN loi hoac timeout",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "USE_CASE",
         "technique_variant": "",
         "flow": "E1",
         "coverage_items": [
-          "F2"
+          "F2",
+          "X1"
         ],
         "preconditions": [
-          "Hệ thống kết nối API GHN"
+          "Nguoi dung da nhap dia chi giao hang"
         ],
-        "given": "API GHN phản hồi lỗi 500 hoặc timeout",
+        "given": "API GHN khong phan hoi hoac tra ve loi",
         "steps": [
-          "Nhập địa chỉ giao hàng",
-          "Hệ thống gọi API GHN",
-          "Xử lý ngoại lệ timeout"
+          "He thong goi API GHN",
+          "API GHN gap loi timeout",
+          "He thong hien thi thong bao loi va cho phep tiep tuc"
         ],
-        "expected_result": "Hệ thống thông báo lỗi và cho phép tiếp tục đặt hàng.",
+        "expected_result": "He thong thong bao loi va khong chan quy trinh dat hang.",
         "trace_scenario_ids": [
           "C009-SC-M08-03"
         ],
         "trace_rule_ids": [
           "C009-RULE-M08-04"
         ],
-        "scenario_description": "API GHN lỗi hoặc timeout khi tính phí"
+        "scenario_description": "API GHN loi hoac timeout"
       },
       {
         "test_case_id": "VanChuyen-TC-03",
         "module": "VanChuyen",
-        "title": "Tạo vận đơn GHN sau đặt hàng thành công",
+        "title": "Tao van don sau khi dat hang thanh cong",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "USE_CASE",
         "technique_variant": "",
         "flow": "Chính",
         "coverage_items": [
-          "F3"
+          "F3",
+          "V2"
         ],
         "preconditions": [
-          "Đơn hàng đã được đặt thành công"
+          "Don hang da duoc dat thanh cong"
         ],
-        "given": "Mã đơn hàng ORD123 hợp lệ",
+        "given": "Don hang hop le",
         "steps": [
-          "Xác nhận đặt hàng thành công",
-          "Hệ thống xử lý sau đặt hàng",
-          "Tạo vận đơn GHN tự động"
+          "Hoan tat quy trinh dat hang",
+          "He thong xu ly sau dat hang",
+          "Tao van don GHN"
         ],
-        "expected_result": "Vận đơn GHN được tạo thành công trên hệ thống.",
+        "expected_result": "Van don GHN duoc tao thanh cong.",
         "trace_scenario_ids": [
           "C009-SC-M08-04"
         ],
         "trace_rule_ids": [
           "C009-RULE-M08-05"
         ],
-        "scenario_description": "Tạo vận đơn GHN sau đặt hàng thành công"
-      },
-      {
-        "test_case_id": "VanChuyen-TC-04",
-        "module": "VanChuyen",
-        "title": "Kiểm tra phân vùng địa chỉ giao hàng hợp lệ",
-        "type": "POSITIVE",
-        "priority": "Thông thường",
-        "technique": "EQUIVALENCE_PARTITIONING",
-        "technique_variant": "WEAK_ROBUST",
-        "flow": "Chính",
-        "coverage_items": [
-          "V1"
-        ],
-        "preconditions": [
-          "Người dùng ở trang thanh toán"
-        ],
-        "given": "Địa chỉ đầy đủ số nhà, đường, quận, thành phố",
-        "steps": [
-          "Nhập địa chỉ hợp lệ",
-          "Gửi yêu cầu tính phí"
-        ],
-        "expected_result": "Chấp nhận phân vùng địa chỉ hợp lệ và tính phí.",
-        "trace_scenario_ids": [
-          "C009-SC-M08-01"
-        ],
-        "trace_rule_ids": [
-          "C009-RULE-M08-01"
-        ],
-        "scenario_description": "Kiểm tra phân vùng địa chỉ giao hàng hợp lệ"
-      },
-      {
-        "test_case_id": "VanChuyen-TC-05",
-        "module": "VanChuyen",
-        "title": "Kiểm tra phân vùng địa chỉ giao hàng không hợp lệ",
-        "type": "NEGATIVE",
-        "priority": "Thông thường",
-        "technique": "EQUIVALENCE_PARTITIONING",
-        "technique_variant": "WEAK_ROBUST",
-        "flow": "E1",
-        "coverage_items": [
-          "X1"
-        ],
-        "preconditions": [
-          "Người dùng ở trang thanh toán"
-        ],
-        "given": "Địa chỉ để trống hoặc thiếu thông tin bắt buộc",
-        "steps": [
-          "Nhập địa chỉ không hợp lệ",
-          "Gửi yêu cầu tính phí"
-        ],
-        "expected_result": "Hệ thống từ chối và báo lỗi địa chỉ.",
-        "trace_scenario_ids": [
-          "C009-SC-M08-01"
-        ],
-        "trace_rule_ids": [
-          "C009-RULE-M08-01"
-        ],
-        "scenario_description": "Kiểm tra phân vùng địa chỉ giao hàng không hợp lệ"
+        "scenario_description": "Tao van don sau khi dat hang thanh cong"
       },
       {
         "test_case_id": "ThongBao-TC-01",
         "module": "ThongBao",
-        "title": "Nhập địa chỉ đầy đủ thông tin hợp lệ",
+        "title": "Xem danh sách thông báo thành công",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -2326,53 +2268,26 @@
           "V1"
         ],
         "preconditions": [
-          "Người dùng đang ở màn hình nhập địa chỉ giao hàng"
+          "Khách hàng đã đăng nhập vào hệ thống"
         ],
-        "given": "Người dùng nhập đầy đủ số nhà, tên đường, quận và huyện hợp lệ",
+        "given": "Khách hàng có thông báo mới trong hệ thống",
         "steps": [
-          "Nhập đầy đủ thông tin địa chỉ",
-          "Nhấn nút xác nhận địa chỉ"
+          "Nhấn biểu tượng thông báo trên giao diện",
+          "Quan sát dropdown hiển thị"
         ],
-        "expected_result": "Hệ thống chấp nhận địa chỉ và chuyển sang bước tiếp theo.",
-        "trace_scenario_ids": [],
+        "expected_result": "Hiển thị dropdown thông báo mới nhất và số lượng chưa đọc.",
+        "trace_scenario_ids": [
+          "C013-SC-M12-02"
+        ],
         "trace_rule_ids": [
-          "C009-RULE-M08-03"
+          "C013-RULE-M12-03"
         ],
-        "scenario_description": "Nhập địa chỉ đầy đủ thông tin hợp lệ"
+        "scenario_description": "Xem danh sách thông báo thành công"
       },
       {
         "test_case_id": "ThongBao-TC-02",
         "module": "ThongBao",
-        "title": "Nhập địa chỉ thiếu thông tin quận huyện",
-        "type": "NEGATIVE",
-        "priority": "Cao",
-        "technique": "EQUIVALENCE_PARTITIONING",
-        "technique_variant": "WEAK_ROBUST",
-        "flow": "E1",
-        "coverage_items": [
-          "X1"
-        ],
-        "preconditions": [
-          "Người dùng đang ở màn hình nhập địa chỉ giao hàng"
-        ],
-        "given": "Người dùng nhập địa chỉ nhưng bỏ trống thông tin quận hoặc huyện",
-        "steps": [
-          "Nhập địa chỉ thiếu quận huyện",
-          "Nhấn nút xác nhận địa chỉ"
-        ],
-        "expected_result": "Hệ thống hiển thị thông báo lỗi yêu cầu nhập đủ quận huyện.",
-        "trace_scenario_ids": [
-          "C009-SC-M08-02"
-        ],
-        "trace_rule_ids": [
-          "C009-RULE-M08-03"
-        ],
-        "scenario_description": "Nhập địa chỉ thiếu thông tin quận huyện"
-      },
-      {
-        "test_case_id": "ThongBao-TC-03",
-        "module": "ThongBao",
-        "title": "Xem dropdown danh sách thông báo mới",
+        "title": "Đánh dấu tất cả thông báo đã đọc",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -2382,27 +2297,55 @@
           "V2"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập và có thông báo mới"
+          "Khách hàng đang ở mục Thông báo"
         ],
-        "given": "Token thiết bị FCM hợp lệ và đã lưu",
+        "given": "Có các thông báo chưa đọc trong hệ thống",
         "steps": [
-          "Nhấn vào biểu tượng thông báo",
-          "Quan sát danh sách hiển thị"
+          "Chọn tùy chọn 'Đánh dấu tất cả đã đọc'",
+          "Kiểm tra trạng thái hiển thị"
         ],
-        "expected_result": "Hệ thống hiển thị dropdown thông báo mới nhất và số lượng chưa đọc.",
+        "expected_result": "Trạng thái thông báo cập nhật thành đã đọc và số lượng trên biểu tượng thay đổi.",
         "trace_scenario_ids": [
-          "C013-SC-M12-02"
+          "C013-SC-M12-03"
         ],
         "trace_rule_ids": [
-          "C013-RULE-M12-02",
-          "C013-RULE-M12-03"
+          "C013-RULE-M12-04"
         ],
-        "scenario_description": "Xem dropdown danh sách thông báo mới"
+        "scenario_description": "Đánh dấu tất cả thông báo đã đọc"
+      },
+      {
+        "test_case_id": "ThongBao-TC-03",
+        "module": "ThongBao",
+        "title": "Kiểm tra lỗi địa chỉ thiếu quận huyện",
+        "type": "NEGATIVE",
+        "priority": "Cao",
+        "technique": "EQUIVALENCE_PARTITIONING",
+        "technique_variant": "WEAK_ROBUST",
+        "flow": "E1",
+        "coverage_items": [
+          "X1"
+        ],
+        "preconditions": [
+          "Người dùng ở màn hình nhập địa chỉ giao hàng"
+        ],
+        "given": "Người dùng nhập địa chỉ thiếu thông tin quận/huyện",
+        "steps": [
+          "Nhập địa chỉ không đầy đủ thông tin",
+          "Kích hoạt hệ thống kiểm tra địa chỉ"
+        ],
+        "expected_result": "Hệ thống hiển thị thông báo lỗi yêu cầu nhập đủ quận/huyện.",
+        "trace_scenario_ids": [
+          "C009-SC-M08-02"
+        ],
+        "trace_rule_ids": [
+          "C009-RULE-M08-03"
+        ],
+        "scenario_description": "Kiểm tra lỗi địa chỉ thiếu quận huyện"
       },
       {
         "test_case_id": "ThongBao-TC-04",
         "module": "ThongBao",
-        "title": "Đánh dấu tất cả thông báo là đã đọc",
+        "title": "Gửi push notification thành công qua FCM",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -2412,50 +2355,48 @@
           "V3"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập và mở mục Thông báo"
+          "FCM token của thiết bị đã được lưu"
         ],
-        "given": "Có các thông báo chưa đọc trong hệ thống",
+        "given": "Sự kiện thông báo mới được ghi nhận",
         "steps": [
-          "Chọn tùy chọn Đánh dấu tất cả đã đọc",
-          "Quan sát trạng thái thông báo"
+          "Hệ thống tiến hành tạo thông báo",
+          "Gửi push notification qua FCM"
         ],
-        "expected_result": "Trạng thái thông báo và số lượng trên biểu tượng được cập nhật.",
-        "trace_scenario_ids": [
-          "C013-SC-M12-03"
-        ],
+        "expected_result": "Thông báo được gửi thành công tới thiết bị của khách hàng.",
+        "trace_scenario_ids": [],
         "trace_rule_ids": [
-          "C013-RULE-M12-04"
+          "C013-RULE-M12-02"
         ],
-        "scenario_description": "Đánh dấu tất cả thông báo là đã đọc"
+        "scenario_description": "Gửi push notification thành công qua FCM"
       },
       {
         "test_case_id": "ThongBao-TC-05",
         "module": "ThongBao",
-        "title": "Gửi push notification khi FCM lỗi",
+        "title": "Lưu thông báo cục bộ khi FCM lỗi",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
-        "flow": "E1",
+        "flow": "E2",
         "coverage_items": [
           "X2"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập vào ứng dụng"
+          "Khách hàng đã đăng nhập vào hệ thống"
         ],
-        "given": "Hệ thống phát sinh sự kiện thông báo nhưng dịch vụ FCM gặp lỗi",
+        "given": "Hệ thống phát sinh thông báo nhưng FCM gặp lỗi hoặc thiếu token",
         "steps": [
-          "Kích hoạt sự kiện tạo thông báo",
-          "Hệ thống thực hiện gửi push qua FCM"
+          "Kích hoạt sự kiện gửi thông báo",
+          "Ghi nhận lỗi từ dịch vụ FCM"
         ],
-        "expected_result": "Thông báo vẫn được lưu trữ cục bộ trong ứng dụng.",
+        "expected_result": "Thông báo vẫn được lưu trữ thành công trong ứng dụng cục bộ.",
         "trace_scenario_ids": [
           "C013-SC-M12-04"
         ],
         "trace_rule_ids": [
           "C013-RULE-M12-05"
         ],
-        "scenario_description": "Gửi push notification khi FCM lỗi"
+        "scenario_description": "Lưu thông báo cục bộ khi FCM lỗi"
       },
       {
         "test_case_id": "GiamGia-TC-01",
@@ -2467,19 +2408,18 @@
         "technique_variant": "",
         "flow": "Chính",
         "coverage_items": [
-          "F1",
-          "V1"
+          "F1"
         ],
         "preconditions": [
           "Khách hàng đã đăng nhập và đang ở trang Checkout"
         ],
-        "given": "Voucher hợp lệ, còn hạn và đủ điều kiện đơn tối thiểu",
+        "given": "Voucher còn hạn, đạt đơn tối thiểu, còn lượt dùng",
         "steps": [
-          "Nhập mã voucher hợp lệ vào ô",
-          "Nhấn nút áp dụng mã",
-          "Xác nhận đơn hàng cập nhật giá"
+          "Nhập mã voucher hợp lệ",
+          "Nhấn nút áp dụng voucher",
+          "Kiểm tra tổng tiền đơn hàng"
         ],
-        "expected_result": "Hệ thống áp dụng giảm giá và cập nhật tổng tiền thành công.",
+        "expected_result": "Hệ thống áp dụng giảm giá và cập nhật tổng tiền đơn hàng thành công.",
         "trace_scenario_ids": [
           "C010-SCENARIO-UC15-001"
         ],
@@ -2504,10 +2444,10 @@
         "preconditions": [
           "Khách hàng đang ở trang Checkout"
         ],
-        "given": "Mã voucher nhập vào không tồn tại trên hệ thống",
+        "given": "Mã voucher nhập vào không tồn tại trong hệ thống",
         "steps": [
           "Nhập mã voucher sai",
-          "Nhấn nút áp dụng"
+          "Nhấn nút áp dụng voucher"
         ],
         "expected_result": "Hệ thống hiển thị thông báo lỗi voucher không tồn tại.",
         "trace_scenario_ids": [
@@ -2529,14 +2469,14 @@
         "flow": "Chính",
         "coverage_items": [
           "F3",
-          "V2"
+          "V1"
         ],
         "preconditions": [
           "Admin đã đăng nhập và ở trang quản lý voucher"
         ],
-        "given": "Thông tin voucher mới hợp lệ",
+        "given": "Thông tin voucher mới hợp lệ đầy đủ",
         "steps": [
-          "Nhập đầy đủ thông tin voucher",
+          "Nhập thông tin voucher mới",
           "Nhấn nút Lưu"
         ],
         "expected_result": "Hệ thống lưu voucher và cập nhật danh sách thành công.",
@@ -2551,35 +2491,33 @@
       {
         "test_case_id": "GiamGia-TC-04",
         "module": "GiamGia",
-        "title": "Ẩn voucher hết hạn hoặc hết lượt",
-        "type": "POSITIVE",
+        "title": "Kiểm tra voucher hết hạn hoặc hết lượt",
+        "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
-        "flow": "Ẩn",
+        "flow": "E2",
         "coverage_items": [
-          "V3",
           "X2"
         ],
         "preconditions": [
-          "Voucher trong hệ thống đã quá hạn sử dụng hoặc hết lượt"
+          "Voucher trong hệ thống đã quá hạn dùng hoặc hết lượt sử dụng"
         ],
-        "given": "Voucher đạt điều kiện hết hạn hoặc hết lượt",
+        "given": "Voucher hết hạn hoặc hết lượt",
         "steps": [
-          "Truy cập ví voucher của khách hàng",
-          "Kiểm tra danh sách hiển thị"
+          "Mở ví voucher của khách hàng"
         ],
         "expected_result": "Voucher hết hạn hoặc hết lượt được ẩn khỏi ví voucher.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C010-RULE-M09-002"
         ],
-        "scenario_description": "Ẩn voucher hết hạn hoặc hết lượt"
+        "scenario_description": "Kiểm tra voucher hết hạn hoặc hết lượt"
       },
       {
         "test_case_id": "DanhGiaDoiTra-TC-01",
         "module": "DanhGiaDoiTra",
-        "title": "Hiển thị tối đa 10 mục xếp hạng",
+        "title": "Hiển thị bảng xếp hạng đúng giới hạn tối đa 10 mục",
         "type": "BOUNDARY",
         "priority": "Cao",
         "technique": "BOUNDARY_VALUE_ANALYSIS",
@@ -2589,24 +2527,24 @@
           "B1"
         ],
         "preconditions": [
-          "Hệ thống có nhiều hơn 10 sản phẩm đạt top"
+          "Hệ thống có nhiều hơn 10 sản phẩm bán chạy"
         ],
-        "given": "Số lượng mục hiển thị là 10 (giá trị biên tối đa)",
+        "given": "Số lượng mục hiển thị trong bảng xếp hạng là 10",
         "steps": [
-          "Truy cập trang bảng xếp hạng",
-          "Kiểm tra số lượng mục hiển thị"
+          "Truy cập trang bảng xếp hạng sản phẩm",
+          "Quan sát số lượng mục hiển thị"
         ],
-        "expected_result": "Hệ thống hiển thị đúng 10 mục sản phẩm",
+        "expected_result": "Bảng xếp hạng hiển thị đúng 10 mục sản phẩm",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C020-RULE-M19-02"
         ],
-        "scenario_description": "Hiển thị tối đa 10 mục xếp hạng"
+        "scenario_description": "Hiển thị bảng xếp hạng đúng giới hạn tối đa 10 mục"
       },
       {
         "test_case_id": "DanhGiaDoiTra-TC-02",
         "module": "DanhGiaDoiTra",
-        "title": "Chặn hiển thị vượt quá 10 mục xếp hạng",
+        "title": "Kiểm tra giới hạn hiển thị bảng xếp hạng vượt quá biên 11 mục",
         "type": "BOUNDARY",
         "priority": "Cao",
         "technique": "BOUNDARY_VALUE_ANALYSIS",
@@ -2616,24 +2554,24 @@
           "D1"
         ],
         "preconditions": [
-          "Hệ thống có 11 sản phẩm đạt top"
+          "Hệ thống có từ 11 sản phẩm bán chạy trở lên"
         ],
-        "given": "Số lượng mục hiển thị là 11 (ngoài biên tối đa)",
+        "given": "Số lượng mục yêu cầu hiển thị là 11",
         "steps": [
-          "Truy cập trang bảng xếp hạng",
-          "Kiểm tra giới hạn số lượng mục"
+          "Truy cập trang bảng xếp hạng sản phẩm",
+          "Kiểm tra số lượng mục tối đa trên bảng"
         ],
-        "expected_result": "Hệ thống chỉ hiển thị tối đa 10 mục, cắt bỏ mục thừa",
+        "expected_result": "Bảng xếp hạng chỉ hiển thị tối đa 10 mục và loại bỏ mục thứ 11",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C020-RULE-M19-02"
         ],
-        "scenario_description": "Chặn hiển thị vượt quá 10 mục xếp hạng"
+        "scenario_description": "Kiểm tra giới hạn hiển thị bảng xếp hạng vượt quá biên 11 mục"
       },
       {
         "test_case_id": "DanhGiaDoiTra-TC-03",
         "module": "DanhGiaDoiTra",
-        "title": "Đánh giá sản phẩm thành công với đầy đủ thông tin",
+        "title": "Đánh giá sản phẩm thành công với đầy đủ thông tin hợp lệ",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -2645,25 +2583,25 @@
         "preconditions": [
           "Khách hàng đã đăng nhập và có đơn hàng hoàn thành chưa đánh giá"
         ],
-        "given": "Đơn hàng hoàn thành, chưa đánh giá trước đó",
+        "given": "Đơn hàng ở trạng thái hoàn thành, chưa đánh giá, chọn 5 sao",
         "steps": [
-          "Nhấn nút Đánh giá ở đơn hàng",
-          "Chọn số sao và nhập bình luận",
+          "Nhấn nút Đánh giá tại đơn hàng",
+          "Chọn số sao và nhập bình luận hợp lệ",
           "Nhấn Gửi nhận xét"
         ],
-        "expected_result": "Đánh giá được lưu thành công và cập nhật sao trung bình",
+        "expected_result": "Đánh giá được lưu thành công và ẩn nút đánh giá",
         "trace_scenario_ids": [
           "C011-SCN-UC17-01"
         ],
         "trace_rule_ids": [
           "C011-RULE-M10-01"
         ],
-        "scenario_description": "Đánh giá sản phẩm thành công với đầy đủ thông tin"
+        "scenario_description": "Đánh giá sản phẩm thành công với đầy đủ thông tin hợp lệ"
       },
       {
         "test_case_id": "DanhGiaDoiTra-TC-04",
         "module": "DanhGiaDoiTra",
-        "title": "Đánh giá sản phẩm thất bại do thiếu số sao",
+        "title": "Đánh giá sản phẩm thất bại do thiếu thông tin số sao",
         "type": "NEGATIVE",
         "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -2673,26 +2611,25 @@
           "X1"
         ],
         "preconditions": [
-          "Khách hàng đang mở popup đánh giá sản phẩm"
+          "Khách hàng đang ở popup đánh giá sản phẩm"
         ],
-        "given": "Chưa chọn số sao đánh giá",
+        "given": "Chưa chọn số sao, chỉ nhập nội dung bình luận",
         "steps": [
-          "Nhập nội dung bình luận",
-          "Nhấn nút Gửi nhận xét"
+          "Nhấn Gửi nhận xét"
         ],
-        "expected_result": "Hệ thống hiển thị lỗi chưa chọn số sao và chặn gửi",
+        "expected_result": "Hệ thống hiển thị lỗi yêu cầu chọn số sao",
         "trace_scenario_ids": [
           "C011-SCN-UC17-02"
         ],
         "trace_rule_ids": [
           "C011-RULE-M10-01"
         ],
-        "scenario_description": "Đánh giá sản phẩm thất bại do thiếu số sao"
+        "scenario_description": "Đánh giá sản phẩm thất bại do thiếu thông tin số sao"
       },
       {
         "test_case_id": "DanhGiaDoiTra-TC-05",
         "module": "DanhGiaDoiTra",
-        "title": "Chặn đánh giá lại sản phẩm đã đánh giá",
+        "title": "Chặn đánh giá lại sản phẩm đã được đánh giá",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -2704,22 +2641,21 @@
         "preconditions": [
           "Sản phẩm trong đơn hàng đã có đánh giá trước đó"
         ],
-        "given": "Sản phẩm đã tồn tại đánh giá từ đơn hàng này",
+        "given": "Truy cập lại đơn hàng đã hoàn thành",
         "steps": [
-          "Truy cập tab Hoàn thành của đơn hàng",
-          "Kiểm tra trạng thái nút Đánh giá"
+          "Quan sát trạng thái nút đánh giá"
         ],
         "expected_result": "Nút Đánh giá không còn khả dụng",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C011-RULE-M10-02"
         ],
-        "scenario_description": "Chặn đánh giá lại sản phẩm đã đánh giá"
+        "scenario_description": "Chặn đánh giá lại sản phẩm đã được đánh giá"
       },
       {
         "test_case_id": "DanhGiaDoiTra-TC-06",
         "module": "DanhGiaDoiTra",
-        "title": "Admin cập nhật trạng thái yêu cầu trả hàng thành công",
+        "title": "Admin cập nhật trạng thái yêu cầu đổi trả thành công",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -2729,25 +2665,24 @@
           "V2"
         ],
         "preconditions": [
-          "Admin đã đăng nhập và có yêu cầu trả hàng mới"
+          "Yêu cầu trả hàng đã được tạo bởi khách hàng"
         ],
-        "given": "Yêu cầu đổi trả đang chờ xử lý",
+        "given": "Admin chọn yêu cầu đổi trả và nhập lý do",
         "steps": [
-          "Chọn yêu cầu đổi trả cần xử lý",
-          "Cập nhật trạng thái thành Đã hoàn tiền kèm lý do",
-          "Nhấn Lưu"
+          "Xem xét yêu cầu đổi trả",
+          "Cập nhật trạng thái Đã hoàn tiền kèm lý do"
         ],
-        "expected_result": "Trạng thái yêu cầu được cập nhật thành công",
+        "expected_result": "Trạng thái yêu cầu đổi trả được cập nhật thành công",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C011-RULE-M10-04"
         ],
-        "scenario_description": "Admin cập nhật trạng thái yêu cầu trả hàng thành công"
+        "scenario_description": "Admin cập nhật trạng thái yêu cầu đổi trả thành công"
       },
       {
         "test_case_id": "HoSoKhachHang-TC-01",
         "module": "HoSoKhachHang",
-        "title": "Xem lich su diem thuong khi chua co giao dich",
+        "title": "Xem lịch sử điểm thưởng hợp lệ",
         "type": "POSITIVE",
         "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -2757,26 +2692,24 @@
           "V1"
         ],
         "preconditions": [
-          "Khach hang da dang nhap"
+          "Khách hàng đã đăng nhập hệ thống"
         ],
-        "given": "Tai khoan co so du diem hop le va chua co giao dich",
+        "given": "Tài khoản có điểm thưởng hợp lệ và đã phát sinh giao dịch",
         "steps": [
-          "Chon muc C-Point",
-          "Mo trang lich su"
+          "Chọn mục C-Point",
+          "Xem lịch sử điểm thưởng"
         ],
-        "expected_result": "He thong hien thi lich su trong kem thong bao.",
-        "trace_scenario_ids": [
-          "C012-SC-UC21-01"
-        ],
+        "expected_result": "Hệ thống hiển thị danh sách giao dịch điểm thưởng chính xác.",
+        "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C012-BR-M11-04"
         ],
-        "scenario_description": "Xem lich su diem thuong khi chua co giao dich"
+        "scenario_description": "Xem lịch sử điểm thưởng hợp lệ"
       },
       {
         "test_case_id": "HoSoKhachHang-TC-02",
         "module": "HoSoKhachHang",
-        "title": "Xem lich su diem voi trang thai tai khoan khong hop le",
+        "title": "Xem lịch sử điểm thưởng khi chưa có giao dịch",
         "type": "NEGATIVE",
         "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -2786,25 +2719,26 @@
           "X1"
         ],
         "preconditions": [
-          "Khach hang chua dang nhap hoac phien het han"
+          "Khách hàng đã đăng nhập hệ thống"
         ],
-        "given": "Tai khoan o trang thai khong hop le",
+        "given": "Tài khoản chưa phát sinh giao dịch điểm thưởng nào",
         "steps": [
-          "Truy cap muc C-Point"
+          "Chọn mục C-Point",
+          "Kiểm tra hiển thị lịch sử"
         ],
-        "expected_result": "He thong yeu cau dang nhap lai.",
+        "expected_result": "Hệ thống hiển thị lịch sử trống kèm thông báo tương ứng.",
         "trace_scenario_ids": [
           "C012-SC-UC21-01"
         ],
         "trace_rule_ids": [
           "C012-BR-M11-04"
         ],
-        "scenario_description": "Xem lich su diem voi trang thai tai khoan khong hop le"
+        "scenario_description": "Xem lịch sử điểm thưởng khi chưa có giao dịch"
       },
       {
         "test_case_id": "GoiYSanPham-TC-01",
         "module": "GoiYSanPham",
-        "title": "Gợi ý truyện khi danh sách có sản phẩm hợp lệ",
+        "title": "Gợi ý truyện hợp lệ khi sản phẩm còn hàng và hiển thị",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -2814,26 +2748,27 @@
           "V1"
         ],
         "preconditions": [
-          "Hệ thống có dữ liệu truyện hợp lệ, còn hàng và hiển thị"
+          "Hệ thống có dữ liệu truyện"
         ],
-        "given": "Danh sách truyện gợi ý gồm các sản phẩm còn hàng, trạng thái hiển thị",
+        "given": "Sản phẩm trong danh sách gợi ý còn hàng và đang hiển thị",
         "steps": [
-          "Truy cập trang chủ hệ thống",
+          "Truy cập trang chủ",
           "Xem mục gợi ý sản phẩm"
         ],
-        "expected_result": "Hiển thị danh sách truyện gợi ý hợp lệ",
+        "expected_result": "Hệ thống hiển thị danh sách truyện hợp lệ bình thường.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
-          "C014-RULE-M13-01"
+          "C014-RULE-M13-01",
+          "C015-BR-M14-03"
         ],
-        "scenario_description": "Gợi ý truyện khi danh sách có sản phẩm hợp lệ"
+        "scenario_description": "Gợi ý truyện hợp lệ khi sản phẩm còn hàng và hiển thị"
       },
       {
         "test_case_id": "GoiYSanPham-TC-02",
         "module": "GoiYSanPham",
-        "title": "Loại bỏ truyện hết hàng khỏi danh sách gợi ý",
+        "title": "Loại bỏ sản phẩm hết hàng khỏi danh sách gợi ý",
         "type": "NEGATIVE",
-        "priority": "Thông thường",
+        "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
         "flow": "E1",
@@ -2841,26 +2776,28 @@
           "X1"
         ],
         "preconditions": [
-          "Hệ thống có sản phẩm trong danh sách gợi ý chuyển sang trạng thái hết hàng"
+          "Hệ thống có dữ liệu truyện"
         ],
-        "given": "Truyện gợi ý có sản phẩm hết hàng",
+        "given": "Các truyện gợi ý đều ở trạng thái hết hàng",
         "steps": [
-          "Thực hiện tải mục gợi ý sản phẩm",
-          "Kiểm tra danh sách hiển thị"
+          "Truy cập trang chủ",
+          "Kích hoạt hệ thống gợi ý sản phẩm"
         ],
-        "expected_result": "Hệ thống loại bỏ sản phẩm hết hàng khỏi danh sách gợi ý",
-        "trace_scenario_ids": [],
+        "expected_result": "Hệ thống loại bỏ các truyện hết hàng và hiển thị mục trống.",
+        "trace_scenario_ids": [
+          "C014-SCN-UC24-03"
+        ],
         "trace_rule_ids": [
           "C014-RULE-M13-01"
         ],
-        "scenario_description": "Loại bỏ truyện hết hàng khỏi danh sách gợi ý"
+        "scenario_description": "Loại bỏ sản phẩm hết hàng khỏi danh sách gợi ý"
       },
       {
         "test_case_id": "GoiYSanPham-TC-03",
         "module": "GoiYSanPham",
-        "title": "Loại bỏ truyện bị ẩn khỏi danh sách gợi ý và tìm kiếm",
+        "title": "Loại bỏ sản phẩm bị ẩn khỏi danh sách gợi ý",
         "type": "NEGATIVE",
-        "priority": "Thông thường",
+        "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
         "flow": "E1",
@@ -2868,53 +2805,24 @@
           "X2"
         ],
         "preconditions": [
-          "Truyện tồn tại nhưng đã được Admin chuyển sang trạng thái ẩn"
+          "Truyện tồn tại trong hệ thống"
         ],
-        "given": "Truyện cần gợi ý có trạng thái bị ẩn",
+        "given": "Trạng thái truyện thuộc danh sách gợi ý là ẩn",
         "steps": [
-          "Thực hiện gọi danh sách gợi ý",
-          "Kiểm tra kết quả hiển thị"
+          "Thực hiện tìm kiếm hoặc gợi ý phía khách hàng",
+          "Kiểm tra danh sách hiển thị"
         ],
-        "expected_result": "Truyện bị ẩn không xuất hiện phía khách hàng",
+        "expected_result": "Truyện không xuất hiện ở danh sách gợi ý phía khách hàng.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C015-BR-M14-03"
         ],
-        "scenario_description": "Loại bỏ truyện bị ẩn khỏi danh sách gợi ý và tìm kiếm"
-      },
-      {
-        "test_case_id": "GoiYSanPham-TC-04",
-        "module": "GoiYSanPham",
-        "title": "Xử lý hiển thị khi tất cả truyện gợi ý đều hết hàng hoặc bị ẩn",
-        "type": "NEGATIVE",
-        "priority": "Thông thường",
-        "technique": "EQUIVALENCE_PARTITIONING",
-        "technique_variant": "WEAK_ROBUST",
-        "flow": "E2",
-        "coverage_items": [
-          "X3"
-        ],
-        "preconditions": [
-          "Các truyện trong danh sách gợi ý đều ở trạng thái hết hàng hoặc bị ẩn"
-        ],
-        "given": "Toàn bộ truyện gợi ý không hợp lệ",
-        "steps": [
-          "Hệ thống thực hiện gợi ý sản phẩm",
-          "Kiểm tra giao diện hiển thị"
-        ],
-        "expected_result": "Hệ thống loại bỏ các truyện đó và hiển thị mục trống hoặc ẩn mục gợi ý",
-        "trace_scenario_ids": [
-          "C014-SCN-UC24-03"
-        ],
-        "trace_rule_ids": [
-          "C014-RULE-M13-01"
-        ],
-        "scenario_description": "Xử lý hiển thị khi tất cả truyện gợi ý đều hết hàng hoặc bị ẩn"
+        "scenario_description": "Loại bỏ sản phẩm bị ẩn khỏi danh sách gợi ý"
       },
       {
         "test_case_id": "QuanLyTruyen-TC-01",
         "module": "QuanLyTruyen",
-        "title": "Xóa truyện không nằm trong đơn hàng",
+        "title": "Xóa truyện không nằm trong đơn hàng thành công",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -2924,26 +2832,26 @@
           "V1"
         ],
         "preconditions": [
-          "Admin đã đăng nhập",
+          "Admin đăng nhập hệ thống",
           "Truyện cần xóa tồn tại và không nằm trong đơn hàng"
         ],
-        "given": "Truyện không nằm trong bất kỳ đơn hàng nào",
+        "given": "Truyện không nằm trong đơn hàng",
         "steps": [
           "Chọn truyện cần xóa",
           "Nhấn nút xóa truyện",
           "Xác nhận xóa"
         ],
-        "expected_result": "Hệ thống xóa thành công truyện khỏi hệ thống",
+        "expected_result": "Hệ thống xóa truyện thành công.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C015-BR-M14-02"
         ],
-        "scenario_description": "Xóa truyện không nằm trong đơn hàng"
+        "scenario_description": "Xóa truyện không nằm trong đơn hàng thành công"
       },
       {
         "test_case_id": "QuanLyTruyen-TC-02",
         "module": "QuanLyTruyen",
-        "title": "Xóa truyện đang nằm trong đơn hàng",
+        "title": "Chặn xóa truyện đang nằm trong đơn hàng",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -2953,28 +2861,28 @@
           "X1"
         ],
         "preconditions": [
-          "Admin đã đăng nhập",
-          "Truyện cần xóa tồn tại và đang nằm trong đơn hàng"
+          "Admin đăng nhập hệ thống",
+          "Truyện cần xóa tồn tại trong đơn hàng"
         ],
         "given": "Truyện đang nằm trong đơn hàng của người dùng khác",
         "steps": [
           "Chọn truyện cần xóa",
           "Nhấn nút xóa truyện"
         ],
-        "expected_result": "Hệ thống hiển thị cảnh báo và chặn việc xóa truyện",
+        "expected_result": "Hệ thống hiển thị cảnh báo chặn việc xóa.",
         "trace_scenario_ids": [
           "C015-SC-UC27-01"
         ],
         "trace_rule_ids": [
           "C015-BR-M14-02"
         ],
-        "scenario_description": "Xóa truyện đang nằm trong đơn hàng"
+        "scenario_description": "Chặn xóa truyện đang nằm trong đơn hàng"
       },
       {
         "test_case_id": "QuanLyDonHang-TC-01",
         "module": "QuanLyDonHang",
-        "title": "Chuyển trạng thái Chờ xác nhận sang Chờ lấy hàng",
-        "type": "POSITIVE",
+        "title": "Chuyển trạng thái từ Chờ xác nhận sang Chờ lấy hàng",
+        "type": "STATE",
         "priority": "Cao",
         "technique": "STATE_TRANSITION",
         "technique_variant": "",
@@ -2983,27 +2891,26 @@
           "T1"
         ],
         "preconditions": [
-          "Đơn hàng tồn tại",
-          "Đơn hàng ở trạng thái Chờ xác nhận"
+          "Đơn hàng tồn tại ở trạng thái Chờ xác nhận"
         ],
-        "given": "Đơn hàng ở trạng thái 'Chờ xác nhận'",
+        "given": "Đơn hàng ở trạng thái Chờ xác nhận",
         "steps": [
           "Chọn đơn hàng",
-          "Nhấn cập nhật trạng thái Chờ lấy hàng",
-          "Xác nhận thay đổi"
+          "Nhấn nút Chuyển sang Chờ lấy hàng",
+          "Xác nhận cập nhật"
         ],
-        "expected_result": "Trạng thái đơn chuyển sang Chờ lấy hàng và cập nhật tab",
+        "expected_result": "Trạng thái đơn hàng chuyển thành Chờ lấy hàng thành công",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C018-BR-M17-02"
         ],
-        "scenario_description": "Chuyển trạng thái Chờ xác nhận sang Chờ lấy hàng"
+        "scenario_description": "Chuyển trạng thái từ Chờ xác nhận sang Chờ lấy hàng"
       },
       {
         "test_case_id": "QuanLyDonHang-TC-02",
         "module": "QuanLyDonHang",
-        "title": "Chuyển trạng thái Chờ lấy hàng sang Đang giao",
-        "type": "POSITIVE",
+        "title": "Chuyển trạng thái từ Chờ lấy hàng sang Đang giao",
+        "type": "STATE",
         "priority": "Cao",
         "technique": "STATE_TRANSITION",
         "technique_variant": "",
@@ -3012,27 +2919,26 @@
           "T2"
         ],
         "preconditions": [
-          "Đơn hàng tồn tại",
-          "Đơn hàng ở trạng thái Chờ lấy hàng"
+          "Đơn hàng tồn tại ở trạng thái Chờ lấy hàng"
         ],
-        "given": "Đơn hàng ở trạng thái 'Chờ lấy hàng'",
+        "given": "Đơn hàng ở trạng thái Chờ lấy hàng",
         "steps": [
           "Chọn đơn hàng",
-          "Nhấn cập nhật trạng thái Đang giao",
-          "Xác nhận thay đổi"
+          "Nhấn nút Chuyển sang Đang giao",
+          "Xác nhận cập nhật"
         ],
-        "expected_result": "Trạng thái đơn chuyển sang Đang giao và cập nhật tab",
+        "expected_result": "Trạng thái đơn hàng chuyển thành Đang giao thành công",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C018-BR-M17-02"
         ],
-        "scenario_description": "Chuyển trạng thái Chờ lấy hàng sang Đang giao"
+        "scenario_description": "Chuyển trạng thái từ Chờ lấy hàng sang Đang giao"
       },
       {
         "test_case_id": "QuanLyDonHang-TC-03",
         "module": "QuanLyDonHang",
-        "title": "Chuyển trạng thái Đang giao sang Đã giao",
-        "type": "POSITIVE",
+        "title": "Chuyển trạng thái từ Đang giao sang Đã giao",
+        "type": "STATE",
         "priority": "Cao",
         "technique": "STATE_TRANSITION",
         "technique_variant": "",
@@ -3041,26 +2947,25 @@
           "T3"
         ],
         "preconditions": [
-          "Đơn hàng tồn tại",
-          "Đơn hàng ở trạng thái Đang giao"
+          "Đơn hàng tồn tại ở trạng thái Đang giao"
         ],
-        "given": "Đơn hàng ở trạng thái 'Đang giao'",
+        "given": "Đơn hàng ở trạng thái Đang giao",
         "steps": [
           "Chọn đơn hàng",
-          "Nhấn cập nhật trạng thái Đã giao",
-          "Xác nhận thay đổi"
+          "Nhấn nút Chuyển sang Đã giao",
+          "Xác nhận cập nhật"
         ],
-        "expected_result": "Trạng thái đơn chuyển sang Đã giao và cập nhật tab",
+        "expected_result": "Trạng thái đơn hàng chuyển thành Đã giao thành công",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C018-BR-M17-02"
         ],
-        "scenario_description": "Chuyển trạng thái Đang giao sang Đã giao"
+        "scenario_description": "Chuyển trạng thái từ Đang giao sang Đã giao"
       },
       {
         "test_case_id": "QuanLyDonHang-TC-04",
         "module": "QuanLyDonHang",
-        "title": "Cố gắng cập nhật trạng thái đơn hàng sai quy trình",
+        "title": "Cố gắng cập nhật đơn hàng đã hủy sang trạng thái khác",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "STATE_TRANSITION",
@@ -3070,28 +2975,27 @@
           "T4"
         ],
         "preconditions": [
-          "Đơn hàng tồn tại",
-          "Đơn hàng ở trạng thái Đã hủy"
+          "Đơn hàng tồn tại ở trạng thái Đã hủy"
         ],
-        "given": "Đơn hàng đang ở trạng thái 'Đã hủy'",
+        "given": "Đơn hàng đang ở trạng thái Đã hủy",
         "steps": [
           "Chọn đơn hàng",
           "Cố gắng chuyển sang trạng thái Hoàn thành",
-          "Xác nhận"
+          "Xác nhận cập nhật"
         ],
-        "expected_result": "Hệ thống từ chối và hiển thị thông báo lỗi",
+        "expected_result": "Hệ thống từ chối và hiển thị thông báo lỗi trạng thái",
         "trace_scenario_ids": [
           "C018-SC-UC34-01"
         ],
         "trace_rule_ids": [
           "C018-BR-M17-02"
         ],
-        "scenario_description": "Cố gắng cập nhật trạng thái đơn hàng sai quy trình"
+        "scenario_description": "Cố gắng cập nhật đơn hàng đã hủy sang trạng thái khác"
       },
       {
         "test_case_id": "QuanLyDonHang-TC-05",
         "module": "QuanLyDonHang",
-        "title": "Cập nhật trạng thái với dữ liệu trạng thái hợp lệ",
+        "title": "Cập nhật trạng thái với mã đơn hàng hợp lệ",
         "type": "POSITIVE",
         "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -3101,24 +3005,25 @@
           "V1"
         ],
         "preconditions": [
-          "Đơn hàng tồn tại"
+          "Đơn hàng tồn tại trong hệ thống"
         ],
-        "given": "Đơn hàng ở trạng thái hợp lệ",
+        "given": "Mã đơn hàng hợp lệ định dạng chuẩn",
         "steps": [
-          "Chọn trạng thái đích hợp lệ trong danh sách",
+          "Nhập mã đơn hàng hợp lệ",
+          "Chọn trạng thái mới",
           "Lưu thay đổi"
         ],
-        "expected_result": "Hệ thống chấp nhận và cập nhật thành công",
+        "expected_result": "Cập nhật thành công",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C018-BR-M17-02"
         ],
-        "scenario_description": "Cập nhật trạng thái với dữ liệu trạng thái hợp lệ"
+        "scenario_description": "Cập nhật trạng thái với mã đơn hàng hợp lệ"
       },
       {
         "test_case_id": "QuanLyDonHang-TC-06",
         "module": "QuanLyDonHang",
-        "title": "Cập nhật trạng thái với dữ liệu trạng thái không hợp lệ",
+        "title": "Cập nhật trạng thái với mã đơn hàng không tồn tại",
         "type": "NEGATIVE",
         "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -3128,51 +3033,25 @@
           "X1"
         ],
         "preconditions": [
-          "Đơn hàng tồn tại"
+          "Hệ thống quản lý đơn hàng hoạt động"
         ],
-        "given": "Truyền giá trị trạng thái không nằm trong quy trình",
+        "given": "Mã đơn hàng không tồn tại trong hệ thống",
         "steps": [
-          "Nhập hoặc chọn trạng thái không tồn tại",
+          "Nhập mã đơn hàng sai",
+          "Chọn trạng thái mới",
           "Lưu thay đổi"
         ],
-        "expected_result": "Hệ thống từ chối và hiển thị thông báo lỗi trạng thái",
+        "expected_result": "Hiển thị thông báo không tìm thấy đơn hàng",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C018-BR-M17-02"
         ],
-        "scenario_description": "Cập nhật trạng thái với dữ liệu trạng thái không hợp lệ"
-      },
-      {
-        "test_case_id": "QuanLyDonHang-TC-07",
-        "module": "QuanLyDonHang",
-        "title": "Kiểm tra trạng thái khởi tạo đơn hàng",
-        "type": "POSITIVE",
-        "priority": "Thông thường",
-        "technique": "STATE_TRANSITION",
-        "technique_variant": "",
-        "flow": "Chính",
-        "coverage_items": [
-          "T5"
-        ],
-        "preconditions": [
-          "Hệ thống ghi nhận đơn hàng mới"
-        ],
-        "given": "Đơn hàng vừa được tạo thành công",
-        "steps": [
-          "Mở danh sách quản lý đơn hàng",
-          "Kiểm tra tab hiển thị của đơn mới"
-        ],
-        "expected_result": "Đơn hàng tự động nằm ở trạng thái Chờ xác nhận",
-        "trace_scenario_ids": [],
-        "trace_rule_ids": [
-          "C018-BR-M17-02"
-        ],
-        "scenario_description": "Kiểm tra trạng thái khởi tạo đơn hàng"
+        "scenario_description": "Cập nhật trạng thái với mã đơn hàng không tồn tại"
       },
       {
         "test_case_id": "BaoCaoThongKe-TC-01",
         "module": "BaoCaoThongKe",
-        "title": "Xem dashboard với khoảng thời gian hợp lệ",
+        "title": "Xem thống kê với khoảng thời gian hợp lệ",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "DECISION_TABLE",
@@ -3182,56 +3061,28 @@
           "R1"
         ],
         "preconditions": [
-          "Admin đã đăng nhập hệ thống"
+          "Admin đã đăng nhập và có quyền phù hợp."
         ],
-        "given": "Trang tổng quan mở, khoảng thời gian chọn là Hôm nay",
-        "steps": [
-          "Mở trang Tổng quan",
-          "Chọn khoảng thời gian Hôm nay",
-          "Xem số liệu biểu đồ"
-        ],
-        "expected_result": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu ngày hôm nay.",
-        "trace_scenario_ids": [
-          "C020-SCN-M19-01"
-        ],
-        "trace_rule_ids": [
-          "C020-RULE-M19-01"
-        ],
-        "scenario_description": "Xem dashboard với khoảng thời gian hợp lệ"
-      },
-      {
-        "test_case_id": "BaoCaoThongKe-TC-02",
-        "module": "BaoCaoThongKe",
-        "title": "Xem thống kê chi tiết với khoảng thời gian hợp lệ",
-        "type": "POSITIVE",
-        "priority": "Cao",
-        "technique": "DECISION_TABLE",
-        "technique_variant": "",
-        "flow": "Chính",
-        "coverage_items": [
-          "R2"
-        ],
-        "preconditions": [
-          "Admin đã đăng nhập có quyền"
-        ],
-        "given": "Trang thống kê mở, chọn khoảng thời gian hợp lệ",
+        "given": "Khoảng thời gian hợp lệ (ngày bắt đầu trước hoặc bằng ngày kết thúc).",
         "steps": [
           "Mở trang Thống kê",
           "Chọn khoảng thời gian hợp lệ",
-          "Xác nhận tính toán"
+          "Xem kết quả hiển thị"
         ],
-        "expected_result": "Hệ thống hiển thị đầy đủ doanh thu, lợi nhuận và biên lợi nhuận.",
+        "expected_result": "Hệ thống hiển thị đúng doanh thu, lợi nhuận và biên lợi nhuận.",
         "trace_scenario_ids": [
+          "C020-SCN-M19-01",
           "C021-SC-UC40-01"
         ],
         "trace_rule_ids": [
+          "C020-RULE-M19-01",
           "C021-BR-M20-01",
           "C021-BR-M20-02"
         ],
-        "scenario_description": "Xem thống kê chi tiết với khoảng thời gian hợp lệ"
+        "scenario_description": "Xem thống kê với khoảng thời gian hợp lệ"
       },
       {
-        "test_case_id": "BaoCaoThongKe-TC-03",
+        "test_case_id": "BaoCaoThongKe-TC-02",
         "module": "BaoCaoThongKe",
         "title": "Từ chối thống kê khi ngày kết thúc trước ngày bắt đầu",
         "type": "NEGATIVE",
@@ -3240,17 +3091,18 @@
         "technique_variant": "",
         "flow": "E1",
         "coverage_items": [
-          "R3"
+          "R2"
         ],
         "preconditions": [
-          "Admin đang ở trang Thống kê"
+          "Admin đã đăng nhập và có quyền phù hợp."
         ],
-        "given": "Khoảng thời gian chọn có ngày kết thúc trước ngày bắt đầu",
+        "given": "Khoảng thời gian có ngày kết thúc trước ngày bắt đầu.",
         "steps": [
-          "Chọn ngày bắt đầu lớn hơn ngày kết thúc",
-          "Bấm xem thống kê"
+          "Mở trang Thống kê",
+          "Chọn khoảng thời gian không hợp lệ",
+          "Xác nhận lựa chọn"
         ],
-        "expected_result": "Hệ thống từ chối, cảnh báo lỗi và yêu cầu chọn lại thời gian.",
+        "expected_result": "Hệ thống từ chối và hiển thị cảnh báo lỗi.",
         "trace_scenario_ids": [
           "C021-SC-UC40-02"
         ],
@@ -3260,9 +3112,9 @@
         "scenario_description": "Từ chối thống kê khi ngày kết thúc trước ngày bắt đầu"
       },
       {
-        "test_case_id": "BaoCaoThongKe-TC-04",
+        "test_case_id": "BaoCaoThongKe-TC-03",
         "module": "BaoCaoThongKe",
-        "title": "Phân vùng hợp lệ cho khoảng thời gian tùy chỉnh",
+        "title": "Xem dashboard với khoảng thời gian hôm nay",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -3272,52 +3124,22 @@
           "V1"
         ],
         "preconditions": [
-          "Admin ở màn hình thống kê"
+          "Admin đã đăng nhập và mở trang Tổng quan."
         ],
-        "given": "Nhập khoảng thời gian tùy chỉnh hợp lệ",
+        "given": "Chọn khoảng thời gian là Hôm nay.",
         "steps": [
-          "Chọn tùy chỉnh thời gian",
-          "Nhập ngày bắt đầu và kết thúc hợp lệ",
-          "Gửi yêu cầu"
+          "Mở trang Tổng quan",
+          "Chọn tùy chọn Hôm nay",
+          "Kiểm tra số liệu hiển thị"
         ],
-        "expected_result": "Hệ thống chấp nhận và hiển thị dữ liệu thống kê.",
+        "expected_result": "Hệ thống hiển thị số liệu và biểu đồ doanh thu ngày hôm nay.",
         "trace_scenario_ids": [
-          "C021-SC-UC40-01"
+          "C020-SCN-M19-01"
         ],
         "trace_rule_ids": [
-          "C021-BR-M20-01"
+          "C020-RULE-M19-01"
         ],
-        "scenario_description": "Phân vùng hợp lệ cho khoảng thời gian tùy chỉnh"
-      },
-      {
-        "test_case_id": "BaoCaoThongKe-TC-05",
-        "module": "BaoCaoThongKe",
-        "title": "Phân vùng không hợp lệ cho định dạng ngày tháng",
-        "type": "NEGATIVE",
-        "priority": "Cao",
-        "technique": "EQUIVALENCE_PARTITIONING",
-        "technique_variant": "WEAK_ROBUST",
-        "flow": "E1",
-        "coverage_items": [
-          "X1"
-        ],
-        "preconditions": [
-          "Admin ở màn hình thống kê"
-        ],
-        "given": "Nhập định dạng ngày tháng tùy chỉnh sai",
-        "steps": [
-          "Chọn tùy chỉnh thời gian",
-          "Nhập định dạng ngày tháng không hợp lệ",
-          "Gửi yêu cầu"
-        ],
-        "expected_result": "Hệ thống hiển thị thông báo lỗi định dạng ngày.",
-        "trace_scenario_ids": [
-          "C021-SC-UC40-02"
-        ],
-        "trace_rule_ids": [
-          "C021-BR-M20-01"
-        ],
-        "scenario_description": "Phân vùng không hợp lệ cho định dạng ngày tháng"
+        "scenario_description": "Xem dashboard với khoảng thời gian hôm nay"
       }
     ]
   },

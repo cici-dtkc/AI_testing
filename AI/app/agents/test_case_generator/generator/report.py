@@ -77,8 +77,6 @@ def write_test_report(payload: dict, folder: Path):
         technique = str(tc.get("technique") or "N/A")
         variant = tc.get("technique_variant")
         technique_text = technique + (f" / {variant}" if variant else "")
-        coverage_items = render_list(tc.get("coverage_items", []))
-        coverage_html = "<ul>" + "".join(f"<li>{e(x)}</li>" for x in coverage_items) + "</ul>" if coverage_items else "—"
         priority = str(tc.get("priority") or "N/A")
         priority_lower = priority.lower()
         if "cao" in priority_lower or priority_lower in {"high", "critical", "p0", "p1"}:
@@ -109,7 +107,6 @@ def write_test_report(payload: dict, folder: Path):
             <td class="title">{e(tc.get('title'))}</td>
             <td><span class="type type-{type_class}">{e(tc_type)}</span></td>
             <td><span class="tech">{e(technique_text)}</span></td>
-            <td class="coverage">{coverage_html}</td>
             <td><span class="priority {priority_class}">{e(priority)}</span></td>
             <td><ul>{preconditions}</ul></td>
             <td>{given or '—'}</td>
@@ -213,7 +210,7 @@ def write_test_report(payload: dict, folder: Path):
             <table id="testTable">
                 <thead><tr>
                     <th>Mã Test Case</th><th>Luồng</th><th>Tên Test Case</th>
-                    <th>Loại</th><th>Kỹ thuật</th><th>Coverage</th><th>Ưu tiên</th><th>Điều kiện tiên quyết</th>
+                    <th>Loại</th><th>Kỹ thuật</th><th>Ưu tiên</th><th>Điều kiện tiên quyết</th>
                     <th>Dữ liệu đầu vào</th><th>Các bước thực hiện</th>
                     <th>Kết quả mong đợi</th><th>Kịch bản</th><th>Rule IDs</th>
                 </tr></thead>

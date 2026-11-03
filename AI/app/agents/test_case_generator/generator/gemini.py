@@ -1,4 +1,5 @@
 import hashlib
+import httpx
 import json
 import os
 import re
@@ -15,6 +16,8 @@ from .prompt import PROMPT_VERSION, SYSTEM_PROMPT
 # Nghỉ giữa các request module để không vượt rate limit của gói Free.
 MODULE_DELAY_SECONDS = float(os.getenv('GEMINI_MODULE_DELAY', '2'))
 MAX_ATTEMPTS = 4
+# Lỗi mạng đã được SDK retry nội bộ; chỉ thử lại thêm vài lượt ngắn.
+NETWORK_ATTEMPTS = 2
 # Lượt bù thiếu chỉ nhận tối đa chừng này scenario để request vẫn nhỏ.
 MAX_FILL_SCENARIOS = 12
 
@@ -90,10 +93,26 @@ def _friendly_error(exc: errors.APIError, model: str) -> str:
             'chỉ số). Đổi GEMINI_MODEL sang model còn quota, ví dụ gemini-flash-latest '
             'hoặc gemini-flash-lite-latest (hoặc chạy với --model gemini-flash-latest).'
         )
+    if exc.code == 429 and (
+        'exceeded your current quota' in detail
+        or 'Quota exceeded for metric' in detail
+    ):
+        return (
+            f'Gemini 429: hết quota ngày (daily limit) cho model "{model}". Quota '
+            'free tier reset qua ngày — chờ reset hoặc dùng API key của project '
+            'khác. Chi tiết: ' + detail[:300]
+        )
     if exc.code == 429:
         return (
             f'Gemini 429: tạm hết quota/rate limit cho model "{model}". Chờ khoảng '
             '1 phút rồi chạy lại hoặc đổi model. Chi tiết: ' + detail[:300]
+        )
+    if exc.code == 403 and 'free tier is not available' in detail:
+        return (
+            f'Gemini 403: project của API key không có free tier (ảnh hưởng mọi '
+            f'model, kể cả "{model}"). Tạo API key mới ở project khác trong AI '
+            'Studio hoặc bật billing cho project hiện tại rồi chạy lại. '
+            'Chi tiết: ' + detail[:300]
         )
     return f'Gemini API lỗi {exc.code} (model "{model}"): ' + detail[:300]
 
@@ -103,8 +122,12 @@ def _retry_delay(exc: errors.APIError, attempt: int) -> float | None:
     if 'limit: 0' in detail:
         return None  # quota model = 0: retry không bao giờ thành công
     if exc.code == 429:
-        if 'per day' in detail:
-            return None  # hết quota ngày: chờ vài phút cũng vô ích
+        if (
+            'per day' in detail
+            or 'exceeded your current quota' in detail
+            or 'Quota exceeded for metric' in detail
+        ):
+            return None  # hết quota ngày: chờ reset, retry vô ích
         return 15 * (attempt + 1)
     if exc.code in (500, 502, 503, 504):
         return 5 * (attempt + 1)
@@ -125,6 +148,17 @@ def _generate_with_retry(
             if delay is None or attempt == MAX_ATTEMPTS - 1:
                 raise RuntimeError(_friendly_error(exc, model)) from None
             time.sleep(delay)
+        except (httpx.HTTPError, OSError) as exc:
+            # Lỗi mạng/timeout không phải lỗi API: SDK đã tự retry, thử lại vài
+            # lượt nữa rồi ném RuntimeError để vòng lặp module ghi cảnh báo thay
+            # vì để exception sập cả tiến trình.
+            if attempt >= NETWORK_ATTEMPTS - 1:
+                raise RuntimeError(
+                    f'Gemini lỗi mạng khi gọi model "{model}": '
+                    f'{exc.__class__.__name__}. Chạy lại sẽ dùng cache cho các '
+                    'module đã xong.'
+                ) from None
+            time.sleep(10 * (attempt + 1))
     raise RuntimeError('Gemini sinh test case thất bại.')
 
 
@@ -520,12 +554,18 @@ def generate_test_cases_per_module(
 
             try:
                 suite = _generate_with_retry(client, unit_payload, schema, model)
-            except (RuntimeError, ValueError) as exc:
+            except Exception as exc:
                 message = str(exc)
-                if 'Gemini 429' in message or 'quota Free Tier' in message:
+                # 403/429 là lỗi cấp project/account: mọi module còn lại đều thất bại,
+                # không gọi API tiếp mà dừng sớm để giữ quota và báo rõ cách xử lý.
+                if (
+                    'Gemini 429' in message
+                    or 'quota Free Tier' in message
+                    or 'Gemini 403' in message
+                ):
                     warnings.append(
                         f'Dừng sớm tại {unit_name}: {message} Các module đã xong được lưu '
-                        'cache — chạy lại sau khi quota hồi sẽ tiếp tục từ chỗ dừng.'
+                        'cache — chạy lại sau khi xử lý API key/quota sẽ tiếp tục từ chỗ dừng.'
                     )
                     stopped_early = True
                     break
