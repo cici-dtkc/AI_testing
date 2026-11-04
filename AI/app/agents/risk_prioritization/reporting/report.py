@@ -7,8 +7,9 @@ import os
 from pathlib import Path
 
 from ..data.models import PrioritizationResult
-from ..evidence_store.api import get_evidence
 from ..orchestrator.models import ExecutionState, OrchestratorReport
+from AI.app.storage.evidence_store import EvidenceStore
+from AI.app.storage.store import RunStore
 
 
 def write_outputs(result: PrioritizationResult, out_dir: str | Path) -> dict[str, str]:
@@ -34,9 +35,10 @@ def write_outputs(result: PrioritizationResult, out_dir: str | Path) -> dict[str
     return {"json": str(jp), "html": str(hp)}
 
 
-def generate_html_report(report: OrchestratorReport, metadata_index, output_path: str) -> str:
+def generate_html_report(report: OrchestratorReport, run_dir: str | Path | None, output_path: str) -> str:
     out = Path(output_path)
     out.parent.mkdir(parents=True, exist_ok=True)
+    store = EvidenceStore(run_dir or RunStore().run_dir(report.run_id))
 
     def rel(uri: str) -> str:
         return Path(os.path.relpath(uri, out.parent)).as_posix()
@@ -44,9 +46,9 @@ def generate_html_report(report: OrchestratorReport, metadata_index, output_path
     rows = []
     failures = []
     for r in report.results:
-        entries = metadata_index.get_by_tc(report.run_id, r.test_case_id) if metadata_index else get_evidence(report.run_id, r.test_case_id)
+        entries = store.get_evidence(r.test_case_id)
         links = " ".join(
-            f"<a href='{html.escape(rel(e['uri']))}'>{html.escape(e['type'])}</a>" for e in entries)
+            f"<a href='{html.escape(rel(e['path']))}'>{html.escape(e['type'])}</a>" for e in entries)
         rows.append(
             f"<tr><td>{html.escape(r.test_case_id)}</td><td>{html.escape(r.priority or '-')}</td>"
             f"<td>{r.state.value}</td><td>{r.duration_ms}</td><td>{links or '-'}</td></tr>")
@@ -55,7 +57,7 @@ def generate_html_report(report: OrchestratorReport, metadata_index, output_path
             failures.append(f"<h3>{html.escape(r.test_case_id)}: {html.escape(r.error_message or '')}</h3>")
             for e in entries:
                 if e["type"] == "screenshot":
-                    failures.append(f"<img src='{html.escape(rel(e['uri']))}' width='640'/>")
+                    failures.append(f"<img src='{html.escape(rel(e['path']))}' width='640'/>")
 
     summary = " ".join(f"{html.escape(k)}={v}" for k, v in sorted(report.state_counts.items()))
 

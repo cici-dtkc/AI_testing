@@ -1,0 +1,118 @@
+{
+  "base_url": "http://localhost:8080",
+  "context_path": "/TTLTW_Nhom6",
+  "modules": {
+    "TaiKhoanPhanQuyen": {
+      "base_path": "/",
+      "pages": {
+        "home": "/home",
+        "login": "/login",
+        "register": "/RegisterServlet",
+        "profile": "/updateUser",
+        "change_password": "/change-password",
+        "forgot_password": "/forgot-password",
+        "reset_password": "/ResetPassServlet",
+        "logout": "/logout",
+        "admin_users": "/admin/user-management",
+        "admin_permissions": "/admin/permission-management"
+      }
+    },
+    "BaoCaoThongKe": {
+      "base_path": "/admin",
+      "pages": {
+        "dashboard": "/admin/dashboard",
+        "report": "/admin/ReportManagement",
+        "report_data": "/admin/report-data",
+        "export_excel": "/admin/export-excel"
+      }
+    },
+    "DanhGiaDoiTra": {
+      "base_path": "/admin",
+      "pages": {
+        "ranking": "/admin/dashboard",
+        "report": "/admin/ReportManagement",
+        "submit_review": "/submit-review",
+        "submit_return": "/submit-return",
+        "order_detail": "/order-detail",
+        "order_history": "/order-history"
+      }
+    },
+    "FlashSale": {
+      "base_path": "/flash-sale",
+      "pages": {
+        "list": "/flash-sale",
+        "admin_manage": "/admin/manage-flashsale",
+        "admin_create": "/admin/create-flashsale",
+        "api": "/api/flash-sale"
+      }
+    },
+    "GiamGia": {
+      "base_path": "/voucher",
+      "pages": {
+        "apply": "/voucher",
+        "wallet": "/user-voucher",
+        "checkout": "/checkout",
+        "admin_list": "/admin/vouchers",
+        "admin_manage": "/admin/vouchersManagement",
+        "admin_create": "/admin/vouchers",
+        "admin_edit": "/admin/editVoucher",
+        "admin_delete": "/admin/deleteVoucher",
+        "admin_search": "/admin/search-voucher",
+        "admin_sort": "/admin/sortVoucher"
+      }
+    },
+    "GioHang": {
+      "base_path": "/cart",
+      "pages": {
+        "view": "/cart",
+        "checkout": "/checkout"
+      }
+    },
+    "GoiYSanPham": {
+      "base_path": "/home",
+      "pages": {
+        "home": "/home",
+        "category": "/category"
+      }
+    },
+    "QuanLyTonKho": {
+      "base_path": "/admin/inventory",
+      "pages": {
+        "inventory": "/admin/inventory",
+        "product_detail": "/comic-detail",
+        "cart": "/cart"
+      }
+    },
+    "QuanLyWebsite": {
+      "base_path": "/admin",
+      "pages": {
+        "dashboard": "/admin/dashboard",
+        "products": "/admin/ProductManagement",
+        "product_search": "/admin/products/search",
+        "toggle_hidden": "/admin/products/toggle-hidden",
+        "series": "/admin/SeriesManagement",
+        "categories": "/admin/CategoryManagement",
+        "home": "/home"
+      }
+    },
+    "TimKiem": {
+      "base_path": "/search",
+      "pages": {
+        "search": "/search",
+        "suggest": "/search-suggest",
+        "home": "/home",
+        "category": "/category",
+        "comic_detail": "/comic-detail",
+        "series_detail": "/series-detail"
+      }
+    },
+    "Wishlist": {
+      "base_path": "/wishlist",
+      "pages": {
+        "view": "/wishlist",
+        "add": "/WishlistServlet",
+        "home": "/home"
+      }
+    }
+  }
+}

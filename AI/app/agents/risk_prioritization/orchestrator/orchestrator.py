@@ -1,14 +1,14 @@
 from datetime import datetime, timezone
-from uuid import uuid4
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from .models import ExecutionState, ExecutionResult, OrchestratorReport
 from .scheduler import build_execution_plan
 from .state_manager import StateManager
 from .retry_handler import RetryHandler
 from ..config.config import OrchestratorConfig
-from ..evidence_store.metadata import MetadataIndex
 from ..executors.playwright.playwright_executor import PlaywrightExecutor
 from ..reporting.report import generate_html_report
+from .output_writer import write_execution_output
+from AI.app.storage.store import RunStore
 
 
 def _get_executor(suggested_runner: str):
@@ -22,11 +22,14 @@ def _get_executor(suggested_runner: str):
 
 
 def run_orchestrator(prioritization_result: dict, executor_factory=None, config: OrchestratorConfig | None = None,
-                     report_path: str | None = None) -> OrchestratorReport:
+                     report_path: str | None = None, run_id: str | None = None,
+                     test_cases_source: str = "", analysis_source: str = "") -> OrchestratorReport:
     config = config or OrchestratorConfig()
     if executor_factory is None:
         executor_factory = lambda tc_item: _get_executor(tc_item.get("suggested_runner", "ui"))
-    run_id = str(uuid4())
+    run_id = run_id or datetime.now().strftime("%Y%m%d-%H%M%S")
+    run_dir = RunStore().run_dir(run_id)
+    run_dir.mkdir(parents=True, exist_ok=True)
     started_at = datetime.now(timezone.utc)
 
     plan = build_execution_plan(prioritization_result, config.max_workers)
@@ -47,7 +50,7 @@ def run_orchestrator(prioritization_result: dict, executor_factory=None, config:
                 if tc_id in blocked_tcs:
                     continue
                 tc_item = tc_map[tc_id]
-                futures[executor.submit(_execute_tc, tc_id, tc_item, run_id, state_mgr, retry_handler, executor_factory)] = tc_id
+                futures[executor.submit(_execute_tc, tc_id, tc_item, run_id, run_dir, state_mgr, retry_handler, executor_factory)] = tc_id
 
             for future in as_completed(futures):
                 tc_id = futures[future]
@@ -64,7 +67,9 @@ def run_orchestrator(prioritization_result: dict, executor_factory=None, config:
         results[tc_id] = ExecutionResult(
             test_case_id=tc_id, state=ExecutionState.BLOCKED, attempt=1,
             start_time=now, end_time=now, duration_ms=0,
-            priority=tc_map[tc_id].get("priority"), blocked_by=blocker
+            priority=tc_map[tc_id].get("priority"), blocked_by=blocker,
+            module=tc_map[tc_id].get("test_case", {}).get("module", ""),
+            executor_type="newman" if tc_map[tc_id].get("suggested_runner") == "api" else "playwright"
         )
         state_mgr.set_state(tc_id, ExecutionState.BLOCKED, blocked_by=blocker)
 
@@ -83,16 +88,20 @@ def run_orchestrator(prioritization_result: dict, executor_factory=None, config:
     )
 
     generate_html_report(
-        report, MetadataIndex.load(run_id),
+        report, run_dir,
         report_path or f"outputs/execution_report_{run_id}.html"
     )
+
+    output_path = write_execution_output(run_id, result_list, test_cases_source, analysis_source)
+    print(f"Execution output written to {output_path}")
 
     return report
 
 
-def _execute_tc(tc_id, tc_item, run_id, state_mgr, retry_handler, executor_factory):
+def _execute_tc(tc_id, tc_item, run_id, run_dir, state_mgr, retry_handler, executor_factory):
     state_mgr.set_state(tc_id, ExecutionState.RUNNING)
     exec_instance = executor_factory(tc_item)
+    exec_instance.run_dir = run_dir
     tc = {**tc_item.get("test_case", {}), "id": tc_id, "priority": tc_item.get("priority")}
 
     states = []
@@ -108,6 +117,11 @@ def _execute_tc(tc_id, tc_item, run_id, state_mgr, retry_handler, executor_facto
     final_state = retry_handler.determine_final_state(len(states), states)
     result.state = final_state
     result.priority = tc_item.get("priority")
+    result.module = tc.get("module", "")
+    result.executor_type = "newman" if tc_item.get("suggested_runner") == "api" else "playwright"
+    result.expected_result = tc.get("expected_result", "")
+    if result.state in (ExecutionState.FAILED, ExecutionState.ERROR):
+        result.actual_result = result.error_message or ""
     state_mgr.set_state(tc_id, final_state)
 
     return result

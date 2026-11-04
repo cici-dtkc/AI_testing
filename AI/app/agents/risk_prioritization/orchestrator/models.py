@@ -27,6 +27,13 @@ class ExecutionResult(BaseModel):
     evidence_uris: list[str] = Field(default_factory=list)
     error_message: str | None = None
     blocked_by: list[str] | None = None
+    error_details: dict | None = None
+    module: str = ""
+    executor_type: str = ""
+    failure_point: dict | None = None
+    observed_facts: list[dict] = Field(default_factory=list)
+    expected_result: str = ""
+    actual_result: str = ""
 
 
 class ExecutionPlan(BaseModel):

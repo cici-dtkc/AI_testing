@@ -59,6 +59,12 @@ class RunStore:
     def checkpoints_dir(self, run_dir: Path) -> Path:
         return self._subdir(run_dir, "checkpoints")
 
+    def evidence_dir(self, run_dir: Path) -> Path:
+        return self._subdir(run_dir, "evidence")
+
+    def evidence_path(self, run_dir: Path, tc_id: str, attempt: int) -> Path:
+        return self.evidence_dir(run_dir) / tc_id / f"attempt_{attempt}"
+
     def analysis_path(self, run_dir: Path) -> Path:
         return Path(run_dir) / "analysis" / "analysis.json"
 

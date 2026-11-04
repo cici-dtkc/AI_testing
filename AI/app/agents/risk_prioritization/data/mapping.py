@@ -10,11 +10,19 @@ from ..config.config import Config
 _PRIORITY_RE = re.compile(r"Priority\s*\|\s*([^\n]+)")
 _MODULE_IN_ID = re.compile(r"-M(\d{2})(?:-|$)")
 
+MODULE_ALIASES = {
+    "TaiKhoanPhanQuyen": "M01", "TimKiem": "M02", "QuanLyWebsite": "M02",
+    "FlashSale": "M03", "QuanLyTonKho": "M04", "GioHang": "M04",
+    "GiamGia": "M09", "GoiYSanPham": "M13", "Wishlist": "M13",
+    "BaoCaoThongKe": "M19", "DanhGiaDoiTra": "M19",
+}
+
 
 @dataclass
 class TCContext:
     tc_id: str
     module: str
+    module_name: str | None = None
     use_cases: list[str] = field(default_factory=list)
     uc_priorities: list[str] = field(default_factory=list)
     source_ids: list[str] = field(default_factory=list)
@@ -69,6 +77,8 @@ def build_context(tc: dict, index: AnalysisIndex, cfg: Config, extra_deps: dict 
         modules = [f"M{m}" for rid in rule_ids for m in _MODULE_IN_ID.findall(rid)]
     if modules:
         module = Counter(modules).most_common(1)[0][0]
+    elif alias := MODULE_ALIASES.get(tc.get("module", "")):
+        module = alias
     else:
         module = "NFR" if info["nfr"] or tc.get("type") == "NON_FUNCTIONAL" else "UNMAPPED"
 
@@ -82,7 +92,7 @@ def build_context(tc: dict, index: AnalysisIndex, cfg: Config, extra_deps: dict 
     deps += (extra_deps or {}).get(own_id, [])
 
     return TCContext(
-        tc_id=own_id, module=module,
+        tc_id=own_id, module=module, module_name=tc.get("module"),
         use_cases=list(dict.fromkeys(info["use_cases"])),
         uc_priorities=info["priorities"],
         source_ids=list(dict.fromkeys([*scen_ids, *rule_ids])),
