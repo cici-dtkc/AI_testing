@@ -106,6 +106,11 @@ Dependencies promoted to dependent's priority.
 }
 ```
 
+playwright UI:
+```bash
+playwright codegen http://localhost:8080/TTLTW_Nhom6
+```
+
 **API tests** reference Postman collections:
 ```json
 {

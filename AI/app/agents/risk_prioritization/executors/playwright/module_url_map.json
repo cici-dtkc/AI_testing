@@ -3,6 +3,8 @@
   "context_path": "/TTLTW_Nhom6",
   "modules": {
     "TaiKhoanPhanQuyen": {
+      "start_url": "/home",
+      "requires_login": "none",
       "base_path": "/",
       "pages": {
         "home": "/home",
@@ -18,6 +20,8 @@
       }
     },
     "BaoCaoThongKe": {
+      "start_url": "/admin/dashboard",
+      "requires_login": "admin",
       "base_path": "/admin",
       "pages": {
         "dashboard": "/admin/dashboard",
@@ -27,6 +31,8 @@
       }
     },
     "DanhGiaDoiTra": {
+      "start_url": "/admin/dashboard",
+      "requires_login": "admin",
       "base_path": "/admin",
       "pages": {
         "ranking": "/admin/dashboard",
@@ -38,6 +44,8 @@
       }
     },
     "FlashSale": {
+      "start_url": "/flash-sale",
+      "requires_login": "none",
       "base_path": "/flash-sale",
       "pages": {
         "list": "/flash-sale",
@@ -47,6 +55,8 @@
       }
     },
     "GiamGia": {
+      "start_url": "/home",
+      "requires_login": "user",
       "base_path": "/voucher",
       "pages": {
         "apply": "/voucher",
@@ -62,6 +72,9 @@
       }
     },
     "GioHang": {
+      "start_url": "/home",
+      "requires_login": "none",
+      "setup": "open_first_product",
       "base_path": "/cart",
       "pages": {
         "view": "/cart",
@@ -69,6 +82,8 @@
       }
     },
     "GoiYSanPham": {
+      "start_url": "/home",
+      "requires_login": "none",
       "base_path": "/home",
       "pages": {
         "home": "/home",
@@ -76,6 +91,9 @@
       }
     },
     "QuanLyTonKho": {
+      "start_url": "/home",
+      "requires_login": "none",
+      "setup": "open_first_product",
       "base_path": "/admin/inventory",
       "pages": {
         "inventory": "/admin/inventory",
@@ -84,6 +102,8 @@
       }
     },
     "QuanLyWebsite": {
+      "start_url": "/home",
+      "requires_login": "none",
       "base_path": "/admin",
       "pages": {
         "dashboard": "/admin/dashboard",
@@ -96,6 +116,8 @@
       }
     },
     "TimKiem": {
+      "start_url": "/home",
+      "requires_login": "none",
       "base_path": "/search",
       "pages": {
         "search": "/search",
@@ -107,6 +129,8 @@
       }
     },
     "Wishlist": {
+      "start_url": "/home",
+      "requires_login": "none",
       "base_path": "/wishlist",
       "pages": {
         "view": "/wishlist",
