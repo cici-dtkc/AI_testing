@@ -1,0 +1,1457 @@
+{
+  "schema_version": "1.0",
+  "run_id": "20261104-172004",
+  "project_id": "comic-ecommerce",
+  "started_at": "2026-11-04T10:22:08.049580Z",
+  "completed_at": "2026-11-04T17:23:38.332764Z",
+  "total_duration_ms": 337900,
+  "summary": {
+    "total_test_cases": 64,
+    "passed": 0,
+    "failed": 0,
+    "blocked": 55,
+    "error": 9,
+    "flaky": 0,
+    "manual": 5
+  },
+  "execution_results": [
+    {
+      "test_case_id": "QuanLyWebsite-TC-01",
+      "module": "QuanLyWebsite",
+      "attempt_id": 1,
+      "status": "ERROR",
+      "start_time": "2026-11-04T17:20:04.239863Z",
+      "end_time": "2026-11-04T17:20:06.712614Z",
+      "duration_ms": 2472,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "Text 'bình thường trong kết quả tìm kiếm.' not found",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/QuanLyWebsite-TC-01/attempt_1/screenshot_20261104T172006465691.png",
+              "timestamp": "2026-11-04T17:20:06.712614Z",
+              "size_bytes": 1605565,
+              "sha256": "5d15b496593db450a08b2b22e5c7f492f2ba7cee855760c1254c55f8dd4cb868"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Truyện hiển thị bình thường trong kết quả tìm kiếm.",
+      "actual_result": "Text 'bình thường trong kết quả tìm kiếm.' not found",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/QuanLyWebsite-TC-01/attempt_1/screenshot_20261104T172006465691.png",
+          "timestamp": "2026-11-04T17:20:06.712614Z",
+          "size_bytes": 1605565,
+          "sha256": "5d15b496593db450a08b2b22e5c7f492f2ba7cee855760c1254c55f8dd4cb868"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/QuanLyWebsite-TC-01/attempt_1/trace_20261104T172006654578.zip",
+          "timestamp": "2026-11-04T17:20:06.712614Z",
+          "size_bytes": 2250036,
+          "sha256": "a2686a292b56cf59b3caffa26ced96cf1c3bd6c97195a07d9275771466bc3bc7"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P1"
+    },
+    {
+      "test_case_id": "TimKiem-TC-01",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333288Z",
+      "end_time": "2026-11-04T10:23:38.333288Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P1"
+    },
+    {
+      "test_case_id": "TimKiem-TC-02",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333322Z",
+      "end_time": "2026-11-04T10:23:38.333322Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "TimKiem-TC-04",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "ERROR",
+      "start_time": "2026-11-04T17:20:04.240194Z",
+      "end_time": "2026-11-04T17:21:35.628544Z",
+      "duration_ms": 91388,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button[class*='search-btn']\").first\n",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/TimKiem-TC-04/attempt_1/screenshot_20261104T172135495497.png",
+              "timestamp": "2026-11-04T17:21:35.628544Z",
+              "size_bytes": 102649,
+              "sha256": "11942d14f06f5518641e45aba53b688b64f8bc4567f456550506fb96e23468a8"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Hiển thị thông báo yêu cầu nhập từ khóa.",
+      "actual_result": "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button[class*='search-btn']\").first\n",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/TimKiem-TC-04/attempt_1/screenshot_20261104T172135495497.png",
+          "timestamp": "2026-11-04T17:21:35.628544Z",
+          "size_bytes": 102649,
+          "sha256": "11942d14f06f5518641e45aba53b688b64f8bc4567f456550506fb96e23468a8"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/TimKiem-TC-04/attempt_1/trace_20261104T172135568725.zip",
+          "timestamp": "2026-11-04T17:21:35.628544Z",
+          "size_bytes": 629552,
+          "sha256": "04a6c1d35de82a1676ca5c974c9ef6f04daf290d4274619bc3546b3f6ac12bb0"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "TimKiem-TC-05",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333354Z",
+      "end_time": "2026-11-04T10:23:38.333354Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "TimKiem-TC-06",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333377Z",
+      "end_time": "2026-11-04T10:23:38.333377Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "QuanLyWebsite-TC-02",
+      "module": "QuanLyWebsite",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333394Z",
+      "end_time": "2026-11-04T10:23:38.333394Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "TimKiem-TC-03",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333410Z",
+      "end_time": "2026-11-04T10:23:38.333410Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "TimKiem-TC-07",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333425Z",
+      "end_time": "2026-11-04T10:23:38.333425Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "TimKiem-TC-08",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333442Z",
+      "end_time": "2026-11-04T10:23:38.333442Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-01",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "ERROR",
+      "start_time": "2026-11-04T17:20:06.712784Z",
+      "end_time": "2026-11-04T17:22:08.049445Z",
+      "duration_ms": 121336,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button:has-text('Thêm vào giỏ')\").first\n",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/QuanLyTonKho-TC-01/attempt_1/screenshot_20261104T172207771898.png",
+              "timestamp": "2026-11-04T17:22:08.049445Z",
+              "size_bytes": 726357,
+              "sha256": "b7c5d6e83c3b81d6339a316e32f3f2d76562d608ae01cf211135a13fca32826d"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Sản phẩm được thêm vào giỏ với số lượng 2 và cập nhật biểu tượng giỏ hàng.",
+      "actual_result": "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button:has-text('Thêm vào giỏ')\").first\n",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/QuanLyTonKho-TC-01/attempt_1/screenshot_20261104T172207771898.png",
+          "timestamp": "2026-11-04T17:22:08.049445Z",
+          "size_bytes": 726357,
+          "sha256": "b7c5d6e83c3b81d6339a316e32f3f2d76562d608ae01cf211135a13fca32826d"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/QuanLyTonKho-TC-01/attempt_1/trace_20261104T172207989542.zip",
+          "timestamp": "2026-11-04T17:22:08.049445Z",
+          "size_bytes": 2910277,
+          "sha256": "98ce58027ece93bac34a752dc98d09b473beaafcda857a169acda6398499493e"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "GiamGia-TC-03",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "ERROR",
+      "start_time": "2026-11-04T17:21:35.628631Z",
+      "end_time": "2026-11-04T17:23:38.332764Z",
+      "duration_ms": 122704,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button[type='submit']:has-text('Cập nhật')\").first\n",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/GiamGia-TC-03/attempt_1/screenshot_20261104T172337555201.png",
+              "timestamp": "2026-11-04T17:23:38.332764Z",
+              "size_bytes": 1609479,
+              "sha256": "3af7d636f453e04b29b599eb3b6794e910114597163a5068b0225b61c6d47187"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Hệ thống lưu voucher và hiển thị đúng trong danh sách.",
+      "actual_result": "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button[type='submit']:has-text('Cập nhật')\").first\n",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/GiamGia-TC-03/attempt_1/screenshot_20261104T172337555201.png",
+          "timestamp": "2026-11-04T17:23:38.332764Z",
+          "size_bytes": 1609479,
+          "sha256": "3af7d636f453e04b29b599eb3b6794e910114597163a5068b0225b61c6d47187"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-03/attempt_1/trace_20261104T172338255298.zip",
+          "timestamp": "2026-11-04T17:23:38.332764Z",
+          "size_bytes": 5084107,
+          "sha256": "2e235c0f112c198a43ae4e9af13c17fcba8b2c52e5bec21e9a4c089592d9b7e2"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-05",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333465Z",
+      "end_time": "2026-11-04T10:23:38.333465Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "GiamGia-TC-03"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "DanhGiaDoiTra-TC-01",
+      "module": "DanhGiaDoiTra",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333477Z",
+      "end_time": "2026-11-04T10:23:38.333477Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-02",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333487Z",
+      "end_time": "2026-11-04T10:23:38.333487Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "GiamGia-TC-03"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-06",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333495Z",
+      "end_time": "2026-11-04T10:23:38.333495Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "GiamGia-TC-03"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-07",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333503Z",
+      "end_time": "2026-11-04T10:23:38.333503Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "GiamGia-TC-03"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-02",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333512Z",
+      "end_time": "2026-11-04T10:23:38.333512Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyTonKho-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-04",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333521Z",
+      "end_time": "2026-11-04T10:23:38.333521Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyTonKho-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "FlashSale-TC-01",
+      "module": "FlashSale",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333530Z",
+      "end_time": "2026-11-04T10:23:38.333530Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "FlashSale-TC-03",
+      "module": "FlashSale",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333551Z",
+      "end_time": "2026-11-04T10:23:38.333551Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "FlashSale-TC-04",
+      "module": "FlashSale",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333577Z",
+      "end_time": "2026-11-04T10:23:38.333577Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "FlashSale-TC-05",
+      "module": "FlashSale",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333600Z",
+      "end_time": "2026-11-04T10:23:38.333600Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "FlashSale-TC-06",
+      "module": "FlashSale",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333625Z",
+      "end_time": "2026-11-04T10:23:38.333625Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-01",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333646Z",
+      "end_time": "2026-11-04T10:23:38.333646Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "GiamGia-TC-03"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-08",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333656Z",
+      "end_time": "2026-11-04T10:23:38.333656Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "GiamGia-TC-03"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GioHang-TC-01",
+      "module": "GioHang",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333665Z",
+      "end_time": "2026-11-04T10:23:38.333665Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyTonKho-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GioHang-TC-02",
+      "module": "GioHang",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333674Z",
+      "end_time": "2026-11-04T10:23:38.333674Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyTonKho-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "BaoCaoThongKe-TC-01",
+      "module": "BaoCaoThongKe",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333682Z",
+      "end_time": "2026-11-04T10:23:38.333682Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "BaoCaoThongKe-TC-06",
+      "module": "BaoCaoThongKe",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333691Z",
+      "end_time": "2026-11-04T10:23:38.333691Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "DanhGiaDoiTra-TC-02",
+      "module": "DanhGiaDoiTra",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333700Z",
+      "end_time": "2026-11-04T10:23:38.333700Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-05",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333718Z",
+      "end_time": "2026-11-04T10:23:38.333718Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyTonKho-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-06",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333742Z",
+      "end_time": "2026-11-04T10:23:38.333742Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyTonKho-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-07",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333760Z",
+      "end_time": "2026-11-04T10:23:38.333760Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyTonKho-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "BaoCaoThongKe-TC-02",
+      "module": "BaoCaoThongKe",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333784Z",
+      "end_time": "2026-11-04T10:23:38.333784Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "BaoCaoThongKe-TC-03",
+      "module": "BaoCaoThongKe",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333805Z",
+      "end_time": "2026-11-04T10:23:38.333805Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "BaoCaoThongKe-TC-04",
+      "module": "BaoCaoThongKe",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333821Z",
+      "end_time": "2026-11-04T10:23:38.333821Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "BaoCaoThongKe-TC-05",
+      "module": "BaoCaoThongKe",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333837Z",
+      "end_time": "2026-11-04T10:23:38.333837Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "FlashSale-TC-02",
+      "module": "FlashSale",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333855Z",
+      "end_time": "2026-11-04T10:23:38.333855Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-04",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333879Z",
+      "end_time": "2026-11-04T10:23:38.333879Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "GiamGia-TC-03"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-14",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333898Z",
+      "end_time": "2026-11-04T10:23:38.333898Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "GiamGia-TC-03"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-03",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333916Z",
+      "end_time": "2026-11-04T10:23:38.333916Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyTonKho-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-08",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333941Z",
+      "end_time": "2026-11-04T10:23:38.333941Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyTonKho-TC-01"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-01",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "ERROR",
+      "start_time": "2026-11-04T10:22:08.049580Z",
+      "end_time": "2026-11-04T10:22:08.049581Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "Test requires manual DB/network inspection",
+          "evidence_refs": []
+        }
+      ],
+      "expected_result": "Giá trị lưu trữ là chuỗi băm bảo mật, không hiển thị dạng plaintext, kết quả Đạt.",
+      "actual_result": "Test requires manual DB/network inspection",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-02",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "ERROR",
+      "start_time": "2026-11-04T10:22:08.049632Z",
+      "end_time": "2026-11-04T10:22:08.049633Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "Test requires manual DB/network inspection",
+          "evidence_refs": []
+        }
+      ],
+      "expected_result": "Mật khẩu cập nhật được chuyển đổi thành mã hash hoàn toàn, kết quả Đạt.",
+      "actual_result": "Test requires manual DB/network inspection",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-03",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "ERROR",
+      "start_time": "2026-11-04T10:22:08.049678Z",
+      "end_time": "2026-11-04T10:22:08.049679Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "Test requires manual DB/network inspection",
+          "evidence_refs": []
+        }
+      ],
+      "expected_result": "Chuỗi hash phản ánh đúng thuật toán mã hóa an toàn, kết quả Đạt.",
+      "actual_result": "Test requires manual DB/network inspection",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-04",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "ERROR",
+      "start_time": "2026-11-04T10:22:08.049720Z",
+      "end_time": "2026-11-04T10:22:08.049721Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "Test requires manual DB/network inspection",
+          "evidence_refs": []
+        }
+      ],
+      "expected_result": "Không phát hiện mật khẩu dạng rõ hoặc chuỗi hash trong tệp log, kết quả Đạt.",
+      "actual_result": "Test requires manual DB/network inspection",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-05",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "ERROR",
+      "start_time": "2026-11-04T10:22:08.049764Z",
+      "end_time": "2026-11-04T10:22:08.049765Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "Test requires manual DB/network inspection",
+          "evidence_refs": []
+        }
+      ],
+      "expected_result": "Dữ liệu mật khẩu được bảo vệ an toàn trên đường truyền, kết quả Đạt.",
+      "actual_result": "Test requires manual DB/network inspection",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-13",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333958Z",
+      "end_time": "2026-11-04T10:23:38.333958Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "GiamGia-TC-03"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-09",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333974Z",
+      "end_time": "2026-11-04T10:23:38.333974Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "GiamGia-TC-03"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-10",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.333990Z",
+      "end_time": "2026-11-04T10:23:38.333990Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "GiamGia-TC-03"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-11",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.334005Z",
+      "end_time": "2026-11-04T10:23:38.334005Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "GiamGia-TC-03"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-12",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.334021Z",
+      "end_time": "2026-11-04T10:23:38.334021Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "GiamGia-TC-03"
+      ],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GoiYSanPham-TC-01",
+      "module": "GoiYSanPham",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.334036Z",
+      "end_time": "2026-11-04T10:23:38.334036Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "GoiYSanPham-TC-02",
+      "module": "GoiYSanPham",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.334052Z",
+      "end_time": "2026-11-04T10:23:38.334052Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "GoiYSanPham-TC-03",
+      "module": "GoiYSanPham",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.334067Z",
+      "end_time": "2026-11-04T10:23:38.334067Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-01",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.334083Z",
+      "end_time": "2026-11-04T10:23:38.334083Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-07",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.334108Z",
+      "end_time": "2026-11-04T10:23:38.334108Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "GoiYSanPham-TC-04",
+      "module": "GoiYSanPham",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.334132Z",
+      "end_time": "2026-11-04T10:23:38.334132Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-05",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.334152Z",
+      "end_time": "2026-11-04T10:23:38.334152Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-02",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.334168Z",
+      "end_time": "2026-11-04T10:23:38.334168Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-03",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.334184Z",
+      "end_time": "2026-11-04T10:23:38.334184Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-04",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.334208Z",
+      "end_time": "2026-11-04T10:23:38.334208Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-06",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "BLOCKED",
+      "start_time": "2026-11-04T10:23:38.334227Z",
+      "end_time": "2026-11-04T10:23:38.334227Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "observed_facts": [],
+      "expected_result": "",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [
+        "QuanLyWebsite-TC-01"
+      ],
+      "priority": "P4"
+    }
+  ],
+  "environment": {
+    "base_url": "http://localhost:8080/TTLTW_Nhom6",
+    "browser": "chromium",
+    "playwright_version": "1.64.1"
+  },
+  "provenance": {
+    "agent": "risk_prioritization",
+    "version": "1.0.0",
+    "test_cases_source": "app/agents/risk_prioritization/outputs/prioritized_tests.json",
+    "analysis_source": "app/agents/requirement_analyzer/outputs/comic/analysis.json"
+  },
+  "manual_tests": [
+    "TaiKhoanPhanQuyen-TC-01",
+    "TaiKhoanPhanQuyen-TC-02",
+    "TaiKhoanPhanQuyen-TC-03",
+    "TaiKhoanPhanQuyen-TC-04",
+    "TaiKhoanPhanQuyen-TC-05"
+  ]
+}

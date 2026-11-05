@@ -30,6 +30,13 @@ cd testing
 
 **Step 2: Prioritize by risk**
 
+tests risk
+```bash
+cd AI                                                                                                                                                                               
+python -m pytest app/agents/risk_prioritization/tests/test_risk.py -v
+```
+
+
 ```bash
 cd AI
 python -m app.agents.risk_prioritization.main \
@@ -42,6 +49,12 @@ python -m app.agents.risk_prioritization.main \
 Output: `outputs/prioritized_tests.json` with execution order, priority (P1-P4), dependencies.
 
 **Step 3: Execute tests**
+
+test connection
+```bash
+cd AI                                                                                                                                                                               
+python -m app.agents.risk_prioritization.tests.test_fixes
+```
 
 ```bash
 cd AI

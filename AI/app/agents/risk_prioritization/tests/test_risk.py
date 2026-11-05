@@ -1,11 +1,11 @@
 import pytest
 
-from AI.app.agents.risk_prioritization.config.config import Config
-from AI.app.agents.risk_prioritization.data.models import DefectRecord, RiskSignals
-from AI.app.agents.risk_prioritization.core.pipeline import run_pipeline
-from AI.app.agents.risk_prioritization.core.rationale import valid_llm_text
-from AI.app.agents.risk_prioritization.core.scoring import combine, to_priority
-from AI.app.agents.risk_prioritization.core.validation import GuardrailError, validate
+from ..config.config import Config
+from ..data.models import DefectRecord, RiskSignals
+from ..core.pipeline import run_pipeline
+from ..core.rationale import valid_llm_text
+from ..core.scoring import combine, to_priority
+from ..core.validation import GuardrailError, validate
 
 
 def tc(i, prio="Cao", rules=None, **extra):
@@ -78,3 +78,17 @@ def test_llm_rationale_checker():
     assert valid_llm_text(good, item)
     assert not valid_llm_text(good + " theo C999-X", item)
     assert not valid_llm_text("không có id", item)
+
+def test_blocked_by_follows_blocked_dependency():
+    from datetime import datetime, timezone
+    from ..orchestrator.models import ExecutionResult, ExecutionState
+    from ..orchestrator.orchestrator import _find_blocking_tc
+    now = datetime.now(timezone.utc)
+    tc_map = {"A": {"depends_on": []}, "B": {"depends_on": ["A"]}, "C": {"depends_on": ["B"]}, "D": {"depends_on": []}}
+    def r(tid, state, blocked_by=None):
+        return ExecutionResult(test_case_id=tid, state=state, attempt=1, start_time=now, end_time=now,
+                               duration_ms=0, blocked_by=blocked_by)
+    results = {"A": r("A", ExecutionState.ERROR), "B": r("B", ExecutionState.BLOCKED, ["A"])}
+    assert _find_blocking_tc("B", tc_map, results) == ["A"]
+    assert _find_blocking_tc("C", tc_map, {"B": r("B", ExecutionState.BLOCKED, ["A"])}) == ["A"]
+    assert _find_blocking_tc("D", tc_map, {}) == []

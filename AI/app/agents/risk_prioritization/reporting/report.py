@@ -1,6 +1,7 @@
 """Write prioritized_tests.json and a small HTML report."""
 from __future__ import annotations
 
+import re
 import html
 import json
 import os
@@ -8,8 +9,14 @@ from pathlib import Path
 
 from ..data.models import PrioritizationResult
 from ..orchestrator.models import ExecutionState, OrchestratorReport
-from AI.app.storage.evidence_store import EvidenceStore
-from AI.app.storage.store import RunStore
+from ....storage.evidence_store import EvidenceStore
+from ....storage.store import RunStore
+
+
+def is_manual_only_test(tc: dict) -> bool:
+    """Detect tests requiring manual DB/network inspection."""
+    test_case_id = tc.get("test_case_id", "")
+    return test_case_id.startswith("TaiKhoanPhanQuyen-TC-")
 
 
 def write_outputs(result: PrioritizationResult, out_dir: str | Path) -> dict[str, str]:
@@ -24,6 +31,12 @@ def write_outputs(result: PrioritizationResult, out_dir: str | Path) -> dict[str
         f"<td>{'promoted ' if i.promoted_by_dependency else ''}{html.escape(', '.join(i.defaults_used))}</td>"
         f"<td>{html.escape(i.rationale)}</td></tr>" for i in result.items)
     warns = "".join(f"<li>{html.escape(w)}</li>" for w in result.warnings) or "<li>None</li>"
+
+    # Mark manual-only tests with different styling to indicate they need manual verification
+    manual_items = [i for i in result.items if is_manual_only_test(i.test_case)]
+    if manual_items:
+        manual_list = "".join(f"<li>{html.escape(i.test_case_id)}: {html.escape(i.test_case.get('title', ''))}</li>" for i in manual_items)
+        warns += f'<div class="manual-note"><strong>Manual Verification Required (cannot automate):</strong><ul>{manual_list}</ul></div>'
     hp.write_text(
         "<!doctype html><html lang='vi'><meta charset='utf-8'><title>Risk Prioritization</title>"
         "<style>body{font:14px system-ui;margin:24px}table{border-collapse:collapse}"
@@ -59,6 +72,9 @@ def generate_html_report(report: OrchestratorReport, run_dir: str | Path | None,
                 if e["type"] == "screenshot":
                     failures.append(f"<img src='{html.escape(rel(e['path']))}' width='640'/>")
 
+    # Calculate manual items for this report
+    manual_items = [i for i in report.results if i.test_case_id.startswith("TaiKhoanPhanQuyen-TC-")]
+
     summary = " ".join(f"{html.escape(k)}={v}" for k, v in sorted(report.state_counts.items()))
 
     out.write_text(
@@ -66,10 +82,18 @@ def generate_html_report(report: OrchestratorReport, run_dir: str | Path | None,
         f"<title>Execution Report {html.escape(report.run_id)}</title>"
         "<style>body{font:14px system-ui;margin:24px}table{border-collapse:collapse}"
         "td,th{border:1px solid #ccc;padding:4px 8px;vertical-align:top}"
-        "img{display:block;margin:8px 0;border:1px solid #ccc}</style>"
+        "img{display:block;margin:8px 0;border:1px solid #ccc}"
+        ".manual{background:#fff8e1;border:1px solid #ffd54f;padding:6px;margin:8px 0}"
+        ".manual-note{background:#fff3e0;padding:8px;margin:12px 0}"
+        ".manual-note ul{margin:6px 0 0 20px}"
+        "</style>"
         f"<h1>Execution Report</h1><p>run {html.escape(report.run_id)} | total TCs {report.total_tcs} | "
         f"duration {report.total_duration_ms} ms | {summary}</p>"
+        "<div class='manual-note'><strong>Manual Verification Required (cannot automate):</strong>"
+        f"<p>{len(manual_items)} test(s) require manual DB/network inspection.</p></div>"
         "<table><tr><th>TC ID</th><th>Priority</th><th>State</th><th>Duration (ms)</th>"
         f"<th>Evidence</th></tr>{''.join(rows)}</table>"
-        f"<h2>Failures</h2>{''.join(failures) or '<p>None</p>'}</html>", encoding="utf-8")
+        f"<h2>Failures</h2>{''.join(failures) or '<p>None</p>'}</html>",
+        encoding="utf-8",
+    )
     return str(out)

@@ -8,7 +8,7 @@ from ..config.config import OrchestratorConfig
 from ..executors.playwright.playwright_executor import PlaywrightExecutor
 from ..reporting.report import generate_html_report
 from .output_writer import write_execution_output
-from AI.app.storage.store import RunStore
+from ....storage.store import RunStore
 
 
 def _get_executor(suggested_runner: str):
@@ -61,7 +61,7 @@ def run_orchestrator(prioritization_result: dict, executor_factory=None, config:
                     deps = _find_all_dependents(tc_id, tc_map)
                     blocked_tcs.update(deps)
 
-    for tc_id in blocked_tcs:
+    for tc_id in sorted(blocked_tcs, key=lambda t: tc_map[t].get("execution_order", 0)):
         now = datetime.now(timezone.utc)
         blocker = _find_blocking_tc(tc_id, tc_map, results)
         results[tc_id] = ExecutionResult(
@@ -101,7 +101,7 @@ def run_orchestrator(prioritization_result: dict, executor_factory=None, config:
 def _execute_tc(tc_id, tc_item, run_id, run_dir, state_mgr, retry_handler, executor_factory):
     state_mgr.set_state(tc_id, ExecutionState.RUNNING)
     exec_instance = executor_factory(tc_item)
-    exec_instance.run_dir = run_dir
+    exec_instance.run_OrchestratorConfigdir = run_dir
     tc = {**tc_item.get("test_case", {}), "id": tc_id, "priority": tc_item.get("priority")}
 
     states = []
@@ -139,6 +139,11 @@ def _find_all_dependents(tc_id, tc_map):
 def _find_blocking_tc(tc_id, tc_map, results):
     deps = tc_map[tc_id].get("depends_on", [])
     for dep in deps:
-        if dep in results and results[dep].state in (ExecutionState.FAILED, ExecutionState.ERROR):
+        result = results.get(dep)
+        if result is None:
+            continue
+        if result.state in (ExecutionState.FAILED, ExecutionState.ERROR):
             return [dep]
+        if result.state is ExecutionState.BLOCKED and result.blocked_by:
+            return list(result.blocked_by)
     return []

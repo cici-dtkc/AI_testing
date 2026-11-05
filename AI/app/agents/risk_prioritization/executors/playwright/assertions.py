@@ -11,6 +11,20 @@ def verify_expected(expected_text: str, page) -> tuple[bool, str]:
                 return True, "Error message displayed"
             return False, "No error message found"
 
+        # QuanLyWebsite-TC-01: check for comic cards in search results
+        if re.search(r'truyện hiển thị.*tìm kiếm|hiển thị.*truyện.*tìm kiếm', expected, re.IGNORECASE):
+            comic_cards = page.locator(".product-item")
+            if comic_cards.count() > 0:
+                return True, f"Found {comic_cards.count()} comic card(s) in search results"
+            return False, "No comic cards found in search results"
+
+        # TimKiem-TC-04: check for empty search validation message
+        if re.search(r'thông báo.*nhập.*từ khóa', expected, re.IGNORECASE):
+            alert_locator = page.locator(".alert, .error, [role='alert'], :has-text('nhập từ khóa'), :has-text('keyword')")
+            if alert_locator.count() > 0:
+                return True, "Validation message for empty search displayed"
+            return False, "No validation message for empty keyword"
+
         if re.search(r'hiển thị|hiện', expected, re.IGNORECASE):
             if match := re.search(r'(hiển thị|hiện)\s+(.+)', expected, re.IGNORECASE):
                 text = match.group(2).strip()

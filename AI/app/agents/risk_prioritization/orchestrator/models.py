@@ -14,6 +14,7 @@ class ExecutionState(str, Enum):
     BLOCKED = "BLOCKED"
     FLAKY = "FLAKY"
     ERROR = "ERROR"
+    MANUAL = "MANUAL"
 
 
 class ExecutionResult(BaseModel):

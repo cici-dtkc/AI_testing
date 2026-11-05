@@ -1,17 +1,21 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
 from playwright.sync_api import sync_playwright
 
-from AI.app.storage.evidence_store import EvidenceStore
-from AI.app.storage.store import RunStore
-from ...orchestrator.models import ExecutionResult
+from .....storage.evidence_store import EvidenceStore
+from .....storage.store import RunStore
+from ...orchestrator.models import ExecutionResult, ExecutionState
 from .config import BROWSER_TYPE, HEADLESS, VIEWPORT, TIMEOUT_NAVIGATION
 from .step_parser import parse_step
 from .assertions import verify_expected
 from .module_url_map import resolve_start_url
 from .evidence import capture_screenshot, start_tracing, stop_tracing, capture_video
+
+
+def is_manual_test_case(test_case_id: str) -> bool:
+    return test_case_id.startswith("TaiKhoanPhanQuyen-TC-")
 
 
 def _store(run_dir, tc_id: str, attempt: int, artifact_type: str, path: str | None) -> str | None:
@@ -25,6 +29,20 @@ class PlaywrightExecutor:
 
     def execute_test_case(self, tc: dict, run_id: str, attempt: int) -> ExecutionResult:
         tc_id = tc.get("test_case_id", tc.get("id", "unknown"))
+
+        # Skip manual-only tests - they require DB/network inspection
+        if is_manual_test_case(tc_id):
+            return ExecutionResult(
+                test_case_id=tc_id,
+                state=ExecutionState.MANUAL,
+                attempt=attempt,
+                start_time=datetime.now(timezone.utc),
+                end_time=datetime.now(timezone.utc),
+                duration_ms=0,
+                evidence_uris=[],
+                error_message="Test requires manual DB/network inspection"
+            )
+
         run_dir = self.run_dir or RunStore().run_dir(run_id)
         start_time = datetime.now()
         evidence_uris = []
@@ -50,7 +68,7 @@ class PlaywrightExecutor:
                             test_steps = [s.strip() for s in test_steps.split("\n") if s.strip()]
 
                         start_url = resolve_start_url(tc)
-                        page.goto(start_url)
+                        page.goto(start_url, wait_until="domcontentloaded")
 
                         for step in test_steps:
                             parse_step(step, page)
