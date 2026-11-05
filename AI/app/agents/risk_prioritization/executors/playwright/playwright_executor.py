@@ -101,6 +101,35 @@ def _infer_role(tc: dict) -> str:
     return "none"
 
 
+def _click(locator, timeout: int) -> str:
+    try:
+        locator.click(timeout=timeout)
+        return "normal"
+    except Exception as first:
+        try:
+            locator.click(force=True, timeout=timeout)
+            return "force"
+        except Exception:
+            try:
+                locator.dispatch_event("click")
+                return "dispatch"
+            except Exception:
+                raise first
+
+
+def _cart_reload(page: Page, target: str) -> bool:
+    low = fold(target or "")[0]
+    if low == "cap nhat gio hang" or "cap nhat gio" in low:
+        try:
+            page.reload(wait_until="domcontentloaded", timeout=BROWSER["timeout_navigation"])
+            _settle(page)
+            logger.info("step target=%r strategy=reload", target)
+            return True
+        except Exception:
+            pass
+    return False
+
+
 def _settle(page: Page) -> None:
     wait = BROWSER["wait_after_nav"]
     try:
@@ -149,7 +178,8 @@ def _navigate(page: Page, action: ParsedAction, module: str, start_url: str) -> 
         return
     link = resolve_click_target(page, action.target, timeout=BROWSER["timeout_candidate"])
     if link is not None:
-        link.click(timeout=BROWSER["timeout_candidate"])
+        mode = _click(link, BROWSER["timeout_candidate"])
+        logger.info("navigate target=%r click=%s", action.target, mode)
         _settle(page)
         return
     page.goto(start_url, wait_until="domcontentloaded", timeout=BROWSER["timeout_navigation"])
@@ -173,7 +203,8 @@ def _open_form(page: Page, timeout: int) -> bool:
         button = resolve_click_target(page, name, timeout)
         if button is None:
             continue
-        button.click(timeout=BROWSER["timeout_candidate"])
+        mode = _click(button, BROWSER["timeout_candidate"])
+        logger.info("form target=%r click=%s", name, mode)
         _settle(page)
         return True
     return False
@@ -228,10 +259,17 @@ def _dispatch(page: Page, action: ParsedAction, module: str, start_url: str, tim
     if kind == "navigate":
         _navigate(page, action, module, start_url)
     elif kind == "click":
+        started = time.perf_counter()
         target = resolve_click_target(page, action.target, timeout)
         if target is None:
+            if _cart_reload(page, action.target):
+                return
             raise RuntimeError(f"click target not found: {action.target}")
-        target.click(timeout=BROWSER["timeout_candidate"])
+        mode = _click(target, BROWSER["timeout_candidate"])
+        logger.info(
+            "click target=%r mode=%s elapsed_ms=%s",
+            action.target, mode, int((time.perf_counter() - started) * 1000),
+        )
     elif kind == "fill":
         _fill(page, action, timeout)
     elif kind == "search":

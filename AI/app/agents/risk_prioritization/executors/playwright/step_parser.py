@@ -84,7 +84,7 @@ def _strip_compound(text: str) -> str:
     low, idx = fold(text)
     m = COMPOUND.search(low)
     if m:
-        return _slice(text, idx, 0, m.start()).strip()
+        return _slice(text, idx, m.end(), len(idx)).strip()
     return text
 
 
@@ -155,6 +155,9 @@ def parse_step(step: str) -> ParsedAction:
         if "tu khoa" in fold(target)[0]:
             hints["search"] = True
         return ParsedAction("fill", target, metadata=hints or None)
+
+    if m := re.match(r"(?:nhan|bam|click|chon)\s+(?:vao\s+)?(?:muc|trang)\s+(.+)", low):
+        return ParsedAction("navigate", _group(text, idx, m, 1))
 
     if m := re.match(r"(?:nhan|bam|click|chon)\s+(?:nut|vao muc|vao|o|link)?\s*(.+)", low):
         target = _quoted(text) or _group(text, idx, m, 1)

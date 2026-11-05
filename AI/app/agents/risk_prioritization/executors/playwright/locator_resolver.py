@@ -1,10 +1,15 @@
+import logging
 import re
+import time
 import unicodedata
 from typing import Optional
 
 from playwright.sync_api import Locator, Page
 
+from .assertions import observed_values
 from .config import BROWSER
+
+logger = logging.getLogger(__name__)
 
 BUTTON_SYNONYMS = {
     "lưu": ["Lưu", "Cập nhật", "Tạo mã", "Thêm mã", "Lưu lại", "Update", "Thêm", "Tạo", "Xác nhận", "Submit"],
@@ -15,7 +20,7 @@ BUTTON_SYNONYMS = {
     "thêm vào giỏ hàng": ["Thêm vào giỏ", "Add to cart", "Thêm"],
     "áp dụng": ["Áp dụng", "Apply", "Sử dụng"],
     "tìm kiếm": ["Tìm", "Search", "Tìm kiếm"],
-    "xóa": ["Xóa", "Delete", "Remove"],
+    "xóa": ["Xóa", "Delete", "Remove", "Có", "Yes"],
     "đăng nhập": ["Đăng nhập", "Login", "Sign in"],
     "đăng ký": ["Đăng ký", "Register", "Sign up"],
     "thanh toán": ["Thanh toán", "Checkout", "Đặt hàng"],
@@ -38,21 +43,146 @@ FIELD_TYPES = [
 ]
 
 
-def _fold(text: str) -> str:
+_CLICKABLE = "a[href], button, [role=button], [role=link], input[type=submit], input[type=button]"
+_TAG_JS = """([selector, target, exact]) => {
+  const f = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase().replace(/\\s+/g, ' ').trim();
+  const want = f(target);
+  document.querySelectorAll('[data-pw-fold]').forEach(e => e.removeAttribute('data-pw-fold'));
+  for (const el of document.querySelectorAll(selector)) {
+    if (!el.getClientRects().length) continue;
+    if (el.closest('[aria-hidden="true"]')) continue;
+    if (el.classList.contains('badge')) continue;
+    if (el.disabled) continue;
+    const st = getComputedStyle(el);
+    if (st.visibility === 'hidden' || st.display === 'none') continue;
+    const vals = [el.getAttribute('aria-label') || '', el.getAttribute('title') || '',
+                  el.value || '', el.innerText || el.textContent || ''].map(f);
+    if (vals.some(v => exact ? v === want : v.includes(want))) {
+      el.setAttribute('data-pw-fold', 'hit');
+      return true;
+    }
+  }
+  return false;
+}"""
+
+_ACTION_PATTERNS = {
+    "delete": r"trash|delete|xoa|remove",
+    "edit": r"edit|pen|pencil|sua",
+    "view": r"eye|view|xem",
+}
+
+
+def fold(text: str) -> str:
+    """Accent- and case-insensitive normalization.
+    NFD decompose → strip combining marks → đ→d → lowercase → collapse spaces"""
     base = "".join(
-        c for c in unicodedata.normalize("NFD", text)
+        c for c in unicodedata.normalize("NFD", text or "")
         if not unicodedata.combining(c)
     )
-    return base.replace("đ", "d").replace("Đ", "D").lower()
+    base = base.replace("đ", "d").replace("Đ", "D").lower()
+    return " ".join(base.split())
+
+
+_fold = fold
 
 
 def _names(target: str) -> list[str]:
     names = [target]
-    key = target.strip().lower()
+    key = fold(target.strip())
     for synonym_key, synonyms in BUTTON_SYNONYMS.items():
-        if key in synonym_key or synonym_key in key:
+        if key in fold(synonym_key) or fold(synonym_key) in key:
             names.extend(s for s in synonyms if s not in names)
     return names
+
+
+def _tag(scope, selector: str, target: str, exact: bool) -> bool:
+    try:
+        return bool(scope.evaluate(_TAG_JS, [selector, target, exact]))
+    except Exception:
+        return False
+
+
+def _folded(scope, target: str, exact: bool) -> Optional[Locator]:
+    if not _tag(scope, _CLICKABLE, target, exact):
+        return None
+    hit = scope.locator("[data-pw-fold='hit']").first
+    try:
+        return hit if hit.count() else None
+    except Exception:
+        return None
+
+
+def _bare(build) -> Optional[Locator]:
+    try:
+        locator = build().first
+    except Exception:
+        return None
+    if locator.count() == 0:
+        return None
+    try:
+        if locator.evaluate(
+            "el => el.classList.contains('badge') || !!el.closest('[aria-hidden=\"true\"]')",
+            timeout=BROWSER["timeout_probe"],
+        ):
+            return None
+    except Exception:
+        return None
+    return locator
+
+
+def _row_action(target: str) -> Optional[str]:
+    folded = fold(target)
+    if "xoa" in folded or "delete" in folded:
+        return "delete"
+    if "sua" in folded or "edit" in folded:
+        return "edit"
+    return None
+
+
+def resolve_row_button(scope, row_text: str = "", action: str = "delete") -> Optional[Locator]:
+    pattern = re.compile(_ACTION_PATTERNS.get(action, _ACTION_PATTERNS["delete"]), re.IGNORECASE)
+    rows = scope.locator("tr")
+    try:
+        total = min(rows.count(), 50)
+    except Exception:
+        return None
+    chosen = None
+    for i in range(total):
+        row = rows.nth(i)
+        try:
+            cls = row.get_attribute("class") or ""
+            if "pagination-row" in cls or row.locator("td").count() == 0:
+                continue
+            if row_text and fold(row_text) not in fold(row.inner_text(timeout=300)):
+                continue
+            chosen = row
+            break
+        except Exception:
+            continue
+    if chosen is None:
+        return None
+    buttons = chosen.locator("a, button")
+    try:
+        count = buttons.count()
+    except Exception:
+        return None
+    for i in range(count):
+        button = buttons.nth(i)
+        try:
+            blob = " ".join(filter(None, [
+                button.get_attribute("class") or "",
+                button.get_attribute("aria-label") or "",
+                button.get_attribute("title") or "",
+                button.inner_html(timeout=300) or "",
+            ]))
+        except Exception:
+            continue
+        if pattern.search(fold(blob)):
+            return button
+    if count == 0:
+        return None
+    return buttons.nth(count - 1 if action == "delete" else 0)
 
 
 def _first_visible(candidates, timeout: int) -> Optional[Locator]:
@@ -75,6 +205,24 @@ def _first_visible(candidates, timeout: int) -> Optional[Locator]:
     return None
 
 
+def _probe(build, strategy: str, target: str) -> Optional[Locator]:
+    started = time.perf_counter()
+    locator = None
+    try:
+        locator = build()
+        if locator is None:
+            raise RuntimeError("no candidate")
+        locator = locator.first
+        locator.wait_for(state="visible", timeout=BROWSER["timeout_probe"])
+    except Exception:
+        locator = None
+    logger.info(
+        "click target=%r strategy=%s probe_ms=%s",
+        target, strategy, int((time.perf_counter() - started) * 1000),
+    )
+    return locator
+
+
 def _click_candidates(scope, name: str):
     yield lambda: scope.get_by_role("button", name=re.compile(re.escape(name), re.IGNORECASE))
     yield lambda: scope.get_by_role("button", name=name)
@@ -87,11 +235,34 @@ def _click_candidates(scope, name: str):
     yield lambda: scope.locator(f"button:has-text('{name}')")
 
 
+def _strategies(scope, page, name: str):
+    yield "role-button", lambda: scope.get_by_role("button", name=re.compile(re.escape(name), re.IGNORECASE))
+    yield "role-link", lambda: scope.get_by_role("link", name=re.compile(re.escape(name), re.IGNORECASE))
+    yield "folded-exact", lambda: _folded(scope, name, True)
+    action = _row_action(name)
+    if action and scope is page:
+        values = observed_values()
+        yield "row-button", lambda: (
+            resolve_row_button(page, values[0], action) or resolve_row_button(page, "", action)
+            if values else resolve_row_button(page, "", action)
+        )
+    yield "folded-contains", lambda: _folded(scope, name, False)
+    yield "input-value", lambda: (
+        scope.locator("[data-pw-fold='hit']").first
+        if _tag(scope, "input[type=submit], input[type=button]", name, False)
+        else None
+    )
+    for build in _click_candidates(scope, name):
+        yield "bare-text", lambda b=build: _bare(b)
+
+
 def _visible_modal(page: Page) -> Optional[Locator]:
     try:
-        modal = page.locator("[role=dialog], .modal.show").first
-        if modal.is_visible():
-            return modal
+        modal = page.locator(".popup-overlay, .modal.show, .delete-modal.show, [role=dialog]")
+        for i in range(min(modal.count(), 10)):
+            candidate = modal.nth(i)
+            if candidate.is_visible():
+                return candidate
     except Exception:
         pass
     return None
@@ -101,14 +272,31 @@ def resolve_click_target(page: Page, target: str, timeout: int = 5000) -> Option
     if not (target or "").strip():
         return None
     modal = _visible_modal(page)
-    for name in _names(target):
-        if modal is not None:
-            locator = _first_visible(list(_click_candidates(modal, name)), timeout)
-            if locator:
-                return locator
-        locator = _first_visible(list(_click_candidates(page, name)), timeout)
-        if locator:
+    scopes = [modal, page] if modal is not None else [page]
+    first = None
+    for scope in scopes:
+        for name in _names(target):
+            for strategy, build in _strategies(scope, page, name):
+                if first is None:
+                    first = build
+                locator = _probe(build, strategy, target)
+                if locator is not None:
+                    return locator
+    if first is not None:
+        started = time.perf_counter()
+        try:
+            locator = first().first
+            locator.wait_for(state="visible", timeout=BROWSER["timeout_candidate"])
+            logger.info(
+                "click target=%r strategy=first-retry probe_ms=%s",
+                target, int((time.perf_counter() - started) * 1000),
+            )
             return locator
+        except Exception:
+            logger.info(
+                "click target=%r strategy=first-retry probe_ms=%s",
+                target, int((time.perf_counter() - started) * 1000),
+            )
     return None
 
 

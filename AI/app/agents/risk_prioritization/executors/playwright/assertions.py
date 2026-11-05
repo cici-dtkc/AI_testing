@@ -36,6 +36,10 @@ def remember_value(value: str) -> None:
         _observation["values"].append(value)
 
 
+def observed_values() -> list[str]:
+    return list(_observation["values"])
+
+
 def _selector(selector: str) -> str:
     return ", ".join(f"{part.strip()}:visible" for part in selector.split(","))
 
