@@ -6,6 +6,8 @@ AI/**/*.pyc
 AI/.env
 AI/.env.*
 !AI/.env.example
+AI/app/agents/risk_prioritization/.env
+AI/app/agents/risk_prioritization/outputs/.auth/
 AI/outputs
 
 # Supervisor pipeline run artifacts (per-run data, not source)
