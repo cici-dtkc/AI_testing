@@ -15,6 +15,8 @@ class RetryHandler:
             return ExecutionState.MANUAL
         if attempt == 1 and states[0] == ExecutionState.PASSED:
             return ExecutionState.PASSED
+        if attempt == 1 and states[0] == ExecutionState.FAILED:
+            return ExecutionState.FAILED
         if attempt == 2:
             if states[0] == ExecutionState.FAILED and states[1] == ExecutionState.PASSED:
                 return ExecutionState.FLAKY
