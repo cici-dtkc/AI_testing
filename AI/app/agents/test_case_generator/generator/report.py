@@ -77,8 +77,6 @@ def write_test_report(payload: dict, folder: Path):
         technique = str(tc.get("technique") or "N/A")
         variant = tc.get("technique_variant")
         technique_text = technique + (f" / {variant}" if variant else "")
-        coverage_items = render_list(tc.get("coverage_items", []))
-        coverage_html = "<ul>" + "".join(f"<li>{e(x)}</li>" for x in coverage_items) + "</ul>" if coverage_items else "—"
         priority = str(tc.get("priority") or "N/A")
         priority_lower = priority.lower()
         if "cao" in priority_lower or priority_lower in {"high", "critical", "p0", "p1"}:
@@ -109,7 +107,6 @@ def write_test_report(payload: dict, folder: Path):
             <td class="title">{e(tc.get('title'))}</td>
             <td><span class="type type-{type_class}">{e(tc_type)}</span></td>
             <td><span class="tech">{e(technique_text)}</span></td>
-            <td class="coverage">{coverage_html}</td>
             <td><span class="priority {priority_class}">{e(priority)}</span></td>
             <td><ul>{preconditions}</ul></td>
             <td>{given or '—'}</td>
@@ -159,16 +156,27 @@ def write_test_report(payload: dict, folder: Path):
                 warnings_html = "<ul>" + "".join(
                     f"<li class='warn-inline'>{e(w)}</li>" for w in module["warnings"]
                 ) + "</ul>"
+            estimate_text = e(primary.get('estimated_cases'))
+            target = module.get("target_cases")
+            if target is not None:
+                estimate_text += f"<div class='muted'>Mục tiêu Analyzer: ~{e(target)}</div>"
             plan_rows.append(
                 "<tr>"
                 f"<td><b>{e(module.get('module'))}</b><div class='muted'>{e(module.get('story'))}</div></td>"
                 f"<td>{e(technique_label(primary))}</td>"
                 f"<td>{supporting_html}</td>"
-                f"<td>{e(primary.get('estimated_cases'))}</td>"
+                f"<td>{estimate_text}</td>"
                 f"<td>{range_text}</td>"
                 "<td><details><summary>Nghĩa vụ bao phủ</summary><ul>"
                 f"{obligations_html}</ul></details>{warnings_html}</td>"
                 "</tr>"
+            )
+        plan_warnings_html = ""
+        if plan.get("warnings"):
+            plan_warnings_html = (
+                "<ul>" + "".join(
+                    f"<li class='warn-inline'>{e(w)}</li>" for w in plan["warnings"]
+                ) + "</ul>"
             )
         plan_html = (
             "<section class='plan'><h2>Kế hoạch kỹ thuật theo module</h2>"
@@ -177,7 +185,8 @@ def write_test_report(payload: dict, folder: Path):
             "<thead><tr><th>Module</th><th>Kỹ thuật chính</th><th>Bổ trợ</th>"
             "<th>Case ước tính</th><th>Ràng buộc biên</th><th>Căn cứ &amp; nghĩa vụ</th>"
             "</tr></thead>"
-            f"<tbody>{''.join(plan_rows)}</tbody></table></div></section>"
+            f"<tbody>{''.join(plan_rows)}</tbody></table></div>"
+            f"{plan_warnings_html}</section>"
         )
 
     white_box_html = ""
@@ -213,7 +222,7 @@ def write_test_report(payload: dict, folder: Path):
             <table id="testTable">
                 <thead><tr>
                     <th>Mã Test Case</th><th>Luồng</th><th>Tên Test Case</th>
-                    <th>Loại</th><th>Kỹ thuật</th><th>Coverage</th><th>Ưu tiên</th><th>Điều kiện tiên quyết</th>
+                    <th>Loại</th><th>Kỹ thuật</th><th>Ưu tiên</th><th>Điều kiện tiên quyết</th>
                     <th>Dữ liệu đầu vào</th><th>Các bước thực hiện</th>
                     <th>Kết quả mong đợi</th><th>Kịch bản</th><th>Rule IDs</th>
                 </tr></thead>

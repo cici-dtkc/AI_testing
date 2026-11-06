@@ -28,6 +28,20 @@ analysis.json ──► (1) Technique Planner ──► technique_plan ──►
 3. **Validation** (`generator/validation.py`) — kiểm tra truy vết, đúng kế hoạch kỹ thuật,
    single-fault assumption, trùng coverage item, độ phủ scenario/rule.
 
+## Input thu hẹp scope + mục tiêu số test case
+
+Input mặc định là output **đã đối chiếu scope** của Requirement Analyzer (có
+`scope_comparison`). Generator tự bỏ rule/scenario `OUT_OF_SCOPE` — chỉ giữ
+`IN_SCOPE` + rule phụ thuộc của scenario — nên số module và test case bám theo
+bảng 2.1 Test Plan thay vì sinh cho toàn bộ SRS.
+
+Mỗi module trong plan có `target_cases`: ước tính TC của Analyzer được phân bổ từ
+`coverage_matrix` (chia tỷ lệ theo rule/scenario chung). LLM được yêu cầu sinh đúng
+khoảng con số đó (±20%), vẫn phủ đủ mọi scenario/rule của module. Hàng matrix không
+có rule/scenario IN_SCOPE (GAP_NEEDS_DESIGN / PROCESS_CHECKLIST) không thể sinh
+case — được ghi cảnh báo trong plan. Muốn bỏ thu hẹp scope thì xoá `scope_comparison`
+khỏi file input.
+
 ## Khi nào áp dụng kỹ thuật nào
 
 Thang quyết định trong `select_techniques()` (dừng ở nhánh đầu tiên khớp):
@@ -104,6 +118,12 @@ lại API cho phần đã xong. Đổi model không làm mất cache.
   gemini-flash-latest`.
 - `Gemini 429 ... quota/rate limit`: hết quota tạm thời — chờ khoảng 1 phút, tăng
   `--delay`, hoặc đổi model.
+- `Gemini 403 ... free tier is not available for this project`: project của API key
+  không có free tier (ảnh hưởng mọi model, đổi model không giúp). Tạo API key mới ở
+  project khác trong AI Studio hoặc bật billing, rồi chạy lại.
+- `Gemini lỗi mạng ... ReadTimeout/ConnectTimeout`: mạng chập chờn — generator tự
+  thử lại vài lượt rồi ghi cảnh báo cho module đó và tiếp tục module khác, không
+  sập cả tiến trình. Chạy lại sẽ dùng cache cho các module đã xong.
 - Model cũ như `gemini-2.5-flash` có thể trả 404 với tài khoản mới; dùng các model
   `*-latest` ở trên.
 
@@ -111,7 +131,7 @@ Kết quả trong thư mục output:
 
 - `test_cases.json` — test suite + `technique_plan` + `validation_warnings`
 - `test_cases_report.html` — bảng test case theo mẫu bài tập 8: `Mã TC · Luồng ·
-  Dữ liệu đầu vào · Các bước · Kết quả mong đợi · Kịch bản` (kèm Kỹ thuật, Coverage,
+  Dữ liệu đầu vào · Các bước · Kết quả mong đợi · Kịch bản` (kèm Kỹ thuật,
   Ưu tiên). Tên module nằm ngay trong mã test case (`TimKiem-TC-01`), không lặp cột
   Module. Các bước viết 2–5 bước, mỗi bước ≤ 10 từ; kết quả mong đợi 1 câu ≤ 25 từ.
   Cuối báo cáo có 2 bảng kế hoạch (hộp đen theo module, hộp trắng theo hàm).

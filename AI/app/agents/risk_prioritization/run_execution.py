@@ -27,7 +27,9 @@ def main():
     report = run_orchestrator(
         prioritization_result=prioritization_result,
         config=config,
-        report_path="app/agents/risk_prioritization/outputs/execution_report.html"
+        report_path="app/agents/risk_prioritization/outputs/execution_report.html",
+        test_cases_source=str(prioritized_path),
+        analysis_source="app/agents/requirement_analyzer/outputs/comic/analysis.json"
     )
 
     print(f"\nExecution complete!")

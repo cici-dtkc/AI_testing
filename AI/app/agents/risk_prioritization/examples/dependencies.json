@@ -1,194 +1,66 @@
 {
- "M01": {
-  "depends_on": [
-   "M02",
-   "M04",
-   "M06"
-  ],
-  "external_apis": [
-   "JDBI"
-  ]
- },
- "M02": {
-  "depends_on": [
-   "M01",
-   "M03",
-   "M04",
-   "M05",
-   "M10"
-  ],
-  "external_apis": [
-   "Cloudinary",
-   "GHN",
-   "JDBI"
-  ]
- },
- "M03": {
-  "depends_on": [
-   "M04"
-  ],
-  "external_apis": [
-   "JDBI"
-  ]
- },
- "M04": {
-  "depends_on": [
-   "M02",
-   "M03"
-  ],
-  "external_apis": [
-   "JDBI"
-  ]
- },
- "M05": {
-  "depends_on": [
-   "M02"
-  ],
-  "external_apis": [
-   "JDBI"
-  ]
- },
- "M06": {
-  "depends_on": [
-   "M02",
-   "M03",
-   "M04",
-   "M07",
-   "M08",
-   "M09",
-   "M11"
-  ],
-  "external_apis": [
-   "GHN",
-   "JDBI",
-   "MoMo",
-   "VNPay"
-  ]
- },
- "M07": {
-  "depends_on": [
-   "M02"
-  ],
-  "external_apis": [
-   "JDBI",
-   "MoMo",
-   "VNPay"
-  ]
- },
- "M08": {
-  "depends_on": [
-   "M06"
-  ],
-  "external_apis": [
-   "Cloudinary",
-   "GHN"
-  ]
- },
- "M09": {
-  "depends_on": [
-   "M02",
-   "M12"
-  ],
-  "external_apis": [
-   "JDBI"
-  ]
- },
- "M10": {
-  "depends_on": [
-   "M02",
-   "M06",
-   "M07"
-  ],
-  "external_apis": [
-   "Cloudinary",
-   "JDBI",
-   "MoMo",
-   "VNPay"
-  ]
- },
- "M11": {
-  "depends_on": [
-   "M01",
-   "M02"
-  ],
-  "external_apis": [
-   "Cloudinary",
-   "JDBI"
-  ]
- },
- "M12": {
-  "depends_on": [
-   "M02",
-   "M03",
-   "M09"
-  ],
-  "external_apis": [
-   "FCM",
-   "JDBI"
-  ]
- },
- "M14": {
-  "depends_on": [
-   "M02",
-   "M03"
-  ],
-  "external_apis": [
-   "Cloudinary"
-  ]
- },
- "M15": {
-  "depends_on": [
-   "M02"
-  ],
-  "external_apis": [
-   "Cloudinary"
-  ]
- },
- "M16": {
-  "depends_on": [
-   "M02"
-  ],
-  "external_apis": []
- },
- "M17": {
-  "depends_on": [
-   "M02",
-   "M06",
-   "M12"
-  ],
-  "external_apis": []
- },
- "M18": {
-  "depends_on": [
-   "M02"
-  ],
-  "external_apis": [
-   "JDBI"
-  ]
- },
- "M19": {
-  "depends_on": [
-   "M02"
-  ],
-  "external_apis": [
-   "JDBI"
-  ]
- },
- "M20": {
-  "depends_on": [
-   "M02",
-   "M03",
-   "M09"
-  ],
-  "external_apis": []
- },
- "M21": {
-  "depends_on": [
-   "M01",
-   "M02"
-  ],
-  "external_apis": [
-   "JDBI"
-  ]
- }
+ "BaoCaoThongKe-TC-01": ["TimKiem-TC-01"],
+ "BaoCaoThongKe-TC-02": ["TimKiem-TC-01"],
+ "BaoCaoThongKe-TC-03": ["TimKiem-TC-01"],
+ "BaoCaoThongKe-TC-04": ["TimKiem-TC-01"],
+ "BaoCaoThongKe-TC-05": ["TimKiem-TC-01"],
+ "BaoCaoThongKe-TC-06": ["BaoCaoThongKe-TC-01"],
+ "DanhGiaDoiTra-TC-01": ["TimKiem-TC-01"],
+ "DanhGiaDoiTra-TC-02": ["DanhGiaDoiTra-TC-01"],
+ "FlashSale-TC-01": ["TimKiem-TC-01"],
+ "FlashSale-TC-02": ["FlashSale-TC-01"],
+ "FlashSale-TC-03": ["FlashSale-TC-01"],
+ "FlashSale-TC-04": ["TimKiem-TC-01"],
+ "FlashSale-TC-05": ["FlashSale-TC-04"],
+ "FlashSale-TC-06": ["FlashSale-TC-04"],
+ "GiamGia-TC-01": ["GiamGia-TC-03"],
+ "GiamGia-TC-02": ["GiamGia-TC-03"],
+ "GiamGia-TC-03": [],
+ "GiamGia-TC-04": ["GiamGia-TC-01"],
+ "GiamGia-TC-05": ["GiamGia-TC-03"],
+ "GiamGia-TC-06": ["GiamGia-TC-03"],
+ "GiamGia-TC-07": ["GiamGia-TC-03"],
+ "GiamGia-TC-08": ["GiamGia-TC-01"],
+ "GiamGia-TC-09": ["GiamGia-TC-03"],
+ "GiamGia-TC-10": ["GiamGia-TC-03"],
+ "GiamGia-TC-11": ["GiamGia-TC-03"],
+ "GiamGia-TC-12": ["GiamGia-TC-03"],
+ "GiamGia-TC-13": ["GiamGia-TC-03"],
+ "GiamGia-TC-14": ["GiamGia-TC-05"],
+ "GioHang-TC-01": ["QuanLyTonKho-TC-01"],
+ "GioHang-TC-02": ["GioHang-TC-01"],
+ "GoiYSanPham-TC-01": ["TimKiem-TC-01"],
+ "GoiYSanPham-TC-02": ["GoiYSanPham-TC-01"],
+ "GoiYSanPham-TC-03": ["GoiYSanPham-TC-01"],
+ "GoiYSanPham-TC-04": ["GoiYSanPham-TC-02", "GoiYSanPham-TC-03"],
+ "QuanLyTonKho-TC-01": [],
+ "QuanLyTonKho-TC-02": ["QuanLyTonKho-TC-01"],
+ "QuanLyTonKho-TC-03": ["QuanLyTonKho-TC-01"],
+ "QuanLyTonKho-TC-04": ["QuanLyTonKho-TC-01"],
+ "QuanLyTonKho-TC-05": ["QuanLyTonKho-TC-01"],
+ "QuanLyTonKho-TC-06": ["QuanLyTonKho-TC-01"],
+ "QuanLyTonKho-TC-07": ["QuanLyTonKho-TC-01"],
+ "QuanLyTonKho-TC-08": ["GioHang-TC-01"],
+ "QuanLyWebsite-TC-01": [],
+ "QuanLyWebsite-TC-02": ["QuanLyWebsite-TC-01"],
+ "TaiKhoanPhanQuyen-TC-01": [],
+ "TaiKhoanPhanQuyen-TC-02": [],
+ "TaiKhoanPhanQuyen-TC-03": [],
+ "TaiKhoanPhanQuyen-TC-04": [],
+ "TaiKhoanPhanQuyen-TC-05": [],
+ "TimKiem-TC-01": ["QuanLyWebsite-TC-01"],
+ "TimKiem-TC-02": ["QuanLyWebsite-TC-01"],
+ "TimKiem-TC-03": ["QuanLyWebsite-TC-01"],
+ "TimKiem-TC-04": [],
+ "TimKiem-TC-05": ["QuanLyWebsite-TC-01"],
+ "TimKiem-TC-06": ["QuanLyWebsite-TC-01"],
+ "TimKiem-TC-07": ["QuanLyWebsite-TC-02"],
+ "TimKiem-TC-08": ["QuanLyWebsite-TC-01"],
+ "Wishlist-TC-01": ["TimKiem-TC-01"],
+ "Wishlist-TC-02": ["TimKiem-TC-01"],
+ "Wishlist-TC-03": ["TimKiem-TC-01"],
+ "Wishlist-TC-04": ["TimKiem-TC-01"],
+ "Wishlist-TC-05": ["Wishlist-TC-01"],
+ "Wishlist-TC-06": ["Wishlist-TC-05"],
+ "Wishlist-TC-07": ["Wishlist-TC-01"]
 }
