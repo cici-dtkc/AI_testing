@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.0",
+  "project_id": "AI-testing-demo",
+  "run_id": "sample-run-2026-11-06",
+  "versions": {
+    "app_build_id": "demo-build-01",
+    "commit": null,
+    "test_suite_version": "sample-suite-1.0",
+    "requirement_version": "SRS-demo-1.0",
+    "test_plan_version": "TP-demo-1.0"
+  },
+  "requirement_context": {
+    "rule_ids": ["RULE-CHECKOUT-01"],
+    "scenario_ids": ["SC-CHECKOUT-01"],
+    "scope_decision": "IN_SCOPE",
+    "source_refs": ["SRS:checkout.payment"],
+    "open_issues": []
+  },
+  "retry_history": [],
+  "permissions": {
+    "allowed_tools": [],
+    "retry_budget": 0,
+    "target_environment": "local-demo",
+    "replay_policy": "read-only"
+  },
+  "tests": [
+    {
+      "attempt_id": "attempt-1",
+      "test_case_id": "Checkout-API-TC-04",
+      "test_case": {
+        "title": "Thanh toán thành công trả về trạng thái thành công",
+        "preconditions": ["Giỏ hàng có một sản phẩm hợp lệ"],
+        "steps": ["Gửi yêu cầu thanh toán"],
+        "test_data_refs": ["fixture:checkout-valid-01"],
+        "expected": {
+          "http_status": 200,
+          "business_status": "SUCCESS"
+        },
+        "expected_review_status": "APPROVED"
+      },
+      "risk_context": {
+        "risk_score": 78,
+        "risk_reason": "Checkout có lịch sử lỗi",
+        "priority": "P1",
+        "risk_model_version": "1.0"
+      },
+      "execution": {
+        "runner": "newman",
+        "runner_version": "6.x",
+        "status": "FAILED",
+        "failed_step": "POST /api/checkout",
+        "error_type": "assertion.mismatch",
+        "error_message": "Expected status 200 but received 500",
+        "started_at": "2026-11-06T03:00:00Z",
+        "ended_at": "2026-11-06T03:00:02Z"
+      },
+      "actual": {
+        "assertion_values": {
+          "passed": false,
+          "expected": 200,
+          "actual": 500
+        },
+        "filtered_response": {
+          "status": 500,
+          "body": {
+            "error": "Internal Server Error"
+          }
+        }
+      },
+      "environment": {
+        "base_url": "http://localhost:8080",
+        "browser": null,
+        "os": "Windows",
+        "locale": "vi-VN",
+        "timezone": "Asia/Ho_Chi_Minh",
+        "health_snapshot": "healthy-before-run",
+        "dependency_mode": "local"
+      },
+      "evidence_manifest": [
+        {
+          "evidence_id": "ev-newman-001",
+          "kind": "newman-json-report",
+          "artifact_ref": "sample://reports/newman-report.json",
+          "sha256": null,
+          "captured_at": "2026-11-06T03:00:02Z",
+          "run_id": "sample-run-2026-11-06",
+          "attempt_id": "attempt-1",
+          "build_id": "demo-build-01",
+          "redaction_status": "REDACTED"
+        }
+      ]
+    },
+    {
+      "attempt_id": "attempt-1",
+      "test_case_id": "Catalog-UI-TC-02",
+      "test_case": {
+        "title": "Mở trang danh mục sản phẩm",
+        "preconditions": ["Ứng dụng web đã được triển khai"],
+        "steps": ["Mở /catalog"],
+        "test_data_refs": [],
+        "expected": {
+          "page": "catalog",
+          "visible": true
+        },
+        "expected_review_status": "APPROVED"
+      },
+      "risk_context": {
+        "risk_score": 52,
+        "risk_reason": "Luồng UI chính",
+        "priority": "P2",
+        "risk_model_version": "1.0"
+      },
+      "execution": {
+        "runner": "playwright",
+        "runner_version": "1.x",
+        "status": "ERROR",
+        "failed_step": "Launch browser",
+        "error_type": "environment.browser_launch",
+        "error_message": "Browser launch failed: executable unavailable",
+        "started_at": "2026-11-06T03:01:00Z",
+        "ended_at": "2026-11-06T03:01:01Z"
+      },
+      "actual": {
+        "ui_state": {
+          "browser_launched": false
+        }
+      },
+      "environment": {
+        "base_url": "http://localhost:8080",
+        "browser": "chromium",
+        "os": "Windows",
+        "locale": "vi-VN",
+        "timezone": "Asia/Ho_Chi_Minh",
+        "health_snapshot": "healthy-before-run",
+        "dependency_mode": "local"
+      },
+      "evidence_manifest": [
+        {
+          "evidence_id": "ev-playwright-001",
+          "kind": "playwright-run-log",
+          "artifact_ref": "sample://reports/playwright-error.log",
+          "sha256": null,
+          "captured_at": "2026-11-06T03:01:01Z",
+          "run_id": "sample-run-2026-11-06",
+          "attempt_id": "attempt-1",
+          "build_id": "demo-build-01",
+          "redaction_status": "REDACTED"
+        }
+      ]
+    }
+  ]
+}

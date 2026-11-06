@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.0",
+  "project_id": "AI-testing-demo",
+  "run_id": "sample-run-2026-11-06",
+  "input_warnings": [],
+  "analysis_provider": "rules",
+  "analyses": [
+    {
+      "analysis_id": "fa-247963c3-3c7e-4649-b6b2-b804741dbc4f",
+      "schema_version": "1.0",
+      "project_id": "AI-testing-demo",
+      "run_id": "sample-run-2026-11-06",
+      "attempt_id": "attempt-1",
+      "test_case_id": "Checkout-API-TC-04",
+      "analysis_status": "COMPLETED",
+      "primary_category": "PRODUCT",
+      "subtype": "product.assertion_mismatch",
+      "summary": "Checkout-API-TC-04 reported FAILED; category PRODUCT. A failed assertion records both expected and actual values, and the expected result is reviewed.",
+      "observations": [
+        {
+          "observation_id": "obs-1",
+          "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+          "evidence_refs": [
+            "input:execution",
+            "input:actual.assertion_values",
+            "input:actual.filtered_response"
+          ]
+        },
+        {
+          "observation_id": "obs-2",
+          "fact": "Thông báo runner: Expected status 200 but received 500",
+          "evidence_refs": [
+            "input:execution"
+          ]
+        },
+        {
+          "observation_id": "obs-3",
+          "fact": "Giá trị assertion được ghi nhận: expected=200, actual=500.",
+          "evidence_refs": [
+            "input:actual.assertion_values"
+          ]
+        }
+      ],
+      "hypotheses": [
+        {
+          "hypothesis_id": "hyp-1",
+          "explanation": "A failed assertion records both expected and actual values, and the expected result is reviewed.",
+          "supporting_evidence_refs": [
+            "input:execution",
+            "input:actual.assertion_values",
+            "input:actual.filtered_response",
+            "ev-newman-001"
+          ],
+          "contradicting_evidence_refs": [],
+          "assessment": "SUPPORTED"
+        }
+      ],
+      "confidence_score": 0.75,
+      "confidence_basis": "A failed assertion includes expected and actual values, and the expected result is reviewed; the score is an uncalibrated rule-based estimate.",
+      "missing_evidence": [],
+      "contributing_factors": [],
+      "next_actions": [
+        {
+          "action": "Compare the recorded actual value with the approved requirement and draft a bug report.",
+          "owner_role": "DEVELOPER",
+          "requires_approval": true
+        }
+      ],
+      "routing": "BUG_REPORT_DRAFT",
+      "severity_suggestion": null,
+      "review_status": "REVIEW_REQUIRED",
+      "provenance": {
+        "model": "deterministic-rules-v1",
+        "prompt_version": null,
+        "policy_version": "failure-policy-v1",
+        "input_fingerprint": "sha256:ce2fc2873dc2ea3ec89f708fcf38f3ac47e2caef392e842d2eac35431449d933",
+        "created_at": "2026-11-06T05:37:07.446804+00:00"
+      },
+      "evidence_manifest": [
+        {
+          "evidence_id": "ev-newman-001",
+          "kind": "newman-json-report",
+          "artifact_ref": "sample://reports/newman-report.json",
+          "sha256": null,
+          "captured_at": "2026-11-06T03:00:02Z",
+          "run_id": "sample-run-2026-11-06",
+          "attempt_id": "attempt-1",
+          "build_id": "demo-build-01",
+          "redaction_status": "REDACTED"
+        }
+      ]
+    },
+    {
+      "analysis_id": "fa-b80a9c1e-eb86-497b-9870-51873bbfcc4b",
+      "schema_version": "1.0",
+      "project_id": "AI-testing-demo",
+      "run_id": "sample-run-2026-11-06",
+      "attempt_id": "attempt-1",
+      "test_case_id": "Catalog-UI-TC-02",
+      "analysis_status": "COMPLETED",
+      "primary_category": "ENVIRONMENT",
+      "subtype": "environment.browser_launch",
+      "summary": "Catalog-UI-TC-02 reported ERROR; category ENVIRONMENT. Execution metadata identifies an environment error.",
+      "observations": [
+        {
+          "observation_id": "obs-1",
+          "fact": "Trạng thái thực thi được ghi nhận là ERROR.",
+          "evidence_refs": [
+            "input:execution",
+            "input:actual.ui_state"
+          ]
+        },
+        {
+          "observation_id": "obs-2",
+          "fact": "Thông báo runner: Browser launch failed: executable unavailable",
+          "evidence_refs": [
+            "input:execution"
+          ]
+        }
+      ],
+      "hypotheses": [
+        {
+          "hypothesis_id": "hyp-1",
+          "explanation": "Execution metadata identifies an environment error.",
+          "supporting_evidence_refs": [
+            "input:execution",
+            "input:actual.ui_state",
+            "ev-playwright-001"
+          ],
+          "contradicting_evidence_refs": [],
+          "assessment": "PLAUSIBLE"
+        }
+      ],
+      "confidence_score": 0.65,
+      "confidence_basis": "An explicit error type or recognizable execution error supports the category; the score is an uncalibrated rule-based estimate.",
+      "missing_evidence": [],
+      "contributing_factors": [],
+      "next_actions": [
+        {
+          "action": "Check target health and dependencies for this run and attempt.",
+          "owner_role": "DEVOPS",
+          "requires_approval": true
+        }
+      ],
+      "routing": "ENV_CHECK",
+      "severity_suggestion": null,
+      "review_status": "REVIEW_REQUIRED",
+      "provenance": {
+        "model": "deterministic-rules-v1",
+        "prompt_version": null,
+        "policy_version": "failure-policy-v1",
+        "input_fingerprint": "sha256:ce2fc2873dc2ea3ec89f708fcf38f3ac47e2caef392e842d2eac35431449d933",
+        "created_at": "2026-11-06T05:37:07.446804+00:00"
+      },
+      "evidence_manifest": [
+        {
+          "evidence_id": "ev-playwright-001",
+          "kind": "playwright-run-log",
+          "artifact_ref": "sample://reports/playwright-error.log",
+          "sha256": null,
+          "captured_at": "2026-11-06T03:01:01Z",
+          "run_id": "sample-run-2026-11-06",
+          "attempt_id": "attempt-1",
+          "build_id": "demo-build-01",
+          "redaction_status": "REDACTED"
+        }
+      ]
+    }
+  ]
+}
