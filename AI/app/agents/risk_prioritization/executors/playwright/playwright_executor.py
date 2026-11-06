@@ -315,15 +315,20 @@ def _steps(tc: dict) -> list[str]:
     return list(steps or [])
 
 
-def _failure(page: Page, tc_id: str, attempt: int, run_dir, evidence_base: Path,
-             evidence_uris: list, reason: Exception) -> tuple[str, str]:
+def _capture_failure(page: Page, tc_id: str, attempt: int, run_dir, evidence_base: Path,
+                     evidence_uris: list) -> dict:
     diagnostics = capture_failure_diagnostics(page, tc_id, evidence_base / "diagnostics")
     saved = _store(run_dir, tc_id, attempt, "screenshot", diagnostics.get("screenshot"))
     if saved:
         evidence_uris.append(saved)
         diagnostics["screenshot"] = saved
-    payload = {"reason": str(reason), **diagnostics}
-    return "FAILED", json.dumps(payload, ensure_ascii=False, default=str)
+    return diagnostics
+
+
+def _classify_exception(exc: Exception) -> bool:
+    if isinstance(exc, (AssertionError, RuntimeError)):
+        return False
+    return True
 
 
 class PlaywrightExecutor:
@@ -397,14 +402,17 @@ class PlaywrightExecutor:
                             )
                             logger.info("tc %s verify_ms=%s", tc_id, int((time.perf_counter() - phase) * 1000))
                             if not passed:
-                                state, error_message = _failure(
-                                    page, tc_id, attempt, run_dir, evidence_base, evidence_uris,
-                                    AssertionError(reason),
+                                diagnostics = _capture_failure(
+                                    page, tc_id, attempt, run_dir, evidence_base, evidence_uris
                                 )
+                                state = "FAILED"
+                                error_message = json.dumps({"reason": reason, **diagnostics}, ensure_ascii=False, default=str)
                         except Exception as exc:
-                            state, error_message = _failure(
-                                page, tc_id, attempt, run_dir, evidence_base, evidence_uris, exc
+                            diagnostics = _capture_failure(
+                                page, tc_id, attempt, run_dir, evidence_base, evidence_uris
                             )
+                            state = "ERROR" if _classify_exception(exc) else "FAILED"
+                            error_message = json.dumps({"reason": str(exc), **diagnostics}, ensure_ascii=False, default=str)
                         finally:
                             stop_tracing(context, str(trace_path))
                             evidence_uris.append(_store(run_dir, tc_id, attempt, "trace", str(trace_path)))
@@ -425,7 +433,7 @@ class PlaywrightExecutor:
 
         return ExecutionResult(
             test_case_id=tc_id,
-            state=state,
+            state=ExecutionState.PASSED if state == "PASSED" else (ExecutionState.FAILED if state == "FAILED" else ExecutionState.ERROR),
             attempt=attempt,
             start_time=start_time,
             end_time=end_time,

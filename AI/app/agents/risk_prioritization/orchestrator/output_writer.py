@@ -10,14 +10,14 @@ from ..executors.playwright.config import BASE_URL, BROWSER_TYPE
 from ....storage.store import RunStore
 
 
-def is_manual_test_case(test_case_id: str) -> bool:
-    return test_case_id.startswith("TaiKhoanPhanQuyen-TC-")
-
 OUTPUT_DIR = Path(__file__).resolve().parents[1] / "outputs"
 
 _STATUS_MAP = {
     ExecutionState.PASSED: "PASS",
     ExecutionState.FAILED: "FAIL",
+    ExecutionState.BLOCKED: "BLOCKED",
+    ExecutionState.ERROR: "ERROR",
+    ExecutionState.FLAKY: "FLAKY",
     ExecutionState.MANUAL: "MANUAL",
 }
 
@@ -129,15 +129,9 @@ def write_execution_output(run_id: str, results: list[ExecutionResult],
     run_dir = RunStore().run_dir(run_id)
     statuses = [_status(r.state) for r in results]
 
-    counts = {k: statuses.count(k) for k in ("PASS", "FAIL", "BLOCKED", "ERROR", "FLAKY")}
+    counts = {k: statuses.count(k) for k in ("PASS", "FAIL", "BLOCKED", "ERROR", "FLAKY", "MANUAL")}
     started_at = min((r.start_time.replace(tzinfo=None) for r in results), default=datetime.now())
     completed_at = max((r.end_time.replace(tzinfo=None) for r in results), default=started_at)
-
-    # Mark manual-only tests with different styling to indicate they need manual verification
-    manual_items = []
-    for r in results:
-        if r.module == "TaiKhoanPhanQuyen":
-            manual_items.append(r.test_case_id)
 
     try:
         playwright_version = version("playwright")
@@ -158,7 +152,7 @@ def write_execution_output(run_id: str, results: list[ExecutionResult],
             "blocked": counts["BLOCKED"],
             "error": counts["ERROR"],
             "flaky": counts["FLAKY"],
-            "manual": len(manual_items) if manual_items else 0
+            "manual": counts["MANUAL"]
         },
         "execution_results": [_to_output_format(r, run_dir) for r in results],
         "environment": {
@@ -172,7 +166,6 @@ def write_execution_output(run_id: str, results: list[ExecutionResult],
             "test_cases_source": test_cases_source,
             "analysis_source": analysis_source,
         },
-        "manual_tests": manual_items if manual_items else []
     }
 
     output_path = OUTPUT_DIR / f"execution_results_{run_id}.json"
