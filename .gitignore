@@ -6,6 +6,8 @@ AI/**/*.pyc
 AI/.env
 AI/.env.*
 !AI/.env.example
+AI/app/agents/risk_prioritization/.env
+AI/app/agents/risk_prioritization/outputs/.auth/
 AI/outputs
 
 # Supervisor pipeline run artifacts (per-run data, not source)
@@ -32,6 +34,7 @@ testing/target/
 
 CLAUDE.md
 .claude
+graphify-out
 
 # Test case generator per-module cache
 AI/app/agents/test_case_generator/outputs/**/.module_cache/

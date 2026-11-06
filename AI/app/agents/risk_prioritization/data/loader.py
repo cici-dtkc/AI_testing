@@ -1,4 +1,8 @@
-"""Read inputs. test_cases.json is preferred; the HTML report is a fallback."""
+"""Read inputs. test_cases.json is preferred.
+
+HTML fallback only works for reports that embed `<pre>` JSON blocks; the current
+test_case_generator report embeds none, so pass the JSON file.
+"""
 from __future__ import annotations
 
 import html

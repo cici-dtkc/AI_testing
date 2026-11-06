@@ -1,93 +1,187 @@
 import re
-from .config import SELECTOR_MAP, TIMEOUT_DEFAULT, BASE_URL
+import unicodedata
+from dataclasses import dataclass
+from typing import Dict, Optional, Tuple
 
-def parse_step(step_text: str, page):
-    step = step_text.strip().lower()
 
-    # Navigation: "Mở /path" or "Truy cập URL"
-    if match := re.search(r'(mở|truy cập)\s+(.+)', step, re.IGNORECASE):
-        url = match.group(2).strip()
-        if not url.startswith("http"):
-            url = f"{BASE_URL}{url if url.startswith('/') else '/' + url}"
-        page.goto(url)
-        return
+@dataclass
+class ParsedAction:
+    action: str
+    target: str
+    value: Optional[str] = None
+    metadata: Optional[Dict] = None
 
-    # Input: "Nhập field = value"
-    if match := re.search(r'nhập\s+(.+?)\s*[=:]\s*(.+)', step, re.IGNORECASE):
-        field, value = match.groups()
-        selector = _get_selector(field.strip())
-        page.fill(selector, value.strip(), timeout=TIMEOUT_DEFAULT)
-        return
 
-    # Click: "Nhấn button"
-    if match := re.search(r'nhấn\s+(.+)', step, re.IGNORECASE):
-        button = match.group(1).strip()
-        selector = _get_selector(button)
-        page.click(selector, timeout=TIMEOUT_DEFAULT)
-        return
+FIELDS = [
+    "số lượng", "từ khóa", "mã voucher", "mã giảm giá", "tên tác giả",
+    "khoảng thời gian", "email", "mật khẩu", "tên đăng nhập",
+    "số điện thoại", "địa chỉ", "voucher",
+]
 
-    # Select: "Chọn option"
-    if match := re.search(r'chọn\s+(.+)', step, re.IGNORECASE):
-        option = match.group(1).strip()
-        # Try to click element containing the text
-        try:
-            page.click(f"text={option}", timeout=TIMEOUT_DEFAULT)
-        except:
-            # Fallback to select dropdown
-            page.select_option("select", option, timeout=TIMEOUT_DEFAULT)
-        return
+INVALID_HINTS = ["khong hop le", "thieu", "sai dinh dang", "sai", "het han",
+                 "khong ton tai", "het so luot", "da dung", "khong dung"]
+VALID_HINTS = ["hop le"]
 
-    # Wait: "Chờ N giây"
-    if match := re.search(r'chờ\s+(\d+)\s*giây', step, re.IGNORECASE):
-        seconds = int(match.group(1))
-        page.wait_for_timeout(seconds * 1000)
-        return
+VERB_ALT = r"(?:nhan|bam|click|chon|xac nhan)"
+COMPOUND = re.compile(r"\s+(?:va|sau do|roi)\s+(?=" + VERB_ALT + r"\s)")
 
-    # Abstract actions - attempt common patterns
-    # "Thực hiện [action]" → try to infer action
-    if re.search(r'thực hiện|kiểm tra|xác nhận|quan sát', step, re.IGNORECASE):
-        # Try common actions based on keywords
-        if 'gọi' in step or 'danh sách' in step or 'hiển thị' in step:
-            # Likely checking page content - wait for network idle
-            page.wait_for_load_state("networkidle", timeout=TIMEOUT_DEFAULT)
-            return
 
-        if 'đăng nhập' in step:
-            # Try to find login button
-            try:
-                page.click("button:has-text('Đăng nhập')", timeout=TIMEOUT_DEFAULT)
-                return
-            except:
-                pass
+def fold(text: str) -> Tuple[str, list]:
+    out = []
+    idx = []
+    for i, ch in enumerate(text):
+        base = "".join(
+            c for c in unicodedata.normalize("NFD", ch)
+            if not unicodedata.combining(c)
+        )
+        base = base.replace("đ", "d").replace("Đ", "D").lower()
+        out.append(base)
+        idx.extend([i] * len(base))
+    return "".join(out), idx
 
-        if 'tìm kiếm' in step:
-            # Try to find search button
-            try:
-                page.click("button:has-text('Tìm')", timeout=TIMEOUT_DEFAULT)
-                return
-            except:
-                page.press("input[type='search']", "Enter", timeout=TIMEOUT_DEFAULT)
-                return
 
-        # Default: just wait for page to be ready
-        page.wait_for_load_state("domcontentloaded", timeout=TIMEOUT_DEFAULT)
-        return
+def _slice(text: str, idx: list, start: int, end: int) -> str:
+    if start >= end or start >= len(idx):
+        return ""
+    return text[idx[start]:idx[end - 1] + 1]
 
-    # Upload file: "Tải lên file"
-    if 'tải lên' in step or 'upload' in step:
-        # Create a dummy file for testing
-        page.set_input_files("input[type='file']", [], timeout=TIMEOUT_DEFAULT)
-        return
 
-    # Generic fallback for unrecognized steps - wait for page ready
-    try:
-        page.wait_for_load_state("domcontentloaded", timeout=5000)
-    except:
-        pass
-    return  # Don't raise error, allow test to continue
+def _group(text: str, idx: list, match: re.Match, n: int) -> str:
+    return _slice(text, idx, match.start(n), match.end(n)).strip(" .,:;'\"")
 
-def _get_selector(field_name: str) -> str:
-    field_lower = field_name.lower().strip()
-    if field_lower in SELECTOR_MAP:
-        return SELECTOR_MAP[field_lower]
-    return f"[data-testid='{field_lower}'], #{field_lower}, [name='{field_lower}'], :has-text('{field_name}')"
+
+def _hints(low: str, text: str, idx: list) -> Optional[Dict]:
+    md: Dict = {}
+    if any(h in low for h in INVALID_HINTS):
+        md["valid"] = False
+    elif any(h in low for h in VALID_HINTS):
+        md["valid"] = True
+    if re.search(r"\bam\b", low):
+        md["valid"] = False
+        md["quantity"] = -1
+    elif "so luong" in low or " sl " in low or re.search(r"\bthanh\s+-?\d+", low):
+        m = re.search(r"-?\d+", low)
+        if m:
+            md["quantity"] = int(_slice(text, idx, m.start(), m.end()))
+    return md or None
+
+
+def _field_target(text: str, idx: list, low: str) -> Optional[str]:
+    for field in FIELDS:
+        f, _ = fold(field)
+        pos = low.find(f)
+        if pos >= 0:
+            return _slice(text, idx, pos, pos + len(f))
+    return None
+
+
+def _quoted(text: str) -> Optional[str]:
+    m = re.search(r"['\"“”‘’]([^'\"“”‘’]+)['\"“”‘’]", text)
+    return m.group(1).strip() if m else None
+
+
+def _strip_compound(text: str) -> str:
+    low, idx = fold(text)
+    m = COMPOUND.search(low)
+    if m:
+        return _slice(text, idx, m.end(), len(idx)).strip()
+    return text
+
+
+def parse_step(step: str) -> ParsedAction:
+    text = (step or "").strip().strip(".").strip()
+    if not text:
+        return ParsedAction("observe", "")
+
+    text = _strip_compound(text)
+    low, idx = fold(text)
+
+    if m := re.match(r"de trong\s+(.+)", low):
+        return ParsedAction("blank", _group(text, idx, m, 1))
+
+    if re.match(r"(?:lam moi|tai lai)(?:\s+(?:lai\s+)?(?:trang|khu vuc)?\s*(.*))?$", low):
+        return ParsedAction("navigate", text, metadata={"reload": True})
+
+    if m := re.match(r"(?:mo|truy cap|tai)\s+(?:(?:lai|vao)\s+)?(.+)", low):
+        return ParsedAction("navigate", _group(text, idx, m, 1))
+
+    if m := re.match(r"cho\s+(\d+)\s+giay", low):
+        return ParsedAction("observe", "wait", metadata={"seconds": int(m.group(1))})
+
+    if re.match(r"(?:xac nhan|nhan)\s+tim kiem\b", low):
+        return ParsedAction("search", "search")
+
+    if m := re.match(r"tim kiem\s*(.*)", low):
+        query = _group(text, idx, m, 1) if m.group(1) else None
+        return ParsedAction("search", "search", metadata={"query": query} if query else None)
+
+    if re.match(r"(?:nhap|thay doi|dien|dat)\s+thong tin\b", low):
+        hints = _hints(low, text, idx) or {}
+        hints["form_open"] = True
+        return ParsedAction("fill", "form", metadata=hints)
+
+    if m := re.match(r"(?:nhap|thay doi|dien|dat)\s+(?:so luong|sl)\b\s*(.*)", low):
+        hints = _hints(low, text, idx) or {}
+        value = None
+        if "quantity" in hints and "so luong" in low:
+            value = str(hints["quantity"])
+        elif m.group(1):
+            num = re.match(r"-?\d+", m.group(1))
+            value = num.group(0) if num else None
+        return ParsedAction("fill", "số lượng", value=value, metadata=hints or None)
+
+    if m := re.match(r"(?:nhap|thay doi|dien|dat)\s+(.+?)\s+(?:vao|va|o|trong)\s+(.+)", low):
+        field = _group(text, idx, m, 1)
+        target = _group(text, idx, m, 2)
+        hints = _hints(low, text, idx) or {}
+        field_folded, _ = fold(field)
+        is_literal = not any(
+            k in field_folded for k in ("tu khoa", "ma ", "ten ", "thong tin", "khoang", "so luong")
+        )
+        if is_literal:
+            return ParsedAction("fill", target, value=field, metadata=hints or None)
+        hints["field"] = field
+        if "tu khoa" in field_folded:
+            hints["search"] = True
+        return ParsedAction("fill", target, value=None, metadata=hints)
+
+    if m := re.match(r"(?:nhap|thay doi|dien|dat)\s+(.+?)\s*(?:thanh\s+|la\s+|=|:)\s*(.+)", low):
+        return ParsedAction("fill", _group(text, idx, m, 1), value=_group(text, idx, m, 2))
+
+    if m := re.match(r"(?:nhap|thay doi|dien|dat)\s+(.+)", low):
+        body = _group(text, idx, m, 1)
+        target = _field_target(text, idx, low) or body
+        hints = _hints(low, text, idx) or {}
+        if "tu khoa" in fold(target)[0]:
+            hints["search"] = True
+        return ParsedAction("fill", target, metadata=hints or None)
+
+    if m := re.match(r"(?:nhan|bam|click|chon)\s+(?:vao\s+)?(?:muc|trang)\s+(.+)", low):
+        return ParsedAction("navigate", _group(text, idx, m, 1))
+
+    if m := re.match(r"(?:nhan|bam|click|chon)\s+(?:nut|vao muc|vao|o|link)?\s*(.+)", low):
+        target = _quoted(text) or _group(text, idx, m, 1)
+        target_folded = fold(target)[0]
+        if "tim kiem" in target_folded:
+            return ParsedAction("search", "search")
+        hints = {"add_to_cart": True} if "them vao gio" in target_folded else None
+        return ParsedAction("click", target, metadata=hints)
+
+    if m := re.match(r"xac nhan\s*(.*)", low):
+        target = _group(text, idx, m, 1) if m.group(1) else "Xác nhận"
+        if "tim kiem" in fold(target)[0]:
+            return ParsedAction("search", "search")
+        return ParsedAction("click", target)
+
+    if re.match(r"thuc hien\s+(?:mua hang|thanh toan)", low):
+        return ParsedAction("click", "Thanh toán")
+
+    if m := re.match(
+        r"(?:quan sat|kiem tra|xac thuc|xac minh|thuc hien|gui|bat|he thong|trich xuat|"
+        r"truy van|chinh sua|cap nhat|doi|cho|duyet)\s*(.*)",
+        low,
+    ):
+        target = _group(text, idx, m, 1) if m.group(1) else text
+        return ParsedAction("observe", target)
+
+    return ParsedAction("observe", text, metadata={"fallback": True})
