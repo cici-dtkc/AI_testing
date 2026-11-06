@@ -61,7 +61,6 @@ PRODUCT_SELECTORS = (
 def is_manual_test_case(test_case_id: str) -> bool:
     return test_case_id.startswith("TaiKhoanPhanQuyen-TC-")
 
-
 def _store(run_dir, tc_id: str, attempt: int, artifact_type: str, path: str | None) -> str | None:
     if not path or not Path(path).is_file():
         return None

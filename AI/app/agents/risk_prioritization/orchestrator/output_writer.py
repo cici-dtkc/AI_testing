@@ -1,3 +1,4 @@
+import copy
 import hashlib
 import json
 from datetime import datetime, timezone
@@ -17,6 +18,7 @@ OUTPUT_DIR = Path(__file__).resolve().parents[1] / "outputs"
 _STATUS_MAP = {
     ExecutionState.PASSED: "PASS",
     ExecutionState.FAILED: "FAIL",
+    ExecutionState.MANUAL: "MANUAL",
 }
 
 
@@ -73,6 +75,7 @@ def _to_output_format(result: ExecutionResult, run_dir: Path) -> dict:
         "duration_ms": result.duration_ms,
         "executor_type": result.executor_type,
         "failure_point": result.failure_point,
+        "failure_category": result.failure_category,
         "observed_facts": _observed_facts(result, evidence),
         "expected_result": result.expected_result,
         "actual_result": result.actual_result,
@@ -81,6 +84,44 @@ def _to_output_format(result: ExecutionResult, run_dir: Path) -> dict:
         "blocked_by": result.blocked_by or [],
         "priority": result.priority,
     }
+
+
+_ACTIONABLE_STATUSES = ("FAIL", "ERROR", "MANUAL", "FLAKY")
+
+_ACTIONABLE_KEYS = (
+    "test_case_id", "module", "attempt_id", "status", "start_time", "end_time",
+    "duration_ms", "executor_type", "failure_point", "failure_category",
+    "observed_facts", "expected_result", "actual_result", "error_details",
+    "evidence", "blocked_by", "priority",
+)
+
+
+def _trim_statement(statement):
+    if not isinstance(statement, str):
+        return statement
+    try:
+        parsed = json.loads(statement)
+    except ValueError:
+        return statement
+    if isinstance(parsed, dict) and isinstance(parsed.get("visible_elements"), list):
+        parsed["visible_elements"] = f"{len(parsed['visible_elements'])} elements (trimmed)"
+        return json.dumps(parsed, ensure_ascii=False, default=str)
+    return statement
+
+
+def _trim_error_details(error_details):
+    if isinstance(error_details, dict) and isinstance(error_details.get("visible_elements"), list):
+        error_details["visible_elements"] = f"{len(error_details['visible_elements'])} elements (trimmed)"
+    return error_details
+
+
+def _actionable_result(result: dict) -> dict:
+    item = copy.deepcopy(result)
+    for fact in item.get("observed_facts") or []:
+        if isinstance(fact, dict) and "statement" in fact:
+            fact["statement"] = _trim_statement(fact["statement"])
+    item["error_details"] = _trim_error_details(item.get("error_details"))
+    return {key: item.get(key) for key in _ACTIONABLE_KEYS}
 
 
 def write_execution_output(run_id: str, results: list[ExecutionResult],
@@ -137,4 +178,31 @@ def write_execution_output(run_id: str, results: list[ExecutionResult],
     output_path = OUTPUT_DIR / f"execution_results_{run_id}.json"
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    actionable = [_actionable_result(r) for r in output["execution_results"]
+                  if r["status"] in _ACTIONABLE_STATUSES]
+    actionable_counts = {k: statuses.count(k) for k in _ACTIONABLE_STATUSES}
+    actionable_output = {}
+    for key, value in output.items():
+        if key == "summary":
+            actionable_output["summary"] = {
+                "total_test_cases": len(actionable),
+                "passed": 0,
+                "failed": actionable_counts["FAIL"],
+                "blocked": 0,
+                "error": actionable_counts["ERROR"],
+                "flaky": actionable_counts["FLAKY"],
+                "manual": actionable_counts["MANUAL"],
+            }
+            actionable_output["excluded"] = {"passed": counts["PASS"], "blocked": counts["BLOCKED"]}
+        elif key == "execution_results":
+            actionable_output["execution_results"] = actionable
+        else:
+            actionable_output[key] = value
+
+    actionable_path = OUTPUT_DIR / f"execution_results_{run_id}_actionable.json"
+    actionable_path.parent.mkdir(parents=True, exist_ok=True)
+    actionable_path.write_text(json.dumps(actionable_output, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"Execution output written to {output_path}")
+    print(f"Actionable execution output written to {actionable_path}")
     return output_path

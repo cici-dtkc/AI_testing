@@ -979,12 +979,14 @@
           "X1"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập và ở trang Checkout"
+          "Đơn hàng đang ở trang Checkout với sản phẩm đã chọn"
         ],
         "given": "Mã voucher thuộc lớp không hợp lệ (hết hạn)",
         "steps": [
-          "Nhập mã voucher đã hết hạn",
-          "Nhấn áp dụng"
+          "Nhấn nút \"Chọn voucher\" để mở danh sách voucher",
+          "Chọn hoặc nhập mã voucher trong modal/dialog",
+          "Áp dụng voucher",
+          "Kiểm tra giảm giá đã được áp dụng"
         ],
         "expected_result": "Hệ thống hiển thị thông báo lỗi voucher hết hạn và ẩn khỏi ví.",
         "trace_scenario_ids": [],
@@ -1820,14 +1822,14 @@
           "F1"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập",
-          "Đơn hàng đang ở trang Checkout"
+          "Đơn hàng đang ở trang Checkout với sản phẩm đã chọn"
         ],
         "given": "Mã voucher hợp lệ, chưa hết hạn, đạt đơn tối thiểu.",
         "steps": [
-          "Nhập mã voucher hợp lệ vào ô mã giảm giá",
-          "Nhấn nút áp dụng voucher",
-          "Kiểm tra tổng tiền đơn hàng"
+          "Nhấn nút \"Chọn voucher\" để mở danh sách voucher",
+          "Chọn hoặc nhập mã voucher trong modal/dialog",
+          "Áp dụng voucher",
+          "Kiểm tra giảm giá đã được áp dụng"
         ],
         "expected_result": "Hệ thống áp dụng giảm giá và cập nhật tổng tiền thành công.",
         "trace_scenario_ids": [
@@ -1962,12 +1964,15 @@
         "preconditions": [
           "Gio hang co it nhất mot san pham"
         ],
-        "given": "So luong = 2, don gia = 50000",
+        "given": "Comic id=94, đơn giá = 50000, số lượng ban đầu = 1",
         "steps": [
-          "Thay doi so luong thanh 2",
-          "Nhan cap nhat gio hang"
+          "Mở /comic-detail?id=94",
+          "Thêm 1 sản phẩm vào giỏ hàng",
+          "Chuyển đến /cart",
+          "Tăng số lượng lên 2",
+          "Kiểm tra dòng \"Thành tiền\" hiển thị 100.000 (50.000 × 2)"
         ],
-        "expected_result": "Thanh tien hien thi dung 100000",
+        "expected_result": "Thành tiền hiển thị đúng 100.000 đ (50.000 × 2)",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C005-RULE-M04-003"

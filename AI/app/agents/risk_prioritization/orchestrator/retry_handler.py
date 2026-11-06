@@ -6,9 +6,13 @@ class RetryHandler:
         self.max_retries = max_retries
 
     def should_retry(self, tc_id: str, attempt: int, state: ExecutionState) -> bool:
+        if state in (ExecutionState.MANUAL, ExecutionState.PASSED):
+            return False
         return attempt < self.max_retries and state == ExecutionState.FAILED
 
     def determine_final_state(self, attempt: int, states: list[ExecutionState]) -> ExecutionState:
+        if states[0] == ExecutionState.MANUAL:
+            return ExecutionState.MANUAL
         if attempt == 1 and states[0] == ExecutionState.PASSED:
             return ExecutionState.PASSED
         if attempt == 2:

@@ -35,6 +35,7 @@ class ExecutionResult(BaseModel):
     observed_facts: list[dict] = Field(default_factory=list)
     expected_result: str = ""
     actual_result: str = ""
+    failure_category: str | None = None
 
 
 class ExecutionPlan(BaseModel):

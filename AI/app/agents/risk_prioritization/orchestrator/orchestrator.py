@@ -57,7 +57,7 @@ def run_orchestrator(prioritization_result: dict, executor_factory=None, config:
                 result = future.result()
                 results[tc_id] = result
 
-                if result.state in (ExecutionState.FAILED, ExecutionState.ERROR):
+                if result.state in (ExecutionState.ERROR, ExecutionState.BLOCKED):
                     deps = _find_all_dependents(tc_id, tc_map)
                     blocked_tcs.update(deps)
 
@@ -142,7 +142,7 @@ def _find_blocking_tc(tc_id, tc_map, results):
         result = results.get(dep)
         if result is None:
             continue
-        if result.state in (ExecutionState.FAILED, ExecutionState.ERROR):
+        if result.state in (ExecutionState.ERROR, ExecutionState.BLOCKED):
             return [dep]
         if result.state is ExecutionState.BLOCKED and result.blocked_by:
             return list(result.blocked_by)
