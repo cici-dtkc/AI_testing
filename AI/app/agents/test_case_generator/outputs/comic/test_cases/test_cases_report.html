@@ -497,30 +497,30 @@ td.scenario{min-width:300px} .scenario-desc{font-weight:600;margin-bottom:8px} .
         <tr>
             <td class="id">GioHang-TC-01</td>
             <td class="flow">Chính</td>
-            <td class="title">Cap nhat thanh tien hop le</td>
+            <td class="title">Cập nhật thành tiền hợp lệ</td>
             <td><span class="type type-POSITIVE">POSITIVE</span></td>
             <td><span class="tech">EQUIVALENCE_PARTITIONING / WEAK_NORMAL</span></td>
             <td><span class="priority high">Cao</span></td>
-            <td><ul><li>Gio hang co it nhất mot san pham</li></ul></td>
-            <td>So luong = 2, don gia = 50000</td>
-            <td><ol><li>Thay doi so luong thanh 2</li><li>Nhan cap nhat gio hang</li></ol></td>
-            <td>Thanh tien hien thi dung 100000</td>
-            <td class="scenario"><div class="scenario-desc">Cap nhat thanh tien hop le</div></td>
+            <td><ul><li>Giỏ hàng có ít nhất một sản phẩm</li></ul></td>
+            <td>Số lượng = 2, đơn giá = 50000</td>
+            <td><ol><li>Thay đổi Số lượng thành 2</li><li>Nhấn cập nhật giỏ hàng</li></ol></td>
+            <td>Thành tiền hiển thị đúng 100000</td>
+            <td class="scenario"><div class="scenario-desc">Cập nhật thành tiền hợp lệ</div></td>
             <td><ul><li>C005-RULE-M04-003</li></ul></td>
         </tr>
         
         <tr>
             <td class="id">GioHang-TC-02</td>
             <td class="flow">E1</td>
-            <td class="title">Cap nhat thanh tien voi so luong khong hop le</td>
+            <td class="title">Cập nhật thành tiền với số lượng không hợp lệ</td>
             <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
             <td><span class="tech">EQUIVALENCE_PARTITIONING / WEAK_NORMAL</span></td>
             <td><span class="priority normal">Thông thường</span></td>
-            <td><ul><li>Gio hang co it nhat mot san pham</li></ul></td>
-            <td>So luong = -1, don gia = 50000</td>
-            <td><ol><li>Nhap so luong am</li><li>Nhan cap nhat gio hang</li></ol></td>
-            <td>Hien thi thong bao loi so luong khong hop le</td>
-            <td class="scenario"><div class="scenario-desc">Cap nhat thanh tien voi so luong khong hop le</div></td>
+            <td><ul><li>Giỏ hàng có ít nhất một sản phẩm</li></ul></td>
+            <td>Số lượng = -1, đơn giá = 50000</td>
+            <td><ol><li>Nhập Số lượng âm</li><li>Nhấn cập nhật giỏ hàng</li></ol></td>
+            <td>Hien thi thong bao loi Số lượng khong hop le</td>
+            <td class="scenario"><div class="scenario-desc">Cập nhật thành tiền với số lượng không hợp lệ</div></td>
             <td><ul><li>C005-RULE-M04-003</li></ul></td>
         </tr>
         
@@ -902,90 +902,90 @@ td.scenario{min-width:300px} .scenario-desc{font-weight:600;margin-bottom:8px} .
         <tr>
             <td class="id">BaoCaoThongKe-TC-01</td>
             <td class="flow">Chính</td>
-            <td class="title">Xem dashboard voi khoang thoi gian hom nay hop le</td>
+            <td class="title">Xem dashboard với khoảng thời gian hôm nay hợp lệ</td>
             <td><span class="type type-POSITIVE">POSITIVE</span></td>
             <td><span class="tech">EQUIVALENCE_PARTITIONING / WEAK_NORMAL</span></td>
             <td><span class="priority high">Cao</span></td>
-            <td><ul><li>Admin da dang nhap va co quyen phu hop</li></ul></td>
-            <td>Admin dang mo trang Tong quan va chon khoang thoi gian &#x27;Hom nay&#x27;</td>
-            <td><ol><li>Mo trang Tong quan</li><li>Chon khoang thoi gian &#x27;Hom nay&#x27;</li><li>Quan sat so lieu va bieu do</li></ol></td>
-            <td>He thong hien thi dung so lieu va bieu do doanh thu cua ngay hom nay</td>
-            <td class="scenario"><div class="scenario-desc">Xem dashboard voi khoang thoi gian hom nay hop le</div><div class='trace-ids'><b>Mã truy vết:</b><ul><li>C020-SCN-M19-01</li></ul></div></td>
+            <td><ul><li>Admin đã đăng nhập và có quyền phù hợp</li></ul></td>
+            <td>Admin đang mở trang Tổng quan và chọn khoảng thời gian &#x27;Hôm nay&#x27;</td>
+            <td><ol><li>Mở trang Tổng quan</li><li>Chon khoang thoi gian &#x27;Hôm nay&#x27;</li><li>Quan sát số liệu và biểu đồ</li></ol></td>
+            <td>Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của ngày hôm nay</td>
+            <td class="scenario"><div class="scenario-desc">Xem dashboard với khoảng thời gian hôm nay hợp lệ</div><div class='trace-ids'><b>Mã truy vết:</b><ul><li>C020-SCN-M19-01</li></ul></div></td>
             <td><ul><li>C020-RULE-M19-01</li></ul></td>
         </tr>
         
         <tr>
             <td class="id">BaoCaoThongKe-TC-02</td>
             <td class="flow">Chính</td>
-            <td class="title">Xem dashboard voi khoang thoi gian tuan nay hop le</td>
+            <td class="title">Xem dashboard với khoảng thời gian tuần này hợp lệ</td>
             <td><span class="type type-POSITIVE">POSITIVE</span></td>
             <td><span class="tech">EQUIVALENCE_PARTITIONING / WEAK_NORMAL</span></td>
             <td><span class="priority normal">Thông thường</span></td>
-            <td><ul><li>Admin da dang nhap va co quyen phu hop</li></ul></td>
-            <td>Admin dang mo trang Tong quan va chon khoang thoi gian &#x27;Tuan nay&#x27;</td>
-            <td><ol><li>Mo trang Tong quan</li><li>Chon khoang thoi gian &#x27;Tuan nay&#x27;</li><li>Quan sat so lieu va bieu do</li></ol></td>
-            <td>He thong hien thi dung so lieu va bieu do doanh thu cua tuan nay</td>
-            <td class="scenario"><div class="scenario-desc">Xem dashboard voi khoang thoi gian tuan nay hop le</div><div class='trace-ids'><b>Mã truy vết:</b><ul><li>C020-SCN-M19-01</li></ul></div></td>
+            <td><ul><li>Admin đã đăng nhập và có quyền phù hợp</li></ul></td>
+            <td>Admin đang mở trang Tổng quan và chọn khoảng thời gian &#x27;Tuần nay&#x27;</td>
+            <td><ol><li>Mở trang Tổng quan</li><li>Chon khoang thoi gian &#x27;Tuần nay&#x27;</li><li>Quan sát số liệu và biểu đồ</li></ol></td>
+            <td>Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của tuần nay</td>
+            <td class="scenario"><div class="scenario-desc">Xem dashboard với khoảng thời gian tuần này hợp lệ</div><div class='trace-ids'><b>Mã truy vết:</b><ul><li>C020-SCN-M19-01</li></ul></div></td>
             <td><ul><li>C020-RULE-M19-01</li></ul></td>
         </tr>
         
         <tr>
             <td class="id">BaoCaoThongKe-TC-03</td>
             <td class="flow">Chính</td>
-            <td class="title">Xem dashboard voi khoang thoi gian thang nay hop le</td>
+            <td class="title">Xem dashboard với khoảng thời gian tháng này hợp lệ</td>
             <td><span class="type type-POSITIVE">POSITIVE</span></td>
             <td><span class="tech">EQUIVALENCE_PARTITIONING / WEAK_NORMAL</span></td>
             <td><span class="priority normal">Thông thường</span></td>
-            <td><ul><li>Admin da dang nhap va co quyen phu hop</li></ul></td>
-            <td>Admin dang mo trang Tong quan va chon khoang thoi gian &#x27;Thang nay&#x27;</td>
-            <td><ol><li>Mo trang Tong quan</li><li>Chon khoang thoi gian &#x27;Thang nay&#x27;</li><li>Quan sat so lieu va bieu do</li></ol></td>
-            <td>He thong hien thi dung so lieu va bieu do doanh thu cua thang nay</td>
-            <td class="scenario"><div class="scenario-desc">Xem dashboard voi khoang thoi gian thang nay hop le</div><div class='trace-ids'><b>Mã truy vết:</b><ul><li>C020-SCN-M19-01</li></ul></div></td>
+            <td><ul><li>Admin đã đăng nhập và có quyền phù hợp</li></ul></td>
+            <td>Admin đang mở trang Tổng quan và chọn khoảng thời gian &#x27;Tháng này&#x27;</td>
+            <td><ol><li>Mở trang Tổng quan</li><li>Chon khoang thoi gian &#x27;Tháng này&#x27;</li><li>Quan sát số liệu và biểu đồ</li></ol></td>
+            <td>Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của tháng nay</td>
+            <td class="scenario"><div class="scenario-desc">Xem dashboard với khoảng thời gian tháng này hợp lệ</div><div class='trace-ids'><b>Mã truy vết:</b><ul><li>C020-SCN-M19-01</li></ul></div></td>
             <td><ul><li>C020-RULE-M19-01</li></ul></td>
         </tr>
         
         <tr>
             <td class="id">BaoCaoThongKe-TC-04</td>
             <td class="flow">Chính</td>
-            <td class="title">Xem dashboard voi khoang thoi gian nam nay hop le</td>
+            <td class="title">Xem dashboard với khoảng thời gian năm này hợp lệ</td>
             <td><span class="type type-POSITIVE">POSITIVE</span></td>
             <td><span class="tech">EQUIVALENCE_PARTITIONING / WEAK_NORMAL</span></td>
             <td><span class="priority normal">Thông thường</span></td>
-            <td><ul><li>Admin da dang nhap va co quyen phu hop</li></ul></td>
-            <td>Admin dang mo trang Tong quan va chon khoang thoi gian &#x27;Nam nay&#x27;</td>
-            <td><ol><li>Mo trang Tong quan</li><li>Chon khoang thoi gian &#x27;Nam nay&#x27;</li><li>Quan sat so lieu va bieu do</li></ol></td>
-            <td>He thong hien thi dung so lieu va bieu do doanh thu cua nam nay</td>
-            <td class="scenario"><div class="scenario-desc">Xem dashboard voi khoang thoi gian nam nay hop le</div><div class='trace-ids'><b>Mã truy vết:</b><ul><li>C020-SCN-M19-01</li></ul></div></td>
+            <td><ul><li>Admin đã đăng nhập và có quyền phù hợp</li></ul></td>
+            <td>Admin đang mở trang Tổng quan và chọn khoảng thời gian &#x27;Năm này&#x27;</td>
+            <td><ol><li>Mở trang Tổng quan</li><li>Chon khoang thoi gian &#x27;Năm này&#x27;</li><li>Quan sát số liệu và biểu đồ</li></ol></td>
+            <td>Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của năm nay</td>
+            <td class="scenario"><div class="scenario-desc">Xem dashboard với khoảng thời gian năm này hợp lệ</div><div class='trace-ids'><b>Mã truy vết:</b><ul><li>C020-SCN-M19-01</li></ul></div></td>
             <td><ul><li>C020-RULE-M19-01</li></ul></td>
         </tr>
         
         <tr>
             <td class="id">BaoCaoThongKe-TC-05</td>
             <td class="flow">Chính</td>
-            <td class="title">Xem dashboard voi khoang thoi gian tuy chinh hop le</td>
+            <td class="title">Xem dashboard với khoảng thời gian tùy chỉnh hợp lệ</td>
             <td><span class="type type-POSITIVE">POSITIVE</span></td>
             <td><span class="tech">EQUIVALENCE_PARTITIONING / WEAK_NORMAL</span></td>
             <td><span class="priority normal">Thông thường</span></td>
-            <td><ul><li>Admin da dang nhap va co quyen phu hop</li></ul></td>
-            <td>Admin dang mo trang Tong quan va chon khoang thoi gian &#x27;Tuy chinh&#x27;</td>
-            <td><ol><li>Mo trang Tong quan</li><li>Chon khoang thoi gian &#x27;Tuy chinh&#x27;</li><li>Xac nhan khoang ngay hop le</li></ol></td>
-            <td>He thong hien thi dung so lieu va bieu do doanh thu theo khoang tuy chinh</td>
-            <td class="scenario"><div class="scenario-desc">Xem dashboard voi khoang thoi gian tuy chinh hop le</div><div class='trace-ids'><b>Mã truy vết:</b><ul><li>C020-SCN-M19-01</li></ul></div></td>
+            <td><ul><li>Admin đã đăng nhập và có quyền phù hợp</li></ul></td>
+            <td>Admin đang mở trang Tổng quan và chọn khoảng thời gian &#x27;Tuy chinh&#x27;</td>
+            <td><ol><li>Mở trang Tổng quan</li><li>Chon khoang thoi gian &#x27;Tuy chinh&#x27;</li><li>Xác nhận khoảng ngày hợp lệ</li></ol></td>
+            <td>Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu theo khoảng tùy chỉnh</td>
+            <td class="scenario"><div class="scenario-desc">Xem dashboard với khoảng thời gian tùy chỉnh hợp lệ</div><div class='trace-ids'><b>Mã truy vết:</b><ul><li>C020-SCN-M19-01</li></ul></div></td>
             <td><ul><li>C020-RULE-M19-01</li></ul></td>
         </tr>
         
         <tr>
             <td class="id">BaoCaoThongKe-TC-06</td>
             <td class="flow">E1</td>
-            <td class="title">Xu ly khi chon khoang thoi gian khong hop le</td>
+            <td class="title">Xử lý khi chọn khoảng thời gian không hợp lệ</td>
             <td><span class="type type-NEGATIVE">NEGATIVE</span></td>
             <td><span class="tech">EQUIVALENCE_PARTITIONING / WEAK_NORMAL</span></td>
             <td><span class="priority normal">Thông thường</span></td>
-            <td><ul><li>Admin da dang nhap va co quyen phu hop</li></ul></td>
-            <td>Admin dang mo trang Tong quan va nhap khoang thoi gian khong hop le</td>
-            <td><ol><li>Mo trang Tong quan</li><li>Nhap khoang thoi gian sai dinh dang</li><li>Nhan xac nhan</li></ol></td>
-            <td>He thong hien thi thong bao loi khoang thoi gian khong hop le</td>
-            <td class="scenario"><div class="scenario-desc">Xu ly khi chon khoang thoi gian khong hop le</div><div class='trace-ids'><b>Mã truy vết:</b><ul><li>C020-SCN-M19-01</li></ul></div></td>
+            <td><ul><li>Admin đã đăng nhập và có quyền phù hợp</li></ul></td>
+            <td>Admin đang mở trang Tổng quan và nhập khoảng thời gian không hợp lệ</td>
+            <td><ol><li>Mở trang Tổng quan</li><li>Nhập khoảng thời gian sai định dạng</li><li>Nhấn xác nhận</li></ol></td>
+            <td>Hệ thống hiển thị thông báo lỗi khoảng thời gian không hợp lệ</td>
+            <td class="scenario"><div class="scenario-desc">Xử lý khi chọn khoảng thời gian không hợp lệ</div><div class='trace-ids'><b>Mã truy vết:</b><ul><li>C020-SCN-M19-01</li></ul></div></td>
             <td><ul><li>C020-RULE-M19-01</li></ul></td>
         </tr>
         

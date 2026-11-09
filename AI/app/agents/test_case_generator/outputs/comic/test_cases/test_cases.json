@@ -845,7 +845,7 @@
       {
         "test_case_id": "GioHang-TC-01",
         "module": "GioHang",
-        "title": "Cap nhat thanh tien hop le",
+        "title": "Cập nhật thành tiền hợp lệ",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -855,7 +855,7 @@
           "V1"
         ],
         "preconditions": [
-          "Gio hang co it nhất mot san pham"
+          "Giỏ hàng có ít nhất một sản phẩm"
         ],
         "given": "Comic id=94, đơn giá = 50000, số lượng ban đầu = 1",
         "steps": [
@@ -870,12 +870,12 @@
         "trace_rule_ids": [
           "C005-RULE-M04-003"
         ],
-        "scenario_description": "Cap nhat thanh tien hop le"
+        "scenario_description": "Cập nhật thành tiền hợp lệ"
       },
       {
         "test_case_id": "GioHang-TC-02",
         "module": "GioHang",
-        "title": "Cap nhat thanh tien voi so luong khong hop le",
+        "title": "Cập nhật thành tiền voi so luong không hợp lệ",
         "type": "NEGATIVE",
         "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -885,19 +885,19 @@
           "X1"
         ],
         "preconditions": [
-          "Gio hang co it nhat mot san pham"
+          "Giỏ hàng có ít nhất một sản phẩm"
         ],
-        "given": "So luong = -1, don gia = 50000",
+        "given": "Số lượng = -1, đơn giá = 50000",
         "steps": [
-          "Nhap so luong am",
-          "Nhan cap nhat gio hang"
+          "Nhập số lượng âm",
+          "Nhấn cập nhật giỏ hàng"
         ],
-        "expected_result": "Hien thi thong bao loi so luong khong hop le",
+        "expected_result": "Hiển thị thông báo lỗi số lượng không hợp lệ",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C005-RULE-M04-003"
         ],
-        "scenario_description": "Cap nhat thanh tien voi so luong khong hop le"
+        "scenario_description": "Cập nhật thành tiền với số lượng không hợp lệ"
       },
       {
         "test_case_id": "GiamGia-TC-01",
@@ -1617,7 +1617,7 @@
       {
         "test_case_id": "BaoCaoThongKe-TC-01",
         "module": "BaoCaoThongKe",
-        "title": "Xem dashboard voi khoang thoi gian hom nay hop le",
+        "title": "Xem dashboard với khoảng thời gian hôm nay hợp lệ",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1627,27 +1627,27 @@
           "V1"
         ],
         "preconditions": [
-          "Admin da dang nhap va co quyen phu hop"
+          "Admin đã đăng nhập và có quyền phù hợp"
         ],
-        "given": "Admin dang mo trang Tong quan va chon khoang thoi gian 'Hom nay'",
+        "given": "Admin đang mở trang Tổng quan và chọn khoảng thời gian 'Hôm nay'",
         "steps": [
-          "Mo trang Tong quan",
-          "Chon khoang thoi gian 'Hom nay'",
-          "Quan sat so lieu va bieu do"
+          "Mở trang Tổng quan",
+          "Chọn khoảng thời gian 'Hôm nay'",
+          "Quan sát số liệu và biểu đồ"
         ],
-        "expected_result": "He thong hien thi dung so lieu va bieu do doanh thu cua ngay hom nay",
+        "expected_result": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của ngày hôm nay",
         "trace_scenario_ids": [
           "C020-SCN-M19-01"
         ],
         "trace_rule_ids": [
           "C020-RULE-M19-01"
         ],
-        "scenario_description": "Xem dashboard voi khoang thoi gian hom nay hop le"
+        "scenario_description": "Xem dashboard với khoảng thời gian hôm nay hợp lệ"
       },
       {
         "test_case_id": "BaoCaoThongKe-TC-02",
         "module": "BaoCaoThongKe",
-        "title": "Xem dashboard voi khoang thoi gian tuan nay hop le",
+        "title": "Xem dashboard với khoảng thời gian tuần này hợp lệ",
         "type": "POSITIVE",
         "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1657,27 +1657,27 @@
           "V2"
         ],
         "preconditions": [
-          "Admin da dang nhap va co quyen phu hop"
+          "Admin đã đăng nhập và có quyền phù hợp"
         ],
-        "given": "Admin dang mo trang Tong quan va chon khoang thoi gian 'Tuan nay'",
+        "given": "Admin đang mở trang Tổng quan và chọn khoảng thời gian 'Tuần này'",
         "steps": [
-          "Mo trang Tong quan",
-          "Chon khoang thoi gian 'Tuan nay'",
-          "Quan sat so lieu va bieu do"
+          "Mở trang Tổng quan",
+          "Chọn khoảng thời gian 'Tuần này'",
+          "Quan sát số liệu và biểu đồ"
         ],
-        "expected_result": "He thong hien thi dung so lieu va bieu do doanh thu cua tuan nay",
+        "expected_result": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của tuần này",
         "trace_scenario_ids": [
           "C020-SCN-M19-01"
         ],
         "trace_rule_ids": [
           "C020-RULE-M19-01"
         ],
-        "scenario_description": "Xem dashboard voi khoang thoi gian tuan nay hop le"
+        "scenario_description": "Xem dashboard với khoảng thời gian tuần này hợp lệ"
       },
       {
         "test_case_id": "BaoCaoThongKe-TC-03",
         "module": "BaoCaoThongKe",
-        "title": "Xem dashboard voi khoang thoi gian thang nay hop le",
+        "title": "Xem dashboard với khoảng thời gian tháng này hợp lệ",
         "type": "POSITIVE",
         "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1687,27 +1687,27 @@
           "V3"
         ],
         "preconditions": [
-          "Admin da dang nhap va co quyen phu hop"
+          "Admin đã đăng nhập và có quyền phù hợp"
         ],
-        "given": "Admin dang mo trang Tong quan va chon khoang thoi gian 'Thang nay'",
+        "given": "Admin đang mở trang Tổng quan và chọn khoảng thời gian 'Tháng này'",
         "steps": [
-          "Mo trang Tong quan",
-          "Chon khoang thoi gian 'Thang nay'",
-          "Quan sat so lieu va bieu do"
+          "Mở trang Tổng quan",
+          "Chọn khoảng thời gian 'Tháng này'",
+          "Quan sát số liệu và biểu đồ"
         ],
-        "expected_result": "He thong hien thi dung so lieu va bieu do doanh thu cua thang nay",
+        "expected_result": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của tháng này",
         "trace_scenario_ids": [
           "C020-SCN-M19-01"
         ],
         "trace_rule_ids": [
           "C020-RULE-M19-01"
         ],
-        "scenario_description": "Xem dashboard voi khoang thoi gian thang nay hop le"
+        "scenario_description": "Xem dashboard với khoảng thời gian tháng này hợp lệ"
       },
       {
         "test_case_id": "BaoCaoThongKe-TC-04",
         "module": "BaoCaoThongKe",
-        "title": "Xem dashboard voi khoang thoi gian nam nay hop le",
+        "title": "Xem dashboard với khoảng thời gian năm nay hợp lệ",
         "type": "POSITIVE",
         "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1717,27 +1717,27 @@
           "V4"
         ],
         "preconditions": [
-          "Admin da dang nhap va co quyen phu hop"
+          "Admin đã đăng nhập và có quyền phù hợp"
         ],
-        "given": "Admin dang mo trang Tong quan va chon khoang thoi gian 'Nam nay'",
+        "given": "Admin đang mở trang Tổng quan và chọn khoảng thời gian 'Năm này'",
         "steps": [
-          "Mo trang Tong quan",
-          "Chon khoang thoi gian 'Nam nay'",
-          "Quan sat so lieu va bieu do"
+          "Mở trang Tổng quan",
+          "Chọn khoảng thời gian 'Năm này'",
+          "Quan sát số liệu và biểu đồ"
         ],
-        "expected_result": "He thong hien thi dung so lieu va bieu do doanh thu cua nam nay",
+        "expected_result": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của năm nay",
         "trace_scenario_ids": [
           "C020-SCN-M19-01"
         ],
         "trace_rule_ids": [
           "C020-RULE-M19-01"
         ],
-        "scenario_description": "Xem dashboard voi khoang thoi gian nam nay hop le"
+        "scenario_description": "Xem dashboard với khoảng thời gian năm nay hợp lệ"
       },
       {
         "test_case_id": "BaoCaoThongKe-TC-05",
         "module": "BaoCaoThongKe",
-        "title": "Xem dashboard voi khoang thoi gian tuy chinh hop le",
+        "title": "Xem dashboard với khoảng thời gian tùy chỉnh hợp lệ",
         "type": "POSITIVE",
         "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1747,27 +1747,27 @@
           "V5"
         ],
         "preconditions": [
-          "Admin da dang nhap va co quyen phu hop"
+          "Admin đã đăng nhập và có quyền phù hợp"
         ],
-        "given": "Admin dang mo trang Tong quan va chon khoang thoi gian 'Tuy chinh'",
+        "given": "Admin đang mở trang Tổng quan và chọn khoảng thời gian 'Tuy chinh'",
         "steps": [
-          "Mo trang Tong quan",
-          "Chon khoang thoi gian 'Tuy chinh'",
-          "Xac nhan khoang ngay hop le"
+          "Mở trang Tổng quan",
+          "Chọn khoảng thời gian 'Tuy chinh'",
+          "Xac nhan khoảng ngay hợp lệ"
         ],
-        "expected_result": "He thong hien thi dung so lieu va bieu do doanh thu theo khoang tuy chinh",
+        "expected_result": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu theo khoảng tùy chỉnh",
         "trace_scenario_ids": [
           "C020-SCN-M19-01"
         ],
         "trace_rule_ids": [
           "C020-RULE-M19-01"
         ],
-        "scenario_description": "Xem dashboard voi khoang thoi gian tuy chinh hop le"
+        "scenario_description": "Xem dashboard với khoảng thời gian tùy chỉnh hợp lệ"
       },
       {
         "test_case_id": "BaoCaoThongKe-TC-06",
         "module": "BaoCaoThongKe",
-        "title": "Xu ly khi chon khoang thoi gian khong hop le",
+        "title": "Xử lý khi chọn khoảng thời gian không hợp lệ",
         "type": "NEGATIVE",
         "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -1777,22 +1777,22 @@
           "X1"
         ],
         "preconditions": [
-          "Admin da dang nhap va co quyen phu hop"
+          "Admin đã đăng nhập và có quyền phù hợp"
         ],
-        "given": "Admin dang mo trang Tong quan va nhap khoang thoi gian khong hop le",
+        "given": "Admin đang mở trang Tổng quan và nhập khoảng thời gian không hợp lệ",
         "steps": [
-          "Mo trang Tong quan",
-          "Nhap khoang thoi gian sai dinh dang",
+          "Mở trang Tổng quan",
+          "Nhap khoảng thoi gian sai dinh dang",
           "Nhan xac nhan"
         ],
-        "expected_result": "He thong hien thi thong bao loi khoang thoi gian khong hop le",
+        "expected_result": "Hệ thống hiển thị thông báo lỗi khoảng thời gian không hợp lệ",
         "trace_scenario_ids": [
           "C020-SCN-M19-01"
         ],
         "trace_rule_ids": [
           "C020-RULE-M19-01"
         ],
-        "scenario_description": "Xu ly khi chon khoang thoi gian khong hop le"
+        "scenario_description": "Xử lý khi chọn khoảng thời gian không hợp lệ"
       },
       {
         "test_case_id": "DanhGiaDoiTra-TC-01",
