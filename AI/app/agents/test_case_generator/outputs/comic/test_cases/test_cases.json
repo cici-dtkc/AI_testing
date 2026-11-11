@@ -449,14 +449,15 @@
           "T1"
         ],
         "preconditions": [
-          "Chương trình Flash Sale đã được cấu hình"
+          "Chương trình Flash Sale đã được cấu hình và đang trong khung giờ"
         ],
-        "given": "Đang ở trang chủ ứng dụng",
+        "given": "Đang ở trang chủ ứng dụng, chương trình Flash Sale đang diễn ra",
         "steps": [
-          "Nhấn vào mục Flash Sale",
-          "Quan sát danh sách sản phẩm"
+          "Mở trang Flash Sale",
+          "Quan sát khung giờ (nhãn \"Kết thúc trong\" và đồng hồ đếm ngược) và danh sách sản phẩm",
+          "Nhấn nút \"Thêm giỏ hàng\" của sản phẩm đầu tiên"
         ],
-        "expected_result": "Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại.",
+        "expected_result": "Trang Flash Sale hiển thị nhãn \"Kết thúc trong\" kèm đồng hồ đếm ngược và slot giờ mang trạng thái \"Đang bán\"; mỗi sản phẩm hiển thị tên truyện, giá khuyến mãi, nhãn giảm giá \"-30%\", giá gốc và dòng \"Đã bán N\"; nhấn \"Thêm giỏ hàng\" thêm được sản phẩm vào giỏ với giá Flash Sale.",
         "trace_scenario_ids": [
           "C004-SC-UC8-01"
         ],
@@ -480,12 +481,14 @@
         "preconditions": [
           "Chương trình Flash Sale đang diễn ra"
         ],
-        "given": "Thời gian đếm ngược về 0",
+        "given": "Đồng hồ đếm ngược của chương trình về 0",
         "steps": [
-          "Hệ thống tự động cập nhật thời gian",
-          "Kiểm tra mức giá sản phẩm"
+          "Mở trang Flash Sale",
+          "Quan sát đồng hồ đếm ngược",
+          "Tải lại trang Flash Sale sau khi chương trình kết thúc",
+          "Quan sát danh sách sản phẩm và slot giờ"
         ],
-        "expected_result": "Ẩn mức giá Flash Sale và áp dụng lại giá gốc.",
+        "expected_result": "Khi chương trình kết thúc, trang Flash Sale không còn hiển thị sản phẩm Flash Sale (hiển thị \"Không có sản phẩm Flash Sale nào đang diễn ra\"), không áp dụng giá Flash Sale và slot giờ đã qua mang trạng thái \"Đã kết thúc\".",
         "trace_scenario_ids": [
           "C004-SC-UC8-04"
         ],
@@ -507,14 +510,14 @@
           "T3"
         ],
         "preconditions": [
-          "Chương trình Flash Sale chưa bắt đầu hoặc đã kết thúc"
+          "Chương trình Flash Sale chưa bắt đầu"
         ],
-        "given": "Thời gian hiện tại nằm ngoài khung giờ chương trình",
+        "given": "Thời gian hiện tại nằm ngoài khung giờ chương trình (trước giờ bắt đầu)",
         "steps": [
-          "Chọn sản phẩm trong danh sách",
-          "Thực hiện mua hàng"
+          "Truy cập trang Flash Sale",
+          "Quan sát khung giờ và danh sách sản phẩm của chương trình"
         ],
-        "expected_result": "Hệ thống áp dụng giá gốc, không áp dụng giá Flash Sale.",
+        "expected_result": "Khi chương trình chưa bắt đầu, trang Flash Sale chỉ hiển thị khung giờ của chương trình và không hiển thị sản phẩm Flash Sale, do đó người dùng không thể mua với giá Flash Sale.",
         "trace_scenario_ids": [
           "C004-SC-UC8-04"
         ],
@@ -536,14 +539,15 @@
           "V1"
         ],
         "preconditions": [
-          "Chương trình Flash Sale đang hoạt động"
+          "Chương trình Flash Sale đang hoạt động (thời gian hiện tại nằm trong khung giờ)"
         ],
         "given": "Thời gian hiện tại nằm trong khoảng [12:00 - 14:00]",
         "steps": [
-          "Truy cập trang Flash Sale",
-          "Kiểm tra trạng thái hiển thị"
+          "Mở trang Flash Sale",
+          "Quan sát slot \"Đang bán\" và đồng hồ \"Kết thúc trong\"",
+          "Nhấn nút \"Thêm giỏ hàng\" của sản phẩm Flash Sale"
         ],
-        "expected_result": "Hiển thị trạng thái đang diễn ra và cho phép mua giá ưu đãi.",
+        "expected_result": "Slot của chương trình đang diễn ra hiển thị trạng thái \"Đang bán\" kèm đồng hồ \"Kết thúc trong\" đếm ngược; sản phẩm hiển thị giá Flash Sale (đã giảm) và nút \"Thêm giỏ hàng\" hoạt động, cho phép mua với giá ưu đãi.",
         "trace_scenario_ids": [
           "C004-SC-UC8-01"
         ],
@@ -567,12 +571,12 @@
         "preconditions": [
           "Chương trình Flash Sale chưa mở"
         ],
-        "given": "Thời gian hiện tại là 11:59",
+        "given": "Thời gian hiện tại là 11:59 (trước khung giờ Flash Sale bắt đầu lúc 12:00)",
         "steps": [
           "Truy cập trang Flash Sale",
-          "Kiểm tra trạng thái sản phẩm"
+          "Quan sát khung giờ và danh sách sản phẩm Flash Sale"
         ],
-        "expected_result": "Hiển thị đếm ngược, chưa áp dụng giá Flash Sale.",
+        "expected_result": "Trang Flash Sale chỉ hiển thị khung giờ của chương trình, không hiển thị sản phẩm Flash Sale nên chưa áp dụng giá Flash Sale.",
         "trace_scenario_ids": [
           "C004-SC-UC8-01"
         ],
@@ -596,12 +600,12 @@
         "preconditions": [
           "Chương trình Flash Sale đã kết thúc"
         ],
-        "given": "Thời gian hiện tại là 14:01",
+        "given": "Thời gian hiện tại là 14:01 (sau khi khung giờ Flash Sale 12:00 - 14:00 đã kết thúc)",
         "steps": [
-          "Truy cập trang Flash Sale",
-          "Kiểm tra trạng thái sản phẩm"
+          "Truy cập trang Flash Sale và trang chủ sau khi chương trình đã kết thúc",
+          "Quan sát sự hiển thị của chương trình Flash Sale và giá sản phẩm"
         ],
-        "expected_result": "Hiển thị thông báo đã kết thúc, áp dụng giá gốc.",
+        "expected_result": "Chương trình Flash Sale đã kết thúc sẽ mất khỏi website (không còn hiển thị ở trang Flash Sale và trang chủ) và sản phẩm trở về giá gốc.",
         "trace_scenario_ids": [
           "C004-SC-UC8-04"
         ],
@@ -826,14 +830,16 @@
           "F1"
         ],
         "preconditions": [
-          "Người dùng ở trang chi tiết truyện, truyện còn hàng"
+          "Người dùng ở trang chi tiết truyện (comic-detail), truyện còn hàng"
         ],
-        "given": "Chọn số lượng 1 hợp lệ",
+        "given": "Truyện còn hàng, số lượng mua mặc định là 1",
         "steps": [
-          "Chọn số lượng sản phẩm",
-          "Nhấn Thêm vào giỏ hàng"
+          "Quan sát phần \"Số lượng\" với nút \"+\" và \"-\"",
+          "Nhấn nút \"Thêm vào giỏ hàng\"",
+          "Mở trang Giỏ hàng",
+          "Quan sát truyện vừa thêm trong giỏ hàng"
         ],
-        "expected_result": "Sản phẩm thêm vào giỏ, hiển thị thông báo thành công và cập nhật biểu tượng giỏ hàng.",
+        "expected_result": "Sản phẩm được thêm vào giỏ hàng với số lượng đang chọn (mặc định 1); trang Giỏ hàng hiển thị truyện vừa thêm kèm số lượng, đơn giá và tổng tiền tương ứng.",
         "trace_scenario_ids": [
           "C005-SC-UC9-001"
         ],
@@ -875,7 +881,7 @@
       {
         "test_case_id": "GioHang-TC-02",
         "module": "GioHang",
-        "title": "Cập nhật thành tiền voi so luong không hợp lệ",
+        "title": "Cập nhật thành tiền với số lượng không hợp lệ",
         "type": "NEGATIVE",
         "priority": "Thông thường",
         "technique": "EQUIVALENCE_PARTITIONING",
@@ -887,12 +893,12 @@
         "preconditions": [
           "Giỏ hàng có ít nhất một sản phẩm"
         ],
-        "given": "Số lượng = -1, đơn giá = 50000",
+        "given": "Số lượng = 1, đơn giá = 30000",
         "steps": [
-          "Nhập số lượng âm",
-          "Nhấn cập nhật giỏ hàng"
+          "Nhấn nút -",
+          "Giỏ hàng cập nhật thành tiền"
         ],
-        "expected_result": "Hiển thị thông báo lỗi số lượng không hợp lệ",
+        "expected_result": "Thành tiền không thay đổi",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C005-RULE-M04-003"
@@ -912,16 +918,22 @@
           "F1"
         ],
         "preconditions": [
-          "Đơn hàng đang ở trang Checkout với sản phẩm đã chọn"
+          "Khách hàng đã đăng nhập",
+          "Đơn hàng đã có sản phẩm và đang ở trang Thanh toán",
+          "Ví voucher có voucher hợp lệ (còn hạn, còn lượt, đạt đơn tối thiểu)"
         ],
-        "given": "Mã voucher hợp lệ, chưa hết hạn, đạt đơn tối thiểu.",
+        "given": "Voucher hợp lệ đã có trong ví voucher của khách hàng",
         "steps": [
-          "Nhấn nút \"Chọn voucher\" để mở danh sách voucher",
-          "Chọn hoặc nhập mã voucher trong modal/dialog",
-          "Áp dụng voucher",
-          "Kiểm tra giảm giá đã được áp dụng"
+          "Mở trang chủ",
+          "Nhấn vào truyện \"Death Note tập 3\"",
+          "Nhấn nút \"Thêm vào giỏ hàng\"",
+          "Mở trang Thanh toán",
+          "Nhấn nút \"Chọn voucher\"",
+          "Nhấn nút \"Voucher vận chuyển\"",
+          "Chọn voucher \"Giảm 10%\"",
+          "Nhấn nút \"Áp dụng\""
         ],
-        "expected_result": "Hệ thống áp dụng giảm giá và cập nhật tổng tiền thành công.",
+        "expected_result": "Sau khi chọn voucher và nhấn \"Áp dụng\", popup \"Chọn voucher\" đóng lại, nút \"Chọn voucher\" đổi thành \"Thay đổi voucher (1)\", phần tóm tắt đơn hàng hiển thị số tiền được giảm từ voucher và tổng tiền được cập nhật.",
         "trace_scenario_ids": [
           "C010-SCENARIO-UC15-001"
         ],
@@ -943,14 +955,20 @@
           "F2"
         ],
         "preconditions": [
-          "Khách hàng đang ở trang Checkout"
+          "Khách hàng đã đăng nhập",
+          "Đơn hàng đã có sản phẩm và đang ở trang Thanh toán",
+          "Ví voucher không có voucher tương ứng với mã muốn dùng"
         ],
-        "given": "Mã voucher không có trong hệ thống",
+        "given": "Voucher không được lưu trong ví voucher của khách hàng (web không có ô nhập mã voucher)",
         "steps": [
-          "Nhập mã voucher không tồn tại",
-          "Nhấn nút áp dụng voucher"
+          "Mở trang chủ",
+          "Nhấn vào truyện \"Death Note tập 3\"",
+          "Nhấn nút \"Thêm vào giỏ hàng\"",
+          "Mở trang Thanh toán",
+          "Nhấn nút \"Chọn voucher\"",
+          "Quan sát danh sách voucher trong popup \"Chọn voucher\""
         ],
-        "expected_result": "Hệ thống hiển thị thông báo lỗi voucher không tồn tại.",
+        "expected_result": "Popup \"Chọn voucher\" chỉ liệt kê các voucher đang có trong ví của khách hàng (mỗi voucher hiển thị \"Giảm ...\", \"Mã:\", \"Đơn tối thiểu\", \"HSD\"); web không có ô nhập mã voucher nên voucher không tồn tại trong ví không thể áp dụng, khi ví không có voucher popup hiển thị \"Không có voucher nào\".",
         "trace_scenario_ids": [
           "C010-SCENARIO-UC15-002"
         ],
@@ -1002,14 +1020,22 @@
           "V1"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập và ở trang Checkout"
+          "Khách hàng đã đăng nhập",
+          "Đơn hàng đã có sản phẩm và đang ở trang Thanh toán",
+          "Ví voucher có voucher nằm trong lớp hợp lệ"
         ],
-        "given": "Mã voucher nằm trong lớp hợp lệ",
+        "given": "Voucher nằm trong lớp hợp lệ (còn hạn, còn lượt, đơn hàng đạt giá trị tối thiểu)",
         "steps": [
-          "Nhập mã voucher hợp lệ",
-          "Nhấn áp dụng"
+          "Mở trang chủ",
+          "Nhấn vào truyện \"Death Note tập 3\"",
+          "Nhấn nút \"Mua ngay\"",
+          "Nhấn nút \"Chọn voucher\"",
+          "Nhấn nút \"Voucher vận chuyển\"",
+          "Chọn voucher \"Giảm 10%\"",
+          "Nhấn nút \"Áp dụng\"",
+          "Quan sát dòng giảm giá và tổng tiền trong phần tóm tắt đơn hàng"
         ],
-        "expected_result": "Hệ thống áp dụng giảm giá hợp lệ.",
+        "expected_result": "Voucher nằm trong lớp hợp lệ chọn được (có checkbox) và áp dụng thành công: popup \"Chọn voucher\" đóng lại, nút đổi thành \"Thay đổi voucher (1)\" và tổng tiền đơn hàng giảm đúng theo giá trị voucher.",
         "trace_scenario_ids": [
           "C010-SCENARIO-UC15-001"
         ],
@@ -1031,16 +1057,18 @@
           "X1"
         ],
         "preconditions": [
-          "Đơn hàng đang ở trang Checkout với sản phẩm đã chọn"
+          "Khách hàng đã đăng nhập",
+          "Ví voucher của khách hàng có voucher đã hết hạn"
         ],
-        "given": "Mã voucher thuộc lớp không hợp lệ (hết hạn)",
+        "given": "Voucher đã hết hạn (HSD đã qua) vẫn còn trong ví voucher",
         "steps": [
-          "Nhấn nút \"Chọn voucher\" để mở danh sách voucher",
-          "Chọn hoặc nhập mã voucher trong modal/dialog",
-          "Áp dụng voucher",
-          "Kiểm tra giảm giá đã được áp dụng"
+          "Mở trang chủ",
+          "Nhấn vào truyện \"Death Note tập 3\"",
+          "Nhấn nút \"Mua ngay\"",
+          "Nhấn nút \"Chọn voucher\" để mở popup chọn voucher",
+          "Quan sát voucher đã hết hạn trong popup \"Chọn voucher\""
         ],
-        "expected_result": "Hệ thống hiển thị thông báo lỗi voucher hết hạn và ẩn khỏi ví.",
+        "expected_result": "Voucher đã hết hạn vẫn hiển thị trong ví voucher (mục \"Voucher của tôi\") với dòng \"Đã hết hạn\" và nhãn \"Hết hạn\" thay cho nút \"Dùng ngay\", đồng thời vẫn hiện trong popup \"Chọn voucher\" ở trang Thanh toán nhưng không có checkbox để chọn nên không áp dụng được cho đơn hàng.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C010-RULE-M09-002"
@@ -1060,14 +1088,19 @@
           "X2"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập và ở trang Checkout"
+          "Khách hàng đã đăng nhập",
+          "Đơn hàng đã có sản phẩm và đang ở trang Thanh toán",
+          "Ví voucher có voucher yêu cầu \"Đơn tối thiểu\" lớn hơn tổng tiền đơn hàng hiện tại"
         ],
-        "given": "Đơn hàng thuộc lớp không hợp lệ (nhỏ hơn min_order_amount)",
+        "given": "Tổng tiền đơn hàng nhỏ hơn giá trị \"Đơn tối thiểu\" của voucher",
         "steps": [
-          "Chọn voucher có điều kiện đơn tối thiểu",
-          "Nhấn áp dụng"
+          "Mở trang chủ",
+          "Nhấn vào truyện \"Death Note tập 3\"",
+          "Nhấn nút \"Mua ngay\"",
+          "Nhấn nút \"Chọn voucher\"",
+          "Quan sát voucher có điều kiện đơn tối thiểu trong popup \"Chọn voucher\""
         ],
-        "expected_result": "Hệ thống thông báo đơn hàng chưa đạt giá trị tối thiểu.",
+        "expected_result": "Voucher có \"Đơn tối thiểu\" lớn hơn tổng tiền đơn hàng hiển thị nhãn \"Chưa đủ điều kiện\" trong popup \"Chọn voucher\" và không có checkbox để chọn; tổng tiền đơn hàng không thay đổi.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C010-RULE-M09-001"
@@ -1087,14 +1120,20 @@
           "X3"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập và ở trang Checkout"
+          "Khách hàng đã đăng nhập",
+          "Voucher đã được lưu về ví và đã hết lượt sử dụng"
         ],
-        "given": "Voucher thuộc lớp không hợp lệ (hết lượt)",
+        "given": "Voucher trong ví đã hết lượt sử dụng, có tag \"1 lần/khách\"",
         "steps": [
-          "Nhập mã voucher đã hết số lượt",
-          "Nhấn áp dụng"
+          "Mở trang Ví voucher",
+          "Quan sát tag \"1 lần/khách\" trên card voucher",
+          "Mở trang chủ",
+          "Nhấn vào truyện \"Death Note tập 3\"",
+          "Nhấn nút \"Mua ngay\"",
+          "Nhấn nút \"Chọn voucher\"",
+          "Quan sát voucher đã hết lượt trong popup \"Chọn voucher\""
         ],
-        "expected_result": "Hệ thống thông báo voucher đã hết lượt và ẩn khỏi ví.",
+        "expected_result": "Voucher đã hết lượt sử dụng không còn hiển thị trong ví voucher (mục \"Voucher của tôi\") và không xuất hiện trong popup \"Chọn voucher\" ở trang Thanh toán, nên khách hàng không thể áp dụng lại.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C010-RULE-M09-002"
@@ -1114,14 +1153,20 @@
           "X4"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập và ở trang Checkout"
+          "Khách hàng đã đăng nhập",
+          "Voucher \"1 lần/khách\" đã được lưu trong ví và đã sử dụng cho đơn hàng trước đó"
         ],
-        "given": "Voucher dùng một lần thuộc lớp không hợp lệ (đã từng dùng)",
+        "given": "Voucher dùng một lần đã từng được khách hàng sử dụng",
         "steps": [
-          "Nhập mã voucher dùng một lần đã dùng",
-          "Nhấn áp dụng"
+          "Mở trang Ví voucher",
+          "Quan sát tag \"1 lần/khách\" của voucher đã sử dụng",
+          "Mở trang chủ",
+          "Nhấn vào truyện \"Death Note tập 3\"",
+          "Nhấn nút \"Mua ngay\"",
+          "Nhấn nút \"Chọn voucher\"",
+          "Quan sát danh sách voucher trong popup \"Chọn voucher\""
         ],
-        "expected_result": "Hệ thống hiển thị thông báo voucher đã được sử dụng.",
+        "expected_result": "Voucher \"1 lần/khách\" đã sử dụng tự động mất khỏi ví voucher (mục \"Voucher của tôi\") và không còn xuất hiện trong popup \"Chọn voucher\" ở trang Thanh toán, nên không thể áp dụng lại cho đơn hàng.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C010-RULE-M09-001"
@@ -1225,15 +1270,16 @@
           "V5"
         ],
         "preconditions": [
-          "Admin đã đăng nhập và có quyền quản lý voucher"
+          "Admin đã đăng nhập và có quyền quản lý voucher",
+          "Trang Quản lý khuyến mãi (voucher) có voucher ở nhiều trạng thái khác nhau"
         ],
-        "given": "Tiêu chí sắp xếp hợp lệ",
+        "given": "Trạng thái voucher được chọn trong bộ lọc (ví dụ: Đang hoạt động / Hết hạn / Hết lượt)",
         "steps": [
-          "Mở trang quản lý voucher",
-          "Chọn tiêu chí sắp xếp",
-          "Xác nhận"
+          "Mở trang Quản lý khuyến mãi (voucher)",
+          "Chọn trạng thái voucher trong bộ lọc trạng thái",
+          "Quan sát danh sách voucher sau khi lọc"
         ],
-        "expected_result": "Hệ thống hiển thị danh sách voucher đã sắp xếp đúng.",
+        "expected_result": "Danh sách voucher chỉ hiển thị các voucher có trạng thái đúng với trạng thái đã chọn trong bộ lọc.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C010-RULE-M09-003"
@@ -1283,12 +1329,12 @@
         "preconditions": [
           "Khách hàng đã đăng nhập"
         ],
-        "given": "Ví voucher có chứa voucher đã hết hạn",
+        "given": "Ví voucher có chứa voucher còn hạn",
         "steps": [
-          "Mở ví voucher của khách hàng",
-          "Kiểm tra danh sách hiển thị"
+          "Mở trang Ví voucher",
+          "Quan sát card voucher còn hạn"
         ],
-        "expected_result": "Voucher hết hạn tự động được ẩn khỏi ví voucher.",
+        "expected_result": "Voucher đã hết hạn vẫn không hiển thị trong mục \"Voucher của tôi\" ở trang Ví voucher",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C010-RULE-M09-002"
@@ -1312,10 +1358,11 @@
         ],
         "given": "Sản phẩm gợi ý có trạng thái còn hàng và hiển thị công khai",
         "steps": [
-          "Truy cập trang chủ hệ thống",
-          "Quan sát khu vực gợi ý sản phẩm"
+          "Mở trang chủ",
+          "Quan sát khu vực \"Gợi ý cho bạn\"",
+          "Nhấn vào truyện \"Death Note tập 4\" trong mục gợi ý"
         ],
-        "expected_result": "Hiển thị danh sách sản phẩm gợi ý hợp lệ",
+        "expected_result": "Khu vực \"Gợi ý cho bạn\" hiển thị danh sách truyện còn hàng với ảnh bìa, tên truyện, giá bán và dòng \"Đã bán: N\"; nhấn vào một truyện mở được trang chi tiết của truyện đó.",
         "trace_scenario_ids": [
           "C014-SCN-UC24-03"
         ],
@@ -1425,13 +1472,15 @@
         ],
         "preconditions": [
           "Hệ thống có dữ liệu truyện",
-          "Người dùng đã đăng nhập và có wishlist"
+          "Người dùng đã đăng nhập và có truyện trong wishlist"
         ],
-        "given": "Người dùng đã đăng nhập và có wishlist",
+        "given": "Người dùng đã đăng nhập và có truyện trong wishlist",
         "steps": [
-          "Mở trang chủ hệ thống"
+          "Mở trang chủ",
+          "Quan sát tiêu đề và danh sách trong mục \"Dành riêng cho bạn\"",
+          "Nhấn vào mục \"WishList\" trên thanh tiện ích để đối chiếu truyện đã lưu"
         ],
-        "expected_result": "Hiển thị mục Gợi ý cho bạn với truyện cùng thể loại hoặc tập tiếp theo",
+        "expected_result": "Khi đã đăng nhập, tiêu đề mục gợi ý trên trang chủ là \"Dành riêng cho bạn\" (khác với khách vãng lai) và hiển thị các truyện gợi ý theo wishlist (tập tiếp theo của series hoặc cùng thể loại), mỗi truyện có giá và dòng \"Đã bán: N\".",
         "trace_scenario_ids": [
           "C014-SCN-UC24-01"
         ],
@@ -1458,9 +1507,11 @@
         ],
         "given": "Người dùng chưa đăng nhập hoặc chưa có wishlist",
         "steps": [
-          "Mở trang chủ hệ thống"
+          "Không đăng nhập (hoặc đăng nhập bằng tài khoản chưa có truyện trong wishlist)",
+          "Mở trang chủ hệ thống",
+          "Quan sát mục \"Gợi ý cho bạn\""
         ],
-        "expected_result": "Hiển thị mục Gợi ý cho bạn với các truyện có lượt bán cao nhất",
+        "expected_result": "Mục \"Gợi ý cho bạn\" hiển thị các truyện có lượt bán cao nhất khi người dùng chưa đăng nhập hoặc chưa có truyện trong wishlist.",
         "trace_scenario_ids": [
           "C014-SCN-UC24-02"
         ],
@@ -1487,9 +1538,11 @@
         ],
         "given": "Người dùng đã đăng nhập với wishlist rỗng",
         "steps": [
-          "Mở trang chủ hệ thống"
+          "Đăng nhập bằng tài khoản có wishlist trống",
+          "Mở trang chủ hệ thống",
+          "Quan sát mục \"Gợi ý cho bạn\""
         ],
-        "expected_result": "Hiển thị mục Gợi ý cho bạn dựa trên truyện bán chạy",
+        "expected_result": "Mục \"Gợi ý cho bạn\" hiển thị các truyện bán chạy khi wishlist của người dùng đang rỗng.",
         "trace_scenario_ids": [
           "C014-SCN-UC24-02"
         ],
@@ -1516,9 +1569,11 @@
         ],
         "given": "Tài khoản mới chưa có dữ liệu wishlist",
         "steps": [
-          "Truy cập vào trang chủ"
+          "Mở trang chủ",
+          "Quan sát mục \"Dành riêng cho bạn\"",
+          "Nhấn vào mục \"WishList\" trên thanh tiện ích để đối chiếu truyện đã lưu"
         ],
-        "expected_result": "Hệ thống hiển thị danh sách truyện bán chạy tại mục Gợi ý cho bạn",
+        "expected_result": "Với tài khoản mới chưa có truyện trong wishlist, trang chủ hiển thị mục \"Dành riêng cho bạn\" với danh sách truyện bán chạy trong tuần làm gợi ý mặc định, kèm giá và dòng \"Đã bán: N\".",
         "trace_scenario_ids": [
           "C014-SCN-UC24-02"
         ],
@@ -1541,13 +1596,16 @@
         ],
         "preconditions": [
           "Hệ thống có dữ liệu truyện",
+          "Người dùng đã đăng nhập",
           "Wishlist chỉ chứa đúng một cuốn truyện"
         ],
         "given": "Wishlist có chính xác 1 truyện",
         "steps": [
-          "Tải trang chủ"
+          "Mở trang chủ",
+          "Quan sát mục \"Dành riêng cho bạn\"",
+          "Nhấn vào mục \"WishList\" trên thanh tiện ích để đối chiếu truyện đã lưu"
         ],
-        "expected_result": "Hiển thị tập tiếp theo hoặc truyện cùng thể loại của cuốn truyện đó",
+        "expected_result": "Mục \"Dành riêng cho bạn\" hiển thị danh sách gợi ý dựa trên truyện duy nhất trong wishlist (tập tiếp theo của series hoặc truyện cùng thể loại), mỗi truyện có tên, giá và \"Đã bán: N\".",
         "trace_scenario_ids": [
           "C014-SCN-UC24-01"
         ],
@@ -1574,9 +1632,11 @@
         ],
         "given": "Wishlist có các truyện đa thể loại",
         "steps": [
-          "Truy cập trang chủ ứng dụng"
+          "Mở trang chủ",
+          "Quan sát mục \"Dành riêng cho bạn\"",
+          "Nhấn vào mục \"WishList\" trên thanh tiện ích để đối chiếu truyện đã lưu"
         ],
-        "expected_result": "Hiển thị gợi ý tổng hợp theo các thể loại có trong wishlist",
+        "expected_result": "Mục \"Dành riêng cho bạn\" hiển thị gợi ý tổng hợp theo các thể loại/series có trong wishlist (tập tiếp theo của từng series), mỗi truyện có tên, giá và \"Đã bán: N\".",
         "trace_scenario_ids": [
           "C014-SCN-UC24-01"
         ],
@@ -1601,11 +1661,12 @@
           "Hệ thống có dữ liệu truyện",
           "Phiên đăng nhập của người dùng đã hết hạn"
         ],
-        "given": "Phiên đăng nhập hết hạn",
+        "given": "Phiên đăng nhập đã hết hạn",
         "steps": [
-          "Làm mới trang chủ"
+          "Làm mới trang chủ",
+          "Quan sát tiêu đề mục gợi ý và danh sách truyện"
         ],
-        "expected_result": "Hệ thống coi như khách vãng lai và hiển thị truyện bán chạy",
+        "expected_result": "Khi phiên đăng nhập hết hạn, trang chủ coi người dùng là khách vãng lai: tiêu đề mục gợi ý là \"Gợi ý cho bạn\" và danh sách hiển thị truyện bán chạy kèm giá và dòng \"Đã bán: N\".",
         "trace_scenario_ids": [
           "C014-SCN-UC24-02"
         ],
@@ -1749,13 +1810,14 @@
         "preconditions": [
           "Admin đã đăng nhập và có quyền phù hợp"
         ],
-        "given": "Admin đang mở trang Tổng quan và chọn khoảng thời gian 'Tuy chinh'",
+        "given": "Admin đang mở trang Tổng quan và chọn khoảng thời gian \"Tùy chỉnh\"",
         "steps": [
           "Mở trang Tổng quan",
-          "Chọn khoảng thời gian 'Tuy chinh'",
-          "Xac nhan khoảng ngay hợp lệ"
+          "Nhấn nút \"Tùy chỉnh\"",
+          "Quan sát 2 ô ngày \"Từ ngày\" và \"Đến ngày\"",
+          "Nhấn nút \"Áp dụng\""
         ],
-        "expected_result": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu theo khoảng tùy chỉnh",
+        "expected_result": "Khi chọn \"Tùy chỉnh\", form hiển thị 2 ô ngày \"Từ ngày\" - \"Đến ngày\"; sau khi nhập khoảng ngày hợp lệ và nhấn \"Áp dụng\", trang Tổng quan tải lại và hiển thị số liệu, biểu đồ doanh thu đúng theo khoảng ngày đã chọn.",
         "trace_scenario_ids": [
           "C020-SCN-M19-01"
         ],
@@ -1779,13 +1841,13 @@
         "preconditions": [
           "Admin đã đăng nhập và có quyền phù hợp"
         ],
-        "given": "Admin đang mở trang Tổng quan và nhập khoảng thời gian không hợp lệ",
+        "given": "Admin đang mở trang Tổng quan và chọn khoảng thời gian không hợp lệ từ bộ chọn thời gian có sẵn của web",
         "steps": [
           "Mở trang Tổng quan",
-          "Nhap khoảng thoi gian sai dinh dang",
-          "Nhan xac nhan"
+          "Chọn khoảng thời gian theo định dạng có sẵn của web (Hôm nay / 7 ngày qua / Tùy chỉnh) và chọn khoảng ngày không hợp lệ (ngày bắt đầu lớn hơn ngày kết thúc)",
+          "Nhấn nút \"Áp dụng\""
         ],
-        "expected_result": "Hệ thống hiển thị thông báo lỗi khoảng thời gian không hợp lệ",
+        "expected_result": "Hệ thống hiển thị thông báo lỗi khoảng thời gian không hợp lệ và không cập nhật số liệu/biểu đồ theo khoảng thời gian đó.",
         "trace_scenario_ids": [
           "C020-SCN-M19-01"
         ],
@@ -1834,14 +1896,15 @@
           "D1"
         ],
         "preconditions": [
-          "Hệ thống có sẵn hơn 10 sản phẩm bán chạy và đánh giá cao"
+          "Admin đã đăng nhập và có quyền phù hợp",
+          "Hệ thống có sẵn hơn 10 sản phẩm bán chạy và được đánh giá cao"
         ],
-        "given": "Số lượng mục trong danh sách là 11",
+        "given": "Dữ liệu có 11 sản phẩm bán chạy/đánh giá cao",
         "steps": [
-          "Truy cập trang bảng xếp hạng",
-          "Kiểm tra số lượng mục hiển thị"
+          "Mở trang Tổng quan và cuộn tới khu vực bảng xếp hạng sản phẩm bán chạy",
+          "Đếm số mục sản phẩm hiển thị trong bảng xếp hạng"
         ],
-        "expected_result": "Bảng xếp hạng chỉ hiển thị tối đa 10 mục.",
+        "expected_result": "Bảng xếp hạng sản phẩm bán chạy hiển thị tối đa 10 mục, mỗi mục có tên truyện và số lượng đã bán, không hiển thị trùng lặp.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C020-RULE-M19-02"

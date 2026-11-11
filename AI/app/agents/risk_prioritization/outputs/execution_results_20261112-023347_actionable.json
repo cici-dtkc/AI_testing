@@ -1,0 +1,661 @@
+{
+  "schema_version": "1.0",
+  "run_id": "20261112-023347",
+  "project_id": "comic-ecommerce",
+  "started_at": "2026-11-11T19:34:03.674812Z",
+  "completed_at": "2026-11-12T02:37:12.335794Z",
+  "total_duration_ms": 391076,
+  "summary": {
+    "total_test_cases": 14,
+    "passed": 0,
+    "failed": 9,
+    "blocked": 0,
+    "error": 0,
+    "flaky": 0,
+    "manual": 5
+  },
+  "excluded": {
+    "passed": 50,
+    "blocked": 0
+  },
+  "execution_results": [
+    {
+      "test_case_id": "TimKiem-TC-04",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-12T02:33:47.559165Z",
+      "end_time": "2026-11-12T02:34:03.674603Z",
+      "duration_ms": 16115,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "assertion",
+      "assertion_values": {
+        "passed": false,
+        "expected": "Hiển thị thông báo yêu cầu nhập từ khóa.",
+        "actual": {
+          "type": "ui_text",
+          "value": "Comic Store\nTrang chủ\nThể loại ▾\nLiên hệ\nLịch sử tìm kiếm\nXóa tất cả\nKhông có lịch sử\n❮\n❯\nTiện ích\n\nFlash Sale\n\nVí voucher\n\nWishList\n\nFLASH SALE\n\n⏰ Kết thúc sau: 49 ngày 13:18:04\n\nDeath Note tập 3\n\nGiá khuyến mãi: 24.500 đ\n\nGiá gốc:\n35.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 1\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 3\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 5\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGi",
+          "selector": "body",
+          "timestamp": "2026-11-11T19:33:55.526363+00:00"
+        }
+      },
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"no validation feedback in UI (possible app defect)\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/TimKiem-TC-04/attempt_1/screenshot_20261112T023402160209.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Document\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/TimKiem-TC-04/attempt_1/screenshot_20261112T023402160209.png",
+              "timestamp": "2026-11-12T02:34:03.674603Z",
+              "size_bytes": 2634002,
+              "sha256": "820be128a72fd2c848e16e6d68da2da07f5b368e0ab733c99559a3556a2f208e"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Hiển thị thông báo yêu cầu nhập từ khóa.",
+      "actual_result": "{\"reason\": \"no validation feedback in UI (possible app defect)\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/TimKiem-TC-04/attempt_1/screenshot_20261112T023402160209.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Flash Sale\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Ví voucher\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/voucher\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"WishList\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/wishlist\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 3\\n\\nGiá khuyến mãi: 24.500 đ\\n\\nGiá gốc:\\n35.000 đ\\n\\nGiảm giá: 30%\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=20\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 1\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=101\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 3\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=103\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 5\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=105\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Xem thêm\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 4\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=21\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"SHIN CẬU BÉ BÚT CHÌ - Tập 38\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=151\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Naruto Tập 47: Phong Ấn Bị Phá Bỏ!!\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=42\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Kimi ni Todoke - Tập 2\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=111\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Anh không thích thế giới này, anh chỉ thích em\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=109\", \"kind\": \"link\"}], \"page_title\": \"Document\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/TimKiem-TC-04/attempt_1/screenshot_20261112T023402160209.png",
+          "timestamp": "2026-11-12T02:34:03.674603Z",
+          "size_bytes": 2634002,
+          "sha256": "820be128a72fd2c848e16e6d68da2da07f5b368e0ab733c99559a3556a2f208e"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/TimKiem-TC-04/attempt_1/trace_20261112T023403403601.zip",
+          "timestamp": "2026-11-12T02:34:03.674603Z",
+          "size_bytes": 5943000,
+          "sha256": "10404532f0b293fde07f6d96c1b3ea33cde297e6eb23e72318f8cd7ee76fbfd3"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "GiamGia-TC-05",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-12T02:34:31.041575Z",
+      "end_time": "2026-11-12T02:34:55.990978Z",
+      "duration_ms": 24949,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "test_step",
+      "assertion_values": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"click target not found: Chọn voucher\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/GiamGia-TC-05/attempt_1/screenshot_20261112T023453761273.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Document\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/GiamGia-TC-05/attempt_1/screenshot_20261112T023453761273.png",
+              "timestamp": "2026-11-12T02:34:55.990978Z",
+              "size_bytes": 2845142,
+              "sha256": "dc5b65a2683a444eefaf7c6550e150f3503d8e92d9d8416e3cb937513c212bc0"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Voucher đã hết hạn vẫn hiển thị trong ví voucher (mục \"Voucher của tôi\") với dòng \"Đã hết hạn\" và nhãn \"Hết hạn\" thay cho nút \"Dùng ngay\", đồng thời vẫn hiện trong popup \"Chọn voucher\" ở trang Thanh toán nhưng không có checkbox để chọn nên không áp dụng được cho đơn hàng.",
+      "actual_result": "{\"reason\": \"click target not found: Chọn voucher\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/GiamGia-TC-05/attempt_1/screenshot_20261112T023453761273.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"23\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"8\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Flash Sale\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Ví voucher\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/voucher\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"WishList\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/wishlist\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 3\\n\\nGiá khuyến mãi: 24.500 đ\\n\\nGiá gốc:\\n35.000 đ\\n\\nGiảm giá: 30%\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=20\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 1\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=101\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 3\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=103\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 5\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=105\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Xem thêm\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thám Tử Kindaichi - Tập 2 - Án Mạng Ở Làng Lục Giác\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=11\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thám Tử Lừng Danh Conan - Tập 88\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=9\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 2\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=19\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 4\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=21\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 1\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=18\", \"kind\": \"link\"}], \"page_title\": \"Document\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/GiamGia-TC-05/attempt_1/screenshot_20261112T023453761273.png",
+          "timestamp": "2026-11-12T02:34:55.990978Z",
+          "size_bytes": 2845142,
+          "sha256": "dc5b65a2683a444eefaf7c6550e150f3503d8e92d9d8416e3cb937513c212bc0"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-05/attempt_1/trace_20261112T023455874624.zip",
+          "timestamp": "2026-11-12T02:34:55.990978Z",
+          "size_bytes": 28036761,
+          "sha256": "b119c7bd32e006fc59a0cb14cdb96e65a77b1d5db8fa1c25a97daee3dc934173"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-02",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-12T02:34:36.315854Z",
+      "end_time": "2026-11-12T02:34:55.430630Z",
+      "duration_ms": 19114,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "test_step",
+      "assertion_values": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"click target not found: Chọn voucher\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/GiamGia-TC-02/attempt_1/screenshot_20261112T023453515150.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/cart\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Comic Store - Giỏ hàng\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/GiamGia-TC-02/attempt_1/screenshot_20261112T023453515150.png",
+              "timestamp": "2026-11-12T02:34:55.430630Z",
+              "size_bytes": 371338,
+              "sha256": "c65b115b71e27d4cb9bdc22d0082a55da6afd0673d250faab06a7718cee40f8e"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Popup \"Chọn voucher\" chỉ liệt kê các voucher đang có trong ví của khách hàng (mỗi voucher hiển thị \"Giảm ...\", \"Mã:\", \"Đơn tối thiểu\", \"HSD\"); web không có ô nhập mã voucher nên voucher không tồn tại trong ví không thể áp dụng, khi ví không có voucher popup hiển thị \"Không có voucher nào\".",
+      "actual_result": "{\"reason\": \"click target not found: Chọn voucher\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/GiamGia-TC-02/attempt_1/screenshot_20261112T023453515150.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/cart\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"23\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"8\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Khuyến mãi\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/FlashSale.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Giỏ hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/cart.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/chat.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Chính sách đổi trả\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/RefundPolicy.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Chính sách vận chuyển\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/shippingPolicy.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"https://www.facebook.com/share/1MVc1miHnd/\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"https://www.instagram.com/comic.store/\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"https://www.tiktok.com/@comics_store.official\", \"kind\": \"link\"}, {\"tag\": \"button\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"-\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}], \"page_title\": \"Comic Store - Giỏ hàng\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/GiamGia-TC-02/attempt_1/screenshot_20261112T023453515150.png",
+          "timestamp": "2026-11-12T02:34:55.430630Z",
+          "size_bytes": 371338,
+          "sha256": "c65b115b71e27d4cb9bdc22d0082a55da6afd0673d250faab06a7718cee40f8e"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-02/attempt_1/trace_20261112T023455319997.zip",
+          "timestamp": "2026-11-12T02:34:55.430630Z",
+          "size_bytes": 22011439,
+          "sha256": "18dca401e615515f950a722e38633415e6dc8f9e3e1de1b9fbdced92f17cdacc"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-07",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-12T02:34:55.991143Z",
+      "end_time": "2026-11-12T02:35:09.442600Z",
+      "duration_ms": 13451,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "assertion",
+      "assertion_values": {
+        "passed": false,
+        "expected": "Voucher đã hết lượt sử dụng không còn hiển thị trong ví voucher (mục \"Voucher của tôi\") và không xuất hiện trong popup \"Chọn voucher\" ở trang Thanh toán, nên khách hàng không thể áp dụng lại.",
+        "actual": {
+          "type": "ui_text",
+          "value": "Comic Store\nTrang chủ\nThể loại ▾\nLiên hệ\n23\n8\nTHANH TOÁN\nĐang sử dụng địa chỉ mặc định của bạn. Bạn có thể thay đổi nếu cần.\nHọ và tên người nhận: *\nSố điện thoại: *\nTỉnh/Thành Phố: *\n-- Chọn Tỉnh/Thành phố --\nThành phố Hà Nội\nTỉnh Hà Giang\nTỉnh Cao Bằng\nTỉnh Bắc Kạn\nTỉnh Tuyên Quang\nTỉnh Lào Cai\nTỉnh Điện Biên\nTỉnh Lai Châu\nTỉnh Sơn La\nTỉnh Yên Bái\nTỉnh Hoà Bình\nTỉnh Thái Nguyên\nTỉnh Lạng Sơn\nTỉnh Quảng Ninh\nTỉnh Bắc Giang\nTỉnh Phú Thọ\nTỉnh Vĩnh Phúc\nTỉnh Bắc Ninh\nTỉnh Hải Dương\nThành phố Hải P",
+          "selector": "body",
+          "timestamp": "2026-11-11T19:35:05.544243+00:00"
+        }
+      },
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"no validation feedback in UI (possible app defect)\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/GiamGia-TC-07/attempt_1/screenshot_20261112T023508072345.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/checkout?comicId=20&quantity=1\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Thanh toán\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/GiamGia-TC-07/attempt_1/screenshot_20261112T023508072345.png",
+              "timestamp": "2026-11-12T02:35:09.442600Z",
+              "size_bytes": 213271,
+              "sha256": "3f19fdcf09480df104e2cb28bf8d5cf07d1f481222730ac8ad9ed2c8f6ac7eca"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Voucher đã hết lượt sử dụng không còn hiển thị trong ví voucher (mục \"Voucher của tôi\") và không xuất hiện trong popup \"Chọn voucher\" ở trang Thanh toán, nên khách hàng không thể áp dụng lại.",
+      "actual_result": "{\"reason\": \"no validation feedback in UI (possible app defect)\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/GiamGia-TC-07/attempt_1/screenshot_20261112T023508072345.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/checkout?comicId=20&quantity=1\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Nhập họ tên\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Nhập số điện thoại\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"select\", \"text\": \"-- Chọn Tỉnh/Thành phố --\\nThành phố Hà Nội\\nTỉnh Hà Giang\\nTỉnh Cao Bằng\\nTỉnh Bắc \", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"select\", \"text\": \"-- Chọn Quận/Huyện --\\nQuận 1\\nQuận 12\\nQuận Gò Vấp\\nQuận Bình Thạnh\\nQuận Tân Bình\\nQ\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"select\", \"text\": \"-- Chọn Phường/Xã --\\nPhường Linh Xuân\\nPhường Bình Chiểu\\nPhường Linh Trung\\nPhường\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Nhập địa chỉ cụ thể (số nhà, tên đường)\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"23\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"8\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Khuyến mãi\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/FlashSale.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Giỏ hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/cart.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/chat.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Chính sách đổi trả\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/RefundPolicy.jsp\", \"kind\": \"link\"}], \"page_title\": \"Thanh toán\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/GiamGia-TC-07/attempt_1/screenshot_20261112T023508072345.png",
+          "timestamp": "2026-11-12T02:35:09.442600Z",
+          "size_bytes": 213271,
+          "sha256": "3f19fdcf09480df104e2cb28bf8d5cf07d1f481222730ac8ad9ed2c8f6ac7eca"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-07/attempt_1/trace_20261112T023509325063.zip",
+          "timestamp": "2026-11-12T02:35:09.442600Z",
+          "size_bytes": 13038129,
+          "sha256": "8194906032f76f4002e5af0262fe4fec38e012c21317b9b4bec43d28557a3f53"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "BaoCaoThongKe-TC-06",
+      "module": "BaoCaoThongKe",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-12T02:36:43.975537Z",
+      "end_time": "2026-11-12T02:36:56.804437Z",
+      "duration_ms": 12828,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "test_step",
+      "assertion_values": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"click target not found: khoảng ngày không hợp lệ (ngày bắt đầu lớn hơn ngày kết thúc)\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/BaoCaoThongKe-TC-06/attempt_1/screenshot_20261112T023656166776.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/admin/dashboard\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Trang chủ - Dashboard\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/BaoCaoThongKe-TC-06/attempt_1/screenshot_20261112T023656166776.png",
+              "timestamp": "2026-11-12T02:36:56.804437Z",
+              "size_bytes": 95037,
+              "sha256": "65e0cef6f2cf839c7daa688d96ed01d33d493698a67bebe508d6bca5185f84aa"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Hệ thống hiển thị thông báo lỗi khoảng thời gian không hợp lệ và không cập nhật số liệu/biểu đồ theo khoảng thời gian đó.",
+      "actual_result": "{\"reason\": \"click target not found: khoảng ngày không hợp lệ (ngày bắt đầu lớn hơn ngày kết thúc)\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/BaoCaoThongKe-TC-06/attempt_1/screenshot_20261112T023656166776.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/admin/dashboard\", \"visible_elements\": [{\"tag\": \"a\", \"text\": \"Dashboard\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/dashboard\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý sản phẩm\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/ProductManagement\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý series\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/SeriesManagement?filter=all\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý thể loại\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/CategoryManagement\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý đơn hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/orders\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý kho hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/inventory\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý người dùng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/user-management\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý Flash Sale\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/manage-flashsale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý khuyến mãi\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/vouchersManagement\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Phân quyền\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/permission-management\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thống kê\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/ReportManagement\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"2\", \"placeholder\": null, \"aria_label\": null, \"href\": \"javascript:void(0)\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/admin/profileAdmin.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/logout\", \"kind\": \"link\"}, {\"tag\": \"button\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Hôm nay\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Tuần này\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Tháng này\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Năm này\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Tùy chỉnh\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}], \"page_title\": \"Trang chủ - Dashboard\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/BaoCaoThongKe-TC-06/attempt_1/screenshot_20261112T023656166776.png",
+          "timestamp": "2026-11-12T02:36:56.804437Z",
+          "size_bytes": 95037,
+          "sha256": "65e0cef6f2cf839c7daa688d96ed01d33d493698a67bebe508d6bca5185f84aa"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/BaoCaoThongKe-TC-06/attempt_1/trace_20261112T023656722506.zip",
+          "timestamp": "2026-11-12T02:36:56.804437Z",
+          "size_bytes": 4713232,
+          "sha256": "596ff11e85d1cfa0f45d317b264f3e8528a33ad61e716a056d0f19f284c86065"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-14",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-12T02:36:14.429359Z",
+      "end_time": "2026-11-12T02:36:22.427172Z",
+      "duration_ms": 7997,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "assertion",
+      "assertion_values": {
+        "passed": false,
+        "expected": "Voucher đã hết hạn vẫn không hiển thị trong mục \"Voucher của tôi\" ở trang Ví voucher",
+        "actual": {
+          "type": "ui_text",
+          "value": "Comic Store\nTrang chủ\nThể loại ▾\nLiên hệ\n23\n8\nTrần Quỳnh Trâm\n\nThành viên Kim Cương\n\nC-Point tích lũy: 1000\n\nThông tin tài khoản\nĐổi mật khẩu\nƯu đãi C-Point\nĐơn hàng của tôi\nThông báo\nVí voucher\nSản phẩm yêu thích\nVoucher của tôi\nVoucher sản phẩm\nSẢN PHẨM\nGiảm 35000.00đ\nMã: SALE GIỮA NĂM\nÁp dụng: Hài hước\nĐơn tối thiểu: 110.00đ\nHSD: 2027-03-09 21:30:00.0\nDùng ngay\nVoucher vận chuyển\nVẬN CHUYỂN\nGiảm 15%\nMã: test 24\nÁp dụng: Toàn bộ sản phẩm\nĐơn tối thiểu: 100.00đ\nHSD: 2027-02-03 13:49:00.0\nDùng n",
+          "selector": "body",
+          "timestamp": "2026-11-11T19:36:19.994263+00:00"
+        }
+      },
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"no validation feedback in UI (possible app defect)\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/GiamGia-TC-14/attempt_1/screenshot_20261112T023621842478.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/user-voucher\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Ví voucher\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/GiamGia-TC-14/attempt_1/screenshot_20261112T023621842478.png",
+              "timestamp": "2026-11-12T02:36:22.427172Z",
+              "size_bytes": 204541,
+              "sha256": "335aaf4912f88b1f1969161a21f61dcc78a9162de5a2043808c69cc119849fac"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Voucher đã hết hạn vẫn không hiển thị trong mục \"Voucher của tôi\" ở trang Ví voucher",
+      "actual_result": "{\"reason\": \"no validation feedback in UI (possible app defect)\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/GiamGia-TC-14/attempt_1/screenshot_20261112T023621842478.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/user-voucher\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"23\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"8\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thông tin tài khoản\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/updateUser\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Đổi mật khẩu\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/change-password\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Ưu đãi C-Point\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/pointHistory\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Đơn hàng của tôi\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/order-history?filter=pending\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thông báo\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/notifications.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Ví voucher\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/user-voucher\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Sản phẩm yêu thích\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/wishlist\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Khuyến mãi\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/FlashSale.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Giỏ hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/cart.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/chat.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Chính sách đổi trả\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/RefundPolicy.jsp\", \"kind\": \"link\"}], \"page_title\": \"Ví voucher\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/GiamGia-TC-14/attempt_1/screenshot_20261112T023621842478.png",
+          "timestamp": "2026-11-12T02:36:22.427172Z",
+          "size_bytes": 204541,
+          "sha256": "335aaf4912f88b1f1969161a21f61dcc78a9162de5a2043808c69cc119849fac"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-14/attempt_1/trace_20261112T023622337001.zip",
+          "timestamp": "2026-11-12T02:36:22.427172Z",
+          "size_bytes": 7650454,
+          "sha256": "9d535c84db610627ad77017ecc8ae9c5ec9e27921f97f3bf9b7eba686a68d653"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-03",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-12T02:35:23.106750Z",
+      "end_time": "2026-11-12T02:35:29.489563Z",
+      "duration_ms": 6382,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "test_step",
+      "assertion_values": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"quantity control not found for 'số lượng'\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/QuanLyTonKho-TC-03/attempt_1/screenshot_20261112T023528904568.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/comic-detail?id=20\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Document\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/QuanLyTonKho-TC-03/attempt_1/screenshot_20261112T023528904568.png",
+              "timestamp": "2026-11-12T02:35:29.489563Z",
+              "size_bytes": 3342009,
+              "sha256": "bce38d92b627b761ba84bcca69f4e77f7efa3d47b02a5b76c213c43245ed7191"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Thêm sản phẩm thành công vào giỏ hàng.",
+      "actual_result": "{\"reason\": \"quantity control not found for 'số lượng'\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/QuanLyTonKho-TC-03/attempt_1/screenshot_20261112T023528904568.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/comic-detail?id=20\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thêm vào giỏ hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart?action=add&comicId=20&quantity=1\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Mua ngay\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/checkout?comicId=20&quantity=1\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/series-detail?id=18\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 4\\n\\n35.000 đ\\n\\nĐã bán: 0\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=21\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 6\\n\\n35.000 đ\\n\\nĐã bán: 0\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=23\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 7\\n\\n35.000 đ\\n\\nĐã bán: 0\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=24\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 8\\n\\n35.000 đ\\n\\nĐã bán: 0\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=25\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"mmm\\n\\n25.000 đ\\n\\nĐã bán: 0\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=202\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thám Tử Lừng Danh Conan - Tập 86\\n\\n25.000 đ\\n\\nĐã bán: 0\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=7\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 4\\n\\n35.000 đ\\n\\nĐã bán: 9\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=21\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thám Tử Lừng Danh Conan - Tập 83\\n\\n25.000 đ\\n\\nĐã bán: 5\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=4\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thám Tử Lừng Danh Conan - Tập 80\\n\\n25.000 đ\\n\\nĐã bán: 3\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=1\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thám Tử Lừng Danh Conan - Tập 81\\n\\n25.000 đ\\n\\nĐã bán: 2\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=2\", \"kind\": \"link\"}], \"page_title\": \"Document\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/QuanLyTonKho-TC-03/attempt_1/screenshot_20261112T023528904568.png",
+          "timestamp": "2026-11-12T02:35:29.489563Z",
+          "size_bytes": 3342009,
+          "sha256": "bce38d92b627b761ba84bcca69f4e77f7efa3d47b02a5b76c213c43245ed7191"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/QuanLyTonKho-TC-03/attempt_1/trace_20261112T023529383042.zip",
+          "timestamp": "2026-11-12T02:35:29.489563Z",
+          "size_bytes": 7562857,
+          "sha256": "64f816fe9e870eb442832bb5b1c3a4f00dfff8f22ca27b7363e3b91a007ddeca"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-01",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "MANUAL",
+      "start_time": "2026-11-11T19:34:03.674812Z",
+      "end_time": "2026-11-11T19:34:03.674813Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": null,
+      "observed_facts": [],
+      "expected_result": "Giá trị lưu trữ là chuỗi băm bảo mật, không hiển thị dạng plaintext, kết quả Đạt.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-02",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "MANUAL",
+      "start_time": "2026-11-11T19:34:03.674908Z",
+      "end_time": "2026-11-11T19:34:03.674909Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": null,
+      "observed_facts": [],
+      "expected_result": "Mật khẩu cập nhật được chuyển đổi thành mã hash hoàn toàn, kết quả Đạt.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-03",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "MANUAL",
+      "start_time": "2026-11-11T19:34:03.674969Z",
+      "end_time": "2026-11-11T19:34:03.674970Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": null,
+      "observed_facts": [],
+      "expected_result": "Chuỗi hash phản ánh đúng thuật toán mã hóa an toàn, kết quả Đạt.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-04",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "MANUAL",
+      "start_time": "2026-11-11T19:34:03.675022Z",
+      "end_time": "2026-11-11T19:34:03.675022Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": null,
+      "observed_facts": [],
+      "expected_result": "Không phát hiện mật khẩu dạng rõ hoặc chuỗi hash trong tệp log, kết quả Đạt.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-05",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "MANUAL",
+      "start_time": "2026-11-11T19:34:03.675075Z",
+      "end_time": "2026-11-11T19:34:03.675076Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": null,
+      "observed_facts": [],
+      "expected_result": "Dữ liệu mật khẩu được bảo vệ an toàn trên đường truyền, kết quả Đạt.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "Wishlist-TC-07",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-12T02:36:57.020961Z",
+      "end_time": "2026-11-12T02:37:05.348451Z",
+      "duration_ms": 8327,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "assertion",
+      "assertion_values": {
+        "passed": false,
+        "expected": "Khi phiên đăng nhập hết hạn, trang chủ coi người dùng là khách vãng lai: tiêu đề mục gợi ý là \"Gợi ý cho bạn\" và danh sách hiển thị truyện bán chạy kèm giá và dòng \"Đã bán: N\".",
+        "actual": {
+          "type": "ui_text",
+          "value": "Comic Store\nTrang chủ\nThể loại ▾\nLiên hệ\n❮\n❯\nTiện ích\n\nFlash Sale\n\nVí voucher\n\nWishList\n\nFLASH SALE\n\n⏰ Kết thúc sau: 49 ngày 13:14:59\n\nDeath Note tập 3\n\nGiá khuyến mãi: 24.500 đ\n\nGiá gốc:\n35.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 1\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 3\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 5\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nXem thêm\nGợi ý cho bạn\n❮\n\nDeath ",
+          "selector": "body",
+          "timestamp": "2026-11-11T19:37:01.237383+00:00"
+        }
+      },
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"no validation feedback in UI (possible app defect)\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/Wishlist-TC-07/attempt_1/screenshot_20261112T023705000268.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Document\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/Wishlist-TC-07/attempt_1/screenshot_20261112T023705000268.png",
+              "timestamp": "2026-11-12T02:37:05.348451Z",
+              "size_bytes": 2656967,
+              "sha256": "2b2eb59690bbd32454e46a3b205166ebebc346c913261876cb4f1b17ec64855b"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Khi phiên đăng nhập hết hạn, trang chủ coi người dùng là khách vãng lai: tiêu đề mục gợi ý là \"Gợi ý cho bạn\" và danh sách hiển thị truyện bán chạy kèm giá và dòng \"Đã bán: N\".",
+      "actual_result": "{\"reason\": \"no validation feedback in UI (possible app defect)\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/Wishlist-TC-07/attempt_1/screenshot_20261112T023705000268.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Flash Sale\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Ví voucher\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/voucher\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"WishList\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/wishlist\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 3\\n\\nGiá khuyến mãi: 24.500 đ\\n\\nGiá gốc:\\n35.000 đ\\n\\nGiảm giá: 30%\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=20\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 1\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=101\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 3\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=103\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 5\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=105\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Xem thêm\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 4\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=21\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"SHIN CẬU BÉ BÚT CHÌ - Tập 38\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=151\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Naruto Tập 47: Phong Ấn Bị Phá Bỏ!!\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=42\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Kimi ni Todoke - Tập 2\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=111\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Anh không thích thế giới này, anh chỉ thích em\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=109\", \"kind\": \"link\"}], \"page_title\": \"Document\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/Wishlist-TC-07/attempt_1/screenshot_20261112T023705000268.png",
+          "timestamp": "2026-11-12T02:37:05.348451Z",
+          "size_bytes": 2656967,
+          "sha256": "2b2eb59690bbd32454e46a3b205166ebebc346c913261876cb4f1b17ec64855b"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/Wishlist-TC-07/attempt_1/trace_20261112T023705279502.zip",
+          "timestamp": "2026-11-12T02:37:05.348451Z",
+          "size_bytes": 3921272,
+          "sha256": "164c1cb9c8dac2d0616c7e4b8ba754ad9d6ce9d21179386df9c275ed9f00bc12"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "GoiYSanPham-TC-04",
+      "module": "GoiYSanPham",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-12T02:37:05.349442Z",
+      "end_time": "2026-11-12T02:37:12.335794Z",
+      "duration_ms": 6986,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "assertion",
+      "assertion_values": {
+        "passed": false,
+        "expected": "Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý",
+        "actual": {
+          "type": "ui_text",
+          "value": "Comic Store\nTrang chủ\nThể loại ▾\nLiên hệ\n❮\n❯\nTiện ích\n\nFlash Sale\n\nVí voucher\n\nWishList\n\nFLASH SALE\n\n⏰ Kết thúc sau: 49 ngày 13:14:51\n\nDeath Note tập 3\n\nGiá khuyến mãi: 24.500 đ\n\nGiá gốc:\n35.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 1\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 3\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 5\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nXem thêm\nGợi ý cho bạn\n❮\n\nDeath ",
+          "selector": "body",
+          "timestamp": "2026-11-11T19:37:09.400054+00:00"
+        }
+      },
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"Expected pattern not found: Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/GoiYSanPham-TC-04/attempt_1/screenshot_20261112T023712008023.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Document\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/GoiYSanPham-TC-04/attempt_1/screenshot_20261112T023712008023.png",
+              "timestamp": "2026-11-12T02:37:12.335794Z",
+              "size_bytes": 2720006,
+              "sha256": "83642e975f34060b31d9270bda5422120f797c561dc6d7ba077a7bef0aa275a5"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý",
+      "actual_result": "{\"reason\": \"Expected pattern not found: Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý\", \"screenshot\": \"app/storage/runs/20261112-023347/evidence/GoiYSanPham-TC-04/attempt_1/screenshot_20261112T023712008023.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Flash Sale\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Ví voucher\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/voucher\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"WishList\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/wishlist\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 3\\n\\nGiá khuyến mãi: 24.500 đ\\n\\nGiá gốc:\\n35.000 đ\\n\\nGiảm giá: 30%\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=20\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 1\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=101\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 3\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=103\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 5\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=105\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Xem thêm\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 4\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=21\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"SHIN CẬU BÉ BÚT CHÌ - Tập 38\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=151\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Naruto Tập 47: Phong Ấn Bị Phá Bỏ!!\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=42\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Kimi ni Todoke - Tập 2\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=111\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Anh không thích thế giới này, anh chỉ thích em\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=109\", \"kind\": \"link\"}], \"page_title\": \"Document\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/GoiYSanPham-TC-04/attempt_1/screenshot_20261112T023712008023.png",
+          "timestamp": "2026-11-12T02:37:12.335794Z",
+          "size_bytes": 2720006,
+          "sha256": "83642e975f34060b31d9270bda5422120f797c561dc6d7ba077a7bef0aa275a5"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/GoiYSanPham-TC-04/attempt_1/trace_20261112T023712267309.zip",
+          "timestamp": "2026-11-12T02:37:12.335794Z",
+          "size_bytes": 3709880,
+          "sha256": "420358af647c83763c22a2ef29aacac24bd08e8af2e2d4970c844de36613eed0"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P4"
+    }
+  ],
+  "environment": {
+    "base_url": "http://localhost:8080/TTLTW_Nhom6",
+    "browser": "chromium",
+    "playwright_version": "1.64.1"
+  },
+  "provenance": {
+    "agent": "risk_prioritization",
+    "version": "1.0.0",
+    "test_cases_source": "app/agents/risk_prioritization/outputs/prioritized_tests.json",
+    "analysis_source": "app/agents/requirement_analyzer/outputs/comic/analysis.json"
+  }
+}
