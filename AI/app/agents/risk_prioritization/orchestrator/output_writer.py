@@ -76,6 +76,8 @@ def _to_output_format(result: ExecutionResult, run_dir: Path) -> dict:
         "executor_type": result.executor_type,
         "failure_point": result.failure_point,
         "failure_category": result.failure_category,
+        "failure_stage": result.failure_stage,
+        "assertion_values": result.assertion_values,
         "observed_facts": _observed_facts(result, evidence),
         "expected_result": result.expected_result,
         "actual_result": result.actual_result,
@@ -91,6 +93,7 @@ _ACTIONABLE_STATUSES = ("FAIL", "ERROR", "MANUAL", "FLAKY")
 _ACTIONABLE_KEYS = (
     "test_case_id", "module", "attempt_id", "status", "start_time", "end_time",
     "duration_ms", "executor_type", "failure_point", "failure_category",
+    "failure_stage", "assertion_values",
     "observed_facts", "expected_result", "actual_result", "error_details",
     "evidence", "blocked_by", "priority",
 )
