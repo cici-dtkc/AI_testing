@@ -36,6 +36,8 @@ class ExecutionResult(BaseModel):
     expected_result: str = ""
     actual_result: str = ""
     failure_category: str | None = None
+    failure_stage: str | None = None  # setup | login | navigation | test_step | assertion | teardown | request_execution
+    assertion_values: dict | None = None  # {passed: bool, expected: Any, actual: {type: str, value: Any, selector: str, ...}}
 
 
 class ExecutionPlan(BaseModel):

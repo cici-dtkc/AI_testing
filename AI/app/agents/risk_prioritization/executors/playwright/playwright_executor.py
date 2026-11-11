@@ -331,6 +331,19 @@ def _classify_exception(exc: Exception) -> bool:
     return True
 
 
+def _page_snapshot(page: Page) -> dict:
+    try:
+        value = (page.locator("body").inner_text(timeout=1000) or "").strip()[:500]
+    except Exception:
+        value = ""
+    return {
+        "type": "ui_text",
+        "value": value,
+        "selector": "body",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+
 class PlaywrightExecutor:
     run_dir: Path | None = None
 
@@ -355,6 +368,8 @@ class PlaywrightExecutor:
         evidence_uris: list[str] = []
         state = "PASSED"
         error_message = None
+        failure_stage = None
+        assertion_values = None
 
         try:
             with TemporaryDirectory() as tmp:
@@ -375,11 +390,13 @@ class PlaywrightExecutor:
                             start_url = _start_url(module)
 
                             phase = time.perf_counter()
+                            failure_stage = "login"
                             if role != "none":
                                 ensure_logged_in(context, role)
                             logger.info("tc %s login_ms=%s", tc_id, int((time.perf_counter() - phase) * 1000))
 
                             phase = time.perf_counter()
+                            failure_stage = "navigation"
                             page.goto(
                                 start_url,
                                 wait_until="domcontentloaded",
@@ -389,18 +406,27 @@ class PlaywrightExecutor:
                             logger.info("tc %s navigation_ms=%s", tc_id, int((time.perf_counter() - phase) * 1000))
 
                             phase = time.perf_counter()
+                            failure_stage = "setup"
                             _run_setup(page, _module_config(module).get("setup"))
                             begin_observation(page)
                             logger.info("tc %s setup_ms=%s", tc_id, int((time.perf_counter() - phase) * 1000))
 
+                            failure_stage = "test_step"
                             for index, step in enumerate(_steps(tc)):
                                 _run_step(page, context, parse_step(step), module, start_url, index)
 
                             phase = time.perf_counter()
+                            failure_stage = "assertion"
                             passed, reason = verify_expected_result(
                                 page, tc.get("expected_result", ""), timeout=BROWSER["timeout_step"]
                             )
                             logger.info("tc %s verify_ms=%s", tc_id, int((time.perf_counter() - phase) * 1000))
+                            assertion_values = {
+                                "passed": passed,
+                                "expected": tc.get("expected_result", ""),
+                                "actual": _page_snapshot(page) if not passed else {},
+                            }
+                            failure_stage = None if passed else "assertion"
                             if not passed:
                                 diagnostics = _capture_failure(
                                     page, tc_id, attempt, run_dir, evidence_base, evidence_uris
@@ -425,6 +451,7 @@ class PlaywrightExecutor:
 
         except Exception as exc:
             state = "ERROR"
+            failure_stage = "setup"
             error_message = f"Browser launch failed: {exc}"
 
         end_time = datetime.now()
@@ -439,5 +466,7 @@ class PlaywrightExecutor:
             end_time=end_time,
             duration_ms=duration_ms,
             evidence_uris=[uri for uri in evidence_uris if uri],
-            error_message=error_message
+            error_message=error_message,
+            failure_stage=failure_stage,
+            assertion_values=assertion_values,
         )
