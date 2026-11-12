@@ -1,0 +1,84 @@
+{
+  "bugId": "BUG-20261106-FlashSale-TC-02",
+  "createdAt": "2026-11-06T14:22:13.247716+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[FlashSale] Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc. khi thực hiện 'Chuyển trạng thái khi Flash Sale kết thúc thời gian'",
+  "module": "FlashSale",
+  "feature": "E1",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Chương trình Flash Sale đang diễn ra",
+  "testData": "Ca kiểm thử: FlashSale-TC-02 | Phân hệ: FlashSale",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Hệ thống tự động cập nhật thời gian",
+      "traceRef": "await page.evaluate(() => { /* Step 1: Hệ thống tự động cập nhật thời gian */ });"
+    },
+    {
+      "step": 2,
+      "action": "Kiểm tra mức giá sản phẩm",
+      "traceRef": "await page.evaluate(() => { /* Step 2: Kiểm tra mức giá sản phẩm */ });"
+    }
+  ],
+  "expected": "Ẩn mức giá Flash Sale và áp dụng lại giá gốc. (Ref: C004-BR1)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc.' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc.\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/FlashSale-TC-02/attempt_1/screenshot_20261106T101635961538.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/flash-sale\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Flash Sale - Giảm Giá Khủng\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ FlashSale có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc.).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/FlashSale-TC-02/attempt_1/screenshot_20261106T101635961538.png",
+      "sha256": "dd932ddab8fd16dd26f0217462e2ef76ebfd479862ba7276edb72a302480ba5f"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/FlashSale-TC-02/attempt_1/trace_20261106T101636807304.zip",
+      "sha256": "6bde3058be2e6a7694024fee41af5f28a941d42035d41f9abd7c6d1d72d6afe8"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của FlashSale liên quan đến thao tác: Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc.."
+  ],
+  "traceability": {
+    "testId": "FlashSale-TC-02",
+    "requirementScenarioId": "C004-SC-UC8-04",
+    "businessRuleId": "C004-BR1",
+    "failureId": "FA-FlashSale-TC-02"
+  },
+  "deduplication": {
+    "fingerprint": "fp_a680aed6",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

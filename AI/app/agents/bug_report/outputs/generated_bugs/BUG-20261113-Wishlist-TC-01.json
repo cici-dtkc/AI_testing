@@ -1,0 +1,108 @@
+{
+  "bugId": "BUG-20261113-Wishlist-TC-01",
+  "createdAt": "2026-11-12T18:18:19.740398+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.assertion_pattern_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[Wishlist] Expected pattern not found: Hiển thị mục Gợi ý cho bạn với truyện cùng thể loại hoặc tập tiếp theo khi thực hiện 'Gợi ý sản phẩm khi người dùng có wishlist'",
+  "module": "Wishlist",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Hệ thống có dữ liệu truyện Người dùng đã đăng nhập và có wishlist",
+  "testData": "Ca kiểm thử: Wishlist-TC-01 | Phân hệ: Wishlist",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Mở trang chủ hệ thống",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hiển thị mục Gợi ý cho bạn với truyện cùng thể loại hoặc tập tiếp theo (Ref: C014-RULE-M13-02)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị mục Gợi ý cho bạn với truyện cùng thể loại hoặc tập tiếp theo' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0076)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: Expected pattern not found: Hiển thị mục Gợi ý cho bạn với truyện cùng thể loại hoặc tập tiếp theo",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: Expected pattern not found: Hiển thị mục Gợi ý cho bạn với truyện cùng thể loại hoặc tập tiếp theo",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Trạng thái thực thi trả về FAILED với thông báo lỗi 'Expected pattern not found'.",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Tính năng gợi ý sản phẩm dựa trên wishlist có thể chưa hiển thị đúng tiêu đề hoặc nội dung yêu cầu trên giao diện.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0076",
+      "type": "SCREENSHOT",
+      "path": "evidence/Wishlist-TC-01/attempt_1/screenshot_20261106T101559430992.png",
+      "sha256": "5003776cc31bbf2f29e5473bb69f34138cddedf101510c8fbc6c67d107a26bc8"
+    },
+    {
+      "id": "ev-0077",
+      "type": "TRACE",
+      "path": "evidence/Wishlist-TC-01/attempt_1/trace_20261106T101600373869.zip",
+      "sha256": "5eab748ace585f2e08bfd952bf59b38863616fb36142a86570d2389e90b0d0d0"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra lại logic hiển thị mục gợi ý dựa trên wishlist trên trang chủ.",
+    "Xác minh cấu trúc giao diện thực tế so với yêu cầu."
+  ],
+  "missingEvidence": [
+    "Phản hồi từ API gợi ý",
+    "Ảnh chụp màn hình chi tiết tại thời điểm lỗi"
+  ],
+  "traceability": {
+    "testId": "Wishlist-TC-01",
+    "requirementScenarioId": "SCENARIO-Chính",
+    "businessRuleId": "C014-RULE-M13-02",
+    "failureId": "fa-6b356f83-e10b-49b6-83db-66fdcd5c9d2a"
+  },
+  "deduplication": {
+    "fingerprint": "fp_4bc4cc6e",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

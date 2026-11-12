@@ -1,0 +1,120 @@
+{
+  "bugId": "BUG-20261111-BaoCaoThongKe-TC-05",
+  "createdAt": "2026-11-11T14:29:21.261796+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.action_target_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[BaoCaoThongKe] Không tìm thấy nút bấm khoang ngay hop le khi thực hiện 'Xem dashboard với khoảng thời gian tùy chỉnh hợp lệ'",
+  "module": "BaoCaoThongKe",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/admin/dashboard",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Admin đã đăng nhập và có quyền phù hợp",
+  "testData": "Ca kiểm thử: BaoCaoThongKe-TC-05 | Phân hệ: BaoCaoThongKe",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Mở trang Tổng quan",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Chon khoang thoi gian &#x27;Tuy chinh&#x27;",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "68ms"
+    },
+    {
+      "step": 3,
+      "action": "Xác nhận khoảng ngày hợp lệ",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu theo khoảng tùy chỉnh (Ref: C020-RULE-M19-01)",
+  "actual": "Hệ thống phát sinh lỗi: 'click target not found: khoang ngay hop le' tại http://localhost:8080/TTLTW_Nhom6/admin/dashboard. (Ref: ev-0005)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: click target not found: khoang ngay hop le",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: click target not found: khoang ngay hop le",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Lỗi thực thi: click target not found: khoang ngay hop le",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner could not resolve the action or selector described by the test step.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Automation script sử dụng selector hoặc tên phần tử không khớp với giao diện thực tế.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0005",
+      "type": "SCREENSHOT",
+      "path": "evidence/BaoCaoThongKe-TC-05/attempt_1/screenshot_20261106T101537184515.png",
+      "sha256": "6bfb03786ba962550ee7eadde1546ffc2e6d10fd6ead62206bb10dec02df6525"
+    },
+    {
+      "id": "ev-0006",
+      "type": "TRACE",
+      "path": "evidence/BaoCaoThongKe-TC-05/attempt_1/trace_20261106T101537625015.zip",
+      "sha256": "aaa070689a64c5e83449117d37b2bfdf88b98216ca646d6e1ddb636df1cb828f"
+    }
+  ],
+  "recommendedActions": [
+    "Cập nhật lại selector cho phần tử khoảng ngày tùy chỉnh trong script."
+  ],
+  "missingEvidence": [
+    "Chi tiết DOM hoặc mã nguồn script test."
+  ],
+  "traceability": {
+    "testId": "BaoCaoThongKe-TC-05",
+    "requirementScenarioId": "SCENARIO-Chính",
+    "businessRuleId": "C020-RULE-M19-01",
+    "failureId": "fa-013f81a3-2b12-45cc-9b0d-7de015d637b7"
+  },
+  "deduplication": {
+    "fingerprint": "fp_488b26b4",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

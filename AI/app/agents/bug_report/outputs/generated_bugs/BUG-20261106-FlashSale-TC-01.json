@@ -1,0 +1,84 @@
+{
+  "bugId": "BUG-20261106-FlashSale-TC-01",
+  "createdAt": "2026-11-06T14:22:13.235090+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[FlashSale] Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại. khi thực hiện 'Xem danh sách Flash Sale trong khung giờ hợp lệ'",
+  "module": "FlashSale",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Chương trình Flash Sale đã được cấu hình",
+  "testData": "Ca kiểm thử: FlashSale-TC-01 | Phân hệ: FlashSale",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Nhấn vào mục Flash Sale",
+      "traceRef": "await page.locator(\"a[href*='flashsale']\").click();"
+    },
+    {
+      "step": 2,
+      "action": "Quan sát danh sách sản phẩm",
+      "traceRef": "await page.waitForSelector(\".product-grid\", { state: \"visible\" });"
+    }
+  ],
+  "expected": "Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại. (Ref: C004-BR1)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại.' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại.\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/FlashSale-TC-01/attempt_1/screenshot_20261106T101500674890.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/flash-sale\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Flash Sale - Giảm Giá Khủng\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ FlashSale có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại.).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/FlashSale-TC-01/attempt_1/screenshot_20261106T101500674890.png",
+      "sha256": "ff6e9d5863d4a13da12b205734ebb15184cfaa4a17c67c0f4071286846674e06"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/FlashSale-TC-01/attempt_1/trace_20261106T101501357643.zip",
+      "sha256": "93ed6b77709ac6ebb29570bb5930458c70157786980ba57177d64074d01858a4"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của FlashSale liên quan đến thao tác: Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại.."
+  ],
+  "traceability": {
+    "testId": "FlashSale-TC-01",
+    "requirementScenarioId": "C004-SC-UC8-01",
+    "businessRuleId": "C004-BR1",
+    "failureId": "FA-FlashSale-TC-01"
+  },
+  "deduplication": {
+    "fingerprint": "fp_8e5d9bc7",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

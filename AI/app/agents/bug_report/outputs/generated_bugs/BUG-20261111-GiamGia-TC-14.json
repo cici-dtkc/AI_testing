@@ -1,0 +1,113 @@
+{
+  "bugId": "BUG-20261111-GiamGia-TC-14",
+  "createdAt": "2026-11-11T14:29:21.264531+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": true,
+  "defectType": "PRODUCT_BUG",
+  "failureCategory": "PRODUCT",
+  "failureSubtype": "product.validation_feedback_missing",
+  "routing": "BUG_REPORT_DRAFT",
+  "title": "[GiamGia] Không có phản hồi cảnh báo trên giao diện khi thực hiện 'Kiểm tra hiển thị ví voucher khi voucher hết hạn'",
+  "module": "GiamGia",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/user-voucher",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Khách hàng đã đăng nhập",
+  "testData": "Ca kiểm thử: GiamGia-TC-14 | Phân hệ: GiamGia",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Mở ví voucher của khách hàng",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Kiểm tra danh sách hiển thị",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Voucher hết hạn tự động được ẩn khỏi ví voucher. (Ref: C010-RULE-M09-002)",
+  "actual": "Hệ thống phát sinh lỗi: 'no validation feedback in UI (possible app defect)' tại http://localhost:8080/TTLTW_Nhom6/user-voucher. (Ref: ev-0045)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.75,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: no validation feedback in UI (possible app defect)",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: no validation feedback in UI (possible app defect)",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Thông báo lỗi ghi nhận 'no validation feedback in UI (possible app defect)'.",
+      "evidenceRef": "input:retry_history"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The recorded UI observation reports missing validation feedback for the expected validation case.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Hệ thống có thể chưa tự động ẩn voucher hết hạn khỏi ví voucher của khách hàng theo đúng yêu cầu nghiệp vụ.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0045",
+      "type": "SCREENSHOT",
+      "path": "evidence/GiamGia-TC-14/attempt_1/screenshot_20261106T101544436201.png",
+      "sha256": "614c07c0279a0feb8ab67d92040063383fbf39baa5ba24fc76acc1e6e225b043"
+    },
+    {
+      "id": "ev-0046",
+      "type": "TRACE",
+      "path": "evidence/GiamGia-TC-14/attempt_1/trace_20261106T101544993208.zip",
+      "sha256": "2d4800eda7c2b08806915382fa683f05b2b64617fec2ed520909f3786c791bca"
+    }
+  ],
+  "recommendedActions": [
+    "Tạo phiếu báo lỗi để đội ngũ phát triển kiểm tra logic ẩn voucher hết hạn trong ví voucher"
+  ],
+  "missingEvidence": [
+    "Log hệ thống phía backend hoặc dữ liệu chi tiết của ví voucher"
+  ],
+  "traceability": {
+    "testId": "GiamGia-TC-14",
+    "requirementScenarioId": "SCENARIO-Chính",
+    "businessRuleId": "C010-RULE-M09-002",
+    "failureId": "fa-1980013a-c002-4b0f-bc78-134a5ab8a30e"
+  },
+  "deduplication": {
+    "fingerprint": "fp_b1e79b8b",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

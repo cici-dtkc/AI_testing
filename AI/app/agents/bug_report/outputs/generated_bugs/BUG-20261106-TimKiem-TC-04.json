@@ -1,0 +1,84 @@
+{
+  "bugId": "BUG-20261106-TimKiem-TC-04",
+  "createdAt": "2026-11-06T14:22:13.229274+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[TimKiem] Không có phản hồi cảnh báo trên giao diện khi thực hiện 'Tìm kiếm với từ khóa để trống'",
+  "module": "TimKiem",
+  "feature": "E1",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Người dùng truy cập được website",
+  "testData": "Ca kiểm thử: TimKiem-TC-04 | Phân hệ: TimKiem",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Để trống ô tìm kiếm",
+      "traceRef": "await page.locator(\"input[name='keyword']\").clear();"
+    },
+    {
+      "step": 2,
+      "action": "Xác nhận tìm kiếm",
+      "traceRef": "await page.locator(\"button#btn-search\").click();"
+    }
+  ],
+  "expected": "Hiển thị thông báo yêu cầu nhập từ khóa. (Ref: C003-RULE-M02-001)",
+  "actual": "Hệ thống phát sinh lỗi: 'no validation feedback in UI (possible app defect)' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "MEDIUM",
+  "severityScore": 4,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 1,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"no validation feedback in UI (possible app defect)\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/TimKiem-TC-04/attempt_1/screenshot_20261106T101251526374.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Document\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ TimKiem có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (no validation feedback in UI (possible app defect)).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/TimKiem-TC-04/attempt_1/screenshot_20261106T101251526374.png",
+      "sha256": "7d0761897cc7b1cf461930664d8c2f5a2f777b8a09067584f0ed268f1f8f8ede"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/TimKiem-TC-04/attempt_1/trace_20261106T101252065580.zip",
+      "sha256": "764eafb797ece21e8009226498e0cd7a5307772ba3fcb72cac5c09a1d730e3fb"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của TimKiem liên quan đến thao tác: no validation feedback in UI (possible app defect)."
+  ],
+  "traceability": {
+    "testId": "TimKiem-TC-04",
+    "requirementScenarioId": "C003-SCN-M02-002",
+    "businessRuleId": "C003-RULE-M02-001",
+    "failureId": "FA-TimKiem-TC-04"
+  },
+  "deduplication": {
+    "fingerprint": "fp_d21423c0",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

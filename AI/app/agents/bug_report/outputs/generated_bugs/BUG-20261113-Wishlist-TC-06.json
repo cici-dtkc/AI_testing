@@ -1,0 +1,106 @@
+{
+  "bugId": "BUG-20261113-Wishlist-TC-06",
+  "createdAt": "2026-11-12T18:18:19.748035+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.assertion_pattern_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[Wishlist] Expected pattern not found: Hiển thị gợi ý tổng hợp theo các thể loại có trong wishlist khi thực hiện 'Xác thực gợi ý khi wishlist chứa nhiều thể loại khác nhau'",
+  "module": "Wishlist",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Hệ thống có dữ liệu truyện phong phú Wishlist chứa truyện thuộc nhiều thể loại",
+  "testData": "Ca kiểm thử: Wishlist-TC-06 | Phân hệ: Wishlist",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Truy cập trang chủ ứng dụng",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hiển thị gợi ý tổng hợp theo các thể loại có trong wishlist (Ref: C014-RULE-M13-02)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị gợi ý tổng hợp theo các thể loại có trong wishlist' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0086)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 6,
+  "factors": {
+    "i": 2,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: Expected pattern not found: Hiển thị gợi ý tổng hợp theo các thể loại có trong wishlist",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: Expected pattern not found: Hiển thị gợi ý tổng hợp theo các thể loại có trong wishlist",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Trạng thái thực thi FAILED do không tìm thấy gợi ý tổng hợp theo các thể loại.",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Hệ thống chưa hỗ trợ tổng hợp gợi ý từ nhiều thể loại khác nhau trong wishlist của người dùng.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0086",
+      "type": "SCREENSHOT",
+      "path": "evidence/Wishlist-TC-06/attempt_1/screenshot_20261106T101651436534.png",
+      "sha256": "d57401e45574be597feacb5c25c23d75ef38ff0cc4d733e4fa08a85422899760"
+    },
+    {
+      "id": "ev-0087",
+      "type": "TRACE",
+      "path": "evidence/Wishlist-TC-06/attempt_1/trace_20261106T101651773608.zip",
+      "sha256": "4fd6083db6eb08eb17b5616597d5743784e3b1869c50461b45c64b78d9a7a85f"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra logic xử lý đa thể loại trong hệ thống gợi ý."
+  ],
+  "missingEvidence": [
+    "Log phân tích request gợi ý đa thể loại"
+  ],
+  "traceability": {
+    "testId": "Wishlist-TC-06",
+    "requirementScenarioId": "SCENARIO-Chính",
+    "businessRuleId": "C014-RULE-M13-02",
+    "failureId": "fa-10fefdac-b03d-4fdb-866f-8a01f37a1031"
+  },
+  "deduplication": {
+    "fingerprint": "fp_6160b6b2",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

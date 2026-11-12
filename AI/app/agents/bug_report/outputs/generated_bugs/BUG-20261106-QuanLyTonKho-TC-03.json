@@ -1,0 +1,84 @@
+{
+  "bugId": "BUG-20261106-QuanLyTonKho-TC-03",
+  "createdAt": "2026-11-06T14:22:13.249380+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[QuanLyTonKho] quantity control not found for 'số lượng' khi thực hiện 'Thêm số lượng hợp lệ thuộc lớp tương đương V'",
+  "module": "QuanLyTonKho",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Truyện còn hàng",
+  "testData": "Ca kiểm thử: QuanLyTonKho-TC-03 | Phân hệ: QuanLyTonKho",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Nhập số lượng hợp lệ",
+      "traceRef": "await page.locator(\"input[name='quantity']\").fill(\"2\");"
+    },
+    {
+      "step": 2,
+      "action": "Nhấn Thêm vào giỏ hàng",
+      "traceRef": "await page.locator(\"button#add-to-cart\").click();"
+    }
+  ],
+  "expected": "Thêm sản phẩm thành công vào giỏ hàng. (Ref: C005-RULE-M04-001)",
+  "actual": "Hệ thống phát sinh lỗi: 'quantity control not found for 'số lượng'' tại http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 3,
+    "m": 0,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"quantity control not found for 'số lượng'\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/QuanLyTonKho-TC-03/attempt_1/screenshot_20261106T101418232456.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Document\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ QuanLyTonKho có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (quantity control not found for 'số lượng').",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/QuanLyTonKho-TC-03/attempt_1/screenshot_20261106T101418232456.png",
+      "sha256": "0a02c71e62a0419aba36b4d70a350d8741ce9365ead4b730db8f3210706f66c5"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/QuanLyTonKho-TC-03/attempt_1/trace_20261106T101419091526.zip",
+      "sha256": "e49a4f3e47b99eb523572c7a64118d1d30fc2e9dfa5cd16d29e527d972e1935e"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của QuanLyTonKho liên quan đến thao tác: quantity control not found for 'số lượng'."
+  ],
+  "traceability": {
+    "testId": "QuanLyTonKho-TC-03",
+    "requirementScenarioId": "C005-SC-UC9-001",
+    "businessRuleId": "C005-RULE-M04-001",
+    "failureId": "FA-QuanLyTonKho-TC-03"
+  },
+  "deduplication": {
+    "fingerprint": "fp_d5ad4e80",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

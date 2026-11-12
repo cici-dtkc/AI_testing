@@ -1,0 +1,84 @@
+{
+  "bugId": "BUG-20261106-DanhGiaDoiTra-TC-02",
+  "createdAt": "2026-11-06T14:22:13.246205+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[DanhGiaDoiTra] Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục. khi thực hiện 'Giới hạn hiển thị 10 mục khi dữ liệu vượt quá biên'",
+  "module": "DanhGiaDoiTra",
+  "feature": "E1",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/admin/dashboard",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Hệ thống có sẵn hơn 10 sản phẩm bán chạy và đánh giá cao",
+  "testData": "Ca kiểm thử: DanhGiaDoiTra-TC-02 | Phân hệ: DanhGiaDoiTra",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Truy cập trang bảng xếp hạng",
+      "traceRef": "await page.evaluate(() => { /* Step 1: Truy cập trang bảng xếp hạng */ });"
+    },
+    {
+      "step": 2,
+      "action": "Kiểm tra số lượng mục hiển thị",
+      "traceRef": "await page.locator(\"input[name='quantity']\").fill(\"2\");"
+    }
+  ],
+  "expected": "Bảng xếp hạng chỉ hiển thị tối đa 10 mục. (Ref: C020-RULE-M19-02)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục.' tại http://localhost:8080/TTLTW_Nhom6/admin/dashboard. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục.\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/DanhGiaDoiTra-TC-02/attempt_1/screenshot_20261106T101629677129.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/admin/dashboard\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Trang chủ - Dashboard\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ DanhGiaDoiTra có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục.).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/DanhGiaDoiTra-TC-02/attempt_1/screenshot_20261106T101629677129.png",
+      "sha256": "656a6d1b924ab21e86fffa8c07877d397842e60d5e749be6a3109a0ed15a7a47"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/DanhGiaDoiTra-TC-02/attempt_1/trace_20261106T101629993514.zip",
+      "sha256": "3ba859593576ecce1bb36a0bc6adc3237fb23dfc35b2110bad5ada082caaedba"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của DanhGiaDoiTra liên quan đến thao tác: Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục.."
+  ],
+  "traceability": {
+    "testId": "DanhGiaDoiTra-TC-02",
+    "requirementScenarioId": "SCENARIO-DANHGIADOITRA",
+    "businessRuleId": "C020-RULE-M19-02",
+    "failureId": "FA-DanhGiaDoiTra-TC-02"
+  },
+  "deduplication": {
+    "fingerprint": "fp_0e306ef5",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "bugId": "BUG-20261111-Wishlist-TC-07",
+  "createdAt": "2026-11-11T14:29:21.270517+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.assertion_pattern_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[Wishlist] Expected pattern not found: Hệ thống coi như khách vãng lai và hiển thị truyện bán chạy khi thực hiện 'Xác thực gợi ý khi phiên đăng nhập hết hạn'",
+  "module": "Wishlist",
+  "feature": "E1",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Hệ thống có dữ liệu truyện Phiên đăng nhập của người dùng đã hết hạn",
+  "testData": "Ca kiểm thử: Wishlist-TC-07 | Phân hệ: Wishlist",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Làm mới trang chủ",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hệ thống coi như khách vãng lai và hiển thị truyện bán chạy (Ref: C014-RULE-M13-02)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hệ thống coi như khách vãng lai và hiển thị truyện bán chạy' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0088)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: Expected pattern not found: Hệ thống coi như khách vãng lai và hiển thị truyện bán chạy",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: Expected pattern not found: Hệ thống coi như khách vãng lai và hiển thị truyện bán chạy",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Test case thất bại vì không hiển thị truyện bán chạy khi phiên đăng nhập hết hạn.",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Hệ thống có thể chưa xử lý tốt trạng thái hết hạn phiên đăng nhập để tự động chuyển về hiển thị như khách vãng lai.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0088",
+      "type": "SCREENSHOT",
+      "path": "evidence/Wishlist-TC-07/attempt_1/screenshot_20261106T101643618393.png",
+      "sha256": "38f4ad2a1ced59a5c506065dda63b4e6b3c92a64787fe7334a7d9bd04b784460"
+    },
+    {
+      "id": "ev-0089",
+      "type": "TRACE",
+      "path": "evidence/Wishlist-TC-07/attempt_1/trace_20261106T101643967389.zip",
+      "sha256": "af231ec15b0658619e682efe19a8d8196ed5d9afd40180b17f3348bd3f9d751d"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra cơ chế xử lý ngoại lệ khi token/phiên đăng nhập hết hạn."
+  ],
+  "missingEvidence": [
+    "Trạng thái mã lỗi HTTP của phiên đăng nhập (ví dụ: 401 Unauthorized)"
+  ],
+  "traceability": {
+    "testId": "Wishlist-TC-07",
+    "requirementScenarioId": "SCENARIO-E1",
+    "businessRuleId": "C014-RULE-M13-02",
+    "failureId": "fa-0f51dab4-97a0-48d1-96ed-8a352556aadd"
+  },
+  "deduplication": {
+    "fingerprint": "fp_c0cf063c",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

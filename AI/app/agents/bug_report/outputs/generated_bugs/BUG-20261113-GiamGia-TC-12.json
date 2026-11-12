@@ -1,0 +1,120 @@
+{
+  "bugId": "BUG-20261113-GiamGia-TC-12",
+  "createdAt": "2026-11-12T18:18:19.738696+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.action_target_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[GiamGia] Không tìm thấy nút bấm tiêu chí sắp xếp khi thực hiện 'Admin sắp xếp voucher thành công'",
+  "module": "GiamGia",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/admin/vouchersManagement",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Admin đã đăng nhập và có quyền quản lý voucher",
+  "testData": "Ca kiểm thử: GiamGia-TC-12 | Phân hệ: GiamGia",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Mở trang quản lý voucher",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Chọn tiêu chí sắp xếp",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "68ms"
+    },
+    {
+      "step": 3,
+      "action": "Xác nhận",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hệ thống hiển thị danh sách voucher đã sắp xếp đúng. (Ref: C010-RULE-M09-003)",
+  "actual": "Hệ thống phát sinh lỗi: 'click target not found: tiêu chí sắp xếp' tại http://localhost:8080/TTLTW_Nhom6/admin/vouchersManagement. (Ref: ev-0042)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: click target not found: tiêu chí sắp xếp",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: click target not found: tiêu chí sắp xếp",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Thông báo lỗi ghi nhận 'click target not found: tiêu chí sắp xếp'.",
+      "evidenceRef": "input:retry_history"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner could not resolve the action or selector described by the test step.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Selector hoặc vị trí của phần tử tiêu chí sắp xếp trong kịch bản test không chính xác so với giao diện hiện tại.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0042",
+      "type": "SCREENSHOT",
+      "path": "evidence/GiamGia-TC-12/attempt_1/screenshot_20261106T101450628727.png",
+      "sha256": "0cf132c29619875483e9a8699f4e557dc708a6f4cbea71ca3c7bbf76555a3a3c"
+    },
+    {
+      "id": "ev-0043",
+      "type": "TRACE",
+      "path": "evidence/GiamGia-TC-12/attempt_1/trace_20261106T101451281305.zip",
+      "sha256": "107358dc4fdd4fbb55632e9919f94b8034568d0119afe820a61b132312fb1462"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra lại selector tương ứng với thành phần sắp xếp trong file test script"
+  ],
+  "missingEvidence": [
+    "DOM tại thời điểm chạy"
+  ],
+  "traceability": {
+    "testId": "GiamGia-TC-12",
+    "requirementScenarioId": "SCENARIO-Chính",
+    "businessRuleId": "C010-RULE-M09-003",
+    "failureId": "fa-007e7fc5-f580-4a3f-95ec-60db499df40c"
+  },
+  "deduplication": {
+    "fingerprint": "fp_a31e44b0",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

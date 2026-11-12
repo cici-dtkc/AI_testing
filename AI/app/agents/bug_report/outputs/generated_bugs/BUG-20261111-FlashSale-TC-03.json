@@ -1,0 +1,115 @@
+{
+  "bugId": "BUG-20261111-FlashSale-TC-03",
+  "createdAt": "2026-11-11T14:29:21.251787+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.action_target_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[FlashSale] Không tìm thấy nút bấm sản phẩm trong danh sách khi thực hiện 'Kiểm tra chặn mua giá Flash Sale ngoài khung giờ'",
+  "module": "FlashSale",
+  "feature": "E1",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Chương trình Flash Sale chưa bắt đầu hoặc đã kết thúc",
+  "testData": "Ca kiểm thử: FlashSale-TC-03 | Phân hệ: FlashSale",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Chọn sản phẩm trong danh sách",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Thực hiện mua hàng",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hệ thống áp dụng giá gốc, không áp dụng giá Flash Sale. (Ref: C004-BR1)",
+  "actual": "Hệ thống phát sinh lỗi: 'click target not found: sản phẩm trong danh sách' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: ev-0016)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: click target not found: sản phẩm trong danh sách",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: click target not found: sản phẩm trong danh sách",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Thông báo lỗi ghi nhận click target not found cho bước sản phẩm trong danh sách.",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner could not resolve the action or selector described by the test step.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Automation script sử dụng bộ chọn (selector) không khớp với cấu trúc DOM hiện tại.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0016",
+      "type": "SCREENSHOT",
+      "path": "evidence/FlashSale-TC-03/attempt_1/screenshot_20261106T101621240056.png",
+      "sha256": "27c6ce80d20775f01c17f49cde575c23ee9794e3dc42b4adc199151f93515aed"
+    },
+    {
+      "id": "ev-0017",
+      "type": "TRACE",
+      "path": "evidence/FlashSale-TC-03/attempt_1/trace_20261106T101622134918.zip",
+      "sha256": "7e620baed6bf52caf0c3c91d168ecb8872f2d72d1bd180be2ee75a7d54311b1e"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra lại selector của phần tử sản phẩm",
+    "Cập nhật lại test script"
+  ],
+  "missingEvidence": [
+    "DOM snapshot chi tiết",
+    "Mã nguồn script kiểm thử"
+  ],
+  "traceability": {
+    "testId": "FlashSale-TC-03",
+    "requirementScenarioId": "SCENARIO-E1",
+    "businessRuleId": "C004-BR1",
+    "failureId": "fa-22917327-eff0-4059-b758-cb1555276bfa"
+  },
+  "deduplication": {
+    "fingerprint": "fp_3d7ed3d2",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

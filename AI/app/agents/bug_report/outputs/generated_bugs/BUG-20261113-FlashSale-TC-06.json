@@ -1,0 +1,114 @@
+{
+  "bugId": "BUG-20261113-FlashSale-TC-06",
+  "createdAt": "2026-11-12T18:18:19.726743+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.assertion_pattern_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[FlashSale] Expected pattern not found: Hiển thị thông báo đã kết thúc, áp dụng giá gốc. khi thực hiện 'Phân vùng không hợp lệ cho khung giờ Flash Sale sau giờ'",
+  "module": "FlashSale",
+  "feature": "E2",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Chương trình Flash Sale đã kết thúc",
+  "testData": "Ca kiểm thử: FlashSale-TC-06 | Phân hệ: FlashSale",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Truy cập trang Flash Sale",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Kiểm tra trạng thái sản phẩm",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hiển thị thông báo đã kết thúc, áp dụng giá gốc. (Ref: C004-BR1)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị thông báo đã kết thúc, áp dụng giá gốc.' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: ev-0022)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: Expected pattern not found: Hiển thị thông báo đã kết thúc, áp dụng giá gốc.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: Expected pattern not found: Hiển thị thông báo đã kết thúc, áp dụng giá gốc.",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Lỗi thông báo expected pattern not found.",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Thông điệp trên giao diện khác biệt so với nội dung kiểm tra trong test case.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0022",
+      "type": "SCREENSHOT",
+      "path": "evidence/FlashSale-TC-06/attempt_1/screenshot_20261106T101623031379.png",
+      "sha256": "bfb7873ec05ed51af808316c628ad335b3a9f20361a6e3636b7d6d4ad5110448"
+    },
+    {
+      "id": "ev-0023",
+      "type": "TRACE",
+      "path": "evidence/FlashSale-TC-06/attempt_1/trace_20261106T101624010600.zip",
+      "sha256": "1e686f259e1e46df2a934fe99c4c1aff1c442a6fa4bf1a8db6f692a4abcb520d"
+    }
+  ],
+  "recommendedActions": [
+    "Cập nhật expected pattern cho phù hợp với UI",
+    "Kiểm tra lại kịch bản kiểm thử"
+  ],
+  "missingEvidence": [
+    "Ảnh chụp màn hình chi tiết hoặc log DOM"
+  ],
+  "traceability": {
+    "testId": "FlashSale-TC-06",
+    "requirementScenarioId": "SCENARIO-E2",
+    "businessRuleId": "C004-BR1",
+    "failureId": "fa-7513ffce-d75a-4e20-bf1b-5c2f7bc0b30a"
+  },
+  "deduplication": {
+    "fingerprint": "fp_0397620f",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

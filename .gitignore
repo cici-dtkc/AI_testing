@@ -12,6 +12,8 @@ AI/outputs
 
 # Supervisor pipeline run artifacts (per-run data, not source)
 AI/app/storage/runs/
+AI/app/storage/*.zip
+*.zip
 AI/app/agents/*/outputs/latest/
 AI/app/agents/*/outputs/*/checkpoints/
 
@@ -38,3 +40,9 @@ graphify-out
 
 # Test case generator per-module cache
 AI/app/agents/test_case_generator/outputs/**/.module_cache/
+
+# Local dashboard preview demo at root
+/dashboard_demo.html
+dashboard_demo/
+!AI/app/agents/bug_report/dashboard_demo.html
+

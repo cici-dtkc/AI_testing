@@ -1,0 +1,113 @@
+{
+  "bugId": "BUG-20261113-FlashSale-TC-02",
+  "createdAt": "2026-11-12T18:18:19.733608+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.assertion_pattern_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[FlashSale] Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc. khi thực hiện 'Chuyển trạng thái khi Flash Sale kết thúc thời gian'",
+  "module": "FlashSale",
+  "feature": "E1",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Chương trình Flash Sale đang diễn ra",
+  "testData": "Ca kiểm thử: FlashSale-TC-02 | Phân hệ: FlashSale",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Hệ thống tự động cập nhật thời gian",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Kiểm tra mức giá sản phẩm",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Ẩn mức giá Flash Sale và áp dụng lại giá gốc. (Ref: C004-BR1)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc.' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: ev-0014)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc.",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Lỗi thực thi: Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc.",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Hệ thống chưa tự động cập nhật hoặc ẩn mức giá Flash Sale khi thời gian kết thúc.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0014",
+      "type": "SCREENSHOT",
+      "path": "evidence/FlashSale-TC-02/attempt_1/screenshot_20261106T101635961538.png",
+      "sha256": "dd932ddab8fd16dd26f0217462e2ef76ebfd479862ba7276edb72a302480ba5f"
+    },
+    {
+      "id": "ev-0015",
+      "type": "TRACE",
+      "path": "evidence/FlashSale-TC-02/attempt_1/trace_20261106T101636807304.zip",
+      "sha256": "6bde3058be2e6a7694024fee41af5f28a941d42035d41f9abd7c6d1d72d6afe8"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra logic xử lý thời gian kết thúc chương trình Flash Sale."
+  ],
+  "missingEvidence": [
+    "Log hoặc response khi thời gian đếm ngược kết thúc."
+  ],
+  "traceability": {
+    "testId": "FlashSale-TC-02",
+    "requirementScenarioId": "SCENARIO-E1",
+    "businessRuleId": "C004-BR1",
+    "failureId": "fa-80a513f1-dfff-40bd-92bb-1c496a1bbb31"
+  },
+  "deduplication": {
+    "fingerprint": "fp_a680aed6",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

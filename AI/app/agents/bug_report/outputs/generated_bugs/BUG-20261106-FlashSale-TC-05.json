@@ -1,0 +1,84 @@
+{
+  "bugId": "BUG-20261106-FlashSale-TC-05",
+  "createdAt": "2026-11-06T14:22:13.235090+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[FlashSale] Expected pattern not found: Hiển thị đếm ngược, chưa áp dụng giá Flash Sale. khi thực hiện 'Phân vùng không hợp lệ cho khung giờ Flash Sale trước giờ'",
+  "module": "FlashSale",
+  "feature": "E2",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Chương trình Flash Sale chưa mở",
+  "testData": "Ca kiểm thử: FlashSale-TC-05 | Phân hệ: FlashSale",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Truy cập trang Flash Sale",
+      "traceRef": "await page.locator(\"a[href*='flashsale']\").click();"
+    },
+    {
+      "step": 2,
+      "action": "Kiểm tra trạng thái sản phẩm",
+      "traceRef": "await page.evaluate(() => { /* Step 2: Kiểm tra trạng thái sản phẩm */ });"
+    }
+  ],
+  "expected": "Hiển thị đếm ngược, chưa áp dụng giá Flash Sale. (Ref: C004-BR1)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị đếm ngược, chưa áp dụng giá Flash Sale.' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"Expected pattern not found: Hiển thị đếm ngược, chưa áp dụng giá Flash Sale.\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/FlashSale-TC-05/attempt_1/screenshot_20261106T101616515906.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/flash-sale\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Flash Sale - Giảm Giá Khủng\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ FlashSale có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (Expected pattern not found: Hiển thị đếm ngược, chưa áp dụng giá Flash Sale.).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/FlashSale-TC-05/attempt_1/screenshot_20261106T101616515906.png",
+      "sha256": "ad413aa5a5921f478f685bca5387208fb20dfd4466157ae8772262dd114d020a"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/FlashSale-TC-05/attempt_1/trace_20261106T101617200118.zip",
+      "sha256": "638fde76fcb06c164dcf01f256894e9f655df6d2791707906ecdba9fbb79111d"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của FlashSale liên quan đến thao tác: Expected pattern not found: Hiển thị đếm ngược, chưa áp dụng giá Flash Sale.."
+  ],
+  "traceability": {
+    "testId": "FlashSale-TC-05",
+    "requirementScenarioId": "C004-SC-UC8-01",
+    "businessRuleId": "C004-BR1",
+    "failureId": "FA-FlashSale-TC-05"
+  },
+  "deduplication": {
+    "fingerprint": "fp_5732a10b",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

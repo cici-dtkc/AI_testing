@@ -1,0 +1,119 @@
+{
+  "bugId": "BUG-20261113-GoiYSanPham-TC-01",
+  "createdAt": "2026-11-12T18:18:19.739269+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.assertion_pattern_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[GoiYSanPham] Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ khi thực hiện 'Gợi ý sản phẩm khi còn hàng và hiển thị bình thường'",
+  "module": "GoiYSanPham",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Hệ thống có dữ liệu truyện trong danh mục",
+  "testData": "Ca kiểm thử: GoiYSanPham-TC-01 | Phân hệ: GoiYSanPham",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Truy cập trang chủ hệ thống",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Quan sát khu vực gợi ý sản phẩm",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hiển thị danh sách sản phẩm gợi ý hợp lệ (Ref: C014-RULE-M13-01)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0049)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Thông báo lỗi ghi nhận 'Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ'.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Trang hiển thị tiêu đề Document nhưng không tìm thấy khu vực gợi ý sản phẩm phù hợp quy tắc.",
+      "evidenceRef": "ev-0050"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Có thể logic gợi ý sản phẩm ở trang chủ đang bị lỗi khiến hệ thống không trả về danh sách sản phẩm.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0049",
+      "type": "SCREENSHOT",
+      "path": "evidence/GoiYSanPham-TC-01/attempt_1/screenshot_20261106T101551805402.png",
+      "sha256": "73e0f5ba6387ca9fa81e23fde7bd8ea34df4a227a64d786f3f13ffa2274e167d"
+    },
+    {
+      "id": "ev-0050",
+      "type": "TRACE",
+      "path": "evidence/GoiYSanPham-TC-01/attempt_1/trace_20261106T101552153846.zip",
+      "sha256": "962ac729e8db2b0c636adda56e15d560ad6a18e8c17c5e2a4568cc5a68115e6a"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra lại API gợi ý sản phẩm trên trang chủ",
+    "Xác nhận dữ liệu danh mục truyện có sẵn trong hệ thống"
+  ],
+  "missingEvidence": [
+    "Network response body của API gợi ý sản phẩm",
+    "Console log chi tiết lỗi JavaScript (nếu có)"
+  ],
+  "traceability": {
+    "testId": "GoiYSanPham-TC-01",
+    "requirementScenarioId": "SCENARIO-Chính",
+    "businessRuleId": "C014-RULE-M13-01",
+    "failureId": "fa-8bfdc435-0072-4347-b3d6-0ffa45b9de7c"
+  },
+  "deduplication": {
+    "fingerprint": "fp_ec6eeffb",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "bugId": "BUG-20261113-QuanLyTonKho-TC-03",
+  "createdAt": "2026-11-12T18:18:19.737064+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.action_target_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[QuanLyTonKho] quantity control not found for 'số lượng' khi thực hiện 'Thêm số lượng hợp lệ thuộc lớp tương đương V'",
+  "module": "QuanLyTonKho",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Truyện còn hàng",
+  "testData": "Ca kiểm thử: QuanLyTonKho-TC-03 | Phân hệ: QuanLyTonKho",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Nhập số lượng hợp lệ",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Nhấn Thêm vào giỏ hàng",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Thêm sản phẩm thành công vào giỏ hàng. (Ref: C005-RULE-M04-001)",
+  "actual": "Hệ thống phát sinh lỗi: 'quantity control not found for 'số lượng'' tại http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101. (Ref: ev-0057)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 3,
+    "m": 0,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: quantity control not found for 'số lượng'",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: quantity control not found for 'số lượng'",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Lỗi thực thi ghi nhận 'quantity control not found for 'số lượng''.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Danh sách các phần tử hiển thị không chứa ô nhập số lượng hoặc nút điều chỉnh số lượng.",
+      "evidenceRef": "ev-0058"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner could not resolve the action or selector described by the test step.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Script tự động hóa tìm kiếm một phần tử input số lượng không tồn tại trên trang chi tiết sản phẩm hiện tại, hoặc trang chưa tải xong.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0057",
+      "type": "SCREENSHOT",
+      "path": "evidence/QuanLyTonKho-TC-03/attempt_1/screenshot_20261106T101418232456.png",
+      "sha256": "0a02c71e62a0419aba36b4d70a350d8741ce9365ead4b730db8f3210706f66c5"
+    },
+    {
+      "id": "ev-0058",
+      "type": "TRACE",
+      "path": "evidence/QuanLyTonKho-TC-03/attempt_1/trace_20261106T101419091526.zip",
+      "sha256": "e49a4f3e47b99eb523572c7a64118d1d30fc2e9dfa5cd16d29e527d972e1935e"
+    }
+  ],
+  "recommendedActions": [
+    "Cập nhật lại selector hoặc bước kiểm thử để tìm đúng phần tử điều khiển số lượng trên trang"
+  ],
+  "missingEvidence": [
+    "Mã nguồn test script phần tương tác với quantity control"
+  ],
+  "traceability": {
+    "testId": "QuanLyTonKho-TC-03",
+    "requirementScenarioId": "SCENARIO-Chính",
+    "businessRuleId": "C005-RULE-M04-001",
+    "failureId": "fa-04dac242-99c3-40e4-8e71-f36ea6662d89"
+  },
+  "deduplication": {
+    "fingerprint": "fp_d5ad4e80",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

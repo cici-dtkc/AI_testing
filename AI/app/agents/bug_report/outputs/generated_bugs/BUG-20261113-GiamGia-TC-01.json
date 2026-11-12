@@ -1,0 +1,121 @@
+{
+  "bugId": "BUG-20261113-GiamGia-TC-01",
+  "createdAt": "2026-11-12T18:18:19.727787+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.action_target_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[GiamGia] Không tìm thấy nút bấm Chọn voucher khi thực hiện 'Áp dụng voucher hợp lệ thành công'",
+  "module": "GiamGia",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Khách hàng đã đăng nhập Đơn hàng đang ở trang Checkout",
+  "testData": "Ca kiểm thử: GiamGia-TC-01 | Phân hệ: GiamGia",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Nhập mã voucher hợp lệ vào ô mã giảm giá",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Nhấn nút áp dụng voucher",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "68ms"
+    },
+    {
+      "step": 3,
+      "action": "Kiểm tra tổng tiền đơn hàng",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hệ thống áp dụng giảm giá và cập nhật tổng tiền thành công. (Ref: C010-RULE-M09-001)",
+  "actual": "Hệ thống phát sinh lỗi: 'click target not found: Chọn voucher' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0024)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: click target not found: Chọn voucher",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: click target not found: Chọn voucher",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Lỗi click target not found: Chọn voucher.",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner could not resolve the action or selector described by the test step.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Script thực hiện click trên một selector không tồn tại trên trang Checkout hiện tại.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0024",
+      "type": "SCREENSHOT",
+      "path": "evidence/GiamGia-TC-01/attempt_1/screenshot_20261106T101407664567.png",
+      "sha256": "b9defcdadf8d01a3c32012cd4c2e97a7b7cefc36db56110c41c6412e32d61149"
+    },
+    {
+      "id": "ev-0025",
+      "type": "TRACE",
+      "path": "evidence/GiamGia-TC-01/attempt_1/trace_20261106T101409687073.zip",
+      "sha256": "cf10a321f26f33e7f18624995fdd54763d66653b94a3e97d1d46dc52dd01a7cb"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra lại bộ chọn cho nút chọn voucher",
+    "Sửa lại script kiểm thử"
+  ],
+  "missingEvidence": [
+    "DOM snapshot trang Checkout"
+  ],
+  "traceability": {
+    "testId": "GiamGia-TC-01",
+    "requirementScenarioId": "SCENARIO-Chính",
+    "businessRuleId": "C010-RULE-M09-001",
+    "failureId": "fa-ea57bd91-a43d-45bd-97c0-cd8a49171d60"
+  },
+  "deduplication": {
+    "fingerprint": "fp_ee6fbeb9",
+    "isDuplicate": true,
+    "duplicateOf": "BUG-20261113-GiamGia-TC-05"
+  }
+}

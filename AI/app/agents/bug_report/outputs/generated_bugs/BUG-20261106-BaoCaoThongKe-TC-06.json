@@ -1,0 +1,89 @@
+{
+  "bugId": "BUG-20261106-BaoCaoThongKe-TC-06",
+  "createdAt": "2026-11-06T14:22:13.246205+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[BaoCaoThongKe] Không tìm thấy ô nhập liệu khoang thoi gian khi thực hiện 'Xu ly khi chon khoang thoi gian khong hop le'",
+  "module": "BaoCaoThongKe",
+  "feature": "E1",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/admin/dashboard",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Admin da dang nhap va co quyen phu hop",
+  "testData": "Ca kiểm thử: BaoCaoThongKe-TC-06 | Phân hệ: BaoCaoThongKe",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Mo trang Tong quan",
+      "traceRef": "await page.evaluate(() => { /* Step 1: Mo trang Tong quan */ });"
+    },
+    {
+      "step": 2,
+      "action": "Nhap khoang thoi gian sai dinh dang",
+      "traceRef": "await page.evaluate(() => { /* Step 2: Nhap khoang thoi gian sai dinh dang */ });"
+    },
+    {
+      "step": 3,
+      "action": "Nhan xac nhan",
+      "traceRef": "await page.evaluate(() => { /* Step 3: Nhan xac nhan */ });"
+    }
+  ],
+  "expected": "He thong hien thi thong bao loi khoang thoi gian khong hop le (Ref: C020-RULE-M19-01)",
+  "actual": "Hệ thống phát sinh lỗi: 'fill target not found: khoang thoi gian' tại http://localhost:8080/TTLTW_Nhom6/admin/dashboard. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "MEDIUM",
+  "severityScore": 4,
+  "factors": {
+    "i": 2,
+    "m": 0,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"fill target not found: khoang thoi gian\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/BaoCaoThongKe-TC-06/attempt_1/screenshot_20261106T101632813200.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/admin/dashboard\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Trang chủ - Dashboard\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ BaoCaoThongKe có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (fill target not found: khoang thoi gian).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/BaoCaoThongKe-TC-06/attempt_1/screenshot_20261106T101632813200.png",
+      "sha256": "063ee5d6831906f5f18a7e6111fae6dcab8c5df0c6830eccd34a2de785de79c6"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/BaoCaoThongKe-TC-06/attempt_1/trace_20261106T101633197642.zip",
+      "sha256": "d588581707fd5f2c5caaa4a11e953596888ffd9f3b8c6dad791f8db16378078a"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của BaoCaoThongKe liên quan đến thao tác: fill target not found: khoang thoi gian."
+  ],
+  "traceability": {
+    "testId": "BaoCaoThongKe-TC-06",
+    "requirementScenarioId": "C020-SCN-M19-01",
+    "businessRuleId": "C020-RULE-M19-01",
+    "failureId": "FA-BaoCaoThongKe-TC-06"
+  },
+  "deduplication": {
+    "fingerprint": "fp_e845767d",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

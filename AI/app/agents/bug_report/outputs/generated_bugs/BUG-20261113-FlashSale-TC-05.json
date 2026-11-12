@@ -1,0 +1,114 @@
+{
+  "bugId": "BUG-20261113-FlashSale-TC-05",
+  "createdAt": "2026-11-12T18:18:19.725622+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.assertion_pattern_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[FlashSale] Expected pattern not found: Hiển thị đếm ngược, chưa áp dụng giá Flash Sale. khi thực hiện 'Phân vùng không hợp lệ cho khung giờ Flash Sale trước giờ'",
+  "module": "FlashSale",
+  "feature": "E2",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Chương trình Flash Sale chưa mở",
+  "testData": "Ca kiểm thử: FlashSale-TC-05 | Phân hệ: FlashSale",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Truy cập trang Flash Sale",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Kiểm tra trạng thái sản phẩm",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hiển thị đếm ngược, chưa áp dụng giá Flash Sale. (Ref: C004-BR1)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị đếm ngược, chưa áp dụng giá Flash Sale.' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: ev-0020)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: Expected pattern not found: Hiển thị đếm ngược, chưa áp dụng giá Flash Sale.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: Expected pattern not found: Hiển thị đếm ngược, chưa áp dụng giá Flash Sale.",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Thông báo lỗi chỉ ra expected pattern not found.",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Mẫu chuỗi kỳ vọng không khớp với thực tế hiển thị trên trang.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0020",
+      "type": "SCREENSHOT",
+      "path": "evidence/FlashSale-TC-05/attempt_1/screenshot_20261106T101616515906.png",
+      "sha256": "ad413aa5a5921f478f685bca5387208fb20dfd4466157ae8772262dd114d020a"
+    },
+    {
+      "id": "ev-0021",
+      "type": "TRACE",
+      "path": "evidence/FlashSale-TC-05/attempt_1/trace_20261106T101617200118.zip",
+      "sha256": "638fde76fcb06c164dcf01f256894e9f655df6d2791707906ecdba9fbb79111d"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra nội dung kiểm tra đếm ngược",
+    "Cập nhật lại assertion"
+  ],
+  "missingEvidence": [
+    "Nội dung text thực tế tại thời điểm chạy"
+  ],
+  "traceability": {
+    "testId": "FlashSale-TC-05",
+    "requirementScenarioId": "SCENARIO-E2",
+    "businessRuleId": "C004-BR1",
+    "failureId": "fa-b9a135bc-e605-4f83-ac57-1f2d735b19b6"
+  },
+  "deduplication": {
+    "fingerprint": "fp_5732a10b",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "bugId": "BUG-20261113-BaoCaoThongKe-TC-06",
+  "createdAt": "2026-11-12T18:18:19.729362+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.action_target_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[BaoCaoThongKe] Không tìm thấy ô nhập liệu khoang thoi gian khi thực hiện 'Xử lý khi chọn khoảng thời gian không hợp lệ'",
+  "module": "BaoCaoThongKe",
+  "feature": "E1",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/admin/dashboard",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Admin đã đăng nhập và có quyền phù hợp",
+  "testData": "Ca kiểm thử: BaoCaoThongKe-TC-06 | Phân hệ: BaoCaoThongKe",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Mở trang Tổng quan",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Nhập khoảng thời gian sai định dạng",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "68ms"
+    },
+    {
+      "step": 3,
+      "action": "Nhấn xác nhận",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hệ thống hiển thị thông báo lỗi khoảng thời gian không hợp lệ (Ref: C020-RULE-M19-01)",
+  "actual": "Hệ thống phát sinh lỗi: 'fill target not found: khoang thoi gian' tại http://localhost:8080/TTLTW_Nhom6/admin/dashboard. (Ref: ev-0007)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: fill target not found: khoang thoi gian",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: fill target not found: khoang thoi gian",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Lỗi thực thi: fill target not found: khoang thoi gian",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner could not resolve the action or selector described by the test step.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Script tự động hóa chỉ định sai selector hoặc ô nhập chưa được hiển thị trên trang.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0007",
+      "type": "SCREENSHOT",
+      "path": "evidence/BaoCaoThongKe-TC-06/attempt_1/screenshot_20261106T101632813200.png",
+      "sha256": "063ee5d6831906f5f18a7e6111fae6dcab8c5df0c6830eccd34a2de785de79c6"
+    },
+    {
+      "id": "ev-0008",
+      "type": "TRACE",
+      "path": "evidence/BaoCaoThongKe-TC-06/attempt_1/trace_20261106T101633197642.zip",
+      "sha256": "d588581707fd5f2c5caaa4a11e953596888ffd9f3b8c6dad791f8db16378078a"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra và cập nhật lại locator của ô nhập khoảng thời gian."
+  ],
+  "missingEvidence": [
+    "Chi tiết DOM tại bước nhập liệu."
+  ],
+  "traceability": {
+    "testId": "BaoCaoThongKe-TC-06",
+    "requirementScenarioId": "SCENARIO-E1",
+    "businessRuleId": "C020-RULE-M19-01",
+    "failureId": "fa-e9091e85-f3e7-46e9-b54a-d69309f0df6a"
+  },
+  "deduplication": {
+    "fingerprint": "fp_e845767d",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}
