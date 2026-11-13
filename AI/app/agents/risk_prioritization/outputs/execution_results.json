@@ -1,11 +1,11 @@
 {
-  "run_id": "20261112-023347",
+  "run_id": "20261113-223701",
   "state_counts": {
-    "PASSED": 50,
-    "FAILED": 9,
+    "PASSED": 46,
+    "FAILED": 13,
     "MANUAL": 5
   },
-  "total_duration": 204778,
-  "started_at": "2026-11-11T19:33:47.558010+00:00",
-  "completed_at": "2026-11-11T19:37:12.336082+00:00"
+  "total_duration": 246893,
+  "started_at": "2026-11-13T15:37:01.121123+00:00",
+  "completed_at": "2026-11-13T15:41:08.014501+00:00"
 }
