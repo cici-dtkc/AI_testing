@@ -65,7 +65,7 @@ def evaluate_gate(faa: FailureAnalysisOutput) -> bool:
 
 
 def generate_professional_title(module: str, reason: str, tc_title: str) -> str:
-    """Tạo tiêu đề chuẩn hóa dạng [Module] Hành vi sai khi điều kiện (Mục 2.2)"""
+    """Tạo tiêu đề chuẩn hóa dạng [Module] Hành vi sai khi điều kiện """
     clean_reason = (
         reason.replace("click target not found:", "Không tìm thấy nút bấm")
         .replace("fill target not found:", "Không tìm thấy ô nhập liệu")

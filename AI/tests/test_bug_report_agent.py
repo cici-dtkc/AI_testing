@@ -7,17 +7,17 @@ ai_root = Path(__file__).resolve().parent.parent
 if str(ai_root) not in sys.path:
     sys.path.insert(0, str(ai_root))
 
-from app.agents.bug_report.severity import (
+from app.agents.bug_report.core.severity import (
     calculate_severity,
     calculate_confidence,
     MODULE_CRITICALITY_MAP,
 )
-from app.agents.bug_report.dedup import (
+from app.agents.bug_report.core.dedup import (
     generate_fingerprint,
     normalize_error_message,
 )
 from app.agents.bug_report.agent import evaluate_gate
-from app.agents.bug_report.schemas import (
+from app.agents.bug_report.core.schemas import (
     FailureAnalysisOutput,
     FAAConfidence,
     BugReport,
