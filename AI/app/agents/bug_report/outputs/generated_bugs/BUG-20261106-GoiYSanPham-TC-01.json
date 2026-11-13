@@ -1,0 +1,84 @@
+{
+  "bugId": "BUG-20261106-GoiYSanPham-TC-01",
+  "createdAt": "2026-11-06T14:22:13.249380+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[GoiYSanPham] Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ khi thực hiện 'Gợi ý sản phẩm khi còn hàng và hiển thị bình thường'",
+  "module": "GoiYSanPham",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Hệ thống có dữ liệu truyện trong danh mục",
+  "testData": "Ca kiểm thử: GoiYSanPham-TC-01 | Phân hệ: GoiYSanPham",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Truy cập trang chủ hệ thống",
+      "traceRef": "await page.evaluate(() => { /* Step 1: Truy cập trang chủ hệ thống */ });"
+    },
+    {
+      "step": 2,
+      "action": "Quan sát khu vực gợi ý sản phẩm",
+      "traceRef": "await page.waitForSelector(\".product-grid\", { state: \"visible\" });"
+    }
+  ],
+  "expected": "Hiển thị danh sách sản phẩm gợi ý hợp lệ (Ref: C014-RULE-M13-01)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/GoiYSanPham-TC-01/attempt_1/screenshot_20261106T101551805402.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Document\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ GoiYSanPham có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/GoiYSanPham-TC-01/attempt_1/screenshot_20261106T101551805402.png",
+      "sha256": "73e0f5ba6387ca9fa81e23fde7bd8ea34df4a227a64d786f3f13ffa2274e167d"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/GoiYSanPham-TC-01/attempt_1/trace_20261106T101552153846.zip",
+      "sha256": "962ac729e8db2b0c636adda56e15d560ad6a18e8c17c5e2a4568cc5a68115e6a"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của GoiYSanPham liên quan đến thao tác: Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ."
+  ],
+  "traceability": {
+    "testId": "GoiYSanPham-TC-01",
+    "requirementScenarioId": "C014-SCN-UC24-03",
+    "businessRuleId": "C014-RULE-M13-01",
+    "failureId": "FA-GoiYSanPham-TC-01"
+  },
+  "deduplication": {
+    "fingerprint": "fp_ec6eeffb",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

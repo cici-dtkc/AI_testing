@@ -1,0 +1,114 @@
+{
+  "bugId": "BUG-20261111-FlashSale-TC-04",
+  "createdAt": "2026-11-11T14:29:21.253061+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.assertion_pattern_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[FlashSale] Expected pattern not found: Hiển thị trạng thái đang diễn ra và cho phép mua giá ưu đãi. khi thực hiện 'Phân vùng hợp lệ cho khung giờ Flash Sale'",
+  "module": "FlashSale",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Chương trình Flash Sale đang hoạt động",
+  "testData": "Ca kiểm thử: FlashSale-TC-04 | Phân hệ: FlashSale",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Truy cập trang Flash Sale",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Kiểm tra trạng thái hiển thị",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hiển thị trạng thái đang diễn ra và cho phép mua giá ưu đãi. (Ref: C004-BR1)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị trạng thái đang diễn ra và cho phép mua giá ưu đãi.' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: ev-0018)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: Expected pattern not found: Hiển thị trạng thái đang diễn ra và cho phép mua giá ưu đãi.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: Expected pattern not found: Hiển thị trạng thái đang diễn ra và cho phép mua giá ưu đãi.",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Lỗi ghi nhận expected pattern not found đối với chuỗi kỳ vọng.",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Nội dung kỳ vọng trong test case chưa đồng bộ với chuỗi văn bản thực tế trên giao diện.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0018",
+      "type": "SCREENSHOT",
+      "path": "evidence/FlashSale-TC-04/attempt_1/screenshot_20261106T101504842248.png",
+      "sha256": "851da5d372645a881cd039977fc36d3b2f4cc9f6937092fdd104c9de74f8219d"
+    },
+    {
+      "id": "ev-0019",
+      "type": "TRACE",
+      "path": "evidence/FlashSale-TC-04/attempt_1/trace_20261106T101505688472.zip",
+      "sha256": "8e625320adb3961100b958e55010825bba5df6511b6613b2465b450047b34bb7"
+    }
+  ],
+  "recommendedActions": [
+    "Xem xét lại câu lệnh assertion và chuỗi expected",
+    "Cập nhật lại test case nếu UI đã thay đổi"
+  ],
+  "missingEvidence": [
+    "Text thực tế hiển thị trên UI"
+  ],
+  "traceability": {
+    "testId": "FlashSale-TC-04",
+    "requirementScenarioId": "SCENARIO-Chính",
+    "businessRuleId": "C004-BR1",
+    "failureId": "fa-547db442-df62-415c-937e-2c9214e492e2"
+  },
+  "deduplication": {
+    "fingerprint": "fp_9a3ed21c",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

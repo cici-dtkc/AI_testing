@@ -1,0 +1,106 @@
+{
+  "bugId": "BUG-20261113-Wishlist-TC-04",
+  "createdAt": "2026-11-13T01:15:16.882656+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.assertion_pattern_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[Wishlist] Expected pattern not found: Hệ thống hiển thị danh sách truyện bán chạy tại mục Gợi ý cho bạn khi thực hiện 'Xác thực gợi ý với tài khoản mới tạo chưa thêm truyện'",
+  "module": "Wishlist",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Hệ thống có dữ liệu truyện Tài khoản mới đăng ký chưa thêm truyện vào wishlist",
+  "testData": "Ca kiểm thử: Wishlist-TC-04 | Phân hệ: Wishlist",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Truy cập vào trang chủ",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hệ thống hiển thị danh sách truyện bán chạy tại mục Gợi ý cho bạn (Ref: C014-RULE-M13-02)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hệ thống hiển thị danh sách truyện bán chạy tại mục Gợi ý cho bạn' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0082)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: Expected pattern not found: Hệ thống hiển thị danh sách truyện bán chạy tại mục Gợi ý cho bạn",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: Expected pattern not found: Hệ thống hiển thị danh sách truyện bán chạy tại mục Gợi ý cho bạn",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Kết quả thực thi trả về FAILED do không tìm thấy danh sách truyện bán chạy tại mục gợi ý.",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Tài khoản mới tạo chưa được hệ thống nhận diện đúng trạng thái trống wishlist để hiển thị danh sách bán chạy.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0082",
+      "type": "SCREENSHOT",
+      "path": "evidence/Wishlist-TC-04/attempt_1/screenshot_20261106T101610468364.png",
+      "sha256": "d4d10aa8ae84d084c18b5a7aa413a47bd0a00cd041af3d70e611ee6d0796632c"
+    },
+    {
+      "id": "ev-0083",
+      "type": "TRACE",
+      "path": "evidence/Wishlist-TC-04/attempt_1/trace_20261106T101610709108.zip",
+      "sha256": "04e3928f980c5194e529a95b9a5b5113ea5315d8509d4c17801f90f29b6f6d29"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra lại cơ chế fallback gợi ý cho tài khoản mới đăng ký."
+  ],
+  "missingEvidence": [
+    "Thông tin chi tiết về phản hồi của API trang chủ đối với tài khoản mới"
+  ],
+  "traceability": {
+    "testId": "Wishlist-TC-04",
+    "requirementScenarioId": "SCENARIO-Chính",
+    "businessRuleId": "C014-RULE-M13-02",
+    "failureId": "fa-f3bba032-7ae8-4d6c-8ed2-6c5920513e67"
+  },
+  "deduplication": {
+    "fingerprint": "fp_69cfc319",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

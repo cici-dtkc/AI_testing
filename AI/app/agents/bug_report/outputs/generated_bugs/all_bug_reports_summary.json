@@ -1,0 +1,3406 @@
+[
+  {
+    "bugId": "BUG-20261113-TimKiem-TC-04",
+    "createdAt": "2026-11-13T01:15:16.849339+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": true,
+    "defectType": "PRODUCT_BUG",
+    "failureCategory": "PRODUCT",
+    "failureSubtype": "product.validation_feedback_missing",
+    "routing": "BUG_REPORT_DRAFT",
+    "title": "[TimKiem] Không có phản hồi cảnh báo trên giao diện khi thực hiện 'Tìm kiếm với từ khóa để trống'",
+    "module": "TimKiem",
+    "feature": "E1",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Người dùng truy cập được website",
+    "testData": "Ca kiểm thử: TimKiem-TC-04 | Phân hệ: TimKiem",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Để trống ô tìm kiếm",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Xác nhận tìm kiếm",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hiển thị thông báo yêu cầu nhập từ khóa. (Ref: C003-RULE-M02-001)",
+    "actual": "Hệ thống phát sinh lỗi: 'no validation feedback in UI (possible app defect)' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0070)",
+    "reproducibility": "Always (1/1)",
+    "severity": "MEDIUM",
+    "severityScore": 4,
+    "factors": {
+      "i": 2,
+      "m": 1,
+      "w": 1,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.75,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: no validation feedback in UI (possible app defect)",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: no validation feedback in UI (possible app defect)",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi thực thi báo cáo 'no validation feedback in UI (possible app defect)'",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Kỳ vọng kiểm thử là hiển thị thông báo yêu cầu nhập từ khóa khi ô tìm kiếm trống",
+        "evidenceRef": "input:test_case.expected"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The recorded UI observation reports missing validation feedback for the expected validation case.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Ứng dụng có thể thiếu tính năng kiểm tra xác thực (validation) đối với đầu vào để trống trên thanh tìm kiếm, dẫn đến không hiển thị thông báo phản hồi cho người dùng.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0070",
+        "type": "SCREENSHOT",
+        "path": "evidence/TimKiem-TC-04/attempt_1/screenshot_20261106T101251526374.png",
+        "sha256": "7d0761897cc7b1cf461930664d8c2f5a2f777b8a09067584f0ed268f1f8f8ede"
+      },
+      {
+        "id": "ev-0071",
+        "type": "TRACE",
+        "path": "evidence/TimKiem-TC-04/attempt_1/trace_20261106T101252065580.zip",
+        "sha256": "764eafb797ece21e8009226498e0cd7a5307772ba3fcb72cac5c09a1d730e3fb"
+      }
+    ],
+    "recommendedActions": [
+      "Tạo bug report để nhóm phát triển kiểm tra logic validation cho ô tìm kiếm khi để trống.",
+      "Xác nhận lại yêu cầu nghiệp vụ về việc có bắt buộc hiển thị thông báo lỗi hay không."
+    ],
+    "missingEvidence": [
+      "Chi tiết mã phản hồi từ server hoặc log chi tiết của sự kiện submit"
+    ],
+    "traceability": {
+      "testId": "TimKiem-TC-04",
+      "requirementScenarioId": "SCENARIO-E1",
+      "businessRuleId": "C003-RULE-M02-001",
+      "failureId": "fa-97d240ce-e1f6-4bee-bda0-57c5f8ba5869"
+    },
+    "deduplication": {
+      "fingerprint": "fp_d21423c0",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-GiamGia-TC-05",
+    "createdAt": "2026-11-13T01:15:16.857731+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.action_target_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[GiamGia] Không tìm thấy nút bấm Chọn voucher khi thực hiện 'Kiểm tra voucher hết hạn'",
+    "module": "GiamGia",
+    "feature": "E1",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Khách hàng đã đăng nhập và ở trang Checkout",
+    "testData": "Ca kiểm thử: GiamGia-TC-05 | Phân hệ: GiamGia",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Nhập mã voucher đã hết hạn",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Nhấn áp dụng",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống hiển thị thông báo lỗi voucher hết hạn và ẩn khỏi ví. (Ref: C010-RULE-M09-002)",
+    "actual": "Hệ thống phát sinh lỗi: 'click target not found: Chọn voucher' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0031)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: click target not found: Chọn voucher",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: click target not found: Chọn voucher",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi click target not found: Chọn voucher.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner could not resolve the action or selector described by the test step.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Phần tử nút bấm mở danh sách voucher không được định vị chính xác bởi script.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0031",
+        "type": "SCREENSHOT",
+        "path": "evidence/GiamGia-TC-05/attempt_1/screenshot_20261106T101332937261.png",
+        "sha256": "144e6ea95bcca3cf18949b325f0ac15c2f94749c6e066d61d3e80999fb520747"
+      },
+      {
+        "id": "ev-0032",
+        "type": "TRACE",
+        "path": "evidence/GiamGia-TC-05/attempt_1/trace_20261106T101333832511.zip",
+        "sha256": "d561886dbfa8570aa9ca278b864d995da6f225981d097487437fb915bf614695"
+      }
+    ],
+    "recommendedActions": [
+      "Cập nhật lại selector cho nút Chọn voucher"
+    ],
+    "missingEvidence": [
+      "Chi tiết DOM của nút chọn voucher"
+    ],
+    "traceability": {
+      "testId": "GiamGia-TC-05",
+      "requirementScenarioId": "SCENARIO-E1",
+      "businessRuleId": "C010-RULE-M09-002",
+      "failureId": "fa-4a925301-13f7-43ec-add9-80ba1b10e354"
+    },
+    "deduplication": {
+      "fingerprint": "fp_ee6fbeb9",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-GiamGia-TC-02",
+    "createdAt": "2026-11-13T01:15:16.858298+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.action_target_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[GiamGia] Không tìm thấy ô nhập liệu mã voucher khi thực hiện 'Áp dụng voucher không tồn tại'",
+    "module": "GiamGia",
+    "feature": "E1",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Khách hàng đang ở trang Checkout",
+    "testData": "Ca kiểm thử: GiamGia-TC-02 | Phân hệ: GiamGia",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Nhập mã voucher không tồn tại",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Nhấn nút áp dụng voucher",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống hiển thị thông báo lỗi voucher không tồn tại. (Ref: C010-RULE-M09-001)",
+    "actual": "Hệ thống phát sinh lỗi: 'fill target not found: mã voucher' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0026)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: fill target not found: mã voucher",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: fill target not found: mã voucher",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi fill target not found: mã voucher.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner could not resolve the action or selector described by the test step.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Input field nhập mã voucher không khớp với selector trong mã tự động hóa.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0026",
+        "type": "SCREENSHOT",
+        "path": "evidence/GiamGia-TC-02/attempt_1/screenshot_20261106T101338933256.png",
+        "sha256": "336f378990f4cf5d3b632f13d8603032827bbce8616ea3e6d055ae7366a1f06a"
+      },
+      {
+        "id": "ev-0027",
+        "type": "TRACE",
+        "path": "evidence/GiamGia-TC-02/attempt_1/trace_20261106T101340025227.zip",
+        "sha256": "19a07a680e5720a1c0aa76f58cb02dd80cfbaa6e669324b76266f32b380cfa40"
+      }
+    ],
+    "recommendedActions": [
+      "Cập nhật selector cho ô nhập mã voucher",
+      "Kiểm tra lại các bước thực thi"
+    ],
+    "missingEvidence": [
+      "DOM cấu trúc input voucher"
+    ],
+    "traceability": {
+      "testId": "GiamGia-TC-02",
+      "requirementScenarioId": "SCENARIO-E1",
+      "businessRuleId": "C010-RULE-M09-001",
+      "failureId": "fa-7312112e-41c0-440d-98a2-5482e7525619"
+    },
+    "deduplication": {
+      "fingerprint": "fp_37221505",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-GiamGia-TC-06",
+    "createdAt": "2026-11-13T01:15:16.859436+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.action_target_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[GiamGia] Không tìm thấy nút bấm voucher có điều kiện đơn tối thiểu khi thực hiện 'Kiểm tra đơn hàng dưới mức tối thiểu'",
+    "module": "GiamGia",
+    "feature": "E1",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Khách hàng đã đăng nhập và ở trang Checkout",
+    "testData": "Ca kiểm thử: GiamGia-TC-06 | Phân hệ: GiamGia",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Chọn voucher có điều kiện đơn tối thiểu",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Nhấn áp dụng",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống thông báo đơn hàng chưa đạt giá trị tối thiểu. (Ref: C010-RULE-M09-001)",
+    "actual": "Hệ thống phát sinh lỗi: 'click target not found: voucher có điều kiện đơn tối thiểu' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0033)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: click target not found: voucher có điều kiện đơn tối thiểu",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: click target not found: voucher có điều kiện đơn tối thiểu",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi click target not found: voucher có điều kiện đơn tối thiểu.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner could not resolve the action or selector described by the test step.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Selector dùng để tìm và chọn voucher có điều kiện tối thiểu không khớp với UI.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0033",
+        "type": "SCREENSHOT",
+        "path": "evidence/GiamGia-TC-06/attempt_1/screenshot_20261106T101345609861.png",
+        "sha256": "e828522fc5472bb46a31acf7d812f69c3049c2236598a669ae9111f47cb5f9bb"
+      },
+      {
+        "id": "ev-0034",
+        "type": "TRACE",
+        "path": "evidence/GiamGia-TC-06/attempt_1/trace_20261106T101346810211.zip",
+        "sha256": "95d889b3e61cd2dd9a8170efa15b7742f543a3e27af1a8b2a5f1f459ac8b5952"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra bộ chọn của voucher có điều kiện tối thiểu",
+      "Sửa lại kịch bản tự động hóa"
+    ],
+    "missingEvidence": [
+      "DOM danh sách voucher"
+    ],
+    "traceability": {
+      "testId": "GiamGia-TC-06",
+      "requirementScenarioId": "SCENARIO-E1",
+      "businessRuleId": "C010-RULE-M09-001",
+      "failureId": "fa-546dfdf8-b2f3-4dd5-ada5-970e0c6957d2"
+    },
+    "deduplication": {
+      "fingerprint": "fp_76bcb861",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-GiamGia-TC-07",
+    "createdAt": "2026-11-13T01:15:16.860534+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.action_target_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[GiamGia] Không tìm thấy ô nhập liệu mã voucher khi thực hiện 'Kiểm tra voucher hết lượt sử dụng'",
+    "module": "GiamGia",
+    "feature": "E1",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Khách hàng đã đăng nhập và ở trang Checkout",
+    "testData": "Ca kiểm thử: GiamGia-TC-07 | Phân hệ: GiamGia",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Nhập mã voucher đã hết số lượt",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Nhấn áp dụng",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống thông báo voucher đã hết lượt và ẩn khỏi ví. (Ref: C010-RULE-M09-002)",
+    "actual": "Hệ thống phát sinh lỗi: 'fill target not found: mã voucher' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0035)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: fill target not found: mã voucher",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: fill target not found: mã voucher",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Trạng thái thực thi là thất bại với thông báo lỗi 'fill target not found: mã voucher'.",
+        "evidenceRef": "input:retry_history"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner could not resolve the action or selector described by the test step.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Đoạn mã tự động hóa tìm kiếm một phần tử không tồn tại hoặc selector dùng để tìm ô nhập mã voucher không khớp với cấu trúc thực tế của trang.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0035",
+        "type": "SCREENSHOT",
+        "path": "evidence/GiamGia-TC-07/attempt_1/screenshot_20261106T101352414846.png",
+        "sha256": "56a02d1e2508b5a54bc86e4b4bf222712b51ba334abd9db8d29a3b0ef4bd6f16"
+      },
+      {
+        "id": "ev-0036",
+        "type": "TRACE",
+        "path": "evidence/GiamGia-TC-07/attempt_1/trace_20261106T101354084200.zip",
+        "sha256": "16d6a89e6983893b0924bf54c32762e055c3d5df336b30953d05fd4c6a1fadef"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra lại selector của trường mã voucher trong kịch bản tự động hóa",
+      "Cập nhật selector cho đúng với DOM hiện tại"
+    ],
+    "missingEvidence": [
+      "DOM hoặc mã nguồn trang tại thời điểm thực thi"
+    ],
+    "traceability": {
+      "testId": "GiamGia-TC-07",
+      "requirementScenarioId": "SCENARIO-E1",
+      "businessRuleId": "C010-RULE-M09-002",
+      "failureId": "fa-6176af81-5fe7-423d-baac-a3907ce23afd"
+    },
+    "deduplication": {
+      "fingerprint": "fp_37221505",
+      "isDuplicate": true,
+      "duplicateOf": "BUG-20261113-GiamGia-TC-02"
+    }
+  },
+  {
+    "bugId": "BUG-20261113-FlashSale-TC-01",
+    "createdAt": "2026-11-13T01:15:16.861615+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[FlashSale] Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại. khi thực hiện 'Xem danh sách Flash Sale trong khung giờ hợp lệ'",
+    "module": "FlashSale",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Chương trình Flash Sale đã được cấu hình",
+    "testData": "Ca kiểm thử: FlashSale-TC-01 | Phân hệ: FlashSale",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Nhấn vào mục Flash Sale",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Quan sát danh sách sản phẩm",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại. (Ref: C004-BR1)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại.' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: ev-0012)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại.",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi thực thi: Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Giao diện trang Flash Sale chưa hiển thị đầy đủ các thông tin theo yêu cầu của test case.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0012",
+        "type": "SCREENSHOT",
+        "path": "evidence/FlashSale-TC-01/attempt_1/screenshot_20261106T101500674890.png",
+        "sha256": "ff6e9d5863d4a13da12b205734ebb15184cfaa4a17c67c0f4071286846674e06"
+      },
+      {
+        "id": "ev-0013",
+        "type": "TRACE",
+        "path": "evidence/FlashSale-TC-01/attempt_1/trace_20261106T101501357643.zip",
+        "sha256": "93ed6b77709ac6ebb29570bb5930458c70157786980ba57177d64074d01858a4"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra lại dữ liệu cấu hình Flash Sale và giao diện hiển thị."
+    ],
+    "missingEvidence": [
+      "Screenshot hoặc nội dung HTML chi tiết của trang Flash Sale."
+    ],
+    "traceability": {
+      "testId": "FlashSale-TC-01",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C004-BR1",
+      "failureId": "fa-b8380ae4-ca8f-4f15-88b6-0c2ea13b5f4e"
+    },
+    "deduplication": {
+      "fingerprint": "fp_8e5d9bc7",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-FlashSale-TC-03",
+    "createdAt": "2026-11-13T01:15:16.862652+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.action_target_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[FlashSale] Không tìm thấy nút bấm sản phẩm trong danh sách khi thực hiện 'Kiểm tra chặn mua giá Flash Sale ngoài khung giờ'",
+    "module": "FlashSale",
+    "feature": "E1",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Chương trình Flash Sale chưa bắt đầu hoặc đã kết thúc",
+    "testData": "Ca kiểm thử: FlashSale-TC-03 | Phân hệ: FlashSale",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Chọn sản phẩm trong danh sách",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Thực hiện mua hàng",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống áp dụng giá gốc, không áp dụng giá Flash Sale. (Ref: C004-BR1)",
+    "actual": "Hệ thống phát sinh lỗi: 'click target not found: sản phẩm trong danh sách' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: ev-0016)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: click target not found: sản phẩm trong danh sách",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: click target not found: sản phẩm trong danh sách",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Thông báo lỗi ghi nhận click target not found cho bước sản phẩm trong danh sách.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner could not resolve the action or selector described by the test step.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Automation script sử dụng bộ chọn (selector) không khớp với cấu trúc DOM hiện tại.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0016",
+        "type": "SCREENSHOT",
+        "path": "evidence/FlashSale-TC-03/attempt_1/screenshot_20261106T101621240056.png",
+        "sha256": "27c6ce80d20775f01c17f49cde575c23ee9794e3dc42b4adc199151f93515aed"
+      },
+      {
+        "id": "ev-0017",
+        "type": "TRACE",
+        "path": "evidence/FlashSale-TC-03/attempt_1/trace_20261106T101622134918.zip",
+        "sha256": "7e620baed6bf52caf0c3c91d168ecb8872f2d72d1bd180be2ee75a7d54311b1e"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra lại selector của phần tử sản phẩm",
+      "Cập nhật lại test script"
+    ],
+    "missingEvidence": [
+      "DOM snapshot chi tiết",
+      "Mã nguồn script kiểm thử"
+    ],
+    "traceability": {
+      "testId": "FlashSale-TC-03",
+      "requirementScenarioId": "SCENARIO-E1",
+      "businessRuleId": "C004-BR1",
+      "failureId": "fa-22917327-eff0-4059-b758-cb1555276bfa"
+    },
+    "deduplication": {
+      "fingerprint": "fp_3d7ed3d2",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-FlashSale-TC-04",
+    "createdAt": "2026-11-13T01:15:16.863287+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[FlashSale] Expected pattern not found: Hiển thị trạng thái đang diễn ra và cho phép mua giá ưu đãi. khi thực hiện 'Phân vùng hợp lệ cho khung giờ Flash Sale'",
+    "module": "FlashSale",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Chương trình Flash Sale đang hoạt động",
+    "testData": "Ca kiểm thử: FlashSale-TC-04 | Phân hệ: FlashSale",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Truy cập trang Flash Sale",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Kiểm tra trạng thái hiển thị",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hiển thị trạng thái đang diễn ra và cho phép mua giá ưu đãi. (Ref: C004-BR1)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị trạng thái đang diễn ra và cho phép mua giá ưu đãi.' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: ev-0018)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Hiển thị trạng thái đang diễn ra và cho phép mua giá ưu đãi.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Hiển thị trạng thái đang diễn ra và cho phép mua giá ưu đãi.",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi ghi nhận expected pattern not found đối với chuỗi kỳ vọng.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Nội dung kỳ vọng trong test case chưa đồng bộ với chuỗi văn bản thực tế trên giao diện.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0018",
+        "type": "SCREENSHOT",
+        "path": "evidence/FlashSale-TC-04/attempt_1/screenshot_20261106T101504842248.png",
+        "sha256": "851da5d372645a881cd039977fc36d3b2f4cc9f6937092fdd104c9de74f8219d"
+      },
+      {
+        "id": "ev-0019",
+        "type": "TRACE",
+        "path": "evidence/FlashSale-TC-04/attempt_1/trace_20261106T101505688472.zip",
+        "sha256": "8e625320adb3961100b958e55010825bba5df6511b6613b2465b450047b34bb7"
+      }
+    ],
+    "recommendedActions": [
+      "Xem xét lại câu lệnh assertion và chuỗi expected",
+      "Cập nhật lại test case nếu UI đã thay đổi"
+    ],
+    "missingEvidence": [
+      "Text thực tế hiển thị trên UI"
+    ],
+    "traceability": {
+      "testId": "FlashSale-TC-04",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C004-BR1",
+      "failureId": "fa-547db442-df62-415c-937e-2c9214e492e2"
+    },
+    "deduplication": {
+      "fingerprint": "fp_9a3ed21c",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-FlashSale-TC-05",
+    "createdAt": "2026-11-13T01:15:16.864388+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[FlashSale] Expected pattern not found: Hiển thị đếm ngược, chưa áp dụng giá Flash Sale. khi thực hiện 'Phân vùng không hợp lệ cho khung giờ Flash Sale trước giờ'",
+    "module": "FlashSale",
+    "feature": "E2",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Chương trình Flash Sale chưa mở",
+    "testData": "Ca kiểm thử: FlashSale-TC-05 | Phân hệ: FlashSale",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Truy cập trang Flash Sale",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Kiểm tra trạng thái sản phẩm",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hiển thị đếm ngược, chưa áp dụng giá Flash Sale. (Ref: C004-BR1)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị đếm ngược, chưa áp dụng giá Flash Sale.' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: ev-0020)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Hiển thị đếm ngược, chưa áp dụng giá Flash Sale.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Hiển thị đếm ngược, chưa áp dụng giá Flash Sale.",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Thông báo lỗi chỉ ra expected pattern not found.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Mẫu chuỗi kỳ vọng không khớp với thực tế hiển thị trên trang.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0020",
+        "type": "SCREENSHOT",
+        "path": "evidence/FlashSale-TC-05/attempt_1/screenshot_20261106T101616515906.png",
+        "sha256": "ad413aa5a5921f478f685bca5387208fb20dfd4466157ae8772262dd114d020a"
+      },
+      {
+        "id": "ev-0021",
+        "type": "TRACE",
+        "path": "evidence/FlashSale-TC-05/attempt_1/trace_20261106T101617200118.zip",
+        "sha256": "638fde76fcb06c164dcf01f256894e9f655df6d2791707906ecdba9fbb79111d"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra nội dung kiểm tra đếm ngược",
+      "Cập nhật lại assertion"
+    ],
+    "missingEvidence": [
+      "Nội dung text thực tế tại thời điểm chạy"
+    ],
+    "traceability": {
+      "testId": "FlashSale-TC-05",
+      "requirementScenarioId": "SCENARIO-E2",
+      "businessRuleId": "C004-BR1",
+      "failureId": "fa-b9a135bc-e605-4f83-ac57-1f2d735b19b6"
+    },
+    "deduplication": {
+      "fingerprint": "fp_5732a10b",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-FlashSale-TC-06",
+    "createdAt": "2026-11-13T01:15:16.865533+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[FlashSale] Expected pattern not found: Hiển thị thông báo đã kết thúc, áp dụng giá gốc. khi thực hiện 'Phân vùng không hợp lệ cho khung giờ Flash Sale sau giờ'",
+    "module": "FlashSale",
+    "feature": "E2",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Chương trình Flash Sale đã kết thúc",
+    "testData": "Ca kiểm thử: FlashSale-TC-06 | Phân hệ: FlashSale",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Truy cập trang Flash Sale",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Kiểm tra trạng thái sản phẩm",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hiển thị thông báo đã kết thúc, áp dụng giá gốc. (Ref: C004-BR1)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị thông báo đã kết thúc, áp dụng giá gốc.' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: ev-0022)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Hiển thị thông báo đã kết thúc, áp dụng giá gốc.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Hiển thị thông báo đã kết thúc, áp dụng giá gốc.",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi thông báo expected pattern not found.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Thông điệp trên giao diện khác biệt so với nội dung kiểm tra trong test case.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0022",
+        "type": "SCREENSHOT",
+        "path": "evidence/FlashSale-TC-06/attempt_1/screenshot_20261106T101623031379.png",
+        "sha256": "bfb7873ec05ed51af808316c628ad335b3a9f20361a6e3636b7d6d4ad5110448"
+      },
+      {
+        "id": "ev-0023",
+        "type": "TRACE",
+        "path": "evidence/FlashSale-TC-06/attempt_1/trace_20261106T101624010600.zip",
+        "sha256": "1e686f259e1e46df2a934fe99c4c1aff1c442a6fa4bf1a8db6f692a4abcb520d"
+      }
+    ],
+    "recommendedActions": [
+      "Cập nhật expected pattern cho phù hợp với UI",
+      "Kiểm tra lại kịch bản kiểm thử"
+    ],
+    "missingEvidence": [
+      "Ảnh chụp màn hình chi tiết hoặc log DOM"
+    ],
+    "traceability": {
+      "testId": "FlashSale-TC-06",
+      "requirementScenarioId": "SCENARIO-E2",
+      "businessRuleId": "C004-BR1",
+      "failureId": "fa-7513ffce-d75a-4e20-bf1b-5c2f7bc0b30a"
+    },
+    "deduplication": {
+      "fingerprint": "fp_0397620f",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-GiamGia-TC-01",
+    "createdAt": "2026-11-13T01:15:16.866666+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.action_target_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[GiamGia] Không tìm thấy nút bấm Chọn voucher khi thực hiện 'Áp dụng voucher hợp lệ thành công'",
+    "module": "GiamGia",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Khách hàng đã đăng nhập Đơn hàng đang ở trang Checkout",
+    "testData": "Ca kiểm thử: GiamGia-TC-01 | Phân hệ: GiamGia",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Nhập mã voucher hợp lệ vào ô mã giảm giá",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Nhấn nút áp dụng voucher",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "68ms"
+      },
+      {
+        "step": 3,
+        "action": "Kiểm tra tổng tiền đơn hàng",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống áp dụng giảm giá và cập nhật tổng tiền thành công. (Ref: C010-RULE-M09-001)",
+    "actual": "Hệ thống phát sinh lỗi: 'click target not found: Chọn voucher' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0024)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: click target not found: Chọn voucher",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: click target not found: Chọn voucher",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi click target not found: Chọn voucher.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner could not resolve the action or selector described by the test step.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Script thực hiện click trên một selector không tồn tại trên trang Checkout hiện tại.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0024",
+        "type": "SCREENSHOT",
+        "path": "evidence/GiamGia-TC-01/attempt_1/screenshot_20261106T101407664567.png",
+        "sha256": "b9defcdadf8d01a3c32012cd4c2e97a7b7cefc36db56110c41c6412e32d61149"
+      },
+      {
+        "id": "ev-0025",
+        "type": "TRACE",
+        "path": "evidence/GiamGia-TC-01/attempt_1/trace_20261106T101409687073.zip",
+        "sha256": "cf10a321f26f33e7f18624995fdd54763d66653b94a3e97d1d46dc52dd01a7cb"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra lại bộ chọn cho nút chọn voucher",
+      "Sửa lại script kiểm thử"
+    ],
+    "missingEvidence": [
+      "DOM snapshot trang Checkout"
+    ],
+    "traceability": {
+      "testId": "GiamGia-TC-01",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C010-RULE-M09-001",
+      "failureId": "fa-ea57bd91-a43d-45bd-97c0-cd8a49171d60"
+    },
+    "deduplication": {
+      "fingerprint": "fp_ee6fbeb9",
+      "isDuplicate": true,
+      "duplicateOf": "BUG-20261113-GiamGia-TC-05"
+    }
+  },
+  {
+    "bugId": "BUG-20261113-GiamGia-TC-08",
+    "createdAt": "2026-11-13T01:15:16.867207+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.action_target_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[GiamGia] Không tìm thấy ô nhập liệu mã voucher khi thực hiện 'Kiểm tra voucher dùng một lần đã sử dụng'",
+    "module": "GiamGia",
+    "feature": "E1",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Khách hàng đã đăng nhập và ở trang Checkout",
+    "testData": "Ca kiểm thử: GiamGia-TC-08 | Phân hệ: GiamGia",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Nhập mã voucher dùng một lần đã dùng",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Nhấn áp dụng",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống hiển thị thông báo voucher đã được sử dụng. (Ref: C010-RULE-M09-001)",
+    "actual": "Hệ thống phát sinh lỗi: 'fill target not found: mã voucher' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0037)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: fill target not found: mã voucher",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: fill target not found: mã voucher",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Thông báo lỗi ghi nhận 'fill target not found: mã voucher'.",
+        "evidenceRef": "input:retry_history"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner could not resolve the action or selector described by the test step.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Selector của bước nhập mã voucher không khớp với phần tử trên giao diện.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0037",
+        "type": "SCREENSHOT",
+        "path": "evidence/GiamGia-TC-08/attempt_1/screenshot_20261106T101513304754.png",
+        "sha256": "0cad0070efc5a0aeb32b2d5ac789984c5ae7051016daebbfdbc11b73a54e85f5"
+      },
+      {
+        "id": "ev-0038",
+        "type": "TRACE",
+        "path": "evidence/GiamGia-TC-08/attempt_1/trace_20261106T101514594451.zip",
+        "sha256": "260b955ae413a806d707867ab82bc5b2351a6f5d9adbd316bf71677c1b21ad10"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra và cập nhật lại selector nhập mã voucher trong file test script"
+    ],
+    "missingEvidence": [
+      "DOM tại thời điểm xảy ra lỗi"
+    ],
+    "traceability": {
+      "testId": "GiamGia-TC-08",
+      "requirementScenarioId": "SCENARIO-E1",
+      "businessRuleId": "C010-RULE-M09-001",
+      "failureId": "fa-09b42a87-c48a-4928-a90b-293235499c3c"
+    },
+    "deduplication": {
+      "fingerprint": "fp_37221505",
+      "isDuplicate": true,
+      "duplicateOf": "BUG-20261113-GiamGia-TC-07"
+    }
+  },
+  {
+    "bugId": "BUG-20261113-BaoCaoThongKe-TC-06",
+    "createdAt": "2026-11-13T01:15:16.868292+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.action_target_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[BaoCaoThongKe] Không tìm thấy ô nhập liệu khoang thoi gian khi thực hiện 'Xử lý khi chọn khoảng thời gian không hợp lệ'",
+    "module": "BaoCaoThongKe",
+    "feature": "E1",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/admin/dashboard",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Admin đã đăng nhập và có quyền phù hợp",
+    "testData": "Ca kiểm thử: BaoCaoThongKe-TC-06 | Phân hệ: BaoCaoThongKe",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Mở trang Tổng quan",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Nhập khoảng thời gian sai định dạng",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "68ms"
+      },
+      {
+        "step": 3,
+        "action": "Nhấn xác nhận",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống hiển thị thông báo lỗi khoảng thời gian không hợp lệ (Ref: C020-RULE-M19-01)",
+    "actual": "Hệ thống phát sinh lỗi: 'fill target not found: khoang thoi gian' tại http://localhost:8080/TTLTW_Nhom6/admin/dashboard. (Ref: ev-0007)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 5,
+    "factors": {
+      "i": 2,
+      "m": 1,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: fill target not found: khoang thoi gian",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: fill target not found: khoang thoi gian",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi thực thi: fill target not found: khoang thoi gian",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner could not resolve the action or selector described by the test step.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Script tự động hóa chỉ định sai selector hoặc ô nhập chưa được hiển thị trên trang.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0007",
+        "type": "SCREENSHOT",
+        "path": "evidence/BaoCaoThongKe-TC-06/attempt_1/screenshot_20261106T101632813200.png",
+        "sha256": "063ee5d6831906f5f18a7e6111fae6dcab8c5df0c6830eccd34a2de785de79c6"
+      },
+      {
+        "id": "ev-0008",
+        "type": "TRACE",
+        "path": "evidence/BaoCaoThongKe-TC-06/attempt_1/trace_20261106T101633197642.zip",
+        "sha256": "d588581707fd5f2c5caaa4a11e953596888ffd9f3b8c6dad791f8db16378078a"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra và cập nhật lại locator của ô nhập khoảng thời gian."
+    ],
+    "missingEvidence": [
+      "Chi tiết DOM tại bước nhập liệu."
+    ],
+    "traceability": {
+      "testId": "BaoCaoThongKe-TC-06",
+      "requirementScenarioId": "SCENARIO-E1",
+      "businessRuleId": "C020-RULE-M19-01",
+      "failureId": "fa-e9091e85-f3e7-46e9-b54a-d69309f0df6a"
+    },
+    "deduplication": {
+      "fingerprint": "fp_e845767d",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-DanhGiaDoiTra-TC-02",
+    "createdAt": "2026-11-13T01:15:16.869053+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[DanhGiaDoiTra] Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục. khi thực hiện 'Giới hạn hiển thị 10 mục khi dữ liệu vượt quá biên'",
+    "module": "DanhGiaDoiTra",
+    "feature": "E1",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/admin/dashboard",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Hệ thống có sẵn hơn 10 sản phẩm bán chạy và đánh giá cao",
+    "testData": "Ca kiểm thử: DanhGiaDoiTra-TC-02 | Phân hệ: DanhGiaDoiTra",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Truy cập trang bảng xếp hạng",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Kiểm tra số lượng mục hiển thị",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Bảng xếp hạng chỉ hiển thị tối đa 10 mục. (Ref: C020-RULE-M19-02)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục.' tại http://localhost:8080/TTLTW_Nhom6/admin/dashboard. (Ref: ev-0010)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 5,
+    "factors": {
+      "i": 2,
+      "m": 1,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục.",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi thực thi: Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Hệ thống có thể đang hiển thị hơn 10 mục hoặc định dạng thông điệp khác với mong đợi.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0010",
+        "type": "SCREENSHOT",
+        "path": "evidence/DanhGiaDoiTra-TC-02/attempt_1/screenshot_20261106T101629677129.png",
+        "sha256": "656a6d1b924ab21e86fffa8c07877d397842e60d5e749be6a3109a0ed15a7a47"
+      },
+      {
+        "id": "ev-0011",
+        "type": "TRACE",
+        "path": "evidence/DanhGiaDoiTra-TC-02/attempt_1/trace_20261106T101629993514.zip",
+        "sha256": "3ba859593576ecce1bb36a0bc6adc3237fb23dfc35b2110bad5ada082caaedba"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra lại logic giới hạn số lượng mục trên bảng xếp hạng."
+    ],
+    "missingEvidence": [
+      "Screenshot chi tiết nội dung hiển thị thực tế trên trang."
+    ],
+    "traceability": {
+      "testId": "DanhGiaDoiTra-TC-02",
+      "requirementScenarioId": "SCENARIO-E1",
+      "businessRuleId": "C020-RULE-M19-02",
+      "failureId": "fa-6b3dca85-967d-4dca-ae1b-5dc3ea1218f7"
+    },
+    "deduplication": {
+      "fingerprint": "fp_0e306ef5",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-BaoCaoThongKe-TC-05",
+    "createdAt": "2026-11-13T01:15:16.870318+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.action_target_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[BaoCaoThongKe] Không tìm thấy nút bấm khoang ngay hop le khi thực hiện 'Xem dashboard với khoảng thời gian tùy chỉnh hợp lệ'",
+    "module": "BaoCaoThongKe",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/admin/dashboard",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Admin đã đăng nhập và có quyền phù hợp",
+    "testData": "Ca kiểm thử: BaoCaoThongKe-TC-05 | Phân hệ: BaoCaoThongKe",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Mở trang Tổng quan",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Chon khoang thoi gian &#x27;Tuy chinh&#x27;",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "68ms"
+      },
+      {
+        "step": 3,
+        "action": "Xác nhận khoảng ngày hợp lệ",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu theo khoảng tùy chỉnh (Ref: C020-RULE-M19-01)",
+    "actual": "Hệ thống phát sinh lỗi: 'click target not found: khoang ngay hop le' tại http://localhost:8080/TTLTW_Nhom6/admin/dashboard. (Ref: ev-0005)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 5,
+    "factors": {
+      "i": 2,
+      "m": 1,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: click target not found: khoang ngay hop le",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: click target not found: khoang ngay hop le",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi thực thi: click target not found: khoang ngay hop le",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner could not resolve the action or selector described by the test step.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Automation script sử dụng selector hoặc tên phần tử không khớp với giao diện thực tế.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0005",
+        "type": "SCREENSHOT",
+        "path": "evidence/BaoCaoThongKe-TC-05/attempt_1/screenshot_20261106T101537184515.png",
+        "sha256": "6bfb03786ba962550ee7eadde1546ffc2e6d10fd6ead62206bb10dec02df6525"
+      },
+      {
+        "id": "ev-0006",
+        "type": "TRACE",
+        "path": "evidence/BaoCaoThongKe-TC-05/attempt_1/trace_20261106T101537625015.zip",
+        "sha256": "aaa070689a64c5e83449117d37b2bfdf88b98216ca646d6e1ddb636df1cb828f"
+      }
+    ],
+    "recommendedActions": [
+      "Cập nhật lại selector cho phần tử khoảng ngày tùy chỉnh trong script."
+    ],
+    "missingEvidence": [
+      "Chi tiết DOM hoặc mã nguồn script test."
+    ],
+    "traceability": {
+      "testId": "BaoCaoThongKe-TC-05",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C020-RULE-M19-01",
+      "failureId": "fa-013f81a3-2b12-45cc-9b0d-7de015d637b7"
+    },
+    "deduplication": {
+      "fingerprint": "fp_488b26b4",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-FlashSale-TC-02",
+    "createdAt": "2026-11-13T01:15:16.871373+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[FlashSale] Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc. khi thực hiện 'Chuyển trạng thái khi Flash Sale kết thúc thời gian'",
+    "module": "FlashSale",
+    "feature": "E1",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Chương trình Flash Sale đang diễn ra",
+    "testData": "Ca kiểm thử: FlashSale-TC-02 | Phân hệ: FlashSale",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Hệ thống tự động cập nhật thời gian",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Kiểm tra mức giá sản phẩm",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Ẩn mức giá Flash Sale và áp dụng lại giá gốc. (Ref: C004-BR1)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc.' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: ev-0014)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc.",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi thực thi: Expected pattern not found: Ẩn mức giá Flash Sale và áp dụng lại giá gốc.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Hệ thống chưa tự động cập nhật hoặc ẩn mức giá Flash Sale khi thời gian kết thúc.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0014",
+        "type": "SCREENSHOT",
+        "path": "evidence/FlashSale-TC-02/attempt_1/screenshot_20261106T101635961538.png",
+        "sha256": "dd932ddab8fd16dd26f0217462e2ef76ebfd479862ba7276edb72a302480ba5f"
+      },
+      {
+        "id": "ev-0015",
+        "type": "TRACE",
+        "path": "evidence/FlashSale-TC-02/attempt_1/trace_20261106T101636807304.zip",
+        "sha256": "6bde3058be2e6a7694024fee41af5f28a941d42035d41f9abd7c6d1d72d6afe8"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra logic xử lý thời gian kết thúc chương trình Flash Sale."
+    ],
+    "missingEvidence": [
+      "Log hoặc response khi thời gian đếm ngược kết thúc."
+    ],
+    "traceability": {
+      "testId": "FlashSale-TC-02",
+      "requirementScenarioId": "SCENARIO-E1",
+      "businessRuleId": "C004-BR1",
+      "failureId": "fa-80a513f1-dfff-40bd-92bb-1c496a1bbb31"
+    },
+    "deduplication": {
+      "fingerprint": "fp_a680aed6",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-GiamGia-TC-04",
+    "createdAt": "2026-11-13T01:15:16.871893+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.action_target_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[GiamGia] Không tìm thấy ô nhập liệu mã voucher khi thực hiện 'Áp dụng voucher hợp lệ qua phân vùng'",
+    "module": "GiamGia",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Khách hàng đã đăng nhập và ở trang Checkout",
+    "testData": "Ca kiểm thử: GiamGia-TC-04 | Phân hệ: GiamGia",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Nhập mã voucher hợp lệ",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Nhấn áp dụng",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống áp dụng giảm giá hợp lệ. (Ref: C010-RULE-M09-001)",
+    "actual": "Hệ thống phát sinh lỗi: 'fill target not found: mã voucher' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0029)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: fill target not found: mã voucher",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: fill target not found: mã voucher",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi fill target not found: mã voucher.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner could not resolve the action or selector described by the test step.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Selector dùng để điền mã voucher không đúng với thành phần trên giao diện.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0029",
+        "type": "SCREENSHOT",
+        "path": "evidence/GiamGia-TC-04/attempt_1/screenshot_20261106T101542310587.png",
+        "sha256": "afb482883c0f4659a080701e3de6f3834736b3a1b4bfad0ddb5e67381ae4c33d"
+      },
+      {
+        "id": "ev-0030",
+        "type": "TRACE",
+        "path": "evidence/GiamGia-TC-04/attempt_1/trace_20261106T101543449680.zip",
+        "sha256": "cf0c39c75d2d515ad6f9284cc4153018f6f92d27e662ce586a265486bc24b3a7"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra và sửa selector điền mã voucher"
+    ],
+    "missingEvidence": [
+      "DOM elements của trang"
+    ],
+    "traceability": {
+      "testId": "GiamGia-TC-04",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C010-RULE-M09-001",
+      "failureId": "fa-4020bd73-34b5-4e13-b45e-fdc1d3ebee64"
+    },
+    "deduplication": {
+      "fingerprint": "fp_37221505",
+      "isDuplicate": true,
+      "duplicateOf": "BUG-20261113-GiamGia-TC-08"
+    }
+  },
+  {
+    "bugId": "BUG-20261113-GiamGia-TC-14",
+    "createdAt": "2026-11-13T01:15:16.872424+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": true,
+    "defectType": "PRODUCT_BUG",
+    "failureCategory": "PRODUCT",
+    "failureSubtype": "product.validation_feedback_missing",
+    "routing": "BUG_REPORT_DRAFT",
+    "title": "[GiamGia] Không có phản hồi cảnh báo trên giao diện khi thực hiện 'Kiểm tra hiển thị ví voucher khi voucher hết hạn'",
+    "module": "GiamGia",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/user-voucher",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Khách hàng đã đăng nhập",
+    "testData": "Ca kiểm thử: GiamGia-TC-14 | Phân hệ: GiamGia",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Mở ví voucher của khách hàng",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Kiểm tra danh sách hiển thị",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Voucher hết hạn tự động được ẩn khỏi ví voucher. (Ref: C010-RULE-M09-002)",
+    "actual": "Hệ thống phát sinh lỗi: 'no validation feedback in UI (possible app defect)' tại http://localhost:8080/TTLTW_Nhom6/user-voucher. (Ref: ev-0045)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.75,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: no validation feedback in UI (possible app defect)",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: no validation feedback in UI (possible app defect)",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Thông báo lỗi ghi nhận 'no validation feedback in UI (possible app defect)'.",
+        "evidenceRef": "input:retry_history"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The recorded UI observation reports missing validation feedback for the expected validation case.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Hệ thống có thể chưa tự động ẩn voucher hết hạn khỏi ví voucher của khách hàng theo đúng yêu cầu nghiệp vụ.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0045",
+        "type": "SCREENSHOT",
+        "path": "evidence/GiamGia-TC-14/attempt_1/screenshot_20261106T101544436201.png",
+        "sha256": "614c07c0279a0feb8ab67d92040063383fbf39baa5ba24fc76acc1e6e225b043"
+      },
+      {
+        "id": "ev-0046",
+        "type": "TRACE",
+        "path": "evidence/GiamGia-TC-14/attempt_1/trace_20261106T101544993208.zip",
+        "sha256": "2d4800eda7c2b08806915382fa683f05b2b64617fec2ed520909f3786c791bca"
+      }
+    ],
+    "recommendedActions": [
+      "Tạo phiếu báo lỗi để đội ngũ phát triển kiểm tra logic ẩn voucher hết hạn trong ví voucher"
+    ],
+    "missingEvidence": [
+      "Log hệ thống phía backend hoặc dữ liệu chi tiết của ví voucher"
+    ],
+    "traceability": {
+      "testId": "GiamGia-TC-14",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C010-RULE-M09-002",
+      "failureId": "fa-1980013a-c002-4b0f-bc78-134a5ab8a30e"
+    },
+    "deduplication": {
+      "fingerprint": "fp_b1e79b8b",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-QuanLyTonKho-TC-03",
+    "createdAt": "2026-11-13T01:15:16.873477+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.action_target_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[QuanLyTonKho] quantity control not found for 'số lượng' khi thực hiện 'Thêm số lượng hợp lệ thuộc lớp tương đương V'",
+    "module": "QuanLyTonKho",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Truyện còn hàng",
+    "testData": "Ca kiểm thử: QuanLyTonKho-TC-03 | Phân hệ: QuanLyTonKho",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Nhập số lượng hợp lệ",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Nhấn Thêm vào giỏ hàng",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Thêm sản phẩm thành công vào giỏ hàng. (Ref: C005-RULE-M04-001)",
+    "actual": "Hệ thống phát sinh lỗi: 'quantity control not found for 'số lượng'' tại http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101. (Ref: ev-0057)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 5,
+    "factors": {
+      "i": 3,
+      "m": 0,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: quantity control not found for 'số lượng'",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: quantity control not found for 'số lượng'",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi thực thi ghi nhận 'quantity control not found for 'số lượng''.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Danh sách các phần tử hiển thị không chứa ô nhập số lượng hoặc nút điều chỉnh số lượng.",
+        "evidenceRef": "ev-0058"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner could not resolve the action or selector described by the test step.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Script tự động hóa tìm kiếm một phần tử input số lượng không tồn tại trên trang chi tiết sản phẩm hiện tại, hoặc trang chưa tải xong.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0057",
+        "type": "SCREENSHOT",
+        "path": "evidence/QuanLyTonKho-TC-03/attempt_1/screenshot_20261106T101418232456.png",
+        "sha256": "0a02c71e62a0419aba36b4d70a350d8741ce9365ead4b730db8f3210706f66c5"
+      },
+      {
+        "id": "ev-0058",
+        "type": "TRACE",
+        "path": "evidence/QuanLyTonKho-TC-03/attempt_1/trace_20261106T101419091526.zip",
+        "sha256": "e49a4f3e47b99eb523572c7a64118d1d30fc2e9dfa5cd16d29e527d972e1935e"
+      }
+    ],
+    "recommendedActions": [
+      "Cập nhật lại selector hoặc bước kiểm thử để tìm đúng phần tử điều khiển số lượng trên trang"
+    ],
+    "missingEvidence": [
+      "Mã nguồn test script phần tương tác với quantity control"
+    ],
+    "traceability": {
+      "testId": "QuanLyTonKho-TC-03",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C005-RULE-M04-001",
+      "failureId": "fa-04dac242-99c3-40e4-8e71-f36ea6662d89"
+    },
+    "deduplication": {
+      "fingerprint": "fp_d5ad4e80",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-QuanLyTonKho-TC-08",
+    "createdAt": "2026-11-13T01:15:16.874536+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.action_target_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[QuanLyTonKho] Không tìm thấy nút bấm số lượng sản phẩm khi thực hiện 'Luồng use case end-to-end thêm giỏ hàng thành công'",
+    "module": "QuanLyTonKho",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Người dùng ở trang chi tiết truyện, truyện còn hàng",
+    "testData": "Ca kiểm thử: QuanLyTonKho-TC-08 | Phân hệ: QuanLyTonKho",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Chọn số lượng sản phẩm",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Nhấn Thêm vào giỏ hàng",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Sản phẩm thêm vào giỏ, hiển thị thông báo thành công và cập nhật biểu tượng giỏ hàng. (Ref: C005-RULE-M04-001)",
+    "actual": "Hệ thống phát sinh lỗi: 'click target not found: số lượng sản phẩm' tại http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101. (Ref: ev-0063)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 6,
+    "factors": {
+      "i": 3,
+      "m": 1,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: click target not found: số lượng sản phẩm",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: click target not found: số lượng sản phẩm",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Lỗi thực thi trả về 'click target not found: số lượng sản phẩm'",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Trace ghi nhận sự kiện TimeoutError khi chờ selector tương ứng",
+        "evidenceRef": "input:trace_summary"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner could not resolve the action or selector described by the test step.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Bộ chọn tự động hóa (selector) cho thành phần 'số lượng sản phẩm' không khớp với DOM thực tế tại thời điểm chạy.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0063",
+        "type": "SCREENSHOT",
+        "path": "evidence/QuanLyTonKho-TC-08/attempt_1/screenshot_20261106T101555448595.png",
+        "sha256": "4e2734355243625602c08d5515e972c4b7ed4f589bb52828ee2fd8ded87379fc"
+      },
+      {
+        "id": "ev-0064",
+        "type": "TRACE",
+        "path": "evidence/QuanLyTonKho-TC-08/attempt_1/trace_20261106T101556493193.zip",
+        "sha256": "2bed9b0a93b9cff25b6991026c2ed0a322e5def64ba3ea1409672406e051cd93"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra lại selector của phần tử 'số lượng sản phẩm' trong mã kiểm thử.",
+      "Cập nhật lại script test nếu giao diện đã thay đổi cấu trúc."
+    ],
+    "missingEvidence": [
+      "DOM snapshot chi tiết tại thời điểm lỗi"
+    ],
+    "traceability": {
+      "testId": "QuanLyTonKho-TC-08",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C005-RULE-M04-001",
+      "failureId": "fa-fd3f9928-fc0f-4701-ba79-b758c810041f"
+    },
+    "deduplication": {
+      "fingerprint": "fp_94c50d8f",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-GiamGia-TC-12",
+    "createdAt": "2026-11-13T01:15:16.875059+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.action_target_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[GiamGia] Không tìm thấy nút bấm tiêu chí sắp xếp khi thực hiện 'Admin sắp xếp voucher thành công'",
+    "module": "GiamGia",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/admin/vouchersManagement",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Admin đã đăng nhập và có quyền quản lý voucher",
+    "testData": "Ca kiểm thử: GiamGia-TC-12 | Phân hệ: GiamGia",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Mở trang quản lý voucher",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Chọn tiêu chí sắp xếp",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "68ms"
+      },
+      {
+        "step": 3,
+        "action": "Xác nhận",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống hiển thị danh sách voucher đã sắp xếp đúng. (Ref: C010-RULE-M09-003)",
+    "actual": "Hệ thống phát sinh lỗi: 'click target not found: tiêu chí sắp xếp' tại http://localhost:8080/TTLTW_Nhom6/admin/vouchersManagement. (Ref: ev-0042)",
+    "reproducibility": "Always (1/1)",
+    "severity": "CRITICAL",
+    "severityScore": 7,
+    "factors": {
+      "i": 3,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: click target not found: tiêu chí sắp xếp",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: click target not found: tiêu chí sắp xếp",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Thông báo lỗi ghi nhận 'click target not found: tiêu chí sắp xếp'.",
+        "evidenceRef": "input:retry_history"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner could not resolve the action or selector described by the test step.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Selector hoặc vị trí của phần tử tiêu chí sắp xếp trong kịch bản test không chính xác so với giao diện hiện tại.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0042",
+        "type": "SCREENSHOT",
+        "path": "evidence/GiamGia-TC-12/attempt_1/screenshot_20261106T101450628727.png",
+        "sha256": "0cf132c29619875483e9a8699f4e557dc708a6f4cbea71ca3c7bbf76555a3a3c"
+      },
+      {
+        "id": "ev-0043",
+        "type": "TRACE",
+        "path": "evidence/GiamGia-TC-12/attempt_1/trace_20261106T101451281305.zip",
+        "sha256": "107358dc4fdd4fbb55632e9919f94b8034568d0119afe820a61b132312fb1462"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra lại selector tương ứng với thành phần sắp xếp trong file test script"
+    ],
+    "missingEvidence": [
+      "DOM tại thời điểm chạy"
+    ],
+    "traceability": {
+      "testId": "GiamGia-TC-12",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C010-RULE-M09-003",
+      "failureId": "fa-007e7fc5-f580-4a3f-95ec-60db499df40c"
+    },
+    "deduplication": {
+      "fingerprint": "fp_a31e44b0",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-GoiYSanPham-TC-01",
+    "createdAt": "2026-11-13T01:15:16.875584+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[GoiYSanPham] Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ khi thực hiện 'Gợi ý sản phẩm khi còn hàng và hiển thị bình thường'",
+    "module": "GoiYSanPham",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Hệ thống có dữ liệu truyện trong danh mục",
+    "testData": "Ca kiểm thử: GoiYSanPham-TC-01 | Phân hệ: GoiYSanPham",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Truy cập trang chủ hệ thống",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Quan sát khu vực gợi ý sản phẩm",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hiển thị danh sách sản phẩm gợi ý hợp lệ (Ref: C014-RULE-M13-01)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0049)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 5,
+    "factors": {
+      "i": 2,
+      "m": 1,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Thông báo lỗi ghi nhận 'Expected pattern not found: Hiển thị danh sách sản phẩm gợi ý hợp lệ'.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Trang hiển thị tiêu đề Document nhưng không tìm thấy khu vực gợi ý sản phẩm phù hợp quy tắc.",
+        "evidenceRef": "ev-0050"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Có thể logic gợi ý sản phẩm ở trang chủ đang bị lỗi khiến hệ thống không trả về danh sách sản phẩm.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0049",
+        "type": "SCREENSHOT",
+        "path": "evidence/GoiYSanPham-TC-01/attempt_1/screenshot_20261106T101551805402.png",
+        "sha256": "73e0f5ba6387ca9fa81e23fde7bd8ea34df4a227a64d786f3f13ffa2274e167d"
+      },
+      {
+        "id": "ev-0050",
+        "type": "TRACE",
+        "path": "evidence/GoiYSanPham-TC-01/attempt_1/trace_20261106T101552153846.zip",
+        "sha256": "962ac729e8db2b0c636adda56e15d560ad6a18e8c17c5e2a4568cc5a68115e6a"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra lại API gợi ý sản phẩm trên trang chủ",
+      "Xác nhận dữ liệu danh mục truyện có sẵn trong hệ thống"
+    ],
+    "missingEvidence": [
+      "Network response body của API gợi ý sản phẩm",
+      "Console log chi tiết lỗi JavaScript (nếu có)"
+    ],
+    "traceability": {
+      "testId": "GoiYSanPham-TC-01",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C014-RULE-M13-01",
+      "failureId": "fa-8bfdc435-0072-4347-b3d6-0ffa45b9de7c"
+    },
+    "deduplication": {
+      "fingerprint": "fp_ec6eeffb",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-Wishlist-TC-01",
+    "createdAt": "2026-11-13T01:15:16.877191+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[Wishlist] Expected pattern not found: Hiển thị mục Gợi ý cho bạn với truyện cùng thể loại hoặc tập tiếp theo khi thực hiện 'Gợi ý sản phẩm khi người dùng có wishlist'",
+    "module": "Wishlist",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Hệ thống có dữ liệu truyện Người dùng đã đăng nhập và có wishlist",
+    "testData": "Ca kiểm thử: Wishlist-TC-01 | Phân hệ: Wishlist",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Mở trang chủ hệ thống",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hiển thị mục Gợi ý cho bạn với truyện cùng thể loại hoặc tập tiếp theo (Ref: C014-RULE-M13-02)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị mục Gợi ý cho bạn với truyện cùng thể loại hoặc tập tiếp theo' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0076)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 5,
+    "factors": {
+      "i": 2,
+      "m": 1,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Hiển thị mục Gợi ý cho bạn với truyện cùng thể loại hoặc tập tiếp theo",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Hiển thị mục Gợi ý cho bạn với truyện cùng thể loại hoặc tập tiếp theo",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Trạng thái thực thi trả về FAILED với thông báo lỗi 'Expected pattern not found'.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Tính năng gợi ý sản phẩm dựa trên wishlist có thể chưa hiển thị đúng tiêu đề hoặc nội dung yêu cầu trên giao diện.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0076",
+        "type": "SCREENSHOT",
+        "path": "evidence/Wishlist-TC-01/attempt_1/screenshot_20261106T101559430992.png",
+        "sha256": "5003776cc31bbf2f29e5473bb69f34138cddedf101510c8fbc6c67d107a26bc8"
+      },
+      {
+        "id": "ev-0077",
+        "type": "TRACE",
+        "path": "evidence/Wishlist-TC-01/attempt_1/trace_20261106T101600373869.zip",
+        "sha256": "5eab748ace585f2e08bfd952bf59b38863616fb36142a86570d2389e90b0d0d0"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra lại logic hiển thị mục gợi ý dựa trên wishlist trên trang chủ.",
+      "Xác minh cấu trúc giao diện thực tế so với yêu cầu."
+    ],
+    "missingEvidence": [
+      "Phản hồi từ API gợi ý",
+      "Ảnh chụp màn hình chi tiết tại thời điểm lỗi"
+    ],
+    "traceability": {
+      "testId": "Wishlist-TC-01",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C014-RULE-M13-02",
+      "failureId": "fa-6b356f83-e10b-49b6-83db-66fdcd5c9d2a"
+    },
+    "deduplication": {
+      "fingerprint": "fp_4bc4cc6e",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-Wishlist-TC-07",
+    "createdAt": "2026-11-13T01:15:16.877756+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[Wishlist] Expected pattern not found: Hệ thống coi như khách vãng lai và hiển thị truyện bán chạy khi thực hiện 'Xác thực gợi ý khi phiên đăng nhập hết hạn'",
+    "module": "Wishlist",
+    "feature": "E1",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Hệ thống có dữ liệu truyện Phiên đăng nhập của người dùng đã hết hạn",
+    "testData": "Ca kiểm thử: Wishlist-TC-07 | Phân hệ: Wishlist",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Làm mới trang chủ",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống coi như khách vãng lai và hiển thị truyện bán chạy (Ref: C014-RULE-M13-02)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hệ thống coi như khách vãng lai và hiển thị truyện bán chạy' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0088)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 5,
+    "factors": {
+      "i": 2,
+      "m": 1,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Hệ thống coi như khách vãng lai và hiển thị truyện bán chạy",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Hệ thống coi như khách vãng lai và hiển thị truyện bán chạy",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Test case thất bại vì không hiển thị truyện bán chạy khi phiên đăng nhập hết hạn.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Hệ thống có thể chưa xử lý tốt trạng thái hết hạn phiên đăng nhập để tự động chuyển về hiển thị như khách vãng lai.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0088",
+        "type": "SCREENSHOT",
+        "path": "evidence/Wishlist-TC-07/attempt_1/screenshot_20261106T101643618393.png",
+        "sha256": "38f4ad2a1ced59a5c506065dda63b4e6b3c92a64787fe7334a7d9bd04b784460"
+      },
+      {
+        "id": "ev-0089",
+        "type": "TRACE",
+        "path": "evidence/Wishlist-TC-07/attempt_1/trace_20261106T101643967389.zip",
+        "sha256": "af231ec15b0658619e682efe19a8d8196ed5d9afd40180b17f3348bd3f9d751d"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra cơ chế xử lý ngoại lệ khi token/phiên đăng nhập hết hạn."
+    ],
+    "missingEvidence": [
+      "Trạng thái mã lỗi HTTP của phiên đăng nhập (ví dụ: 401 Unauthorized)"
+    ],
+    "traceability": {
+      "testId": "Wishlist-TC-07",
+      "requirementScenarioId": "SCENARIO-E1",
+      "businessRuleId": "C014-RULE-M13-02",
+      "failureId": "fa-0f51dab4-97a0-48d1-96ed-8a352556aadd"
+    },
+    "deduplication": {
+      "fingerprint": "fp_c0cf063c",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-GoiYSanPham-TC-04",
+    "createdAt": "2026-11-13T01:15:16.878368+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[GoiYSanPham] Expected pattern not found: Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý khi thực hiện 'Hiển thị mục trống khi toàn bộ sản phẩm gợi ý đều hết hàng hoặc bị ẩn'",
+    "module": "GoiYSanPham",
+    "feature": "E1",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Hệ thống có dữ liệu truyện",
+    "testData": "Ca kiểm thử: GoiYSanPham-TC-04 | Phân hệ: GoiYSanPham",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Thực hiện tải gợi ý sản phẩm",
+        "traceRef": null,
+        "status": "PASSED",
+        "latency": "42ms"
+      },
+      {
+        "step": 2,
+        "action": "Quan sát giao diện mục gợi ý",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý (Ref: C014-RULE-M13-01)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0053)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 5,
+    "factors": {
+      "i": 2,
+      "m": 1,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Thông báo lỗi ghi nhận 'Expected pattern not found: Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý'.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Trang vẫn hiển thị các phần tử sản phẩm mặc định thay vì ẩn mục gợi ý.",
+        "evidenceRef": "ev-0054"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Giao diện chưa xử lý logic ẩn hoặc hiển thị mục trống khi danh sách gợi ý trống.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0053",
+        "type": "SCREENSHOT",
+        "path": "evidence/GoiYSanPham-TC-04/attempt_1/screenshot_20261106T101651452047.png",
+        "sha256": "590203eb6f7031506cd534b3ee1be1eae2825997c149df06034b446b95313faa"
+      },
+      {
+        "id": "ev-0054",
+        "type": "TRACE",
+        "path": "evidence/GoiYSanPham-TC-04/attempt_1/trace_20261106T101651772232.zip",
+        "sha256": "b47cd16d729cceba4d338775e186e5a517f87427d9bbc7a3209c026b1694df98"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra đoạn code xử lý hiển thị khi mảng sản phẩm gợi ý trống"
+    ],
+    "missingEvidence": [
+      "Phản hồi từ API khi tất cả sản phẩm bị ẩn/hết hàng"
+    ],
+    "traceability": {
+      "testId": "GoiYSanPham-TC-04",
+      "requirementScenarioId": "SCENARIO-E1",
+      "businessRuleId": "C014-RULE-M13-01",
+      "failureId": "fa-bcfbeaf7-d477-4a13-b7be-24b7e4332ae8"
+    },
+    "deduplication": {
+      "fingerprint": "fp_dfc99b08",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-Wishlist-TC-05",
+    "createdAt": "2026-11-13T01:15:16.879421+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[Wishlist] Expected pattern not found: Hiển thị tập tiếp theo hoặc truyện cùng thể loại của cuốn truyện đó khi thực hiện 'Xác thực gợi ý khi wishlist chứa một truyện duy nhất'",
+    "module": "Wishlist",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Hệ thống có dữ liệu truyện Wishlist chỉ chứa đúng một cuốn truyện",
+    "testData": "Ca kiểm thử: Wishlist-TC-05 | Phân hệ: Wishlist",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Tải trang chủ",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hiển thị tập tiếp theo hoặc truyện cùng thể loại của cuốn truyện đó (Ref: C014-RULE-M13-02)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị tập tiếp theo hoặc truyện cùng thể loại của cuốn truyện đó' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0084)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 5,
+    "factors": {
+      "i": 2,
+      "m": 1,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Hiển thị tập tiếp theo hoặc truyện cùng thể loại của cuốn truyện đó",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Hiển thị tập tiếp theo hoặc truyện cùng thể loại của cuốn truyện đó",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Test case thất bại với thông báo không tìm thấy tập tiếp theo hoặc truyện cùng thể loại.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Thuật toán gợi ý khi wishlist có 1 phần tử chưa hoạt động chính xác theo yêu cầu.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0084",
+        "type": "SCREENSHOT",
+        "path": "evidence/Wishlist-TC-05/attempt_1/screenshot_20261106T101644195694.png",
+        "sha256": "38f4ad2a1ced59a5c506065dda63b4e6b3c92a64787fe7334a7d9bd04b784460"
+      },
+      {
+        "id": "ev-0085",
+        "type": "TRACE",
+        "path": "evidence/Wishlist-TC-05/attempt_1/trace_20261106T101644438225.zip",
+        "sha256": "5d254dfa5165398038a3cd84be89f48e23b64b549ec63e8ab7e14e20e13339ed"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra thuật toán gợi ý sản phẩm dựa trên tập thể loại đơn."
+    ],
+    "missingEvidence": [
+      "Chi tiết dữ liệu wishlist mẫu trong database khi chạy test"
+    ],
+    "traceability": {
+      "testId": "Wishlist-TC-05",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C014-RULE-M13-02",
+      "failureId": "fa-d822cd40-75c3-439b-9d21-7e7804c83db0"
+    },
+    "deduplication": {
+      "fingerprint": "fp_2f5a0d8e",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-Wishlist-TC-02",
+    "createdAt": "2026-11-13T01:15:16.880584+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[Wishlist] Expected pattern not found: Hiển thị mục Gợi ý cho bạn với các truyện có lượt bán cao nhất khi thực hiện 'Gợi ý sản phẩm khi khách vãng lai hoặc không có wishlist'",
+    "module": "Wishlist",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Hệ thống có dữ liệu truyện Người dùng chưa đăng nhập hoặc chưa có wishlist",
+    "testData": "Ca kiểm thử: Wishlist-TC-02 | Phân hệ: Wishlist",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Mở trang chủ hệ thống",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hiển thị mục Gợi ý cho bạn với các truyện có lượt bán cao nhất (Ref: C014-RULE-M13-02)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị mục Gợi ý cho bạn với các truyện có lượt bán cao nhất' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0078)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 5,
+    "factors": {
+      "i": 2,
+      "m": 1,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Hiển thị mục Gợi ý cho bạn với các truyện có lượt bán cao nhất",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Hiển thị mục Gợi ý cho bạn với các truyện có lượt bán cao nhất",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Test case kết thúc với trạng thái FAILED do không tìm thấy pattern hiển thị truyện có lượt bán cao nhất.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Hệ thống chưa cấu hình hiển thị đúng nhóm truyện bán chạy cho đối tượng người dùng chưa đăng nhập hoặc không có wishlist.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0078",
+        "type": "SCREENSHOT",
+        "path": "evidence/Wishlist-TC-02/attempt_1/screenshot_20261106T101603560831.png",
+        "sha256": "402959bb7e74aafc357574e17d5d098d99e67bdcb789d2b10f79c75d4c8626ea"
+      },
+      {
+        "id": "ev-0079",
+        "type": "TRACE",
+        "path": "evidence/Wishlist-TC-02/attempt_1/trace_20261106T101603911421.zip",
+        "sha256": "bc1d9784c51d0129b1c66aef4f99cb9e1bfdd6a91085e1929b59e32d0c55cc4d"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra logic phân quyền hiển thị gợi ý truyện bán chạy cho khách vãng lai."
+    ],
+    "missingEvidence": [
+      "Logs của hệ thống khi truy vấn dữ liệu truyện bán chạy"
+    ],
+    "traceability": {
+      "testId": "Wishlist-TC-02",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C014-RULE-M13-02",
+      "failureId": "fa-0fedd488-c9f4-4507-8202-ce8c1b87c0c5"
+    },
+    "deduplication": {
+      "fingerprint": "fp_a0834c53",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-Wishlist-TC-03",
+    "createdAt": "2026-11-13T01:15:16.881978+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[Wishlist] Expected pattern not found: Hiển thị mục Gợi ý cho bạn dựa trên truyện bán chạy khi thực hiện 'Gợi ý sản phẩm khi danh sách wishlist rỗng'",
+    "module": "Wishlist",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Hệ thống có dữ liệu truyện Người dùng đã đăng nhập nhưng wishlist trống",
+    "testData": "Ca kiểm thử: Wishlist-TC-03 | Phân hệ: Wishlist",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Mở trang chủ hệ thống",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hiển thị mục Gợi ý cho bạn dựa trên truyện bán chạy (Ref: C014-RULE-M13-02)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị mục Gợi ý cho bạn dựa trên truyện bán chạy' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0080)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 5,
+    "factors": {
+      "i": 2,
+      "m": 1,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Hiển thị mục Gợi ý cho bạn dựa trên truyện bán chạy",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Hiển thị mục Gợi ý cho bạn dựa trên truyện bán chạy",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Trạng thái thực thi ghi nhận FAILED với lỗi không tìm thấy mẫu gợi ý truyện bán chạy.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Xử lý khi wishlist rỗng chưa kích hoạt thành công việc hiển thị danh sách truyện bán chạy.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0080",
+        "type": "SCREENSHOT",
+        "path": "evidence/Wishlist-TC-03/attempt_1/screenshot_20261106T101608270123.png",
+        "sha256": "fab06572ca225fa41e1300bf5b8588bda0715d933c6ccc1afa42dc5ea76e75b7"
+      },
+      {
+        "id": "ev-0081",
+        "type": "TRACE",
+        "path": "evidence/Wishlist-TC-03/attempt_1/trace_20261106T101609422947.zip",
+        "sha256": "72d0e827706435c050e6940dd4eca2357ced76102f1358666b7de4a427cf6bb4"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra điều kiện kiểm tra wishlist rỗng tại tầng logic ứng dụng."
+    ],
+    "missingEvidence": [
+      "Dữ liệu kiểm tra trạng thái wishlist của tài khoản"
+    ],
+    "traceability": {
+      "testId": "Wishlist-TC-03",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C014-RULE-M13-02",
+      "failureId": "fa-94f0e067-6a6e-483e-90a8-e8b2775d4803"
+    },
+    "deduplication": {
+      "fingerprint": "fp_5253d914",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-Wishlist-TC-04",
+    "createdAt": "2026-11-13T01:15:16.882656+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[Wishlist] Expected pattern not found: Hệ thống hiển thị danh sách truyện bán chạy tại mục Gợi ý cho bạn khi thực hiện 'Xác thực gợi ý với tài khoản mới tạo chưa thêm truyện'",
+    "module": "Wishlist",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Hệ thống có dữ liệu truyện Tài khoản mới đăng ký chưa thêm truyện vào wishlist",
+    "testData": "Ca kiểm thử: Wishlist-TC-04 | Phân hệ: Wishlist",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Truy cập vào trang chủ",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hệ thống hiển thị danh sách truyện bán chạy tại mục Gợi ý cho bạn (Ref: C014-RULE-M13-02)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hệ thống hiển thị danh sách truyện bán chạy tại mục Gợi ý cho bạn' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0082)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 5,
+    "factors": {
+      "i": 2,
+      "m": 1,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Hệ thống hiển thị danh sách truyện bán chạy tại mục Gợi ý cho bạn",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Hệ thống hiển thị danh sách truyện bán chạy tại mục Gợi ý cho bạn",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Kết quả thực thi trả về FAILED do không tìm thấy danh sách truyện bán chạy tại mục gợi ý.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Tài khoản mới tạo chưa được hệ thống nhận diện đúng trạng thái trống wishlist để hiển thị danh sách bán chạy.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0082",
+        "type": "SCREENSHOT",
+        "path": "evidence/Wishlist-TC-04/attempt_1/screenshot_20261106T101610468364.png",
+        "sha256": "d4d10aa8ae84d084c18b5a7aa413a47bd0a00cd041af3d70e611ee6d0796632c"
+      },
+      {
+        "id": "ev-0083",
+        "type": "TRACE",
+        "path": "evidence/Wishlist-TC-04/attempt_1/trace_20261106T101610709108.zip",
+        "sha256": "04e3928f980c5194e529a95b9a5b5113ea5315d8509d4c17801f90f29b6f6d29"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra lại cơ chế fallback gợi ý cho tài khoản mới đăng ký."
+    ],
+    "missingEvidence": [
+      "Thông tin chi tiết về phản hồi của API trang chủ đối với tài khoản mới"
+    ],
+    "traceability": {
+      "testId": "Wishlist-TC-04",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C014-RULE-M13-02",
+      "failureId": "fa-f3bba032-7ae8-4d6c-8ed2-6c5920513e67"
+    },
+    "deduplication": {
+      "fingerprint": "fp_69cfc319",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  },
+  {
+    "bugId": "BUG-20261113-Wishlist-TC-06",
+    "createdAt": "2026-11-13T01:15:16.883740+00:00",
+    "createdBy": "BugReportAgent-v1.0.0",
+    "status": "New",
+    "reviewRequired": true,
+    "gatePassed": false,
+    "defectType": "TEST_MAINTENANCE",
+    "failureCategory": "TEST",
+    "failureSubtype": "test.assertion_pattern_not_found",
+    "routing": "TEST_MAINTENANCE",
+    "title": "[Wishlist] Expected pattern not found: Hiển thị gợi ý tổng hợp theo các thể loại có trong wishlist khi thực hiện 'Xác thực gợi ý khi wishlist chứa nhiều thể loại khác nhau'",
+    "module": "Wishlist",
+    "feature": "Chính",
+    "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+    "environment": {
+      "browser": "Chromium 128 (Playwright)",
+      "os": "Windows 11",
+      "build": "v1.4.2-staging",
+      "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+    },
+    "preconditions": "Hệ thống có dữ liệu truyện phong phú Wishlist chứa truyện thuộc nhiều thể loại",
+    "testData": "Ca kiểm thử: Wishlist-TC-06 | Phân hệ: Wishlist",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Truy cập trang chủ ứng dụng",
+        "traceRef": null,
+        "status": "FAILED",
+        "latency": "185ms"
+      }
+    ],
+    "expected": "Hiển thị gợi ý tổng hợp theo các thể loại có trong wishlist (Ref: C014-RULE-M13-02)",
+    "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị gợi ý tổng hợp theo các thể loại có trong wishlist' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0086)",
+    "reproducibility": "Always (1/1)",
+    "severity": "HIGH",
+    "severityScore": 6,
+    "factors": {
+      "i": 2,
+      "m": 2,
+      "w": 2,
+      "s": 0
+    },
+    "faaSeveritySuggestion": null,
+    "confidence": "High",
+    "confidenceScore": 0.65,
+    "observedFacts": [
+      {
+        "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Thông báo runner: Expected pattern not found: Hiển thị gợi ý tổng hợp theo các thể loại có trong wishlist",
+        "evidenceRef": "input:execution"
+      },
+      {
+        "fact": "Quan sát của runner: Expected pattern not found: Hiển thị gợi ý tổng hợp theo các thể loại có trong wishlist",
+        "evidenceRef": "input:actual.runner_observation"
+      },
+      {
+        "fact": "Trạng thái thực thi FAILED do không tìm thấy gợi ý tổng hợp theo các thể loại.",
+        "evidenceRef": "input:execution"
+      }
+    ],
+    "suspectedCauses": [
+      {
+        "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+        "hypothesisId": "hyp-1"
+      },
+      {
+        "cause": "Hệ thống chưa hỗ trợ tổng hợp gợi ý từ nhiều thể loại khác nhau trong wishlist của người dùng.",
+        "hypothesisId": "gemini-hyp-1"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "ev-0086",
+        "type": "SCREENSHOT",
+        "path": "evidence/Wishlist-TC-06/attempt_1/screenshot_20261106T101651436534.png",
+        "sha256": "d57401e45574be597feacb5c25c23d75ef38ff0cc4d733e4fa08a85422899760"
+      },
+      {
+        "id": "ev-0087",
+        "type": "TRACE",
+        "path": "evidence/Wishlist-TC-06/attempt_1/trace_20261106T101651773608.zip",
+        "sha256": "4fd6083db6eb08eb17b5616597d5743784e3b1869c50461b45c64b78d9a7a85f"
+      }
+    ],
+    "recommendedActions": [
+      "Kiểm tra logic xử lý đa thể loại trong hệ thống gợi ý."
+    ],
+    "missingEvidence": [
+      "Log phân tích request gợi ý đa thể loại"
+    ],
+    "traceability": {
+      "testId": "Wishlist-TC-06",
+      "requirementScenarioId": "SCENARIO-Chính",
+      "businessRuleId": "C014-RULE-M13-02",
+      "failureId": "fa-10fefdac-b03d-4fdb-866f-8a01f37a1031"
+    },
+    "deduplication": {
+      "fingerprint": "fp_6160b6b2",
+      "isDuplicate": false,
+      "duplicateOf": null
+    }
+  }
+]

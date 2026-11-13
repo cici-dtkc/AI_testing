@@ -1,0 +1,118 @@
+{
+  "bugId": "BUG-20261113-TimKiem-TC-04",
+  "createdAt": "2026-11-13T01:15:16.849339+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": true,
+  "defectType": "PRODUCT_BUG",
+  "failureCategory": "PRODUCT",
+  "failureSubtype": "product.validation_feedback_missing",
+  "routing": "BUG_REPORT_DRAFT",
+  "title": "[TimKiem] Không có phản hồi cảnh báo trên giao diện khi thực hiện 'Tìm kiếm với từ khóa để trống'",
+  "module": "TimKiem",
+  "feature": "E1",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Người dùng truy cập được website",
+  "testData": "Ca kiểm thử: TimKiem-TC-04 | Phân hệ: TimKiem",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Để trống ô tìm kiếm",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Xác nhận tìm kiếm",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hiển thị thông báo yêu cầu nhập từ khóa. (Ref: C003-RULE-M02-001)",
+  "actual": "Hệ thống phát sinh lỗi: 'no validation feedback in UI (possible app defect)' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0070)",
+  "reproducibility": "Always (1/1)",
+  "severity": "MEDIUM",
+  "severityScore": 4,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 1,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.75,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: no validation feedback in UI (possible app defect)",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: no validation feedback in UI (possible app defect)",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Lỗi thực thi báo cáo 'no validation feedback in UI (possible app defect)'",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Kỳ vọng kiểm thử là hiển thị thông báo yêu cầu nhập từ khóa khi ô tìm kiếm trống",
+      "evidenceRef": "input:test_case.expected"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The recorded UI observation reports missing validation feedback for the expected validation case.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Ứng dụng có thể thiếu tính năng kiểm tra xác thực (validation) đối với đầu vào để trống trên thanh tìm kiếm, dẫn đến không hiển thị thông báo phản hồi cho người dùng.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0070",
+      "type": "SCREENSHOT",
+      "path": "evidence/TimKiem-TC-04/attempt_1/screenshot_20261106T101251526374.png",
+      "sha256": "7d0761897cc7b1cf461930664d8c2f5a2f777b8a09067584f0ed268f1f8f8ede"
+    },
+    {
+      "id": "ev-0071",
+      "type": "TRACE",
+      "path": "evidence/TimKiem-TC-04/attempt_1/trace_20261106T101252065580.zip",
+      "sha256": "764eafb797ece21e8009226498e0cd7a5307772ba3fcb72cac5c09a1d730e3fb"
+    }
+  ],
+  "recommendedActions": [
+    "Tạo bug report để nhóm phát triển kiểm tra logic validation cho ô tìm kiếm khi để trống.",
+    "Xác nhận lại yêu cầu nghiệp vụ về việc có bắt buộc hiển thị thông báo lỗi hay không."
+  ],
+  "missingEvidence": [
+    "Chi tiết mã phản hồi từ server hoặc log chi tiết của sự kiện submit"
+  ],
+  "traceability": {
+    "testId": "TimKiem-TC-04",
+    "requirementScenarioId": "SCENARIO-E1",
+    "businessRuleId": "C003-RULE-M02-001",
+    "failureId": "fa-97d240ce-e1f6-4bee-bda0-57c5f8ba5869"
+  },
+  "deduplication": {
+    "fingerprint": "fp_d21423c0",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

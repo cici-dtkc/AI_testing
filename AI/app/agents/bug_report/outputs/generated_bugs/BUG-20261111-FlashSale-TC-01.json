@@ -1,0 +1,113 @@
+{
+  "bugId": "BUG-20261111-FlashSale-TC-01",
+  "createdAt": "2026-11-11T14:29:21.251787+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.assertion_pattern_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[FlashSale] Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại. khi thực hiện 'Xem danh sách Flash Sale trong khung giờ hợp lệ'",
+  "module": "FlashSale",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/flash-sale",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Chương trình Flash Sale đã được cấu hình",
+  "testData": "Ca kiểm thử: FlashSale-TC-01 | Phân hệ: FlashSale",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Nhấn vào mục Flash Sale",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Quan sát danh sách sản phẩm",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại. (Ref: C004-BR1)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại.' tại http://localhost:8080/TTLTW_Nhom6/flash-sale. (Ref: ev-0012)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại.",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Lỗi thực thi: Expected pattern not found: Hiển thị đúng khung giờ, sản phẩm, giá ưu đãi và số lượng còn lại.",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Giao diện trang Flash Sale chưa hiển thị đầy đủ các thông tin theo yêu cầu của test case.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0012",
+      "type": "SCREENSHOT",
+      "path": "evidence/FlashSale-TC-01/attempt_1/screenshot_20261106T101500674890.png",
+      "sha256": "ff6e9d5863d4a13da12b205734ebb15184cfaa4a17c67c0f4071286846674e06"
+    },
+    {
+      "id": "ev-0013",
+      "type": "TRACE",
+      "path": "evidence/FlashSale-TC-01/attempt_1/trace_20261106T101501357643.zip",
+      "sha256": "93ed6b77709ac6ebb29570bb5930458c70157786980ba57177d64074d01858a4"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra lại dữ liệu cấu hình Flash Sale và giao diện hiển thị."
+  ],
+  "missingEvidence": [
+    "Screenshot hoặc nội dung HTML chi tiết của trang Flash Sale."
+  ],
+  "traceability": {
+    "testId": "FlashSale-TC-01",
+    "requirementScenarioId": "SCENARIO-Chính",
+    "businessRuleId": "C004-BR1",
+    "failureId": "fa-b8380ae4-ca8f-4f15-88b6-0c2ea13b5f4e"
+  },
+  "deduplication": {
+    "fingerprint": "fp_8e5d9bc7",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

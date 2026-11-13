@@ -1,0 +1,79 @@
+{
+  "bugId": "BUG-20261106-Wishlist-TC-03",
+  "createdAt": "2026-11-06T14:22:13.260474+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[Wishlist] Expected pattern not found: Hiển thị mục Gợi ý cho bạn dựa trên truyện bán chạy khi thực hiện 'Gợi ý sản phẩm khi danh sách wishlist rỗng'",
+  "module": "Wishlist",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Hệ thống có dữ liệu truyện Người dùng đã đăng nhập nhưng wishlist trống",
+  "testData": "Ca kiểm thử: Wishlist-TC-03 | Phân hệ: Wishlist",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Mở trang chủ hệ thống",
+      "traceRef": "await page.evaluate(() => { /* Step 1: Mở trang chủ hệ thống */ });"
+    }
+  ],
+  "expected": "Hiển thị mục Gợi ý cho bạn dựa trên truyện bán chạy (Ref: C014-RULE-M13-02)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị mục Gợi ý cho bạn dựa trên truyện bán chạy' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"Expected pattern not found: Hiển thị mục Gợi ý cho bạn dựa trên truyện bán chạy\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/Wishlist-TC-03/attempt_1/screenshot_20261106T101608270123.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Document\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ Wishlist có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (Expected pattern not found: Hiển thị mục Gợi ý cho bạn dựa trên truyện bán chạy).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/Wishlist-TC-03/attempt_1/screenshot_20261106T101608270123.png",
+      "sha256": "fab06572ca225fa41e1300bf5b8588bda0715d933c6ccc1afa42dc5ea76e75b7"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/Wishlist-TC-03/attempt_1/trace_20261106T101609422947.zip",
+      "sha256": "72d0e827706435c050e6940dd4eca2357ced76102f1358666b7de4a427cf6bb4"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của Wishlist liên quan đến thao tác: Expected pattern not found: Hiển thị mục Gợi ý cho bạn dựa trên truyện bán chạy."
+  ],
+  "traceability": {
+    "testId": "Wishlist-TC-03",
+    "requirementScenarioId": "C014-SCN-UC24-02",
+    "businessRuleId": "C014-RULE-M13-02",
+    "failureId": "FA-Wishlist-TC-03"
+  },
+  "deduplication": {
+    "fingerprint": "fp_5253d914",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

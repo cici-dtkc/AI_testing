@@ -1,0 +1,114 @@
+{
+  "bugId": "BUG-20261113-GiamGia-TC-07",
+  "createdAt": "2026-11-13T01:15:16.860534+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.action_target_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[GiamGia] Không tìm thấy ô nhập liệu mã voucher khi thực hiện 'Kiểm tra voucher hết lượt sử dụng'",
+  "module": "GiamGia",
+  "feature": "E1",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Khách hàng đã đăng nhập và ở trang Checkout",
+  "testData": "Ca kiểm thử: GiamGia-TC-07 | Phân hệ: GiamGia",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Nhập mã voucher đã hết số lượt",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Nhấn áp dụng",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hệ thống thông báo voucher đã hết lượt và ẩn khỏi ví. (Ref: C010-RULE-M09-002)",
+  "actual": "Hệ thống phát sinh lỗi: 'fill target not found: mã voucher' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0035)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: fill target not found: mã voucher",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: fill target not found: mã voucher",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Trạng thái thực thi là thất bại với thông báo lỗi 'fill target not found: mã voucher'.",
+      "evidenceRef": "input:retry_history"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner could not resolve the action or selector described by the test step.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Đoạn mã tự động hóa tìm kiếm một phần tử không tồn tại hoặc selector dùng để tìm ô nhập mã voucher không khớp với cấu trúc thực tế của trang.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0035",
+      "type": "SCREENSHOT",
+      "path": "evidence/GiamGia-TC-07/attempt_1/screenshot_20261106T101352414846.png",
+      "sha256": "56a02d1e2508b5a54bc86e4b4bf222712b51ba334abd9db8d29a3b0ef4bd6f16"
+    },
+    {
+      "id": "ev-0036",
+      "type": "TRACE",
+      "path": "evidence/GiamGia-TC-07/attempt_1/trace_20261106T101354084200.zip",
+      "sha256": "16d6a89e6983893b0924bf54c32762e055c3d5df336b30953d05fd4c6a1fadef"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra lại selector của trường mã voucher trong kịch bản tự động hóa",
+    "Cập nhật selector cho đúng với DOM hiện tại"
+  ],
+  "missingEvidence": [
+    "DOM hoặc mã nguồn trang tại thời điểm thực thi"
+  ],
+  "traceability": {
+    "testId": "GiamGia-TC-07",
+    "requirementScenarioId": "SCENARIO-E1",
+    "businessRuleId": "C010-RULE-M09-002",
+    "failureId": "fa-6176af81-5fe7-423d-baac-a3907ce23afd"
+  },
+  "deduplication": {
+    "fingerprint": "fp_37221505",
+    "isDuplicate": true,
+    "duplicateOf": "BUG-20261113-GiamGia-TC-02"
+  }
+}

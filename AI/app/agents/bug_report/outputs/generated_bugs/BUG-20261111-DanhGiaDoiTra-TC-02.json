@@ -1,0 +1,113 @@
+{
+  "bugId": "BUG-20261111-DanhGiaDoiTra-TC-02",
+  "createdAt": "2026-11-11T14:29:21.259373+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.assertion_pattern_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[DanhGiaDoiTra] Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục. khi thực hiện 'Giới hạn hiển thị 10 mục khi dữ liệu vượt quá biên'",
+  "module": "DanhGiaDoiTra",
+  "feature": "E1",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/admin/dashboard",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Hệ thống có sẵn hơn 10 sản phẩm bán chạy và đánh giá cao",
+  "testData": "Ca kiểm thử: DanhGiaDoiTra-TC-02 | Phân hệ: DanhGiaDoiTra",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Truy cập trang bảng xếp hạng",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Kiểm tra số lượng mục hiển thị",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Bảng xếp hạng chỉ hiển thị tối đa 10 mục. (Ref: C020-RULE-M19-02)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục.' tại http://localhost:8080/TTLTW_Nhom6/admin/dashboard. (Ref: ev-0010)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục.",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Lỗi thực thi: Expected pattern not found: Bảng xếp hạng chỉ hiển thị tối đa 10 mục.",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Hệ thống có thể đang hiển thị hơn 10 mục hoặc định dạng thông điệp khác với mong đợi.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0010",
+      "type": "SCREENSHOT",
+      "path": "evidence/DanhGiaDoiTra-TC-02/attempt_1/screenshot_20261106T101629677129.png",
+      "sha256": "656a6d1b924ab21e86fffa8c07877d397842e60d5e749be6a3109a0ed15a7a47"
+    },
+    {
+      "id": "ev-0011",
+      "type": "TRACE",
+      "path": "evidence/DanhGiaDoiTra-TC-02/attempt_1/trace_20261106T101629993514.zip",
+      "sha256": "3ba859593576ecce1bb36a0bc6adc3237fb23dfc35b2110bad5ada082caaedba"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra lại logic giới hạn số lượng mục trên bảng xếp hạng."
+  ],
+  "missingEvidence": [
+    "Screenshot chi tiết nội dung hiển thị thực tế trên trang."
+  ],
+  "traceability": {
+    "testId": "DanhGiaDoiTra-TC-02",
+    "requirementScenarioId": "SCENARIO-E1",
+    "businessRuleId": "C020-RULE-M19-02",
+    "failureId": "fa-6b3dca85-967d-4dca-ae1b-5dc3ea1218f7"
+  },
+  "deduplication": {
+    "fingerprint": "fp_0e306ef5",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

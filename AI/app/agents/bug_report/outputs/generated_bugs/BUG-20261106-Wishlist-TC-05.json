@@ -1,0 +1,79 @@
+{
+  "bugId": "BUG-20261106-Wishlist-TC-05",
+  "createdAt": "2026-11-06T14:22:13.257032+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[Wishlist] Expected pattern not found: Hiển thị tập tiếp theo hoặc truyện cùng thể loại của cuốn truyện đó khi thực hiện 'Xác thực gợi ý khi wishlist chứa một truyện duy nhất'",
+  "module": "Wishlist",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Hệ thống có dữ liệu truyện Wishlist chỉ chứa đúng một cuốn truyện",
+  "testData": "Ca kiểm thử: Wishlist-TC-05 | Phân hệ: Wishlist",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Tải trang chủ",
+      "traceRef": "await page.evaluate(() => { /* Step 1: Tải trang chủ */ });"
+    }
+  ],
+  "expected": "Hiển thị tập tiếp theo hoặc truyện cùng thể loại của cuốn truyện đó (Ref: C014-RULE-M13-02)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị tập tiếp theo hoặc truyện cùng thể loại của cuốn truyện đó' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"Expected pattern not found: Hiển thị tập tiếp theo hoặc truyện cùng thể loại của cuốn truyện đó\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/Wishlist-TC-05/attempt_1/screenshot_20261106T101644195694.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Document\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ Wishlist có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (Expected pattern not found: Hiển thị tập tiếp theo hoặc truyện cùng thể loại của cuốn truyện đó).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/Wishlist-TC-05/attempt_1/screenshot_20261106T101644195694.png",
+      "sha256": "38f4ad2a1ced59a5c506065dda63b4e6b3c92a64787fe7334a7d9bd04b784460"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/Wishlist-TC-05/attempt_1/trace_20261106T101644438225.zip",
+      "sha256": "5d254dfa5165398038a3cd84be89f48e23b64b549ec63e8ab7e14e20e13339ed"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của Wishlist liên quan đến thao tác: Expected pattern not found: Hiển thị tập tiếp theo hoặc truyện cùng thể loại của cuốn truyện đó."
+  ],
+  "traceability": {
+    "testId": "Wishlist-TC-05",
+    "requirementScenarioId": "C014-SCN-UC24-01",
+    "businessRuleId": "C014-RULE-M13-02",
+    "failureId": "FA-Wishlist-TC-05"
+  },
+  "deduplication": {
+    "fingerprint": "fp_2f5a0d8e",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

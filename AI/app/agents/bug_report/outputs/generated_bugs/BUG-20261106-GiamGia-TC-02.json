@@ -1,0 +1,84 @@
+{
+  "bugId": "BUG-20261106-GiamGia-TC-02",
+  "createdAt": "2026-11-06T14:22:13.234361+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[GiamGia] Không tìm thấy ô nhập liệu mã voucher khi thực hiện 'Áp dụng voucher không tồn tại'",
+  "module": "GiamGia",
+  "feature": "E1",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Khách hàng đang ở trang Checkout",
+  "testData": "Ca kiểm thử: GiamGia-TC-02 | Phân hệ: GiamGia",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Nhập mã voucher không tồn tại",
+      "traceRef": "await page.locator(\"input#coupon-code\").fill(\"INVALID_CODE_999\");"
+    },
+    {
+      "step": 2,
+      "action": "Nhấn nút áp dụng voucher",
+      "traceRef": "await page.locator(\"button:has-text('Áp dụng')\").click();"
+    }
+  ],
+  "expected": "Hệ thống hiển thị thông báo lỗi voucher không tồn tại. (Ref: C010-RULE-M09-001)",
+  "actual": "Hệ thống phát sinh lỗi: 'fill target not found: mã voucher' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"fill target not found: mã voucher\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/GiamGia-TC-02/attempt_1/screenshot_20261106T101338933256.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Document\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ GiamGia có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (fill target not found: mã voucher).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/GiamGia-TC-02/attempt_1/screenshot_20261106T101338933256.png",
+      "sha256": "336f378990f4cf5d3b632f13d8603032827bbce8616ea3e6d055ae7366a1f06a"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/GiamGia-TC-02/attempt_1/trace_20261106T101340025227.zip",
+      "sha256": "19a07a680e5720a1c0aa76f58cb02dd80cfbaa6e669324b76266f32b380cfa40"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của GiamGia liên quan đến thao tác: fill target not found: mã voucher."
+  ],
+  "traceability": {
+    "testId": "GiamGia-TC-02",
+    "requirementScenarioId": "C010-SCENARIO-UC15-002",
+    "businessRuleId": "C010-RULE-M09-001",
+    "failureId": "FA-GiamGia-TC-02"
+  },
+  "deduplication": {
+    "fingerprint": "fp_37221505",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

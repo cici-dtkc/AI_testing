@@ -1,0 +1,89 @@
+{
+  "bugId": "BUG-20261106-BaoCaoThongKe-TC-05",
+  "createdAt": "2026-11-06T14:22:13.247716+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[BaoCaoThongKe] Không tìm thấy nút bấm khoang ngay hop le khi thực hiện 'Xem dashboard voi khoang thoi gian tuy chinh hop le'",
+  "module": "BaoCaoThongKe",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/admin/dashboard",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Admin da dang nhap va co quyen phu hop",
+  "testData": "Ca kiểm thử: BaoCaoThongKe-TC-05 | Phân hệ: BaoCaoThongKe",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Mo trang Tong quan",
+      "traceRef": "await page.evaluate(() => { /* Step 1: Mo trang Tong quan */ });"
+    },
+    {
+      "step": 2,
+      "action": "Chon khoang thoi gian 'Tuy chinh'",
+      "traceRef": "await page.evaluate(() => { /* Step 2: Chon khoang thoi gian 'Tuy chinh' */ });"
+    },
+    {
+      "step": 3,
+      "action": "Xac nhan khoang ngay hop le",
+      "traceRef": "await page.evaluate(() => { /* Step 3: Xac nhan khoang ngay hop le */ });"
+    }
+  ],
+  "expected": "He thong hien thi dung so lieu va bieu do doanh thu theo khoang tuy chinh (Ref: C020-RULE-M19-01)",
+  "actual": "Hệ thống phát sinh lỗi: 'click target not found: khoang ngay hop le' tại http://localhost:8080/TTLTW_Nhom6/admin/dashboard. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "MEDIUM",
+  "severityScore": 4,
+  "factors": {
+    "i": 2,
+    "m": 0,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"click target not found: khoang ngay hop le\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/BaoCaoThongKe-TC-05/attempt_1/screenshot_20261106T101537184515.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/admin/dashboard\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Trang chủ - Dashboard\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ BaoCaoThongKe có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (click target not found: khoang ngay hop le).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/BaoCaoThongKe-TC-05/attempt_1/screenshot_20261106T101537184515.png",
+      "sha256": "6bfb03786ba962550ee7eadde1546ffc2e6d10fd6ead62206bb10dec02df6525"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/BaoCaoThongKe-TC-05/attempt_1/trace_20261106T101537625015.zip",
+      "sha256": "aaa070689a64c5e83449117d37b2bfdf88b98216ca646d6e1ddb636df1cb828f"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của BaoCaoThongKe liên quan đến thao tác: click target not found: khoang ngay hop le."
+  ],
+  "traceability": {
+    "testId": "BaoCaoThongKe-TC-05",
+    "requirementScenarioId": "C020-SCN-M19-01",
+    "businessRuleId": "C020-RULE-M19-01",
+    "failureId": "FA-BaoCaoThongKe-TC-05"
+  },
+  "deduplication": {
+    "fingerprint": "fp_488b26b4",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

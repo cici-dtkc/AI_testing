@@ -1,0 +1,84 @@
+{
+  "bugId": "BUG-20261106-QuanLyTonKho-TC-08",
+  "createdAt": "2026-11-06T14:22:13.249380+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[QuanLyTonKho] Không tìm thấy nút bấm số lượng sản phẩm khi thực hiện 'Luồng use case end-to-end thêm giỏ hàng thành công'",
+  "module": "QuanLyTonKho",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Người dùng ở trang chi tiết truyện, truyện còn hàng",
+  "testData": "Ca kiểm thử: QuanLyTonKho-TC-08 | Phân hệ: QuanLyTonKho",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Chọn số lượng sản phẩm",
+      "traceRef": "await page.locator(\"input[name='quantity']\").fill(\"2\");"
+    },
+    {
+      "step": 2,
+      "action": "Nhấn Thêm vào giỏ hàng",
+      "traceRef": "await page.locator(\"button#add-to-cart\").click();"
+    }
+  ],
+  "expected": "Sản phẩm thêm vào giỏ, hiển thị thông báo thành công và cập nhật biểu tượng giỏ hàng. (Ref: C005-RULE-M04-001)",
+  "actual": "Hệ thống phát sinh lỗi: 'click target not found: số lượng sản phẩm' tại http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 6,
+  "factors": {
+    "i": 3,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"click target not found: số lượng sản phẩm\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/QuanLyTonKho-TC-08/attempt_1/screenshot_20261106T101555448595.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Document\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ QuanLyTonKho có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (click target not found: số lượng sản phẩm).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/QuanLyTonKho-TC-08/attempt_1/screenshot_20261106T101555448595.png",
+      "sha256": "4e2734355243625602c08d5515e972c4b7ed4f589bb52828ee2fd8ded87379fc"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/QuanLyTonKho-TC-08/attempt_1/trace_20261106T101556493193.zip",
+      "sha256": "2bed9b0a93b9cff25b6991026c2ed0a322e5def64ba3ea1409672406e051cd93"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của QuanLyTonKho liên quan đến thao tác: click target not found: số lượng sản phẩm."
+  ],
+  "traceability": {
+    "testId": "QuanLyTonKho-TC-08",
+    "requirementScenarioId": "C005-SC-UC9-001",
+    "businessRuleId": "C005-RULE-M04-001",
+    "failureId": "FA-QuanLyTonKho-TC-08"
+  },
+  "deduplication": {
+    "fingerprint": "fp_94c50d8f",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

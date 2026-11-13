@@ -1,0 +1,84 @@
+{
+  "bugId": "BUG-20261106-GiamGia-TC-14",
+  "createdAt": "2026-11-06T14:22:13.249380+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[GiamGia] Không có phản hồi cảnh báo trên giao diện khi thực hiện 'Kiểm tra hiển thị ví voucher khi voucher hết hạn'",
+  "module": "GiamGia",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/user-voucher",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Khách hàng đã đăng nhập",
+  "testData": "Ca kiểm thử: GiamGia-TC-14 | Phân hệ: GiamGia",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Mở ví voucher của khách hàng",
+      "traceRef": "await page.evaluate(() => { /* Step 1: Mở ví voucher của khách hàng */ });"
+    },
+    {
+      "step": 2,
+      "action": "Kiểm tra danh sách hiển thị",
+      "traceRef": "await page.evaluate(() => { /* Step 2: Kiểm tra danh sách hiển thị */ });"
+    }
+  ],
+  "expected": "Voucher hết hạn tự động được ẩn khỏi ví voucher. (Ref: C010-RULE-M09-002)",
+  "actual": "Hệ thống phát sinh lỗi: 'no validation feedback in UI (possible app defect)' tại http://localhost:8080/TTLTW_Nhom6/user-voucher. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"no validation feedback in UI (possible app defect)\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/GiamGia-TC-14/attempt_1/screenshot_20261106T101544436201.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/user-voucher\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Ví voucher\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ GiamGia có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (no validation feedback in UI (possible app defect)).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/GiamGia-TC-14/attempt_1/screenshot_20261106T101544436201.png",
+      "sha256": "614c07c0279a0feb8ab67d92040063383fbf39baa5ba24fc76acc1e6e225b043"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/GiamGia-TC-14/attempt_1/trace_20261106T101544993208.zip",
+      "sha256": "2d4800eda7c2b08806915382fa683f05b2b64617fec2ed520909f3786c791bca"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của GiamGia liên quan đến thao tác: no validation feedback in UI (possible app defect)."
+  ],
+  "traceability": {
+    "testId": "GiamGia-TC-14",
+    "requirementScenarioId": "SCENARIO-GIAMGIA",
+    "businessRuleId": "C010-RULE-M09-002",
+    "failureId": "FA-GiamGia-TC-14"
+  },
+  "deduplication": {
+    "fingerprint": "fp_b1e79b8b",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

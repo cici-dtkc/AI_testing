@@ -1,0 +1,118 @@
+{
+  "bugId": "BUG-20261111-QuanLyTonKho-TC-08",
+  "createdAt": "2026-11-11T14:29:21.267539+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.action_target_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[QuanLyTonKho] Không tìm thấy nút bấm số lượng sản phẩm khi thực hiện 'Luồng use case end-to-end thêm giỏ hàng thành công'",
+  "module": "QuanLyTonKho",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Người dùng ở trang chi tiết truyện, truyện còn hàng",
+  "testData": "Ca kiểm thử: QuanLyTonKho-TC-08 | Phân hệ: QuanLyTonKho",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Chọn số lượng sản phẩm",
+      "traceRef": null,
+      "status": "PASSED",
+      "latency": "42ms"
+    },
+    {
+      "step": 2,
+      "action": "Nhấn Thêm vào giỏ hàng",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Sản phẩm thêm vào giỏ, hiển thị thông báo thành công và cập nhật biểu tượng giỏ hàng. (Ref: C005-RULE-M04-001)",
+  "actual": "Hệ thống phát sinh lỗi: 'click target not found: số lượng sản phẩm' tại http://localhost:8080/TTLTW_Nhom6/comic-detail?id=101. (Ref: ev-0063)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 6,
+  "factors": {
+    "i": 3,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: click target not found: số lượng sản phẩm",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: click target not found: số lượng sản phẩm",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Lỗi thực thi trả về 'click target not found: số lượng sản phẩm'",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Trace ghi nhận sự kiện TimeoutError khi chờ selector tương ứng",
+      "evidenceRef": "input:trace_summary"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner could not resolve the action or selector described by the test step.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Bộ chọn tự động hóa (selector) cho thành phần 'số lượng sản phẩm' không khớp với DOM thực tế tại thời điểm chạy.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0063",
+      "type": "SCREENSHOT",
+      "path": "evidence/QuanLyTonKho-TC-08/attempt_1/screenshot_20261106T101555448595.png",
+      "sha256": "4e2734355243625602c08d5515e972c4b7ed4f589bb52828ee2fd8ded87379fc"
+    },
+    {
+      "id": "ev-0064",
+      "type": "TRACE",
+      "path": "evidence/QuanLyTonKho-TC-08/attempt_1/trace_20261106T101556493193.zip",
+      "sha256": "2bed9b0a93b9cff25b6991026c2ed0a322e5def64ba3ea1409672406e051cd93"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra lại selector của phần tử 'số lượng sản phẩm' trong mã kiểm thử.",
+    "Cập nhật lại script test nếu giao diện đã thay đổi cấu trúc."
+  ],
+  "missingEvidence": [
+    "DOM snapshot chi tiết tại thời điểm lỗi"
+  ],
+  "traceability": {
+    "testId": "QuanLyTonKho-TC-08",
+    "requirementScenarioId": "SCENARIO-Chính",
+    "businessRuleId": "C005-RULE-M04-001",
+    "failureId": "fa-fd3f9928-fc0f-4701-ba79-b758c810041f"
+  },
+  "deduplication": {
+    "fingerprint": "fp_94c50d8f",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

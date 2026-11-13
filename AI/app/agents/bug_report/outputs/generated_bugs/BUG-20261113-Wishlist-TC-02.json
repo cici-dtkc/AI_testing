@@ -1,0 +1,106 @@
+{
+  "bugId": "BUG-20261113-Wishlist-TC-02",
+  "createdAt": "2026-11-13T01:15:16.880584+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "gatePassed": false,
+  "defectType": "TEST_MAINTENANCE",
+  "failureCategory": "TEST",
+  "failureSubtype": "test.assertion_pattern_not_found",
+  "routing": "TEST_MAINTENANCE",
+  "title": "[Wishlist] Expected pattern not found: Hiển thị mục Gợi ý cho bạn với các truyện có lượt bán cao nhất khi thực hiện 'Gợi ý sản phẩm khi khách vãng lai hoặc không có wishlist'",
+  "module": "Wishlist",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/home",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Hệ thống có dữ liệu truyện Người dùng chưa đăng nhập hoặc chưa có wishlist",
+  "testData": "Ca kiểm thử: Wishlist-TC-02 | Phân hệ: Wishlist",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Mở trang chủ hệ thống",
+      "traceRef": null,
+      "status": "FAILED",
+      "latency": "185ms"
+    }
+  ],
+  "expected": "Hiển thị mục Gợi ý cho bạn với các truyện có lượt bán cao nhất (Ref: C014-RULE-M13-02)",
+  "actual": "Hệ thống phát sinh lỗi: 'Expected pattern not found: Hiển thị mục Gợi ý cho bạn với các truyện có lượt bán cao nhất' tại http://localhost:8080/TTLTW_Nhom6/home. (Ref: ev-0078)",
+  "reproducibility": "Always (1/1)",
+  "severity": "HIGH",
+  "severityScore": 5,
+  "factors": {
+    "i": 2,
+    "m": 1,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": null,
+  "confidence": "High",
+  "confidenceScore": 0.65,
+  "observedFacts": [
+    {
+      "fact": "Trạng thái thực thi được ghi nhận là FAILED.",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Thông báo runner: Expected pattern not found: Hiển thị mục Gợi ý cho bạn với các truyện có lượt bán cao nhất",
+      "evidenceRef": "input:execution"
+    },
+    {
+      "fact": "Quan sát của runner: Expected pattern not found: Hiển thị mục Gợi ý cho bạn với các truyện có lượt bán cao nhất",
+      "evidenceRef": "input:actual.runner_observation"
+    },
+    {
+      "fact": "Test case kết thúc với trạng thái FAILED do không tìm thấy pattern hiển thị truyện có lượt bán cao nhất.",
+      "evidenceRef": "input:execution"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "The runner's text-pattern assertion did not match; verify the test oracle and the rendered page.",
+      "hypothesisId": "hyp-1"
+    },
+    {
+      "cause": "Hệ thống chưa cấu hình hiển thị đúng nhóm truyện bán chạy cho đối tượng người dùng chưa đăng nhập hoặc không có wishlist.",
+      "hypothesisId": "gemini-hyp-1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-0078",
+      "type": "SCREENSHOT",
+      "path": "evidence/Wishlist-TC-02/attempt_1/screenshot_20261106T101603560831.png",
+      "sha256": "402959bb7e74aafc357574e17d5d098d99e67bdcb789d2b10f79c75d4c8626ea"
+    },
+    {
+      "id": "ev-0079",
+      "type": "TRACE",
+      "path": "evidence/Wishlist-TC-02/attempt_1/trace_20261106T101603911421.zip",
+      "sha256": "bc1d9784c51d0129b1c66aef4f99cb9e1bfdd6a91085e1929b59e32d0c55cc4d"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra logic phân quyền hiển thị gợi ý truyện bán chạy cho khách vãng lai."
+  ],
+  "missingEvidence": [
+    "Logs của hệ thống khi truy vấn dữ liệu truyện bán chạy"
+  ],
+  "traceability": {
+    "testId": "Wishlist-TC-02",
+    "requirementScenarioId": "SCENARIO-Chính",
+    "businessRuleId": "C014-RULE-M13-02",
+    "failureId": "fa-0fedd488-c9f4-4507-8202-ce8c1b87c0c5"
+  },
+  "deduplication": {
+    "fingerprint": "fp_a0834c53",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}

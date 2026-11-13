@@ -1,0 +1,89 @@
+{
+  "bugId": "BUG-20261106-GiamGia-TC-12",
+  "createdAt": "2026-11-06T14:22:13.249380+00:00",
+  "createdBy": "BugReportAgent-v1.0.0",
+  "status": "New",
+  "reviewRequired": true,
+  "title": "[GiamGia] Không tìm thấy nút bấm tiêu chí sắp xếp khi thực hiện 'Admin sắp xếp voucher thành công'",
+  "module": "GiamGia",
+  "feature": "Chính",
+  "targetUrl": "http://localhost:8080/TTLTW_Nhom6/admin/vouchersManagement",
+  "environment": {
+    "browser": "Chromium 128 (Playwright)",
+    "os": "Windows 11",
+    "build": "v1.4.2-staging",
+    "baseUrl": "http://localhost:8080/TTLTW_Nhom6"
+  },
+  "preconditions": "Admin đã đăng nhập và có quyền quản lý voucher",
+  "testData": "Ca kiểm thử: GiamGia-TC-12 | Phân hệ: GiamGia",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Mở trang quản lý voucher",
+      "traceRef": "await page.evaluate(() => { /* Step 1: Mở trang quản lý voucher */ });"
+    },
+    {
+      "step": 2,
+      "action": "Chọn tiêu chí sắp xếp",
+      "traceRef": "await page.locator(\".btn-action-2\").click();"
+    },
+    {
+      "step": 3,
+      "action": "Xác nhận",
+      "traceRef": "await page.evaluate(() => { /* Step 3: Xác nhận */ });"
+    }
+  ],
+  "expected": "Hệ thống hiển thị danh sách voucher đã sắp xếp đúng. (Ref: C010-RULE-M09-003)",
+  "actual": "Hệ thống phát sinh lỗi: 'click target not found: tiêu chí sắp xếp' tại http://localhost:8080/TTLTW_Nhom6/admin/vouchersManagement. (Ref: EV-001)",
+  "reproducibility": "Always (1/1)",
+  "severity": "CRITICAL",
+  "severityScore": 7,
+  "factors": {
+    "i": 3,
+    "m": 2,
+    "w": 2,
+    "s": 0
+  },
+  "faaSeveritySuggestion": "S2",
+  "confidence": "High",
+  "observedFacts": [
+    {
+      "fact": "{\"reason\": \"click target not found: tiêu chí sắp xếp\", \"screenshot\": \"app/storage/runs/20261106-101236/evidence/GiamGia-TC-12/attempt_1/screenshot_20261106T101450628727.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/admin/vouchersManagement\", \"visible_elements\": \"20 elements (trimmed)\", \"page_title\": \"Khuyến mãi\"}",
+      "evidenceRef": "EV-001"
+    }
+  ],
+  "suspectedCauses": [
+    {
+      "cause": "Hệ thống tại phân hệ GiamGia có thể chưa xử lý đúng logic nghiệp vụ hoặc thiếu phản hồi hợp lệ cho thao tác người dùng (click target not found: tiêu chí sắp xếp).",
+      "hypothesisId": "H1"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "SCREENSHOT",
+      "path": "evidence/GiamGia-TC-12/attempt_1/screenshot_20261106T101450628727.png",
+      "sha256": "0cf132c29619875483e9a8699f4e557dc708a6f4cbea71ca3c7bbf76555a3a3c"
+    },
+    {
+      "id": "EV-002",
+      "type": "TRACE",
+      "path": "evidence/GiamGia-TC-12/attempt_1/trace_20261106T101451281305.zip",
+      "sha256": "107358dc4fdd4fbb55632e9919f94b8034568d0119afe820a61b132312fb1462"
+    }
+  ],
+  "recommendedActions": [
+    "Kiểm tra controller và component giao diện của GiamGia liên quan đến thao tác: click target not found: tiêu chí sắp xếp."
+  ],
+  "traceability": {
+    "testId": "GiamGia-TC-12",
+    "requirementScenarioId": "SCENARIO-GIAMGIA",
+    "businessRuleId": "C010-RULE-M09-003",
+    "failureId": "FA-GiamGia-TC-12"
+  },
+  "deduplication": {
+    "fingerprint": "fp_a31e44b0",
+    "isDuplicate": false,
+    "duplicateOf": null
+  }
+}
