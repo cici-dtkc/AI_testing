@@ -250,12 +250,13 @@
         <div class="container2">
             <div class="voucherbutton">
                 <p>Số lượng: </p>
-                <div class="quantity-control">
-                    <button type="button" class="quantity-btn minus-btn">
+                <div class="quantity-control" role="group" aria-label="Số lượng sản phẩm">
+                    <button type="button" class="quantity-btn minus-btn" aria-label="Giảm số lượng">
                         <i class="fas fa-minus" id="btn-vol1"></i>
                     </button>
-                    <span id="quantity-display">1</span>
-                    <button type="button" class="quantity-btn plus-btn">
+                    <span id="quantity-display" role="spinbutton" aria-label="Số lượng" aria-valuemin="1"
+                          aria-valuemax="${comic.stockQuantity}" aria-valuenow="1">1</span>
+                    <button type="button" class="quantity-btn plus-btn" aria-label="Tăng số lượng">
                         <i class="fas fa-plus" id="btn-vol2"></i>
                     </button>
                 </div>
@@ -734,6 +735,7 @@
         function updateQuantity(newQuantity) {
             currentQuantity = newQuantity;
             quantityDisplay.textContent = currentQuantity;
+            quantityDisplay.setAttribute('aria-valuenow', currentQuantity);
 
             minusBtn.disabled = currentQuantity <= 1;
             plusBtn.disabled = currentQuantity >= maxStock;

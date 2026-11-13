@@ -109,7 +109,10 @@
                             <div class="progress-fill" style="width: ${soldPercent}%;"></div>
                         </div>
 <%--                        <div class="sold-text">Đã bán ${comic.sold_count}</div>--%>
-                        <div class="sold-text">Đã bán <strong>${comic.sold_count}</strong></div>
+                        <div class="sold-text">
+                            Đã bán <strong>${comic.sold_count}</strong>
+                            <span class="remaining-stock"> - Còn lại <strong>${comic.stock}</strong></span>
+                        </div>
 
                         <button class="add-to-cart" onclick="addToCart(${comic.id}, event)">
                             <i class="fas fa-cart-plus"></i> Thêm giỏ hàng

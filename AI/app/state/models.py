@@ -42,7 +42,6 @@ class SharedState(TypedDict, total=False):
 
 
 def merge_state(state: SharedState, update: dict[str, Any]) -> SharedState:
-    """Apply agent updates using the same reducers as the workflow graph."""
     merged = {**state, **update}
     for key, reducer in (
         ("messages", add_messages),

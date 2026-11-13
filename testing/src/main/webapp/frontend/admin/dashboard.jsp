@@ -19,8 +19,15 @@
         <div class="dashboard">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h2>Tổng quan cửa hàng</h2>
+                <c:if test="${not empty dashboardError}">
+                    <div class="dashboard-error" role="alert"
+                         style="color: #b42318; background: #fef3f2; border: 1px solid #fecdca; padding: 8px 12px; border-radius: 4px;">
+                            ${dashboardError}
+                    </div>
+                </c:if>
                 <div class="filter-section">
-                    <form action="${pageContext.request.contextPath}/admin/dashboard" method="get" id="filterForm">
+                    <form action="${pageContext.request.contextPath}/admin/dashboard" method="get" id="filterForm"
+                          onsubmit="return validateCustomDateRange(event)">
                         <input type="hidden" name="action" value="filter">
                         <input type="hidden" name="period" id="periodInput" value="${currentPeriod}">
                         <div class="filter-tabs">
@@ -41,7 +48,7 @@
                                 Năm này
                             </button>
                             <button type="button" class="filter-tab ${currentPeriod == 'custom' ? 'active' : ''}"
-                                    onclick="toggleCustomDate()">
+                                    onclick="toggleCustomDate(this)">
                                 Tùy chỉnh
                             </button>
                         </div>
@@ -174,17 +181,31 @@
             document.getElementById('filterForm').submit();
         }
     }
-    function toggleCustomDate() {
+    function toggleCustomDate(button) {
         const customDateRange = document.getElementById('customDateRange');
         const periodInput = document.getElementById('periodInput');
         if (customDateRange.style.display === 'none' || customDateRange.style.display === '') {
             customDateRange.style.display = 'flex';
             periodInput.value = 'custom';
             document.querySelectorAll('.filter-tab').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            button.classList.add('active');
         } else {
             customDateRange.style.display = 'none';
         }
+    }
+    function validateCustomDateRange(event) {
+        if (document.getElementById('periodInput').value !== 'custom') {
+            return true;
+        }
+
+        const startDate = document.querySelector('input[name="startDate"]').value;
+        const endDate = document.querySelector('input[name="endDate"]').value;
+        if (!startDate || !endDate || startDate > endDate) {
+            event.preventDefault();
+            alert('Vui lòng chọn khoảng thời gian hợp lệ (từ ngày không được sau đến ngày).');
+            return false;
+        }
+        return true;
     }
     const ctx = document.getElementById('revenueChart').getContext('2d');
     let labels = [];

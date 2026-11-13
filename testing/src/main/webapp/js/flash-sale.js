@@ -322,7 +322,10 @@ function renderComics(comics, container, contextPath) {
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: 0%;"></div>
                     </div>
-                    <div class="sold-text">Đã bán ${comic.sold_count}</div>
+                    <div class="sold-text">
+                        Đã bán ${comic.sold_count}
+                        <span class="remaining-stock"> - Còn lại ${comic.stock}</span>
+                    </div>
 
                     <button class="add-to-cart" onclick="addToCart(${comic.id}, event)">
                         <i class="fas fa-cart-plus"></i> Thêm giỏ hàng
