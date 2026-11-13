@@ -24,7 +24,7 @@ RECURSION_LIMIT = 40
 def _dispatch(agent: str, reason: str) -> dict:
     return {"next_agent": agent, "trace": [f"supervisor -> {agent}: {reason}"]}
 
-
+# quyết định agent tiếp theo, return next_agent vào state:
 def _route(state: SharedState, llm) -> dict:
     """Rule cascade deciding which agent runs next (or END)."""
     if state.get("report"):
@@ -61,8 +61,8 @@ def _route(state: SharedState, llm) -> dict:
         "trace": [f"supervisor: {decision.next} ({decision.reason})"],
     }
     if decision.next == "executor":
-        update["retry_count"] = 1            # reducer is operator.add -> increments
-        update["defects"] = ""                # clear so the analyzer runs again next FAIL
+        update["retry_count"] = 1            
+        update["defects"] = ""                
     return update
 
 
@@ -127,9 +127,8 @@ def build_supervisor(llm, store: RunStore, tests_dir: str) -> Callable[[SharedSt
 
     return supervisor
 
-
+# wrapper tự động checkpoint sau mỗi node:
 def _persist(name: str, fn: Callable[[SharedState], dict]) -> Callable[[SharedState], dict]:
-    """Wrap an agent node: log start/done and write a state checkpoint after it runs."""
 
     def run(state: SharedState) -> dict:
         log = get_logger(state.get("run_dir"))
@@ -186,8 +185,11 @@ def _make_executor(tests_dir: str, store: RunStore) -> Callable[[SharedState], d
 
 def build_graph(llm, tests_dir: str, storage_root: str = "app/storage/runs"):
     store = RunStore(storage_root)
+     # 1. Khởi tạo StateGraph với SharedState schema
     graph = StateGraph(SharedState)
+     # 2. Đăng ký các node
     graph.add_node("supervisor", build_supervisor(llm, store, tests_dir))
+
     graph.add_node("srs_analyzer", _persist("srs_analyzer", lambda s: run_srs_analysis(llm, s)))
     graph.add_node(
         "test_case_generator",
@@ -202,6 +204,7 @@ def build_graph(llm, tests_dir: str, storage_root: str = "app/storage/runs"):
         "requirement_analyzer",
         _persist("requirement_analyzer", lambda s: run_requirement_analyzer(llm, s)),
     )
+    # 3. Edge cố định: mọi agent đều quay về supervisor
 
     for name in (
         "srs_analyzer",
@@ -210,7 +213,10 @@ def build_graph(llm, tests_dir: str, storage_root: str = "app/storage/runs"):
         "executor",
         "requirement_analyzer",
     ):
+        # 4. Entry point
         graph.add_edge(name, "supervisor")
     graph.add_edge(START, "supervisor")
+        # 5. Conditional edge: supervisor đọc state["next_agent"] để chọn node tiếp theo
+
     graph.add_conditional_edges("supervisor", lambda state: state["next_agent"])
     return graph.compile(checkpointer=InMemorySaver())

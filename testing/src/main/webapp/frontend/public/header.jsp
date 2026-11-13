@@ -370,6 +370,8 @@
         const term = searchInput.value.trim();
         if (!term) {
             e.preventDefault();
+            alert('Nhập từ khóa để tìm truyện bạn muốn !');
+            searchInput.focus();
             return;
         }
         const btn = document.querySelector('.search-button');

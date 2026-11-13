@@ -40,9 +40,13 @@ graphify-out
 
 # Test case generator per-module cache
 AI/app/agents/test_case_generator/outputs/**/.module_cache/
+<<<<<<< Updated upstream
 
 # Local dashboard preview demo at root
 /dashboard_demo.html
 dashboard_demo/
 !AI/app/agents/bug_report/dashboard_demo.html
 
+=======
+testing/bin/main
+>>>>>>> Stashed changes

@@ -75,14 +75,14 @@
 
                         <c:choose>
                             <c:when test="${voucher.expired}">
-                                <td><span class="status-out">Hết Hạn</span></td>
+                                <td data-voucher-status="expired"><span class="status-out">Hết Hạn</span></td>
                             </c:when>
                             <c:when test="${voucher.usedCount == voucher.quantity}">
-                                <td><span class="status-out">Hết lượt</span></td>
+                                <td data-voucher-status="out"><span class="status-out">Hết lượt</span></td>
                             </c:when>
 
                             <c:otherwise>
-                                <td><span class="status-active">Đang chạy</span></td>
+                                <td data-voucher-status="running"><span class="status-active">Đang chạy</span></td>
                             </c:otherwise>
                         </c:choose>
 
@@ -364,20 +364,43 @@
         const tbody = document.getElementById('promoTableBody');
         const rows  = Array.from(tbody.querySelectorAll('tr')).filter(r => !r.classList.contains('pagination-row'));
         const pageButtons = document.querySelectorAll('.pro-page');
+        const searchInput = document.getElementById('searchInput');
+        const statusFilter = document.getElementById('statusFilter');
+        let visibleRows = rows;
 
         function showPage(page){
             const start = (page - 1) * ROWS_PER_PAGE;
             const end   = start + ROWS_PER_PAGE;
             rows.forEach((r, idx) => {
-                r.style.display = (idx >= start && idx < end) ? "" : "none";
+                r.style.display = visibleRows.indexOf(r) >= start && visibleRows.indexOf(r) < end ? "" : "none";
             });
             pageButtons.forEach(btn => btn.classList.remove('active'));
             document.querySelector(`.pro-page[data-page="${page}"]`)?.classList.add('active');
             currentPage = page;
         }
+
+        function applyFilters() {
+            const keyword = searchInput.value.trim().toLowerCase();
+            const status = statusFilter.value;
+            visibleRows = rows.filter(row => {
+                const matchesKeyword = !keyword || row.cells[0].textContent.toLowerCase().includes(keyword);
+                const statusCell = row.querySelector('[data-voucher-status]');
+                const matchesStatus = !status || (statusCell && statusCell.dataset.voucherStatus === status);
+                return matchesKeyword && matchesStatus;
+            });
+
+            const pageCount = Math.max(1, Math.ceil(visibleRows.length / ROWS_PER_PAGE));
+            pageButtons.forEach((button, index) => {
+                button.style.display = index < pageCount ? '' : 'none';
+            });
+            showPage(Math.min(currentPage, pageCount));
+        }
+
         pageButtons.forEach(btn => {
             btn.addEventListener('click', () => showPage(Number(btn.dataset.page)));
         });
+        searchInput.addEventListener('input', applyFilters);
+        statusFilter.addEventListener('change', applyFilters);
         showPage(1);
     })();
     document.addEventListener("DOMContentLoaded", function () {

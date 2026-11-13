@@ -11,6 +11,7 @@ import vn.edu.hcmuaf.fit.ttltw_nhom6.dao.StatisticsDAO;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Year;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -85,12 +86,28 @@ public class DashBoardServlet extends HttpServlet {
         LocalDate startDate;
         LocalDate endDate;
 
-        if ("custom".equals(period) && startDateStr != null && endDateStr != null) {
-            startDate = LocalDate.parse(startDateStr);
-            endDate = LocalDate.parse(endDateStr);
-
+        if ("custom".equals(period)) {
             request.setAttribute("startDate", startDateStr);
             request.setAttribute("endDate", endDateStr);
+
+            try {
+                if (startDateStr == null || endDateStr == null
+                        || startDateStr.isBlank() || endDateStr.isBlank()) {
+                    throw new DateTimeParseException("Missing date", "", 0);
+                }
+
+                startDate = LocalDate.parse(startDateStr);
+                endDate = LocalDate.parse(endDateStr);
+                if (startDate.isAfter(endDate)) {
+                    throw new DateTimeParseException("Start date is after end date", startDateStr, 0);
+                }
+            } catch (DateTimeParseException e) {
+                LocalDate today = LocalDate.now();
+                startDate = today.withDayOfMonth(1);
+                endDate = today.withDayOfMonth(today.lengthOfMonth());
+                request.setAttribute("dashboardError",
+                        "Khoảng thời gian không hợp lệ. Vui lòng chọn lại từ ngày đến ngày.");
+            }
         } else {
             LocalDate today = LocalDate.now();
             switch (period) {
