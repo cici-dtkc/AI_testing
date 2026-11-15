@@ -46,6 +46,10 @@
                 <button type="submit" class="search-button">
                     <i class="fas fa-magnifying-glass"></i>
                 </button>
+                <div id="searchValidationMessage" role="alert"
+                     style="display:none;color:#b42318;font-size:13px;margin-top:6px;">
+                    Nhập từ khóa để tìm truyện bạn muốn !
+                </div>
             </form>
 
             <div id="suggestDropdown" class="suggest-dropdown">
@@ -370,10 +374,13 @@
         const term = searchInput.value.trim();
         if (!term) {
             e.preventDefault();
-            alert('Nhập từ khóa để tìm truyện bạn muốn !');
+            const validationMessage = document.getElementById('searchValidationMessage');
+            if (validationMessage) validationMessage.style.display = 'block';
             searchInput.focus();
             return;
         }
+        const validationMessage = document.getElementById('searchValidationMessage');
+        if (validationMessage) validationMessage.style.display = 'none';
         const btn = document.querySelector('.search-button');
         if (btn) btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
         addToHistory(term);

@@ -254,8 +254,9 @@
                     <button type="button" class="quantity-btn minus-btn" aria-label="Giảm số lượng">
                         <i class="fas fa-minus" id="btn-vol1"></i>
                     </button>
-                    <span id="quantity-display" role="spinbutton" aria-label="Số lượng" aria-valuemin="1"
-                          aria-valuemax="${comic.stockQuantity}" aria-valuenow="1">1</span>
+                    <input id="quantity-display" name="quantity" type="number" value="1" min="1"
+                           max="${comic.stockQuantity}" aria-label="Số lượng" aria-valuemin="1"
+                           aria-valuemax="${comic.stockQuantity}" aria-valuenow="1">
                     <button type="button" class="quantity-btn plus-btn" aria-label="Tăng số lượng">
                         <i class="fas fa-plus" id="btn-vol2"></i>
                     </button>
@@ -734,7 +735,7 @@
 
         function updateQuantity(newQuantity) {
             currentQuantity = newQuantity;
-            quantityDisplay.textContent = currentQuantity;
+            quantityDisplay.value = currentQuantity;
             quantityDisplay.setAttribute('aria-valuenow', currentQuantity);
 
             minusBtn.disabled = currentQuantity <= 1;
@@ -773,43 +774,14 @@
             }
         });
 
-        quantityDisplay.addEventListener('click', function () {
-            const input = document.createElement('input');
-            input.type = 'number';
-            input.min = '1';
-            input.max = maxStock;
-            input.value = currentQuantity;
-            input.style.width = '60px';
-            input.style.textAlign = 'center';
-            input.style.border = '1px solid #ddd';
-            input.style.borderRadius = '4px';
-            input.style.padding = '4px';
-            input.style.fontSize = '16px';
-
-            this.replaceWith(input);
-            input.focus();
-            input.select();
-
-            function handleInput() {
-                let newValue = parseInt(input.value);
-
-                if (isNaN(newValue) || newValue < 1) {
-                    newValue = 1;
-                } else if (newValue > maxStock) {
-                    newValue = maxStock;
-                    alert('Số lượng tồn kho chỉ còn ' + maxStock + ' sản phẩm!');
-                }
-
-                input.replaceWith(quantityDisplay);
-                updateQuantity(newValue);
+        quantityDisplay.addEventListener('change', function () {
+            let newValue = parseInt(quantityDisplay.value);
+            if (isNaN(newValue) || newValue < 1) {
+                newValue = 1;
+            } else if (newValue > maxStock) {
+                newValue = maxStock;
             }
-
-            input.addEventListener('blur', handleInput);
-            input.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    handleInput();
-                }
-            });
+            updateQuantity(newValue);
         });
 
         updateQuantity(1);

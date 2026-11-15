@@ -54,11 +54,13 @@
                         </div>
                         <div id="customDateRange" class="custom-date-range"
                              style="display: ${currentPeriod == 'custom' ? 'flex' : 'none'};">
-                            <input type="date" name="startDate" value="${startDate}"
-                                   placeholder="Từ ngày">
+                            <label for="startDate">Từ ngày</label>
+                            <input id="startDate" type="date" name="startDate" value="${startDate}"
+                                   aria-label="Từ ngày">
                             <span>đến</span>
-                            <input type="date" name="endDate" value="${endDate}"
-                                   placeholder="Đến ngày">
+                            <label for="endDate">Đến ngày</label>
+                            <input id="endDate" type="date" name="endDate" value="${endDate}"
+                                   aria-label="Đến ngày">
                             <button type="submit" class="btn-apply">
                                 <i class="fa-solid fa-check"></i> Áp dụng
                             </button>
