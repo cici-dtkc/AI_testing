@@ -1047,28 +1047,26 @@
       {
         "test_case_id": "GiamGia-TC-05",
         "module": "GiamGia",
-        "title": "Kiểm tra voucher hết hạn",
+        "title": "Voucher hết hạn không thể áp dụng cho đơn hàng",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
         "flow": "E1",
-        "coverage_items": [
-          "X1"
-        ],
+        "coverage_items": ["X1"],
         "preconditions": [
           "Khách hàng đã đăng nhập",
           "Ví voucher của khách hàng có voucher đã hết hạn"
         ],
-        "given": "Voucher đã hết hạn (HSD đã qua) vẫn còn trong ví voucher",
+        "given": "Voucher đã hết hạn không còn trong ví voucher",
         "steps": [
           "Mở trang chủ",
-          "Nhấn vào truyện \"Death Note tập 3\"",
+          "Nhấn vào hình ảnh của truyện \"Death Note tập 3\"",
           "Nhấn nút \"Mua ngay\"",
-          "Nhấn nút \"Chọn voucher\" để mở popup chọn voucher",
-          "Quan sát voucher đã hết hạn trong popup \"Chọn voucher\""
+          "Nhấn nút \"Chọn voucher\"",
+          "Quan sát danh sách voucher trong popup \"Chọn voucher\""
         ],
-        "expected_result": "Voucher đã hết hạn vẫn hiển thị trong ví voucher (mục \"Voucher của tôi\") với dòng \"Đã hết hạn\" và nhãn \"Hết hạn\" thay cho nút \"Dùng ngay\", đồng thời vẫn hiện trong popup \"Chọn voucher\" ở trang Thanh toán nhưng không có checkbox để chọn nên không áp dụng được cho đơn hàng.",
+        "expected_result": "Popup \"Chọn voucher\" chỉ liệt kê các voucher đang có trong ví của khách hàng. Không hiển thị voucher hết hạn.",
         "trace_scenario_ids": [],
         "trace_rule_ids": [
           "C010-RULE-M09-002"
@@ -1317,28 +1315,27 @@
       {
         "test_case_id": "GiamGia-TC-14",
         "module": "GiamGia",
-        "title": "Kiểm tra hiển thị ví voucher khi voucher hết hạn",
+        "title": "Ví voucher không hiển thị voucher đã hết hạn",
         "type": "POSITIVE",
         "priority": "Cao",
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
         "flow": "Chính",
-        "coverage_items": [
-          "V6"
-        ],
+        "coverage_items": ["V6"],
         "preconditions": [
-          "Khách hàng đã đăng nhập"
+          "Khách hàng đã đăng nhập",
+          "Ví voucher có ít nhất 1 voucher còn hạn",
+          "Ví voucher có ít nhất 1 voucher đã hết hạn (HSD trước ngày hiện tại)"
         ],
-        "given": "Ví voucher có chứa voucher còn hạn",
+        "given": "Ví voucher của khách hàng chứa cả voucher còn hạn và voucher đã hết hạn",
         "steps": [
           "Mở trang Ví voucher",
-          "Quan sát card voucher còn hạn"
+          "Quan sát danh sách card trong mục \"Voucher của tôi\" (cả Voucher sản phẩm và Voucher vận chuyển)",
+          "Đối chiếu HSD hiển thị trên từng card với ngày hiện tại"
         ],
-        "expected_result": "Voucher đã hết hạn vẫn không hiển thị trong mục \"Voucher của tôi\" ở trang Ví voucher",
+        "expected_result": "Các voucher còn hạn được hiển thị trong mục \"Voucher của tôi\"; voucher đã hết hạn không xuất hiện ở bất kỳ mục nào; mọi card đang hiển thị đều có HSD từ ngày hiện tại trở đi.",
         "trace_scenario_ids": [],
-        "trace_rule_ids": [
-          "C010-RULE-M09-002"
-        ],
+        "trace_rule_ids": ["C010-RULE-M09-002"],
         "scenario_description": "Kiểm tra hiển thị ví voucher khi voucher hết hạn"
       },
       {
