@@ -187,7 +187,8 @@
                             </button>
                         </div>
 
-                        <button type="button" id="openVoucherBtn" onclick="openVoucherPopup()">
+                        <button type="button" id="openVoucherBtn" aria-label="Chọn voucher"
+                                onclick="openVoucherPopup()">
                             <i class="fas fa-ticket-alt"></i> Chọn voucher
                         </button>
                         <input type="hidden" name="voucherCode" id="voucherCode">

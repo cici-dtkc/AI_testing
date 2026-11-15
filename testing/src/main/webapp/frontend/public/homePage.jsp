@@ -183,7 +183,7 @@
             <div class="suggest">
                 <h2>
                     <c:choose>
-                        <c:when test="${isLoggedIn}">
+                        <c:when test="${isPersonalized}">
                             <i class="fa-solid fa-star"></i> Dành riêng cho bạn
                         </c:when>
                         <c:otherwise>
@@ -247,8 +247,8 @@
             </c:if>
 
             <c:if test="${empty recommendedComics}">
-                <div class="no-products">
-                    <p>Chưa có sản phẩm gợi ý</p>
+                <div class="no-products" role="status" aria-label="Mục gợi ý đang trống">
+                    <p>Mục gợi ý đang trống</p>
                 </div>
             </c:if>
         </div>

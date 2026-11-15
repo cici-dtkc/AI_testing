@@ -86,6 +86,7 @@ public class HomeServlet extends HttpServlet {
             request.setAttribute("banners", banners);
 
             List<Comic> recommendedComics;
+            boolean isPersonalized = false;
 
             if (currentUser != null) {
                 int wishlistCount = wishlistDAO.getWishlistCount(currentUser.getId());
@@ -93,6 +94,7 @@ public class HomeServlet extends HttpServlet {
                 if (wishlistCount > 0) {
                     // User có wishlist -> Gợi ý dựa trên wishlist
                     recommendedComics = comicDAO.getRecommendedComics(currentUser.getId(), 16);
+                    isPersonalized = true;
                 } else {
                     // User không có wishlist -> Hiển thị phổ biến
                     recommendedComics = comicDAO.getPopularComics(16);
@@ -104,6 +106,7 @@ public class HomeServlet extends HttpServlet {
 
             request.setAttribute("recommendedComics", recommendedComics);
             request.setAttribute("isLoggedIn", currentUser != null);
+            request.setAttribute("isPersonalized", isPersonalized);
 
             List<Comic> topComics = comicDAO.getTop5BestSellerThisWeek();
             request.setAttribute("topComics", topComics);
