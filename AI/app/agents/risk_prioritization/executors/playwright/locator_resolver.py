@@ -17,13 +17,15 @@ BUTTON_SYNONYMS = {
     "tạo mã": ["Thêm", "Tạo mã", "Thêm mã", "Thêm mới", "Tạo", "Add"],
     "thêm mã": ["Thêm", "Tạo mã", "Thêm mã", "Thêm mới", "Tạo", "Add"],
     "xác nhận": ["OK", "Confirm", "Submit", "Đồng ý", "Xác nhận"],
-    "thêm vào giỏ hàng": ["Thêm vào giỏ", "Add to cart", "Thêm"],
+    "thêm vào giỏ hàng": ["Thêm vào giỏ hàng", "Thêm vào giỏ", "Add to cart", "Thêm"],
     "áp dụng": ["Áp dụng", "Apply", "Sử dụng"],
     "tìm kiếm": ["Tìm", "Search", "Tìm kiếm"],
     "xóa": ["Xóa", "Delete", "Remove", "Có", "Yes"],
     "đăng nhập": ["Đăng nhập", "Login", "Sign in"],
     "đăng ký": ["Đăng ký", "Register", "Sign up"],
     "thanh toán": ["Thanh toán", "Checkout", "Đặt hàng"],
+    "mua ngay": ["Mua ngay", "Buy now", "Mua"],
+    "chọn voucher": ["Chọn voucher", "Chọn", "Voucher"],
 }
 
 SEARCH_WORDS = ("tìm kiếm", "tìm", "search", "keyword", "từ khóa")
@@ -223,7 +225,19 @@ def _probe(build, strategy: str, target: str) -> Optional[Locator]:
     return locator
 
 
+_ID_MAP = {
+    "mua ngay": "#buy-now-link button, #buy-now-link, .buy-now",
+    "mua": "#buy-now-link button, #buy-now-link, .buy-now",
+    "them vao gio hang": "#add-to-cart-link button, #add-to-cart-link, .add-to-cart",
+    "them vao gio": "#add-to-cart-link button, #add-to-cart-link, .add-to-cart",
+    "chon voucher": "button.btn-voucher, button:has-text('Chọn voucher'), .voucher-btn",
+}
+
+
 def _click_candidates(scope, name: str):
+    folded_name = fold(name)
+    if folded_name in _ID_MAP:
+        yield lambda s=_ID_MAP[folded_name]: scope.locator(s)
     yield lambda: scope.get_by_role("button", name=re.compile(re.escape(name), re.IGNORECASE))
     yield lambda: scope.get_by_role("button", name=name)
     yield lambda: scope.get_by_role("link", name=re.compile(re.escape(name), re.IGNORECASE))

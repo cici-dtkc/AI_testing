@@ -6,18 +6,19 @@ from playwright.sync_api import Page
 
 FEEDBACK_SELECTORS = (
     ".invalid-feedback, [role='alert'], [role='status'], .alert, .toast, .toast-body, "
-    ".text-danger, .swal2-popup"
+    ".text-danger, .swal2-popup, .uv-badge-expired, .no-voucher-msg"
 )
 MODAL_SELECTORS = "dialog[open], [role='dialog'], .modal.show, .modal[style*='display: block']"
 LIST_SELECTORS = "table, tbody, ul, ol, .list, .list-group, .table, .row"
 
 ERROR_KIND = re.compile(
     r"báo\s*lỗi|thông báo lỗi|hiển thị lỗi|không hợp lệ|yêu cầu nhập|vui lòng nhập|"
-    r"chặn|vượt quá|tối thiểu|không tồn tại|hết hạn|hết lượt|invalid|error|required",
+    r"chặn|vượt quá|tối thiểu|không tồn tại|invalid|error|required",
     re.IGNORECASE,
 )
 ABSENCE_KIND = re.compile(
-    r"không hiển thị|không xuất hiện|ẩn khỏi|loại bỏ|không áp dụng|không thay đổi|không cho phép",
+    r"không hiển thị|không xuất hiện|ẩn khỏi|loại bỏ|không áp dụng|không thay đổi|không cho phép|"
+    r"hết hạn|hết lượt|không còn",
     re.IGNORECASE,
 )
 

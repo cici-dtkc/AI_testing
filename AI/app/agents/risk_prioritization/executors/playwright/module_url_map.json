@@ -57,6 +57,7 @@
     "GiamGia": {
       "start_url": "/home",
       "requires_login": "user",
+      "setup": "open_first_product",
       "base_path": "/voucher",
       "pages": {
         "apply": "/voucher",

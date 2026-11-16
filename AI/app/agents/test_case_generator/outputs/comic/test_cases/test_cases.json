@@ -689,7 +689,7 @@
         ],
         "given": "Số lượng yêu cầu = 5 (hợp lệ)",
         "steps": [
-          "Nhập số lượng hợp lệ",
+          "Nhập số lượng thành 5",
           "Nhấn Thêm vào giỏ hàng"
         ],
         "expected_result": "Thêm sản phẩm thành công vào giỏ hàng.",
@@ -961,12 +961,10 @@
         ],
         "given": "Voucher không được lưu trong ví voucher của khách hàng (web không có ô nhập mã voucher)",
         "steps": [
-          "Mở trang chủ",
-          "Nhấn vào truyện \"Death Note tập 3\"",
-          "Nhấn nút \"Thêm vào giỏ hàng\"",
+          "Nhấn nút Thêm vào giỏ hàng",
           "Mở trang Thanh toán",
-          "Nhấn nút \"Chọn voucher\"",
-          "Quan sát danh sách voucher trong popup \"Chọn voucher\""
+          "Nhấn nút Chọn voucher",
+          "Quan sát danh sách voucher trong popup Chọn voucher"
         ],
         "expected_result": "Popup \"Chọn voucher\" chỉ liệt kê các voucher đang có trong ví của khách hàng (mỗi voucher hiển thị \"Giảm ...\", \"Mã:\", \"Đơn tối thiểu\", \"HSD\"); web không có ô nhập mã voucher nên voucher không tồn tại trong ví không thể áp dụng, khi ví không có voucher popup hiển thị \"Không có voucher nào\".",
         "trace_scenario_ids": [
@@ -1053,18 +1051,18 @@
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
         "flow": "E1",
-        "coverage_items": ["X1"],
+        "coverage_items": [
+          "X1"
+        ],
         "preconditions": [
           "Khách hàng đã đăng nhập",
           "Ví voucher của khách hàng có voucher đã hết hạn"
         ],
         "given": "Voucher đã hết hạn không còn trong ví voucher",
         "steps": [
-          "Mở trang chủ",
-          "Nhấn vào hình ảnh của truyện \"Death Note tập 3\"",
-          "Nhấn nút \"Mua ngay\"",
-          "Nhấn nút \"Chọn voucher\"",
-          "Quan sát danh sách voucher trong popup \"Chọn voucher\""
+          "Nhấn nút Mua ngay",
+          "Nhấn nút Chọn voucher",
+          "Quan sát danh sách voucher trong popup Chọn voucher"
         ],
         "expected_result": "Popup \"Chọn voucher\" chỉ liệt kê các voucher đang có trong ví của khách hàng. Không hiển thị voucher hết hạn.",
         "trace_scenario_ids": [],
@@ -1092,11 +1090,9 @@
         ],
         "given": "Tổng tiền đơn hàng nhỏ hơn giá trị \"Đơn tối thiểu\" của voucher",
         "steps": [
-          "Mở trang chủ",
-          "Nhấn vào truyện \"Death Note tập 3\"",
-          "Nhấn nút \"Mua ngay\"",
-          "Nhấn nút \"Chọn voucher\"",
-          "Quan sát voucher có điều kiện đơn tối thiểu trong popup \"Chọn voucher\""
+          "Nhấn nút Mua ngay",
+          "Nhấn nút Chọn voucher",
+          "Quan sát voucher có điều kiện đơn tối thiểu trong popup Chọn voucher"
         ],
         "expected_result": "Voucher có \"Đơn tối thiểu\" lớn hơn tổng tiền đơn hàng hiển thị nhãn \"Chưa đủ điều kiện\" trong popup \"Chọn voucher\" và không có checkbox để chọn; tổng tiền đơn hàng không thay đổi.",
         "trace_scenario_ids": [],
@@ -1124,12 +1120,10 @@
         "given": "Voucher trong ví đã hết lượt sử dụng, có tag \"1 lần/khách\"",
         "steps": [
           "Mở trang Ví voucher",
-          "Quan sát tag \"1 lần/khách\" trên card voucher",
-          "Mở trang chủ",
-          "Nhấn vào truyện \"Death Note tập 3\"",
-          "Nhấn nút \"Mua ngay\"",
-          "Nhấn nút \"Chọn voucher\"",
-          "Quan sát voucher đã hết lượt trong popup \"Chọn voucher\""
+          "Quan sát tag 1 lan/khach tren card voucher",
+          "Nhấn nút Mua ngay",
+          "Nhấn nút Chọn voucher",
+          "Quan sát voucher da het luot trong popup Chon voucher"
         ],
         "expected_result": "Voucher đã hết lượt sử dụng không còn hiển thị trong ví voucher (mục \"Voucher của tôi\") và không xuất hiện trong popup \"Chọn voucher\" ở trang Thanh toán, nên khách hàng không thể áp dụng lại.",
         "trace_scenario_ids": [],
@@ -1321,7 +1315,9 @@
         "technique": "EQUIVALENCE_PARTITIONING",
         "technique_variant": "WEAK_ROBUST",
         "flow": "Chính",
-        "coverage_items": ["V6"],
+        "coverage_items": [
+          "V6"
+        ],
         "preconditions": [
           "Khách hàng đã đăng nhập",
           "Ví voucher có ít nhất 1 voucher còn hạn",
@@ -1335,7 +1331,9 @@
         ],
         "expected_result": "Các voucher còn hạn được hiển thị trong mục \"Voucher của tôi\"; voucher đã hết hạn không xuất hiện ở bất kỳ mục nào; mọi card đang hiển thị đều có HSD từ ngày hiện tại trở đi.",
         "trace_scenario_ids": [],
-        "trace_rule_ids": ["C010-RULE-M09-002"],
+        "trace_rule_ids": [
+          "C010-RULE-M09-002"
+        ],
         "scenario_description": "Kiểm tra hiển thị ví voucher khi voucher hết hạn"
       },
       {
