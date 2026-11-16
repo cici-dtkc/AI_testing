@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+from playwright.sync_api import Error as PlaywrightError
 from playwright.sync_api import Page, sync_playwright
 
 from .....storage.evidence_store import EvidenceStore
@@ -172,6 +173,11 @@ def _navigate(page: Page, action: ParsedAction, module: str, start_url: str) -> 
         return
     path = _path_for(action.target, module)
     if path:
+        if path == _module_config(module).get("pages", {}).get("checkout"):
+            _submit_cart_for_checkout(page)
+            if page.url == join_path(path):
+                _settle(page)
+                return
         page.goto(join_path(path), wait_until="domcontentloaded", timeout=BROWSER["timeout_navigation"])
         _settle(page)
         return
@@ -183,6 +189,23 @@ def _navigate(page: Page, action: ParsedAction, module: str, start_url: str) -> 
         return
     page.goto(start_url, wait_until="domcontentloaded", timeout=BROWSER["timeout_navigation"])
     _settle(page)
+
+
+def _submit_cart_for_checkout(page: Page) -> None:
+    """Submit the cart form when checkout is requested from the cart page."""
+    if "/cart" not in page.url:
+        return
+
+    try:
+        select_all = page.locator("#select-all").first
+        if select_all.is_visible() and not select_all.is_checked():
+            select_all.check(timeout=BROWSER["timeout_candidate"])
+        checkout = page.locator("#btnCheckout").first
+        if checkout.is_visible():
+            checkout.click(timeout=BROWSER["timeout_candidate"])
+            _settle(page)
+    except PlaywrightError:
+        logger.info("cart checkout submit was not available", exc_info=True)
 
 
 def _value_for(target: str, metadata: dict) -> str:

@@ -142,8 +142,8 @@ def _find_blocking_tc(tc_id, tc_map, results):
         result = results.get(dep)
         if result is None:
             continue
-        if result.state in (ExecutionState.ERROR, ExecutionState.BLOCKED):
-            return [dep]
         if result.state is ExecutionState.BLOCKED and result.blocked_by:
             return list(result.blocked_by)
+        if result.state in (ExecutionState.ERROR, ExecutionState.BLOCKED):
+            return [dep]
     return []
