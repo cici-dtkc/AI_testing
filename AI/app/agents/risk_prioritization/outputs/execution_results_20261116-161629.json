@@ -1,0 +1,2272 @@
+{
+  "schema_version": "1.0",
+  "run_id": "20261116-161629",
+  "project_id": "comic-ecommerce",
+  "started_at": "2026-11-16T09:16:35.977998Z",
+  "completed_at": "2026-11-16T16:19:58.384890Z",
+  "total_duration_ms": 391662,
+  "summary": {
+    "total_test_cases": 64,
+    "passed": 54,
+    "failed": 5,
+    "blocked": 0,
+    "error": 0,
+    "flaky": 0,
+    "manual": 5
+  },
+  "execution_results": [
+    {
+      "test_case_id": "QuanLyWebsite-TC-01",
+      "module": "QuanLyWebsite",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:16:29.418878Z",
+      "end_time": "2026-11-16T16:16:31.865843Z",
+      "duration_ms": 2446,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Truyện hiển thị bình thường trong kết quả tìm kiếm.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Truyện hiển thị bình thường trong kết quả tìm kiếm.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/QuanLyWebsite-TC-01/attempt_1/trace_20261116T161631792497.zip",
+          "timestamp": "2026-11-16T16:16:31.865843Z",
+          "size_bytes": 3259980,
+          "sha256": "ca5aa92a3b48860e269b9d9614e5e3abab9ffffc362f15ad50f79f7ac3ca4d4e"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P1"
+    },
+    {
+      "test_case_id": "TimKiem-TC-01",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:16:53.052683Z",
+      "end_time": "2026-11-16T16:16:59.859541Z",
+      "duration_ms": 6806,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hiển thị danh sách truyện khớp từ khóa kèm số lượng kết quả.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hiển thị danh sách truyện khớp từ khóa kèm số lượng kết quả.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/TimKiem-TC-01/attempt_1/trace_20261116T161659777223.zip",
+          "timestamp": "2026-11-16T16:16:59.859541Z",
+          "size_bytes": 5240158,
+          "sha256": "aae808dbf1a46137ad58fe7078c2ec73b11ed69b298a156dc08f17c655555468"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P1"
+    },
+    {
+      "test_case_id": "TimKiem-TC-02",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:16:53.051838Z",
+      "end_time": "2026-11-16T16:16:59.836988Z",
+      "duration_ms": 6785,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hiển thị danh sách trống kèm thông báo không có kết quả.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hiển thị danh sách trống kèm thông báo không có kết quả.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/TimKiem-TC-02/attempt_1/trace_20261116T161659746790.zip",
+          "timestamp": "2026-11-16T16:16:59.836988Z",
+          "size_bytes": 5483846,
+          "sha256": "35af7db2aecf87b2bfb9bddbf692d34ac867415d708c278d2a00663cf8351547"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "TimKiem-TC-04",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:16:29.419057Z",
+      "end_time": "2026-11-16T16:16:34.874416Z",
+      "duration_ms": 5455,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hiển thị thông báo yêu cầu nhập từ khóa.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hiển thị thông báo yêu cầu nhập từ khóa.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/TimKiem-TC-04/attempt_1/trace_20261116T161634789747.zip",
+          "timestamp": "2026-11-16T16:16:34.874416Z",
+          "size_bytes": 3683289,
+          "sha256": "81d16f2c850f057366e10401125790a6673b1ee4d6c0b46a23a72e5ab10dd113"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "TimKiem-TC-05",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:16:59.837135Z",
+      "end_time": "2026-11-16T16:17:05.171373Z",
+      "duration_ms": 5334,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hiển thị toàn bộ 12 truyện trên một trang duy nhất.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hiển thị toàn bộ 12 truyện trên một trang duy nhất.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/TimKiem-TC-05/attempt_1/trace_20261116T161705108026.zip",
+          "timestamp": "2026-11-16T16:17:05.171373Z",
+          "size_bytes": 4862279,
+          "sha256": "cfe2efd4f32fb604d922e01fa8b6b9163ab7e182c294b81aba0841e77beef197"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "TimKiem-TC-06",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:16:59.859706Z",
+      "end_time": "2026-11-16T16:17:05.332017Z",
+      "duration_ms": 5472,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hiển thị 12 truyện trang đầu và kích hoạt trang thứ hai.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hiển thị 12 truyện trang đầu và kích hoạt trang thứ hai.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/TimKiem-TC-06/attempt_1/trace_20261116T161705249633.zip",
+          "timestamp": "2026-11-16T16:17:05.332017Z",
+          "size_bytes": 4916996,
+          "sha256": "63b860fc945cec86e056f2380281ddd6220d3a0de0db99ed81c1074907ddb763"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "QuanLyWebsite-TC-02",
+      "module": "QuanLyWebsite",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:17:05.171601Z",
+      "end_time": "2026-11-16T16:17:10.611792Z",
+      "duration_ms": 5440,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Truyện không xuất hiện trong kết quả tìm kiếm hoặc danh sách lọc.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Truyện không xuất hiện trong kết quả tìm kiếm hoặc danh sách lọc.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/QuanLyWebsite-TC-02/attempt_1/trace_20261116T161710535973.zip",
+          "timestamp": "2026-11-16T16:17:10.611792Z",
+          "size_bytes": 3896628,
+          "sha256": "e9b6304efecac3153329d0ae9823b7fda9be6ebf998850f491562f3feaadf322"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "TimKiem-TC-03",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:17:05.332744Z",
+      "end_time": "2026-11-16T16:17:10.612621Z",
+      "duration_ms": 5279,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hiển thị tối đa 12 truyện mỗi trang và có phân trang.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hiển thị tối đa 12 truyện mỗi trang và có phân trang.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/TimKiem-TC-03/attempt_1/trace_20261116T161710558908.zip",
+          "timestamp": "2026-11-16T16:17:10.612621Z",
+          "size_bytes": 4894902,
+          "sha256": "77461d6fd165b4c0178702d9360bca33535ac73095b44d5eb7608b346e4d0004"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "TimKiem-TC-07",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:31.816473Z",
+      "end_time": "2026-11-16T16:18:38.972537Z",
+      "duration_ms": 7156,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống không hiển thị truyện đã bị ẩn trong kết quả.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống không hiển thị truyện đã bị ẩn trong kết quả.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/TimKiem-TC-07/attempt_1/trace_20261116T161838893436.zip",
+          "timestamp": "2026-11-16T16:18:38.972537Z",
+          "size_bytes": 13981628,
+          "sha256": "3ef1118fafebdbf168e82cfe98d1ea28589b6ad1d5bb240ebde5fb2edc49a421"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "TimKiem-TC-08",
+      "module": "TimKiem",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:17:10.611948Z",
+      "end_time": "2026-11-16T16:17:16.006377Z",
+      "duration_ms": 5394,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hiển thị danh sách truyện của tác giả tương ứng.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hiển thị danh sách truyện của tác giả tương ứng.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/TimKiem-TC-08/attempt_1/trace_20261116T161715934238.zip",
+          "timestamp": "2026-11-16T16:17:16.006377Z",
+          "size_bytes": 3959721,
+          "sha256": "6fa337195aae6e6a4a1d7ad039697aa5ecbef3e9f3b035a343697b6308016369"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-01",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:16:31.866071Z",
+      "end_time": "2026-11-16T16:16:35.977823Z",
+      "duration_ms": 4111,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Sản phẩm được thêm vào giỏ với số lượng 2 và cập nhật biểu tượng giỏ hàng.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Sản phẩm được thêm vào giỏ với số lượng 2 và cập nhật biểu tượng giỏ hàng.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/QuanLyTonKho-TC-01/attempt_1/trace_20261116T161635878933.zip",
+          "timestamp": "2026-11-16T16:16:35.977823Z",
+          "size_bytes": 9501129,
+          "sha256": "819af617808a23cb91f0bb60fcd5acfb4a5ccf780ad9b669df17303bdda502c0"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P2"
+    },
+    {
+      "test_case_id": "GiamGia-TC-03",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:16:34.874752Z",
+      "end_time": "2026-11-16T16:16:53.051195Z",
+      "duration_ms": 18176,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống lưu voucher và hiển thị đúng trong danh sách.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống lưu voucher và hiển thị đúng trong danh sách.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-03/attempt_1/trace_20261116T161652954998.zip",
+          "timestamp": "2026-11-16T16:16:53.051195Z",
+          "size_bytes": 25955263,
+          "sha256": "ff16cfa88f844442ee8311c9ffe27121a9aef817ae0a303f08daa614a6b636ae"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-05",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:17:10.612880Z",
+      "end_time": "2026-11-16T16:17:30.019446Z",
+      "duration_ms": 19406,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Popup \"Chọn voucher\" chỉ liệt kê các voucher đang có trong ví của khách hàng. Không hiển thị voucher hết hạn.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Popup \"Chọn voucher\" chỉ liệt kê các voucher đang có trong ví của khách hàng. Không hiển thị voucher hết hạn.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-05/attempt_1/trace_20261116T161729806219.zip",
+          "timestamp": "2026-11-16T16:17:30.019446Z",
+          "size_bytes": 21694038,
+          "sha256": "f03ecd2ecab0dcbcbeeef9f93725aceebd212c25f62674cfc37877896b5817bf"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "DanhGiaDoiTra-TC-01",
+      "module": "DanhGiaDoiTra",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:31.816691Z",
+      "end_time": "2026-11-16T16:18:35.021151Z",
+      "duration_ms": 3204,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Bảng xếp hạng hiển thị đúng 10 mục.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Bảng xếp hạng hiển thị đúng 10 mục.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/DanhGiaDoiTra-TC-01/attempt_1/trace_20261116T161834857575.zip",
+          "timestamp": "2026-11-16T16:18:35.021151Z",
+          "size_bytes": 1372736,
+          "sha256": "913c13ae56b28e6a5caa8523e0e939c3953659093c498b08b888a27e795c98d3"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-02",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-16T16:17:16.006607Z",
+      "end_time": "2026-11-16T16:17:35.369533Z",
+      "duration_ms": 19362,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "assertion",
+      "assertion_values": {
+        "passed": false,
+        "expected": "Popup \"Chọn voucher\" chỉ liệt kê các voucher đang có trong ví của khách hàng (mỗi voucher hiển thị \"Giảm ...\", \"Mã:\", \"Đơn tối thiểu\", \"HSD\"); web không có ô nhập mã voucher nên voucher không tồn tại trong ví không thể áp dụng, khi ví không có voucher popup hiển thị \"Không có voucher nào\".",
+        "actual": {
+          "type": "ui_text",
+          "value": "Comic Store\nTrang chủ\nThể loại ▾\nLiên hệ\n23\n8\nGIỎ HÀNG\nChọn tất cả (8 sản phẩm)\nSố lượng\nThành tiền\nDeath Note tập 3\nDeath Note tập 3\n24.500 đ ⚡ Flash Sale 35.000 đ\n-\n+\n2.352.000 đ\nTokyo Revengers - Tập 1\nTokyo Revengers - Tập 1\n60.200 đ ⚡ Flash Sale 86.000 đ\n-\n+\n60.200 đ\nNaruto Tập 43: Kẻ Nắm Rõ Sự Thật…!!\nNaruto Tập 43: Kẻ Nắm Rõ Sự Thật…!!\n25.000 đ\n-\n+\n50.000 đ\nTokyo Revengers - Tập 3\nTokyo Revengers - Tập 3\n60.200 đ ⚡ Flash Sale 86.000 đ\n-\n+\n180.600 đ\nThám Tử Lừng Danh Conan - Tập 86\nThám Tử",
+          "selector": "body",
+          "timestamp": "2026-11-16T09:17:28.694268+00:00"
+        }
+      },
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"no validation feedback in UI (possible app defect)\", \"screenshot\": \"app/storage/runs/20261116-161629/evidence/GiamGia-TC-02/attempt_1/screenshot_20261116T161733020249.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/cart\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"23\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"8\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Khuyến mãi\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/FlashSale.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Giỏ hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/cart.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/chat.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Chính sách đổi trả\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/RefundPolicy.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Chính sách vận chuyển\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/shippingPolicy.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"https://www.facebook.com/share/1MVc1miHnd/\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"https://www.instagram.com/comic.store/\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"https://www.tiktok.com/@comics_store.official\", \"kind\": \"link\"}, {\"tag\": \"button\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"-\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}], \"page_title\": \"Comic Store - Giỏ hàng\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/GiamGia-TC-02/attempt_1/screenshot_20261116T161733020249.png",
+              "timestamp": "2026-11-16T16:17:35.369533Z",
+              "size_bytes": 375933,
+              "sha256": "51ec12a047160bed5952ad977c2466057a84b422a73d5ef08fe436413fd83fe9"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Popup \"Chọn voucher\" chỉ liệt kê các voucher đang có trong ví của khách hàng (mỗi voucher hiển thị \"Giảm ...\", \"Mã:\", \"Đơn tối thiểu\", \"HSD\"); web không có ô nhập mã voucher nên voucher không tồn tại trong ví không thể áp dụng, khi ví không có voucher popup hiển thị \"Không có voucher nào\".",
+      "actual_result": "{\"reason\": \"no validation feedback in UI (possible app defect)\", \"screenshot\": \"app/storage/runs/20261116-161629/evidence/GiamGia-TC-02/attempt_1/screenshot_20261116T161733020249.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/cart\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"23\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"8\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Khuyến mãi\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/FlashSale.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Giỏ hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/cart.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/chat.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Chính sách đổi trả\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/RefundPolicy.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Chính sách vận chuyển\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/shippingPolicy.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"https://www.facebook.com/share/1MVc1miHnd/\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"https://www.instagram.com/comic.store/\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"https://www.tiktok.com/@comics_store.official\", \"kind\": \"link\"}, {\"tag\": \"button\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"-\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}], \"page_title\": \"Comic Store - Giỏ hàng\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/GiamGia-TC-02/attempt_1/screenshot_20261116T161733020249.png",
+          "timestamp": "2026-11-16T16:17:35.369533Z",
+          "size_bytes": 375933,
+          "sha256": "51ec12a047160bed5952ad977c2466057a84b422a73d5ef08fe436413fd83fe9"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-02/attempt_1/trace_20261116T161735202775.zip",
+          "timestamp": "2026-11-16T16:17:35.369533Z",
+          "size_bytes": 28352403,
+          "sha256": "41b3f05fe592c477b608129b73704667a04f8c299edef265611c5e2ad4f7b754"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-06",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:17:30.019758Z",
+      "end_time": "2026-11-16T16:17:35.524481Z",
+      "duration_ms": 5504,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Voucher có \"Đơn tối thiểu\" lớn hơn tổng tiền đơn hàng hiển thị nhãn \"Chưa đủ điều kiện\" trong popup \"Chọn voucher\" và không có checkbox để chọn; tổng tiền đơn hàng không thay đổi.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Voucher có \"Đơn tối thiểu\" lớn hơn tổng tiền đơn hàng hiển thị nhãn \"Chưa đủ điều kiện\" trong popup \"Chọn voucher\" và không có checkbox để chọn; tổng tiền đơn hàng không thay đổi.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-06/attempt_1/trace_20261116T161735343358.zip",
+          "timestamp": "2026-11-16T16:17:35.524481Z",
+          "size_bytes": 9699042,
+          "sha256": "8d85d22967eda279bffe6742834c5af04cdf99cde5281f9a860ccd3694d6a262"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-07",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:17:35.369815Z",
+      "end_time": "2026-11-16T16:17:49.962935Z",
+      "duration_ms": 14593,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Voucher đã hết lượt sử dụng không còn hiển thị trong ví voucher (mục \"Voucher của tôi\") và không xuất hiện trong popup \"Chọn voucher\" ở trang Thanh toán, nên khách hàng không thể áp dụng lại.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Voucher đã hết lượt sử dụng không còn hiển thị trong ví voucher (mục \"Voucher của tôi\") và không xuất hiện trong popup \"Chọn voucher\" ở trang Thanh toán, nên khách hàng không thể áp dụng lại.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-07/attempt_1/trace_20261116T161749768789.zip",
+          "timestamp": "2026-11-16T16:17:49.962935Z",
+          "size_bytes": 12496562,
+          "sha256": "59e7f0df4b6bbb4f77dc32fb443195f385d3d1ede2a00803ee647bdb49f29805"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-02",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:17:35.524659Z",
+      "end_time": "2026-11-16T16:17:41.338310Z",
+      "duration_ms": 5813,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống chặn thao tác và hiển thị thông báo vượt quá số lượng tồn kho.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống chặn thao tác và hiển thị thông báo vượt quá số lượng tồn kho.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/QuanLyTonKho-TC-02/attempt_1/trace_20261116T161741203750.zip",
+          "timestamp": "2026-11-16T16:17:41.338310Z",
+          "size_bytes": 9359761,
+          "sha256": "9e51d98c3680aa923988de2d25eff37a822328ee5f6ecf1e0b7b2167224ef7b3"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-04",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:17:41.338682Z",
+      "end_time": "2026-11-16T16:17:45.294311Z",
+      "duration_ms": 3955,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống hiển thị lỗi số lượng tối thiểu là 1.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống hiển thị lỗi số lượng tối thiểu là 1.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/QuanLyTonKho-TC-04/attempt_1/trace_20261116T161745216890.zip",
+          "timestamp": "2026-11-16T16:17:45.294311Z",
+          "size_bytes": 8807219,
+          "sha256": "0f99e0aae976716a7c26d174a126c2bab0faf089fa13ad9f066d711e5a495f3c"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "FlashSale-TC-01",
+      "module": "FlashSale",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:35.021408Z",
+      "end_time": "2026-11-16T16:18:37.745510Z",
+      "duration_ms": 2724,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Trang Flash Sale hiển thị nhãn \"Kết thúc trong\" kèm đồng hồ đếm ngược và slot giờ mang trạng thái \"Đang bán\"; mỗi sản phẩm hiển thị tên truyện, giá khuyến mãi, nhãn giảm giá \"-30%\", giá gốc và dòng \"Đã bán N\"; nhấn \"Thêm giỏ hàng\" thêm được sản phẩm vào giỏ với giá Flash Sale.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Trang Flash Sale hiển thị nhãn \"Kết thúc trong\" kèm đồng hồ đếm ngược và slot giờ mang trạng thái \"Đang bán\"; mỗi sản phẩm hiển thị tên truyện, giá khuyến mãi, nhãn giảm giá \"-30%\", giá gốc và dòng \"Đã bán N\"; nhấn \"Thêm giỏ hàng\" thêm được sản phẩm vào giỏ với giá Flash Sale.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/FlashSale-TC-01/attempt_1/trace_20261116T161837558375.zip",
+          "timestamp": "2026-11-16T16:18:37.745510Z",
+          "size_bytes": 4194850,
+          "sha256": "ea590dc5a85b7ca923d7d65611963b7983ecc1a2779e6a2e9ff63bcaa9de883b"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "FlashSale-TC-03",
+      "module": "FlashSale",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:28.137639Z",
+      "end_time": "2026-11-16T16:19:30.240679Z",
+      "duration_ms": 2103,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Khi chương trình chưa bắt đầu, trang Flash Sale chỉ hiển thị khung giờ của chương trình và không hiển thị sản phẩm Flash Sale, do đó người dùng không thể mua với giá Flash Sale.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Khi chương trình chưa bắt đầu, trang Flash Sale chỉ hiển thị khung giờ của chương trình và không hiển thị sản phẩm Flash Sale, do đó người dùng không thể mua với giá Flash Sale.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/FlashSale-TC-03/attempt_1/trace_20261116T161930177189.zip",
+          "timestamp": "2026-11-16T16:19:30.240679Z",
+          "size_bytes": 3728351,
+          "sha256": "4154ef0ea5afc7cdb5767193433c293893d8eb85fa9d6d9562bd516c2c344372"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "FlashSale-TC-04",
+      "module": "FlashSale",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:37.748803Z",
+      "end_time": "2026-11-16T16:18:40.227447Z",
+      "duration_ms": 2478,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Slot của chương trình đang diễn ra hiển thị trạng thái \"Đang bán\" kèm đồng hồ \"Kết thúc trong\" đếm ngược; sản phẩm hiển thị giá Flash Sale (đã giảm) và nút \"Thêm giỏ hàng\" hoạt động, cho phép mua với giá ưu đãi.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Slot của chương trình đang diễn ra hiển thị trạng thái \"Đang bán\" kèm đồng hồ \"Kết thúc trong\" đếm ngược; sản phẩm hiển thị giá Flash Sale (đã giảm) và nút \"Thêm giỏ hàng\" hoạt động, cho phép mua với giá ưu đãi.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/FlashSale-TC-04/attempt_1/trace_20261116T161840167409.zip",
+          "timestamp": "2026-11-16T16:18:40.227447Z",
+          "size_bytes": 4129133,
+          "sha256": "9d6dcda45cec8505f48249d0a91626d7c4913d2ad1a5a6abc85c4b8a0ea50359"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "FlashSale-TC-05",
+      "module": "FlashSale",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:28.139303Z",
+      "end_time": "2026-11-16T16:19:30.250436Z",
+      "duration_ms": 2111,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Trang Flash Sale chỉ hiển thị khung giờ của chương trình, không hiển thị sản phẩm Flash Sale nên chưa áp dụng giá Flash Sale.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Trang Flash Sale chỉ hiển thị khung giờ của chương trình, không hiển thị sản phẩm Flash Sale nên chưa áp dụng giá Flash Sale.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/FlashSale-TC-05/attempt_1/trace_20261116T161930194261.zip",
+          "timestamp": "2026-11-16T16:19:30.250436Z",
+          "size_bytes": 3980126,
+          "sha256": "a3cd942ac179c4eeb37753c314c8695ed8710762179732a32a3463055a79fe2a"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "FlashSale-TC-06",
+      "module": "FlashSale",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:30.240858Z",
+      "end_time": "2026-11-16T16:19:32.384641Z",
+      "duration_ms": 2143,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Chương trình Flash Sale đã kết thúc sẽ mất khỏi website (không còn hiển thị ở trang Flash Sale và trang chủ) và sản phẩm trở về giá gốc.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Chương trình Flash Sale đã kết thúc sẽ mất khỏi website (không còn hiển thị ở trang Flash Sale và trang chủ) và sản phẩm trở về giá gốc.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/FlashSale-TC-06/attempt_1/trace_20261116T161932323956.zip",
+          "timestamp": "2026-11-16T16:19:32.384641Z",
+          "size_bytes": 3729270,
+          "sha256": "238021c934b1546fa7a025159350a9143e581860618b341aaab531ef792955d6"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-01",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:17:45.294515Z",
+      "end_time": "2026-11-16T16:17:58.696487Z",
+      "duration_ms": 13401,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Sau khi chọn voucher và nhấn \"Áp dụng\", popup \"Chọn voucher\" đóng lại, nút \"Chọn voucher\" đổi thành \"Thay đổi voucher (1)\", phần tóm tắt đơn hàng hiển thị số tiền được giảm từ voucher và tổng tiền được cập nhật.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Sau khi chọn voucher và nhấn \"Áp dụng\", popup \"Chọn voucher\" đóng lại, nút \"Chọn voucher\" đổi thành \"Thay đổi voucher (1)\", phần tóm tắt đơn hàng hiển thị số tiền được giảm từ voucher và tổng tiền được cập nhật.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-01/attempt_1/trace_20261116T161758556171.zip",
+          "timestamp": "2026-11-16T16:17:58.696487Z",
+          "size_bytes": 16277598,
+          "sha256": "b0749dc5b83ff3acab3cb7b1b0dc9920ab1d27102b91a52aa173a4786de3d9ba"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-08",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-16T16:18:38.972805Z",
+      "end_time": "2026-11-16T16:18:49.365561Z",
+      "duration_ms": 10392,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "assertion",
+      "assertion_values": {
+        "passed": false,
+        "expected": "Voucher \"1 lần/khách\" đã sử dụng tự động mất khỏi ví voucher (mục \"Voucher của tôi\") và không còn xuất hiện trong popup \"Chọn voucher\" ở trang Thanh toán, nên không thể áp dụng lại cho đơn hàng.",
+        "actual": {
+          "type": "ui_text",
+          "value": "Comic Store\nTrang chủ\nThể loại ▾\nLiên hệ\n23\n8\nTHANH TOÁN\nĐang sử dụng địa chỉ mặc định của bạn. Bạn có thể thay đổi nếu cần.\nHọ và tên người nhận: *\nSố điện thoại: *\nTỉnh/Thành Phố: *\n-- Chọn Tỉnh/Thành phố --\nThành phố Hà Nội\nTỉnh Hà Giang\nTỉnh Cao Bằng\nTỉnh Bắc Kạn\nTỉnh Tuyên Quang\nTỉnh Lào Cai\nTỉnh Điện Biên\nTỉnh Lai Châu\nTỉnh Sơn La\nTỉnh Yên Bái\nTỉnh Hoà Bình\nTỉnh Thái Nguyên\nTỉnh Lạng Sơn\nTỉnh Quảng Ninh\nTỉnh Bắc Giang\nTỉnh Phú Thọ\nTỉnh Vĩnh Phúc\nTỉnh Bắc Ninh\nTỉnh Hải Dương\nThành phố Hải P",
+          "selector": "body",
+          "timestamp": "2026-11-16T09:18:46.633941+00:00"
+        }
+      },
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"Element still present: feedback: Không áp dụng thể loại này; url: http://localhost:8080/TTLTW_Nhom6/checkout?comicId=20&quantity=1; elements: -68\", \"screenshot\": \"app/storage/runs/20261116-161629/evidence/GiamGia-TC-08/attempt_1/screenshot_20261116T161848306325.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/checkout?comicId=20&quantity=1\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Nhập họ tên\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Nhập số điện thoại\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"select\", \"text\": \"-- Chọn Tỉnh/Thành phố --\\nThành phố Hà Nội\\nTỉnh Hà Giang\\nTỉnh Cao Bằng\\nTỉnh Bắc \", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"select\", \"text\": \"-- Chọn Quận/Huyện --\\nQuận 1\\nQuận 12\\nQuận Gò Vấp\\nQuận Bình Thạnh\\nQuận Tân Bình\\nQ\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"select\", \"text\": \"-- Chọn Phường/Xã --\\nPhường Linh Xuân\\nPhường Bình Chiểu\\nPhường Linh Trung\\nPhường\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Nhập địa chỉ cụ thể (số nhà, tên đường)\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"23\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"8\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Khuyến mãi\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/FlashSale.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Giỏ hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/cart.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/chat.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Chính sách đổi trả\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/RefundPolicy.jsp\", \"kind\": \"link\"}], \"page_title\": \"Thanh toán\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/GiamGia-TC-08/attempt_1/screenshot_20261116T161848306325.png",
+              "timestamp": "2026-11-16T16:18:49.365561Z",
+              "size_bytes": 214288,
+              "sha256": "18512a468cdaf45e4645608f8583514399195c41ac405575effcb644f56d8a59"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Voucher \"1 lần/khách\" đã sử dụng tự động mất khỏi ví voucher (mục \"Voucher của tôi\") và không còn xuất hiện trong popup \"Chọn voucher\" ở trang Thanh toán, nên không thể áp dụng lại cho đơn hàng.",
+      "actual_result": "{\"reason\": \"Element still present: feedback: Không áp dụng thể loại này; url: http://localhost:8080/TTLTW_Nhom6/checkout?comicId=20&quantity=1; elements: -68\", \"screenshot\": \"app/storage/runs/20261116-161629/evidence/GiamGia-TC-08/attempt_1/screenshot_20261116T161848306325.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/checkout?comicId=20&quantity=1\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Nhập họ tên\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Nhập số điện thoại\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"select\", \"text\": \"-- Chọn Tỉnh/Thành phố --\\nThành phố Hà Nội\\nTỉnh Hà Giang\\nTỉnh Cao Bằng\\nTỉnh Bắc \", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"select\", \"text\": \"-- Chọn Quận/Huyện --\\nQuận 1\\nQuận 12\\nQuận Gò Vấp\\nQuận Bình Thạnh\\nQuận Tân Bình\\nQ\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"select\", \"text\": \"-- Chọn Phường/Xã --\\nPhường Linh Xuân\\nPhường Bình Chiểu\\nPhường Linh Trung\\nPhường\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Nhập địa chỉ cụ thể (số nhà, tên đường)\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"input\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"23\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"8\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/homePage.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Khuyến mãi\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/FlashSale.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Giỏ hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/cart.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/chat.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Chính sách đổi trả\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/nguoiB/RefundPolicy.jsp\", \"kind\": \"link\"}], \"page_title\": \"Thanh toán\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/GiamGia-TC-08/attempt_1/screenshot_20261116T161848306325.png",
+          "timestamp": "2026-11-16T16:18:49.365561Z",
+          "size_bytes": 214288,
+          "sha256": "18512a468cdaf45e4645608f8583514399195c41ac405575effcb644f56d8a59"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-08/attempt_1/trace_20261116T161849264593.zip",
+          "timestamp": "2026-11-16T16:18:49.365561Z",
+          "size_bytes": 17487687,
+          "sha256": "620f9b21e3411ce989bccc094cbfc858a9fc1d469e72ce3b008383df297da46d"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GioHang-TC-01",
+      "module": "GioHang",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:17:49.963201Z",
+      "end_time": "2026-11-16T16:17:57.448544Z",
+      "duration_ms": 7485,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Thành tiền hiển thị đúng 100.000 đ (50.000 × 2)",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Thành tiền hiển thị đúng 100.000 đ (50.000 × 2)",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GioHang-TC-01/attempt_1/trace_20261116T161757307376.zip",
+          "timestamp": "2026-11-16T16:17:57.448544Z",
+          "size_bytes": 8090458,
+          "sha256": "53205ae40bed1a2c1325abfb0fba2d90c738cb10aa6509e40a57bd46a17514ae"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GioHang-TC-02",
+      "module": "GioHang",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:40.227745Z",
+      "end_time": "2026-11-16T16:18:49.121543Z",
+      "duration_ms": 8893,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Thành tiền không thay đổi",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Thành tiền không thay đổi",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GioHang-TC-02/attempt_1/trace_20261116T161849026564.zip",
+          "timestamp": "2026-11-16T16:18:49.121543Z",
+          "size_bytes": 9332605,
+          "sha256": "2b879de8ef7da71cce6b1e1872dfb08871f7c28454fd14944a36bfcda25e2ee5"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "BaoCaoThongKe-TC-01",
+      "module": "BaoCaoThongKe",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:49.121737Z",
+      "end_time": "2026-11-16T16:18:52.066533Z",
+      "duration_ms": 2944,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của ngày hôm nay",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của ngày hôm nay",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/BaoCaoThongKe-TC-01/attempt_1/trace_20261116T161852006726.zip",
+          "timestamp": "2026-11-16T16:18:52.066533Z",
+          "size_bytes": 1569474,
+          "sha256": "5949a77893825a6b36f941008f40d8672aa4d28b5b3cc1c23bce389713561aa4"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "BaoCaoThongKe-TC-06",
+      "module": "BaoCaoThongKe",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-16T16:19:30.250586Z",
+      "end_time": "2026-11-16T16:19:41.798775Z",
+      "duration_ms": 11548,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "test_step",
+      "assertion_values": null,
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"click target not found: khoảng ngày không hợp lệ (ngày bắt đầu lớn hơn ngày kết thúc)\", \"screenshot\": \"app/storage/runs/20261116-161629/evidence/BaoCaoThongKe-TC-06/attempt_1/screenshot_20261116T161941318667.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/admin/dashboard\", \"visible_elements\": [{\"tag\": \"a\", \"text\": \"Dashboard\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/dashboard\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý sản phẩm\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/ProductManagement\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý series\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/SeriesManagement?filter=all\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý thể loại\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/CategoryManagement\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý đơn hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/orders\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý kho hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/inventory\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý người dùng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/user-management\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý Flash Sale\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/manage-flashsale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý khuyến mãi\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/vouchersManagement\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Phân quyền\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/permission-management\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thống kê\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/ReportManagement\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"2\", \"placeholder\": null, \"aria_label\": null, \"href\": \"javascript:void(0)\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/admin/profileAdmin.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/logout\", \"kind\": \"link\"}, {\"tag\": \"button\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Hôm nay\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Tuần này\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Tháng này\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Năm này\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Tùy chỉnh\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}], \"page_title\": \"Trang chủ - Dashboard\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/BaoCaoThongKe-TC-06/attempt_1/screenshot_20261116T161941318667.png",
+              "timestamp": "2026-11-16T16:19:41.798775Z",
+              "size_bytes": 95026,
+              "sha256": "a6c24ae26bdd196e3c7de312e84e3641177d4c7d31815f26f2b4f3d745771d8b"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Hệ thống hiển thị thông báo lỗi khoảng thời gian không hợp lệ và không cập nhật số liệu/biểu đồ theo khoảng thời gian đó.",
+      "actual_result": "{\"reason\": \"click target not found: khoảng ngày không hợp lệ (ngày bắt đầu lớn hơn ngày kết thúc)\", \"screenshot\": \"app/storage/runs/20261116-161629/evidence/BaoCaoThongKe-TC-06/attempt_1/screenshot_20261116T161941318667.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/admin/dashboard\", \"visible_elements\": [{\"tag\": \"a\", \"text\": \"Dashboard\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/dashboard\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý sản phẩm\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/ProductManagement\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý series\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/SeriesManagement?filter=all\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý thể loại\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/CategoryManagement\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý đơn hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/orders\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý kho hàng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/inventory\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý người dùng\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/user-management\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý Flash Sale\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/manage-flashsale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Quản lý khuyến mãi\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/vouchersManagement\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Phân quyền\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/permission-management\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thống kê\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/admin/ReportManagement\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"2\", \"placeholder\": null, \"aria_label\": null, \"href\": \"javascript:void(0)\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/admin/profileAdmin.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/logout\", \"kind\": \"link\"}, {\"tag\": \"button\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Hôm nay\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Tuần này\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Tháng này\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Năm này\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}, {\"tag\": \"button\", \"text\": \"Tùy chỉnh\", \"placeholder\": null, \"aria_label\": null, \"href\": null, \"kind\": \"button\"}], \"page_title\": \"Trang chủ - Dashboard\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/BaoCaoThongKe-TC-06/attempt_1/screenshot_20261116T161941318667.png",
+          "timestamp": "2026-11-16T16:19:41.798775Z",
+          "size_bytes": 95026,
+          "sha256": "a6c24ae26bdd196e3c7de312e84e3641177d4c7d31815f26f2b4f3d745771d8b"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/BaoCaoThongKe-TC-06/attempt_1/trace_20261116T161941714425.zip",
+          "timestamp": "2026-11-16T16:19:41.798775Z",
+          "size_bytes": 4856839,
+          "sha256": "0dd60b85e812bf88c461089bb20290907a4d9ccae5d4de626e24fa1c1f20672f"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "DanhGiaDoiTra-TC-02",
+      "module": "DanhGiaDoiTra",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:32.384996Z",
+      "end_time": "2026-11-16T16:19:34.807541Z",
+      "duration_ms": 2422,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Bảng xếp hạng sản phẩm bán chạy hiển thị tối đa 10 mục, mỗi mục có tên truyện và số lượng đã bán, không hiển thị trùng lặp.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Bảng xếp hạng sản phẩm bán chạy hiển thị tối đa 10 mục, mỗi mục có tên truyện và số lượng đã bán, không hiển thị trùng lặp.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/DanhGiaDoiTra-TC-02/attempt_1/trace_20261116T161934755403.zip",
+          "timestamp": "2026-11-16T16:19:34.807541Z",
+          "size_bytes": 1182609,
+          "sha256": "1b3f958a99f28a5a5fcde9f2b1f05bc668a1a1ec5dc6e7c6b5a90055f43d6baf"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-05",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:17:57.448889Z",
+      "end_time": "2026-11-16T16:18:01.918925Z",
+      "duration_ms": 4470,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống chặn và báo lỗi số lượng tối thiểu là 1.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống chặn và báo lỗi số lượng tối thiểu là 1.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/QuanLyTonKho-TC-05/attempt_1/trace_20261116T161801838383.zip",
+          "timestamp": "2026-11-16T16:18:01.918925Z",
+          "size_bytes": 8786472,
+          "sha256": "2e19d071eb81f00f31c39fd0c109db29bcd8cf8b27c69bacddc652b2d032c93f"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-06",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:17:58.696762Z",
+      "end_time": "2026-11-16T16:18:02.897827Z",
+      "duration_ms": 4201,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Sản phẩm được thêm vào giỏ hàng thành công với số lượng 1.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Sản phẩm được thêm vào giỏ hàng thành công với số lượng 1.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/QuanLyTonKho-TC-06/attempt_1/trace_20261116T161802814689.zip",
+          "timestamp": "2026-11-16T16:18:02.897827Z",
+          "size_bytes": 8932207,
+          "sha256": "b660ae94bc993d0b1b18db14fd4d492dd6ca3ee1a52a31b797d750370253e2b8"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-07",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:01.919275Z",
+      "end_time": "2026-11-16T16:18:06.089171Z",
+      "duration_ms": 4169,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Sản phẩm được thêm vào giỏ hàng thành công với số lượng 2.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Sản phẩm được thêm vào giỏ hàng thành công với số lượng 2.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/QuanLyTonKho-TC-07/attempt_1/trace_20261116T161805989842.zip",
+          "timestamp": "2026-11-16T16:18:06.089171Z",
+          "size_bytes": 9231369,
+          "sha256": "c46d2cd5a7e7f9c6477eafe193a98530cf0ac1803114b3822a1be3e3c81ead49"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "BaoCaoThongKe-TC-02",
+      "module": "BaoCaoThongKe",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:49.365750Z",
+      "end_time": "2026-11-16T16:18:52.310227Z",
+      "duration_ms": 2944,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của tuần này",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của tuần này",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/BaoCaoThongKe-TC-02/attempt_1/trace_20261116T161852252759.zip",
+          "timestamp": "2026-11-16T16:18:52.310227Z",
+          "size_bytes": 1552609,
+          "sha256": "984551b33bbddfe33d730e3cf58caf1e5969236ae1531f0fdc3363241d7627f3"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "BaoCaoThongKe-TC-03",
+      "module": "BaoCaoThongKe",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:52.066816Z",
+      "end_time": "2026-11-16T16:18:54.952502Z",
+      "duration_ms": 2885,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của tháng này",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của tháng này",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/BaoCaoThongKe-TC-03/attempt_1/trace_20261116T161854903310.zip",
+          "timestamp": "2026-11-16T16:18:54.952502Z",
+          "size_bytes": 1346137,
+          "sha256": "ee476d9709f3aef334a96956212f4544433f9b8ce78921c739a5913b8214b981"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "BaoCaoThongKe-TC-04",
+      "module": "BaoCaoThongKe",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:52.310385Z",
+      "end_time": "2026-11-16T16:18:55.231977Z",
+      "duration_ms": 2921,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của năm nay",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống hiển thị đúng số liệu và biểu đồ doanh thu của năm nay",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/BaoCaoThongKe-TC-04/attempt_1/trace_20261116T161855182557.zip",
+          "timestamp": "2026-11-16T16:18:55.231977Z",
+          "size_bytes": 1538856,
+          "sha256": "8e98e7e773b4136c080d4a1850865a2291ccc65fe76219ec146a0572a88b53b6"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "BaoCaoThongKe-TC-05",
+      "module": "BaoCaoThongKe",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:54.952744Z",
+      "end_time": "2026-11-16T16:18:59.218986Z",
+      "duration_ms": 4266,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Khi chọn \"Tùy chỉnh\", form hiển thị 2 ô ngày \"Từ ngày\" - \"Đến ngày\"; sau khi nhập khoảng ngày hợp lệ và nhấn \"Áp dụng\", trang Tổng quan tải lại và hiển thị số liệu, biểu đồ doanh thu đúng theo khoảng ngày đã chọn.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Khi chọn \"Tùy chỉnh\", form hiển thị 2 ô ngày \"Từ ngày\" - \"Đến ngày\"; sau khi nhập khoảng ngày hợp lệ và nhấn \"Áp dụng\", trang Tổng quan tải lại và hiển thị số liệu, biểu đồ doanh thu đúng theo khoảng ngày đã chọn.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/BaoCaoThongKe-TC-05/attempt_1/trace_20261116T161859171346.zip",
+          "timestamp": "2026-11-16T16:18:59.218986Z",
+          "size_bytes": 2243888,
+          "sha256": "d15f02a77069dc89cf86d3129381db42ff64123db4928af69d9f383a6929811e"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "FlashSale-TC-02",
+      "module": "FlashSale",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:34.807781Z",
+      "end_time": "2026-11-16T16:19:37.278756Z",
+      "duration_ms": 2470,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Khi chương trình kết thúc, trang Flash Sale không còn hiển thị sản phẩm Flash Sale (hiển thị \"Không có sản phẩm Flash Sale nào đang diễn ra\"), không áp dụng giá Flash Sale và slot giờ đã qua mang trạng thái \"Đã kết thúc\".",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Khi chương trình kết thúc, trang Flash Sale không còn hiển thị sản phẩm Flash Sale (hiển thị \"Không có sản phẩm Flash Sale nào đang diễn ra\"), không áp dụng giá Flash Sale và slot giờ đã qua mang trạng thái \"Đã kết thúc\".",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/FlashSale-TC-02/attempt_1/trace_20261116T161937221029.zip",
+          "timestamp": "2026-11-16T16:19:37.278756Z",
+          "size_bytes": 5047424,
+          "sha256": "98be4644b97cde09866da9a149bcbf1bb2f009eb8b79bf0792465bd1e55fa6d7"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-04",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:55.232207Z",
+      "end_time": "2026-11-16T16:19:06.578055Z",
+      "duration_ms": 11345,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Voucher nằm trong lớp hợp lệ chọn được (có checkbox) và áp dụng thành công: popup \"Chọn voucher\" đóng lại, nút đổi thành \"Thay đổi voucher (1)\" và tổng tiền đơn hàng giảm đúng theo giá trị voucher.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Voucher nằm trong lớp hợp lệ chọn được (có checkbox) và áp dụng thành công: popup \"Chọn voucher\" đóng lại, nút đổi thành \"Thay đổi voucher (1)\" và tổng tiền đơn hàng giảm đúng theo giá trị voucher.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-04/attempt_1/trace_20261116T161906443196.zip",
+          "timestamp": "2026-11-16T16:19:06.578055Z",
+          "size_bytes": 17164081,
+          "sha256": "fc81f1c60c547995bdcee23e6aff8339d47a727f3e35661d2ea701ca158d864b"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-14",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:59.219159Z",
+      "end_time": "2026-11-16T16:19:03.793701Z",
+      "duration_ms": 4574,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Các voucher còn hạn được hiển thị trong mục \"Voucher của tôi\"; voucher đã hết hạn không xuất hiện ở bất kỳ mục nào; mọi card đang hiển thị đều có HSD từ ngày hiện tại trở đi.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Các voucher còn hạn được hiển thị trong mục \"Voucher của tôi\"; voucher đã hết hạn không xuất hiện ở bất kỳ mục nào; mọi card đang hiển thị đều có HSD từ ngày hiện tại trở đi.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-14/attempt_1/trace_20261116T161903664598.zip",
+          "timestamp": "2026-11-16T16:19:03.793701Z",
+          "size_bytes": 7998315,
+          "sha256": "6d8e35b433953cbfd9de729604593c06a172814bcdca60eef100002353f8eddc"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-03",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:02.897982Z",
+      "end_time": "2026-11-16T16:18:06.899351Z",
+      "duration_ms": 4001,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Thêm sản phẩm thành công vào giỏ hàng.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Thêm sản phẩm thành công vào giỏ hàng.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/QuanLyTonKho-TC-03/attempt_1/trace_20261116T161806807567.zip",
+          "timestamp": "2026-11-16T16:18:06.899351Z",
+          "size_bytes": 8863883,
+          "sha256": "80d90996885ea6d6e43d42f72daf6af4ff438cf4aba9e5511af3afc2eb3cf95a"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "QuanLyTonKho-TC-08",
+      "module": "QuanLyTonKho",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:03.793884Z",
+      "end_time": "2026-11-16T16:19:14.412388Z",
+      "duration_ms": 10618,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Sản phẩm được thêm vào giỏ hàng với số lượng đang chọn (mặc định 1); trang Giỏ hàng hiển thị truyện vừa thêm kèm số lượng, đơn giá và tổng tiền tương ứng.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Sản phẩm được thêm vào giỏ hàng với số lượng đang chọn (mặc định 1); trang Giỏ hàng hiển thị truyện vừa thêm kèm số lượng, đơn giá và tổng tiền tương ứng.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/QuanLyTonKho-TC-08/attempt_1/trace_20261116T161914297818.zip",
+          "timestamp": "2026-11-16T16:19:14.412388Z",
+          "size_bytes": 9556033,
+          "sha256": "1d95203171342065443eedd0655a7008f94a870b6a2c4f3760fab449c372b4f1"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-01",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "MANUAL",
+      "start_time": "2026-11-16T09:16:35.977998Z",
+      "end_time": "2026-11-16T09:16:35.977999Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": null,
+      "observed_facts": [],
+      "expected_result": "Giá trị lưu trữ là chuỗi băm bảo mật, không hiển thị dạng plaintext, kết quả Đạt.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-02",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "MANUAL",
+      "start_time": "2026-11-16T09:16:35.978063Z",
+      "end_time": "2026-11-16T09:16:35.978065Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": null,
+      "observed_facts": [],
+      "expected_result": "Mật khẩu cập nhật được chuyển đổi thành mã hash hoàn toàn, kết quả Đạt.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-03",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "MANUAL",
+      "start_time": "2026-11-16T09:16:35.978118Z",
+      "end_time": "2026-11-16T09:16:35.978119Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": null,
+      "observed_facts": [],
+      "expected_result": "Chuỗi hash phản ánh đúng thuật toán mã hóa an toàn, kết quả Đạt.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-04",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "MANUAL",
+      "start_time": "2026-11-16T09:16:35.978168Z",
+      "end_time": "2026-11-16T09:16:35.978169Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": null,
+      "observed_facts": [],
+      "expected_result": "Không phát hiện mật khẩu dạng rõ hoặc chuỗi hash trong tệp log, kết quả Đạt.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "TaiKhoanPhanQuyen-TC-05",
+      "module": "TaiKhoanPhanQuyen",
+      "attempt_id": 1,
+      "status": "MANUAL",
+      "start_time": "2026-11-16T09:16:35.978216Z",
+      "end_time": "2026-11-16T09:16:35.978217Z",
+      "duration_ms": 0,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": null,
+      "observed_facts": [],
+      "expected_result": "Dữ liệu mật khẩu được bảo vệ an toàn trên đường truyền, kết quả Đạt.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-13",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:06.089437Z",
+      "end_time": "2026-11-16T16:18:22.086678Z",
+      "duration_ms": 15997,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống hiển thị thông báo lỗi nhập liệu.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống hiển thị thông báo lỗi nhập liệu.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-13/attempt_1/trace_20261116T161821985117.zip",
+          "timestamp": "2026-11-16T16:18:22.086678Z",
+          "size_bytes": 17092336,
+          "sha256": "bee8d868f121e6ba4c0a425950a8540fa2f0a9e120de97c666c8c70395b04eb4"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-09",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:06.899583Z",
+      "end_time": "2026-11-16T16:18:22.415966Z",
+      "duration_ms": 15516,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống cập nhật thông tin voucher thành công.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống cập nhật thông tin voucher thành công.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-09/attempt_1/trace_20261116T161822312543.zip",
+          "timestamp": "2026-11-16T16:18:22.415966Z",
+          "size_bytes": 23396917,
+          "sha256": "0e4f43679261d796c9e086052303ab61ca01e4208cd999d2d921d11bc7c024e0"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-10",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:22.086892Z",
+      "end_time": "2026-11-16T16:18:31.167762Z",
+      "duration_ms": 9080,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống xóa voucher khỏi danh sách.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống xóa voucher khỏi danh sách.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-10/attempt_1/trace_20261116T161831002819.zip",
+          "timestamp": "2026-11-16T16:18:31.167762Z",
+          "size_bytes": 12567266,
+          "sha256": "6c8b7eb1e85ad395fd0bd36dd0497b43dacdd4c11ba28cc8475858f274e1e632"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-11",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:22.416151Z",
+      "end_time": "2026-11-16T16:18:27.770422Z",
+      "duration_ms": 5354,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống hiển thị kết quả tìm kiếm đúng.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống hiển thị kết quả tìm kiếm đúng.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-11/attempt_1/trace_20261116T161827591791.zip",
+          "timestamp": "2026-11-16T16:18:27.770422Z",
+          "size_bytes": 8568989,
+          "sha256": "8d75b49e1c1b095e535e196dd98518bbd9f7b02aa82cb88c4dcc23c282215a48"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GiamGia-TC-12",
+      "module": "GiamGia",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:18:27.770603Z",
+      "end_time": "2026-11-16T16:18:31.815990Z",
+      "duration_ms": 4045,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Danh sách voucher chỉ hiển thị các voucher có trạng thái đúng với trạng thái đã chọn trong bộ lọc.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Danh sách voucher chỉ hiển thị các voucher có trạng thái đúng với trạng thái đã chọn trong bộ lọc.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GiamGia-TC-12/attempt_1/trace_20261116T161831668295.zip",
+          "timestamp": "2026-11-16T16:18:31.815990Z",
+          "size_bytes": 7766786,
+          "sha256": "c0239a52cc6f04e58d43fe1b9cbea491f05f1d201d23c722875187a803779952"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P3"
+    },
+    {
+      "test_case_id": "GoiYSanPham-TC-01",
+      "module": "GoiYSanPham",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:06.578268Z",
+      "end_time": "2026-11-16T16:19:15.104090Z",
+      "duration_ms": 8525,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Khu vực \"Gợi ý cho bạn\" hiển thị danh sách truyện còn hàng với ảnh bìa, tên truyện, giá bán và dòng \"Đã bán: N\"; nhấn vào một truyện mở được trang chi tiết của truyện đó.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Khu vực \"Gợi ý cho bạn\" hiển thị danh sách truyện còn hàng với ảnh bìa, tên truyện, giá bán và dòng \"Đã bán: N\"; nhấn vào một truyện mở được trang chi tiết của truyện đó.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GoiYSanPham-TC-01/attempt_1/trace_20261116T161915031071.zip",
+          "timestamp": "2026-11-16T16:19:15.104090Z",
+          "size_bytes": 5662114,
+          "sha256": "755ffea980963bf8176dafea4b1c8aaa164446ed11b1a4eed767cf7e87ed79dc"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "GoiYSanPham-TC-02",
+      "module": "GoiYSanPham",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:37.278927Z",
+      "end_time": "2026-11-16T16:19:39.769829Z",
+      "duration_ms": 2490,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống loại bỏ sản phẩm hết hàng khỏi danh sách",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống loại bỏ sản phẩm hết hàng khỏi danh sách",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GoiYSanPham-TC-02/attempt_1/trace_20261116T161939646418.zip",
+          "timestamp": "2026-11-16T16:19:39.769829Z",
+          "size_bytes": 3225608,
+          "sha256": "ee20bc05d6ffc4f78cd2a1b348c86357cbc69662abc39c4befdd29aabc127b7e"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "GoiYSanPham-TC-03",
+      "module": "GoiYSanPham",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:39.770064Z",
+      "end_time": "2026-11-16T16:19:42.219079Z",
+      "duration_ms": 2449,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Hệ thống loại bỏ sản phẩm bị ẩn khỏi danh sách",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Hệ thống loại bỏ sản phẩm bị ẩn khỏi danh sách",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/GoiYSanPham-TC-03/attempt_1/trace_20261116T161942118055.zip",
+          "timestamp": "2026-11-16T16:19:42.219079Z",
+          "size_bytes": 2861400,
+          "sha256": "fdbd328f3270e3a92a5e8de3d105d7253f70ec4115c6f7f56c9a0de6dc69bb6c"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-01",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:14.412704Z",
+      "end_time": "2026-11-16T16:19:21.275603Z",
+      "duration_ms": 6862,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Khi đã đăng nhập, tiêu đề mục gợi ý trên trang chủ là \"Dành riêng cho bạn\" (khác với khách vãng lai) và hiển thị các truyện gợi ý theo wishlist (tập tiếp theo của series hoặc cùng thể loại), mỗi truyện có giá và dòng \"Đã bán: N\".",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Khi đã đăng nhập, tiêu đề mục gợi ý trên trang chủ là \"Dành riêng cho bạn\" (khác với khách vãng lai) và hiển thị các truyện gợi ý theo wishlist (tập tiếp theo của series hoặc cùng thể loại), mỗi truyện có giá và dòng \"Đã bán: N\".",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/Wishlist-TC-01/attempt_1/trace_20261116T161921117285.zip",
+          "timestamp": "2026-11-16T16:19:21.275603Z",
+          "size_bytes": 7817923,
+          "sha256": "ec0f12ee839ed060b80c4bc793f29bc38328f69086b3fbe143cc559dd49ee7a8"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-07",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:41.799014Z",
+      "end_time": "2026-11-16T16:19:45.344273Z",
+      "duration_ms": 3545,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Khi phiên đăng nhập hết hạn, trang chủ coi người dùng là khách vãng lai: tiêu đề mục gợi ý là \"Gợi ý cho bạn\" và danh sách hiển thị truyện bán chạy kèm giá và dòng \"Đã bán: N\".",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Khi phiên đăng nhập hết hạn, trang chủ coi người dùng là khách vãng lai: tiêu đề mục gợi ý là \"Gợi ý cho bạn\" và danh sách hiển thị truyện bán chạy kèm giá và dòng \"Đã bán: N\".",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/Wishlist-TC-07/attempt_1/trace_20261116T161945237063.zip",
+          "timestamp": "2026-11-16T16:19:45.344273Z",
+          "size_bytes": 3066098,
+          "sha256": "1f15d8b058ddc64f1884e176c4e2f4a01dccb1974113bfc05d6e5e5281abf3ea"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "GoiYSanPham-TC-04",
+      "module": "GoiYSanPham",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-16T16:19:47.560499Z",
+      "end_time": "2026-11-16T16:19:58.384890Z",
+      "duration_ms": 10824,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "assertion",
+      "assertion_values": {
+        "passed": false,
+        "expected": "Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý",
+        "actual": {
+          "type": "ui_text",
+          "value": "Comic Store\nTrang chủ\nThể loại ▾\nLiên hệ\n❮\n❯\nTiện ích\n\nFlash Sale\n\nVí voucher\n\nWishList\n\nFLASH SALE\n\n⏰ Kết thúc sau: 44 ngày 23:32:07\n\nDeath Note tập 3\n\nGiá khuyến mãi: 24.500 đ\n\nGiá gốc:\n35.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 1\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 3\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 5\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nXem thêm\nGợi ý cho bạn\n❮\n\nDeath ",
+          "selector": "body",
+          "timestamp": "2026-11-16T09:19:52.657442+00:00"
+        }
+      },
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"Expected pattern not found: Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý\", \"screenshot\": \"app/storage/runs/20261116-161629/evidence/GoiYSanPham-TC-04/attempt_1/screenshot_20261116T161957587742.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Flash Sale\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Ví voucher\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/voucher\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"WishList\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/wishlist\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 3\\n\\nGiá khuyến mãi: 24.500 đ\\n\\nGiá gốc:\\n35.000 đ\\n\\nGiảm giá: 30%\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=20\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 1\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=101\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 3\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=103\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 5\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=105\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Xem thêm\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 4\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=21\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"SHIN CẬU BÉ BÚT CHÌ - Tập 38\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=151\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Naruto Tập 47: Phong Ấn Bị Phá Bỏ!!\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=42\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Kimi ni Todoke - Tập 2\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=111\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Anh không thích thế giới này, anh chỉ thích em\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=109\", \"kind\": \"link\"}], \"page_title\": \"Document\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/GoiYSanPham-TC-04/attempt_1/screenshot_20261116T161957587742.png",
+              "timestamp": "2026-11-16T16:19:58.384890Z",
+              "size_bytes": 2656989,
+              "sha256": "bde10ebca637978fc3db30d127d703f2fc5231f6489b0b301b2955f440adcc0f"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý",
+      "actual_result": "{\"reason\": \"Expected pattern not found: Hệ thống hiển thị mục trống hoặc ẩn hoàn toàn mục gợi ý\", \"screenshot\": \"app/storage/runs/20261116-161629/evidence/GoiYSanPham-TC-04/attempt_1/screenshot_20261116T161957587742.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Flash Sale\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Ví voucher\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/voucher\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"WishList\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/wishlist\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 3\\n\\nGiá khuyến mãi: 24.500 đ\\n\\nGiá gốc:\\n35.000 đ\\n\\nGiảm giá: 30%\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=20\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 1\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=101\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 3\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=103\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 5\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=105\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Xem thêm\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 4\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=21\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"SHIN CẬU BÉ BÚT CHÌ - Tập 38\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=151\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Naruto Tập 47: Phong Ấn Bị Phá Bỏ!!\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=42\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Kimi ni Todoke - Tập 2\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=111\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Anh không thích thế giới này, anh chỉ thích em\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=109\", \"kind\": \"link\"}], \"page_title\": \"Document\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/GoiYSanPham-TC-04/attempt_1/screenshot_20261116T161957587742.png",
+          "timestamp": "2026-11-16T16:19:58.384890Z",
+          "size_bytes": 2656989,
+          "sha256": "bde10ebca637978fc3db30d127d703f2fc5231f6489b0b301b2955f440adcc0f"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/GoiYSanPham-TC-04/attempt_1/trace_20261116T161958276905.zip",
+          "timestamp": "2026-11-16T16:19:58.384890Z",
+          "size_bytes": 3814396,
+          "sha256": "ff644d5a9e678b822a6482cfb85bf11921209bd6d44c6b98cab16b739ba87f89"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-05",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:42.219326Z",
+      "end_time": "2026-11-16T16:19:47.559617Z",
+      "duration_ms": 5340,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Mục \"Dành riêng cho bạn\" hiển thị danh sách gợi ý dựa trên truyện duy nhất trong wishlist (tập tiếp theo của series hoặc truyện cùng thể loại), mỗi truyện có tên, giá và \"Đã bán: N\".",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Mục \"Dành riêng cho bạn\" hiển thị danh sách gợi ý dựa trên truyện duy nhất trong wishlist (tập tiếp theo của series hoặc truyện cùng thể loại), mỗi truyện có tên, giá và \"Đã bán: N\".",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/Wishlist-TC-05/attempt_1/trace_20261116T161947439201.zip",
+          "timestamp": "2026-11-16T16:19:47.559617Z",
+          "size_bytes": 6870822,
+          "sha256": "19b265d828a96a62d64a99cbc142310eefb5c81a4651691b6eba43b942114998"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-02",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "FAIL",
+      "start_time": "2026-11-16T16:19:15.104352Z",
+      "end_time": "2026-11-16T16:19:25.412986Z",
+      "duration_ms": 10308,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": "assertion",
+      "assertion_values": {
+        "passed": false,
+        "expected": "Mục \"Gợi ý cho bạn\" hiển thị các truyện có lượt bán cao nhất khi người dùng chưa đăng nhập hoặc chưa có truyện trong wishlist.",
+        "actual": {
+          "type": "ui_text",
+          "value": "Comic Store\nTrang chủ\nThể loại ▾\nLiên hệ\n❮\n❯\nTiện ích\n\nFlash Sale\n\nVí voucher\n\nWishList\n\nFLASH SALE\n\n⏰ Kết thúc sau: 44 ngày 23:32:40\n\nDeath Note tập 3\n\nGiá khuyến mãi: 24.500 đ\n\nGiá gốc:\n35.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 1\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 3\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nTokyo Revengers - Tập 5\n\nGiá khuyến mãi: 60.200 đ\n\nGiá gốc:\n86.000 đ\n\nGiảm giá: 30%\n\nXem thêm\nGợi ý cho bạn\n❮\n\nDeath ",
+          "selector": "body",
+          "timestamp": "2026-11-16T09:19:20.341684+00:00"
+        }
+      },
+      "observed_facts": [
+        {
+          "fact_id": "F1",
+          "statement": "{\"reason\": \"Expected pattern not found: Mục \\\"Gợi ý cho bạn\\\" hiển thị các truyện có lượt bán cao nhất khi người dùng chưa đăng nhập hoặc chưa có truyện trong wishlist.\", \"screenshot\": \"app/storage/runs/20261116-161629/evidence/Wishlist-TC-02/attempt_1/screenshot_20261116T161924892961.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Flash Sale\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Ví voucher\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/voucher\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"WishList\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/wishlist\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 3\\n\\nGiá khuyến mãi: 24.500 đ\\n\\nGiá gốc:\\n35.000 đ\\n\\nGiảm giá: 30%\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=20\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 1\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=101\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 3\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=103\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 5\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=105\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Xem thêm\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 4\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=21\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"SHIN CẬU BÉ BÚT CHÌ - Tập 38\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=151\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Naruto Tập 47: Phong Ấn Bị Phá Bỏ!!\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=42\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Kimi ni Todoke - Tập 2\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=111\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Anh không thích thế giới này, anh chỉ thích em\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=109\", \"kind\": \"link\"}], \"page_title\": \"Document\"}",
+          "evidence_refs": [
+            {
+              "evidence_id": "EV-001",
+              "type": "screenshot",
+              "path": "evidence/Wishlist-TC-02/attempt_1/screenshot_20261116T161924892961.png",
+              "timestamp": "2026-11-16T16:19:25.412986Z",
+              "size_bytes": 2656841,
+              "sha256": "810ed71b142efd168d96d211a3c5ed673c4732d086ea87461d0d1a6a922d6909"
+            }
+          ]
+        }
+      ],
+      "expected_result": "Mục \"Gợi ý cho bạn\" hiển thị các truyện có lượt bán cao nhất khi người dùng chưa đăng nhập hoặc chưa có truyện trong wishlist.",
+      "actual_result": "{\"reason\": \"Expected pattern not found: Mục \\\"Gợi ý cho bạn\\\" hiển thị các truyện có lượt bán cao nhất khi người dùng chưa đăng nhập hoặc chưa có truyện trong wishlist.\", \"screenshot\": \"app/storage/runs/20261116-161629/evidence/Wishlist-TC-02/attempt_1/screenshot_20261116T161924892961.png\", \"url\": \"http://localhost:8080/TTLTW_Nhom6/home\", \"visible_elements\": [{\"tag\": \"input\", \"text\": \"\", \"placeholder\": \"Tìm truyện...\", \"aria_label\": null, \"href\": null, \"kind\": \"input\"}, {\"tag\": \"a\", \"text\": \"Comic Store\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Trang chủ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/home\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Thể loại ▾\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Liên hệ\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/frontend/public/AbouUS.jsp\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"#\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/cart\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Flash Sale\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Ví voucher\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/voucher\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"WishList\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/wishlist\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 3\\n\\nGiá khuyến mãi: 24.500 đ\\n\\nGiá gốc:\\n35.000 đ\\n\\nGiảm giá: 30%\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=20\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 1\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=101\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 3\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=103\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Tokyo Revengers - Tập 5\\n\\nGiá khuyến mãi: 60.200 đ\\n\\nGiá gốc:\\n86.000 đ\\n\\nGiảm giá: \", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=105\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Xem thêm\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/flash-sale\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Death Note tập 4\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=21\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"SHIN CẬU BÉ BÚT CHÌ - Tập 38\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=151\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Naruto Tập 47: Phong Ấn Bị Phá Bỏ!!\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=42\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Kimi ni Todoke - Tập 2\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=111\", \"kind\": \"link\"}, {\"tag\": \"a\", \"text\": \"Anh không thích thế giới này, anh chỉ thích em\", \"placeholder\": null, \"aria_label\": null, \"href\": \"/TTLTW_Nhom6/comic-detail?id=109\", \"kind\": \"link\"}], \"page_title\": \"Document\"}",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "screenshot",
+          "path": "evidence/Wishlist-TC-02/attempt_1/screenshot_20261116T161924892961.png",
+          "timestamp": "2026-11-16T16:19:25.412986Z",
+          "size_bytes": 2656841,
+          "sha256": "810ed71b142efd168d96d211a3c5ed673c4732d086ea87461d0d1a6a922d6909"
+        },
+        {
+          "evidence_id": "EV-002",
+          "type": "trace",
+          "path": "evidence/Wishlist-TC-02/attempt_1/trace_20261116T161925317861.zip",
+          "timestamp": "2026-11-16T16:19:25.412986Z",
+          "size_bytes": 3947488,
+          "sha256": "49c9a8eb4651fb33028f78ee0d836d588e66cd68f619d58eff60862f92f71ea7"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-03",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:21.275902Z",
+      "end_time": "2026-11-16T16:19:28.137115Z",
+      "duration_ms": 6861,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Mục \"Gợi ý cho bạn\" hiển thị các truyện bán chạy khi wishlist của người dùng đang rỗng.",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Mục \"Gợi ý cho bạn\" hiển thị các truyện bán chạy khi wishlist của người dùng đang rỗng.",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/Wishlist-TC-03/attempt_1/trace_20261116T161928046002.zip",
+          "timestamp": "2026-11-16T16:19:28.137115Z",
+          "size_bytes": 13142326,
+          "sha256": "c24f5fa8dcc6bd5c2f76ff521cc556f04675ab2c5e6f4915cba30124bd72b26d"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-04",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:25.413236Z",
+      "end_time": "2026-11-16T16:19:28.081781Z",
+      "duration_ms": 2668,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Với tài khoản mới chưa có truyện trong wishlist, trang chủ hiển thị mục \"Dành riêng cho bạn\" với danh sách truyện bán chạy trong tuần làm gợi ý mặc định, kèm giá và dòng \"Đã bán: N\".",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Với tài khoản mới chưa có truyện trong wishlist, trang chủ hiển thị mục \"Dành riêng cho bạn\" với danh sách truyện bán chạy trong tuần làm gợi ý mặc định, kèm giá và dòng \"Đã bán: N\".",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/Wishlist-TC-04/attempt_1/trace_20261116T161928007331.zip",
+          "timestamp": "2026-11-16T16:19:28.081781Z",
+          "size_bytes": 3449298,
+          "sha256": "e779599f7ac4eaca8eca1500045cce1a3407ca6bf1374a69e77466eebabf4469"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P4"
+    },
+    {
+      "test_case_id": "Wishlist-TC-06",
+      "module": "Wishlist",
+      "attempt_id": 1,
+      "status": "PASS",
+      "start_time": "2026-11-16T16:19:47.560868Z",
+      "end_time": "2026-11-16T16:19:52.160085Z",
+      "duration_ms": 4599,
+      "executor_type": "playwright",
+      "failure_point": null,
+      "failure_category": null,
+      "failure_stage": null,
+      "assertion_values": {
+        "passed": true,
+        "expected": "Mục \"Dành riêng cho bạn\" hiển thị gợi ý tổng hợp theo các thể loại/series có trong wishlist (tập tiếp theo của từng series), mỗi truyện có tên, giá và \"Đã bán: N\".",
+        "actual": {}
+      },
+      "observed_facts": [],
+      "expected_result": "Mục \"Dành riêng cho bạn\" hiển thị gợi ý tổng hợp theo các thể loại/series có trong wishlist (tập tiếp theo của từng series), mỗi truyện có tên, giá và \"Đã bán: N\".",
+      "actual_result": "",
+      "error_details": null,
+      "evidence": [
+        {
+          "evidence_id": "EV-001",
+          "type": "trace",
+          "path": "evidence/Wishlist-TC-06/attempt_1/trace_20261116T161952013086.zip",
+          "timestamp": "2026-11-16T16:19:52.160085Z",
+          "size_bytes": 3603784,
+          "sha256": "a730eb5e5e5e0bac59f84661ac02743fa4e55cf85585466bc803833329bcfd9c"
+        }
+      ],
+      "blocked_by": [],
+      "priority": "P4"
+    }
+  ],
+  "environment": {
+    "base_url": "http://localhost:8080/TTLTW_Nhom6",
+    "browser": "chromium",
+    "playwright_version": "1.64.1"
+  },
+  "provenance": {
+    "agent": "risk_prioritization",
+    "version": "1.0.0",
+    "test_cases_source": "app/agents/risk_prioritization/outputs/prioritized_tests.json",
+    "analysis_source": "app/agents/requirement_analyzer/outputs/comic/analysis.json"
+  }
+}
