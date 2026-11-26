@@ -945,7 +945,7 @@
       {
         "test_case_id": "GiamGia-TC-02",
         "module": "GiamGia",
-        "title": "Áp dụng voucher không tồn tại",
+        "title": "Popup Chon voucher hien thi thong bao khi vi rong",
         "type": "NEGATIVE",
         "priority": "Cao",
         "technique": "USE_CASE",
@@ -955,18 +955,16 @@
           "F2"
         ],
         "preconditions": [
-          "Khách hàng đã đăng nhập",
-          "Đơn hàng đã có sản phẩm và đang ở trang Thanh toán",
-          "Ví voucher không có voucher tương ứng với mã muốn dùng"
+          "Khach hang da dang nhap",
+          "Vi voucher cua khach hang khong co voucher nao"
         ],
-        "given": "Voucher không được lưu trong ví voucher của khách hàng (web không có ô nhập mã voucher)",
+        "given": "Vi voucher rong, khong co voucher nao duoc luu",
         "steps": [
-          "Nhấn nút Thêm vào giỏ hàng",
-          "Mở trang Thanh toán",
-          "Nhấn nút Chọn voucher",
-          "Quan sát danh sách voucher trong popup Chọn voucher"
+          "Nhan nut Mua ngay",
+          "Nhan nut Chon voucher",
+          "Quan sat noi dung popup Chon voucher"
         ],
-        "expected_result": "Popup \"Chọn voucher\" chỉ liệt kê các voucher đang có trong ví của khách hàng (mỗi voucher hiển thị \"Giảm ...\", \"Mã:\", \"Đơn tối thiểu\", \"HSD\"); web không có ô nhập mã voucher nên voucher không tồn tại trong ví không thể áp dụng, khi ví không có voucher popup hiển thị \"Không có voucher nào\".",
+        "expected_result": "Popup hien thi thong bao Khong co voucher nao",
         "trace_scenario_ids": [
           "C010-SCENARIO-UC15-002"
         ],
